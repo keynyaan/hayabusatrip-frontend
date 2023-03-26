@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+    front:
+      container_name: hayabusatrip-frontend
+      build: .
+      tty: true
+      ports:
+        - "3000:3000"
+      volumes:
+        - .:/frontend
+      command: yarn dev
