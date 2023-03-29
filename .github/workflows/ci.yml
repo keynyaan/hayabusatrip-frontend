@@ -1,0 +1,73 @@
+name: CI/CD Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: branch|tag|SHA to checkout
+        default: "main"
+        required: true
+  push:
+    branches:
+      - main
+
+env:
+  DOCKER_COMPOSE_VERSION: 2.17.0
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y curl
+          curl -fsSL https://get.docker.com -o get-docker.sh
+          sh get-docker.sh
+          apt-get install -y docker-compose=${{ env.DOCKER_COMPOSE_VERSION }}
+          rm get-docker.sh
+
+      - name: Build app and run tests
+        run: |
+          docker-compose build --no-cache
+          docker-compose run --rm front yarn install --frozen-lockfile
+          docker-compose run --rm front yarn lint
+          docker-compose run --rm front yarn test
+        env:
+          NODE_ENV: development
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.ref }}
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y curl
+          curl -fsSL https://get.docker.com -o get-docker.sh
+          sh get-docker.sh
+          apt-get install -y docker-compose=${{ env.DOCKER_COMPOSE_VERSION }}
+          rm get-docker.sh
+
+      - name: Install front-end dependencies  
+        run: docker-compose run --rm front yarn install --frozen-lockfile
+
+      - name: Build app
+        run: docker-compose run --rm front yarn build
+        env:
+          NODE_ENV: production
+
+      - name: Deploy to Vercel
+        run: yarn deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
