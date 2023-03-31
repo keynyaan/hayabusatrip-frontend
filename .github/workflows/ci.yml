@@ -46,15 +46,6 @@ jobs:
         with:
           ref: ${{ github.event.inputs.ref }}
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y curl
-          curl -fsSL https://get.docker.com -o get-docker.sh
-          sh get-docker.sh
-          sudo apt-get install -y docker-compose
-          rm get-docker.sh
-
       - name: Install front-end dependencies
         run: docker-compose run --rm front yarn install --frozen-lockfile
 
