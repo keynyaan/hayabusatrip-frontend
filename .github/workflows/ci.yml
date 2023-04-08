@@ -27,6 +27,9 @@ jobs:
           sudo apt-get install -y docker-compose
           rm get-docker.sh
 
+      - name: Create .env.local file
+        run: echo "${{ secrets.NEXT_PUBLIC_BASE_URL }}" > .env.local
+
       - name: Build app and run tests
         run: |
           docker-compose build --no-cache
