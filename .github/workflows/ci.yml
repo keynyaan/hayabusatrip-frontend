@@ -50,6 +50,9 @@ jobs:
         with:
           ref: ${{ github.event.inputs.ref }}
 
+      - name: Create .env.local file
+        run: echo "${{ secrets.NEXT_PUBLIC_BASE_URL }}" > .env.local
+
       - name: Install front-end dependencies
         run: docker-compose run --rm front yarn install --frozen-lockfile
 
