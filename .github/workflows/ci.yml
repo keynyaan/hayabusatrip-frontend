@@ -36,6 +36,7 @@ jobs:
           docker-compose run --rm front yarn test
         env:
           NODE_ENV: development
+          NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
 
   deploy:
     needs: test
