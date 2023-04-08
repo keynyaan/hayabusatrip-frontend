@@ -4,7 +4,7 @@ services:
   front:
     container_name: hayabusatrip-frontend
     env_file:
-      - .env.local
+      - ./.env.local
     build: .
     tty: true
     ports:
