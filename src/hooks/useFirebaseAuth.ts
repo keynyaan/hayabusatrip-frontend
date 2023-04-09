@@ -6,7 +6,7 @@ import {
   signOut,
 } from 'firebase/auth'
 import { useRouter } from 'next/router'
-import { auth } from '../initFirebase'
+import { auth } from 'initFirebase'
 import { toast } from 'react-toastify'
 
 export default function useFirebaseAuth() {
