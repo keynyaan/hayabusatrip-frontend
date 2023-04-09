@@ -28,7 +28,14 @@ jobs:
           rm get-docker.sh
 
       - name: Create .env.local file
-        run: echo "${{ secrets.NEXT_PUBLIC_BASE_URL }}" > .env.local
+        run: |
+          echo "${{ secrets.NEXT_PUBLIC_BASE_URL }}" > .env.local
+          echo "${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}" >> .env.local
+          echo "${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }}" >> .env.local
+          echo "${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}" >> .env.local
+          echo "${{ secrets.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }}" >> .env.local
+          echo "${{ secrets.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID }}" >> .env.local
+          echo "${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}" >> .env.local
 
       - name: Build app and run tests
         run: |
