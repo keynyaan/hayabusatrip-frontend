@@ -1,5 +1,10 @@
 import type { NextPage } from 'next'
 import React from 'react'
+import { toast } from 'react-toastify'
+
+const handleClick = () => {
+  toast.success('ボタンがクリックされました！')
+}
 
 const About: NextPage = () => {
   return (
@@ -8,6 +13,7 @@ const About: NextPage = () => {
         Hello World!
       </h1>
       <p>Hello GitHub Actions!</p>
+      <button onClick={handleClick}>ボタン</button>
     </div>
   )
 }
