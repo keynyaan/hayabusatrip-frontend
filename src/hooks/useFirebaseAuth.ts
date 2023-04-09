@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react'
 import {
-  User,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth'
+import type { User } from 'firebase/auth'
 import { useRouter } from 'next/router'
-import { auth } from '../initFirebase'
+import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
+
+import { auth } from '@/../initFirebase'
 
 export default function useFirebaseAuth() {
   const [currentUser, setCurrentUser] = useState<User | null>(null)
