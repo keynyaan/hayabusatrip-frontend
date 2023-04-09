@@ -4,12 +4,14 @@ import axios from 'axios'
 import type { AppProps } from 'next/app'
 import React from 'react'
 import { ToastContainer, Slide } from 'react-toastify'
+
 import 'react-toastify/dist/ReactToastify.css'
+import { AuthContextProvider } from '@/context/AuthContext'
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <AuthContextProvider>
       <Component {...pageProps} />
       <ToastContainer
         transition={Slide}
@@ -24,6 +26,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         pauseOnHover
         theme="colored"
       />
-    </>
+    </AuthContextProvider>
   )
 }
