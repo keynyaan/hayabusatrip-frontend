@@ -39,7 +39,6 @@ jobs:
           docker-compose run --rm front yarn test
         env:
           NODE_ENV: development
-          NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
 
   deploy:
     needs: test
@@ -51,7 +50,14 @@ jobs:
           ref: ${{ github.event.inputs.ref }}
 
       - name: Create .env.local file
-        run: echo "${{ secrets.NEXT_PUBLIC_BASE_URL }}" > .env.local
+        run: |
+          echo "${{ secrets.NEXT_PUBLIC_BASE_URL }}" > .env.local
+          echo "${{ secrets.FIREBASE_API_KEY }}" >> .env.local
+          echo "${{ secrets.FIREBASE_AUTH_DOMAIN }}" >> .env.local
+          echo "${{ secrets.FIREBASE_PROJECT_ID }}" >> .env.local
+          echo "${{ secrets.FIREBASE_STORAGE_BUCKET }}" >> .env.local
+          echo "${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}" >> .env.local
+          echo "${{ secrets.FIREBASE_APP_ID }}" >> .env.local
 
       - name: Install front-end dependencies
         run: docker-compose run --rm front yarn install --frozen-lockfile
