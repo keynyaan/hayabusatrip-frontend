@@ -2,6 +2,8 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from 'firebase/auth'
 import type { User } from 'firebase/auth'
 import { useRouter } from 'next/router'
@@ -10,7 +12,7 @@ import { toast } from 'react-toastify'
 
 import { auth } from '@/../initFirebase'
 
-export default function useFirebaseAuth() {
+export const useFirebaseAuth = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
@@ -27,6 +29,22 @@ export default function useFirebaseAuth() {
       }
     } catch (e) {
       toast.error('ログインできませんでした。')
+    }
+  }
+
+  // Googleログイン処理
+  const loginWithGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider()
+      const result = await signInWithPopup(auth, provider)
+
+      if (result) {
+        const user = result.user
+        router.push('/')
+        return user
+      }
+    } catch (e) {
+      toast.error('Googleログインできませんでした。')
     }
   }
 
@@ -59,6 +77,7 @@ export default function useFirebaseAuth() {
     currentUser,
     loading,
     loginWithEmailAndPassword,
+    loginWithGoogle,
     logout,
   }
 }
