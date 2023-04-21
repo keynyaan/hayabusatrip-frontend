@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 
-import { LoginForm } from '@/components/LoginForm'
+import { LoginForm } from '@/components/LoginFormTest'
 import { useAuthContext } from '@/context/AuthContext'
 
 const Login: NextPage = () => {

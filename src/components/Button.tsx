@@ -1,17 +1,20 @@
 import React from 'react'
-import Link from 'next/link'
 
 type ButtonProps = {
-  to: string
+  onClick: () => void
   label: string
   className?: string
 }
 
-export const Button: React.FC<ButtonProps> = ({ to, label, className }) => {
+export const Button: React.FC<ButtonProps> = ({
+  onClick,
+  label,
+  className,
+}) => {
   const classes = `transition-all rounded px-4 py-1 ${className || ''}`
   return (
-    <Link href={to}>
-      <button className={classes}>{label}</button>
-    </Link>
+    <button onClick={onClick} className={classes}>
+      {label}
+    </button>
   )
 }

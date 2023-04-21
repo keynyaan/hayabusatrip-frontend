@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import React from 'react'
 
-import { siteLogo } from 'lib/constants'
+import { siteLogo } from '@/utils/constants'
 
 const { src, width, height } = siteLogo
 

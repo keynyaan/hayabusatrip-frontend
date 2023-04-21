@@ -1,66 +1,74 @@
-import { useForm, SubmitHandler } from 'react-hook-form'
+import React, { FC } from 'react'
+import 'react-responsive-modal/styles.css'
+import { DividerWithText } from '@/components/DividerWithText'
+import GoogleButton from '@/components/GoogleButton'
+import { InputField } from '@/components/InputField'
+import { ModalButton } from '@/components/ModalButton'
+import { SwitchFormLink } from '@/components/SwitchFormLink'
+import { useSignUpForm } from '@/hooks/useSignUpForm'
+import { FORM_SIGN_UP, FORM_PASSWORD_RESET } from '@/utils/constants'
 
-import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
-
-// ログインフォームの入力項目
-interface LoginFormInputs {
-  email: string
-  password: string
+type LoginFormProps = {
+  setForm: (formName: string) => void
 }
 
-export const LoginForm = () => {
-  // ログイン関数
-  const { loginWithEmailAndPassword } = useFirebaseAuth()
-  const loginFunc = (email: string, password: string) => {
-    loginWithEmailAndPassword(email, password)
-  }
-
-  // ログインフォームの設定
+export const LoginForm: FC<LoginFormProps> = ({ setForm }) => {
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormInputs>()
+    email,
+    password,
+    emailError,
+    passwordError,
+    isLoginFormValid,
+    handleEmailChange,
+    handlePasswordChange,
+    handleEmailBlur,
+    handlePasswordBlur,
+  } = useSignUpForm()
 
-  // ログインボタンの設定
-  const login: SubmitHandler<LoginFormInputs> = (formData) => {
-    loginFunc(formData.email, formData.password)
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    // ここでフォームの送信処理を行います。
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(login)}
-      className="grid grid-cols-1 gap-6 m-16 w-[330px]"
-    >
-      <label>
-        <input
-          {...register('email', { required: true, maxLength: 319 })}
+    <>
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <InputField
+          id="email"
           type="email"
-          className="mt-1 block w-full border-gray border-solid border"
           placeholder="メールアドレス"
+          maxLength={254}
+          value={email}
+          onChange={handleEmailChange}
+          onBlur={handleEmailBlur}
+          error={emailError}
         />
-        <span className="text-red-600">
-          {errors.email && 'メールアドレスは319文字以内で入力してください'}
-        </span>
-      </label>
-      <label>
-        <input
-          {...register('password', { required: true, maxLength: 319 })}
+        <InputField
+          id="password"
           type="password"
-          className="mt-1 block w-full border-gray border-solid border"
           placeholder="パスワード"
+          value={password}
+          onChange={handlePasswordChange}
+          onBlur={handlePasswordBlur}
+          error={passwordError}
         />
-        <span className="text-red-600">
-          {errors.password && 'パスワードは319文字以内で入力してください'}
-        </span>
-      </label>
-      <button
-        type="submit"
-        className="bg-slate-200 border-solid border border-slate-300
-          rounded-md cursor-pointer hover:bg-slate-300"
-      >
-        ログイン
-      </button>
-    </form>
+        <ModalButton isFormValid={isLoginFormValid} label="ログインする" />
+      </form>
+
+      <SwitchFormLink
+        text="パスワードをお忘れの方は"
+        formName={FORM_PASSWORD_RESET}
+        onClick={setForm}
+      />
+
+      <DividerWithText text="または" />
+
+      <GoogleButton text="Googleでログイン" />
+      <SwitchFormLink
+        text="新規登録の方は"
+        formName={FORM_SIGN_UP}
+        onClick={setForm}
+      />
+    </>
   )
 }
