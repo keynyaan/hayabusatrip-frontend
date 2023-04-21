@@ -25,3 +25,16 @@
     @apply mb-2;
   }
 }
+
+.modal-close-button {
+  @apply rounded outline-none;
+
+  & svg {
+    @apply fill-gray-400;
+  }
+
+  &:hover,
+  &:focus {
+    @apply bg-gray-100 transition-all;
+  }
+}

@@ -12,3 +12,7 @@ export const siteLogo = {
   width: 120,
   height: 63,
 }
+
+export const FORM_SIGN_UP = '新規登録'
+export const FORM_LOGIN = 'ログイン'
+export const FORM_PASSWORD_RESET = 'パスワード再設定'

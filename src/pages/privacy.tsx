@@ -1,4 +1,4 @@
-import { siteMeta } from 'lib/constants'
+import { siteMeta } from '@/utils/constants'
 
 const { siteTitle } = siteMeta
 
