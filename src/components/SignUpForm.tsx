@@ -42,11 +42,21 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm }) => {
   return (
     <>
       <p className=" text-gray-700 mb-4">
-        <Link href="/terms" className="text-brand-color hover:underline">
+        <Link
+          href="/terms"
+          className="text-brand-color hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           利用規約
         </Link>
         および
-        <Link href="/privacy" className="text-brand-color hover:underline">
+        <Link
+          href="/privacy"
+          className="text-brand-color hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           プライバシーポリシー
         </Link>
         に同意した上で、
