@@ -5,14 +5,32 @@ import GoogleButton from '@/components/GoogleButton'
 import { InputField } from '@/components/InputField'
 import { ModalButton } from '@/components/ModalButton'
 import { SwitchFormLink } from '@/components/SwitchFormLink'
+import { useAuthContext } from '@/context/AuthContext'
 import { useSignUpForm } from '@/hooks/useSignUpForm'
 import { FORM_SIGN_UP, FORM_PASSWORD_RESET } from '@/utils/constants'
 
 type LoginFormProps = {
   setForm: (formName: string) => void
+  onClose: () => void
 }
 
-export const LoginForm: FC<LoginFormProps> = ({ setForm }) => {
+export const LoginForm: FC<LoginFormProps> = ({ setForm, onClose }) => {
+  const { loginWithEmailAndPassword } = useAuthContext()
+
+  const loginFunc = async (email: string, password: string) => {
+    const user = await loginWithEmailAndPassword(email, password)
+    if (user) {
+      onClose()
+    }
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (isLoginFormValid) {
+      loginFunc(email, password)
+    }
+  }
+
   const {
     email,
     password,
@@ -24,11 +42,6 @@ export const LoginForm: FC<LoginFormProps> = ({ setForm }) => {
     handleEmailBlur,
     handlePasswordBlur,
   } = useSignUpForm()
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    // ここでフォームの送信処理を行います。
-  }
 
   return (
     <>
@@ -52,7 +65,7 @@ export const LoginForm: FC<LoginFormProps> = ({ setForm }) => {
           onBlur={handlePasswordBlur}
           error={passwordError}
         />
-        <ModalButton isFormValid={isLoginFormValid} label="ログインする" />
+        <ModalButton label="ログインする" isFormValid={isLoginFormValid} />
       </form>
 
       <SwitchFormLink

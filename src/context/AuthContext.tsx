@@ -7,11 +7,17 @@ import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 interface AuthContext {
   currentUser: User | null
   loading: boolean
+  googleLoading: boolean
+  redirectResultFetched: boolean
+  setLoading: (loading: boolean) => void
+  setGoogleLoading: (loading: boolean) => void
+  setRedirectResultFetched: (loading: boolean) => void
+
   loginWithEmailAndPassword: (
     email: string,
     password: string
   ) => Promise<User | undefined>
-  loginWithGoogle: () => Promise<User | undefined>
+  loginWithGoogle: () => Promise<void>
   logout: () => Promise<void>
 }
 
@@ -29,6 +35,11 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const {
     currentUser,
     loading,
+    googleLoading,
+    redirectResultFetched,
+    setLoading,
+    setGoogleLoading,
+    setRedirectResultFetched,
     loginWithEmailAndPassword,
     loginWithGoogle,
     logout,
@@ -38,6 +49,11 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const AuthContext: AuthContext = {
     currentUser,
     loading,
+    googleLoading,
+    redirectResultFetched,
+    setLoading,
+    setGoogleLoading,
+    setRedirectResultFetched,
     loginWithEmailAndPassword,
     loginWithGoogle,
     logout,
