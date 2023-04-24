@@ -41,8 +41,8 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = () => {
           error={emailError}
         />
         <ModalButton
-          isFormValid={isPasswordResetFormValid}
           label="パスワード再設定メールを送信"
+          isFormValid={isPasswordResetFormValid}
         />
       </form>
     </>

@@ -102,7 +102,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm }) => {
           onBlur={handlePasswordConfirmBlur}
           error={passwordConfirmError}
         />
-        <ModalButton isFormValid={isSignUpFormValid} label="登録する" />
+        <ModalButton label="登録する" isFormValid={isSignUpFormValid} />
       </form>
 
       <DividerWithText text="または" />
