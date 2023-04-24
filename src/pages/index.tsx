@@ -11,6 +11,7 @@ export default function Home() {
   return (
     <>
       <Meta />
+      <p>hayabusatrip</p>
       {redirectResultFetched && spinner}
       {!loading && !currentUser && <h2>未ログイン</h2>}
       {!loading && currentUser && (
