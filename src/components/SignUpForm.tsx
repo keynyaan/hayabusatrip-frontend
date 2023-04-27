@@ -8,12 +8,33 @@ import { ModalButton } from '@/components/ModalButton'
 import { SwitchFormLink } from '@/components/SwitchFormLink'
 import { useSignUpForm } from '@/hooks/useSignUpForm'
 import { FORM_LOGIN } from '@/utils/constants'
+import { useAuthContext } from '@/context/AuthContext'
 
 type SignUpFormProps = {
   setForm: (formName: string) => void
+  onClose: () => void
 }
 
-export const SignUpForm: FC<SignUpFormProps> = ({ setForm }) => {
+export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
+  const { signup } = useAuthContext()
+
+  const signUpFunc = async (
+    email: string,
+    password: string,
+    username: string
+  ) => {
+    const user = await signup(email, password, username)
+    if (user) {
+      onClose()
+    }
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (isSignUpFormValid) {
+      signUpFunc(email, password, username)
+    }
+  }
   const {
     username,
     email,
@@ -33,11 +54,6 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm }) => {
     handlePasswordBlur,
     handlePasswordConfirmBlur,
   } = useSignUpForm()
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    // ここでフォームの送信処理を行います。
-  }
 
   return (
     <>
