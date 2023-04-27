@@ -21,7 +21,9 @@ export const AuthModal: FC<AuthModalProps> = ({ open, onClose, form }) => {
 
   return (
     <Modal open={open} onClose={onClose} title={activeForm}>
-      {activeForm === FORM_SIGN_UP && <SignUpForm setForm={setActiveForm} />}
+      {activeForm === FORM_SIGN_UP && (
+        <SignUpForm setForm={setActiveForm} onClose={onClose} />
+      )}
       {activeForm === FORM_LOGIN && (
         <LoginForm setForm={setActiveForm} onClose={onClose} />
       )}

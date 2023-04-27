@@ -13,6 +13,12 @@ interface AuthContext {
   setGoogleLoading: (loading: boolean) => void
   setRedirectResultFetched: (loading: boolean) => void
 
+  signup: (
+    email: string,
+    password: string,
+    username: string
+  ) => Promise<User | undefined>
+  verifyEmail: (oobCode: string) => Promise<void>
   loginWithEmailAndPassword: (
     email: string,
     password: string
@@ -40,6 +46,8 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     setLoading,
     setGoogleLoading,
     setRedirectResultFetched,
+    signup,
+    verifyEmail,
     loginWithEmailAndPassword,
     loginWithGoogle,
     logout,
@@ -54,6 +62,8 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     setLoading,
     setGoogleLoading,
     setRedirectResultFetched,
+    signup,
+    verifyEmail,
     loginWithEmailAndPassword,
     loginWithGoogle,
     logout,
