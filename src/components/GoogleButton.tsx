@@ -20,7 +20,7 @@ const GoogleButton: React.FC<GoogleButtonProps> = ({ text }) => {
       disabled={googleLoading}
     >
       <Image
-        src="/images/google_logo.svg"
+        src="/images/google-logo.svg"
         alt="Google logo"
         width={40}
         height={40}

@@ -25,7 +25,6 @@ export const Confetti: React.FC = () => {
 
   return (
     <ReactConfetti
-      numberOfPieces={200} // パーティクル数を調整（デフォルトは200）
       recycle={isRecycle}
       width={windowSize.width}
       height={windowSize.height}

@@ -9,9 +9,11 @@ interface AuthContext {
   loading: boolean
   googleLoading: boolean
   redirectResultFetched: boolean
+  firstLogin: boolean
   setLoading: (loading: boolean) => void
   setGoogleLoading: (loading: boolean) => void
   setRedirectResultFetched: (loading: boolean) => void
+  setFirstLogin: (firstLogin: boolean) => void
 
   signup: (
     email: string,
@@ -43,9 +45,11 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     loading,
     googleLoading,
     redirectResultFetched,
+    firstLogin,
     setLoading,
     setGoogleLoading,
     setRedirectResultFetched,
+    setFirstLogin,
     signup,
     verifyEmail,
     loginWithEmailAndPassword,
@@ -59,9 +63,11 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     loading,
     googleLoading,
     redirectResultFetched,
+    firstLogin,
     setLoading,
     setGoogleLoading,
     setRedirectResultFetched,
+    setFirstLogin,
     signup,
     verifyEmail,
     loginWithEmailAndPassword,

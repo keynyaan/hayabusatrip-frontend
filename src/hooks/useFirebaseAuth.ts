@@ -16,7 +16,13 @@ import { useState, useEffect } from 'react'
 
 import { auth } from '@/../initFirebase'
 import { useToast } from '@/context/ToastContext'
-import { siteMeta } from '@/utils/constants'
+import { getUser, createUser, updateUser } from '@/api/userApi'
+import {
+  siteMeta,
+  GET_USER_ERROR_MSG,
+  CREATE_USER_ERROR_MSG,
+  UPDATE_USER_ERROR_MSG,
+} from '@/utils/constants'
 
 export const useFirebaseAuth = () => {
   const { siteUrl } = siteMeta
@@ -25,9 +31,9 @@ export const useFirebaseAuth = () => {
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [redirectResultFetched, setRedirectResultFetched] = useState(false)
+  const [firstLogin, setFirstLogin] = useState(false)
 
   const router = useRouter()
-
   const { showToast } = useToast()
 
   // 新規登録処理
@@ -40,17 +46,27 @@ export const useFirebaseAuth = () => {
         password
       )
       const user = userCredential.user
+      const idToken = await user.getIdToken()
 
+      try {
+        // ユーザー登録APIを実行
+        await createUser(idToken, { uid: user.uid, name: username })
+      } catch (e) {
+        await user.delete()
+        showToast('error', CREATE_USER_ERROR_MSG)
+        return
+      }
+
+      // 認証メールにユーザー名が表示されるように設定
       await updateProfile(user, {
         displayName: username,
       })
-
       await sendEmailVerification(user, {
         url: `${siteUrl}`,
       })
 
       showToast(
-        'success',
+        'info',
         '登録はまだ完了していません。 確認メールをご確認ください。'
       )
       return user
@@ -98,6 +114,7 @@ export const useFirebaseAuth = () => {
       const result = await signInWithEmailAndPassword(auth, email, password)
       const isNotVerified = !result.user.emailVerified
 
+      // メールアドレスが認証済のユーザーのみログイン処理実行
       if (isNotVerified) {
         showToast(
           'error',
@@ -106,13 +123,43 @@ export const useFirebaseAuth = () => {
         await signOut(auth)
       } else {
         const user = result.user
+
+        // ユーザー情報取得APIを実行して初めてのログインか確認
+        const idToken = await user.getIdToken()
+        const loginUser = await getUser(idToken, user.uid)
+        const isFirstLogin = !loginUser.last_login_time
+
+        // ユーザー情報更新APIを実行してログイン時間を保存
+        const now = new Date().toISOString().slice(0, 19).replace('T', ' ')
+        await updateUser(idToken, {
+          uid: user.uid,
+          last_login_time: now,
+        })
+
+        setFirstLogin(isFirstLogin)
         setCurrentUser(user)
         await router.push('/')
-        showToast('success', 'ログインしました。')
+        showToast(
+          'success',
+          isFirstLogin ? 'HayabusaTripへようこそ！' : 'ログインしました。'
+        )
         return user
       }
     } catch (e) {
-      showToast('error', 'メールアドレスまたはパスワードが不正です。')
+      if (e instanceof Error) {
+        switch (e.message) {
+          case GET_USER_ERROR_MSG:
+            showToast('error', GET_USER_ERROR_MSG)
+            break
+          case UPDATE_USER_ERROR_MSG:
+            showToast('error', UPDATE_USER_ERROR_MSG)
+            break
+          default:
+            showToast('error', '予期しないエラーが発生しました。')
+        }
+      } else {
+        showToast('error', 'メールアドレスまたはパスワードが不正です。')
+      }
     } finally {
       setLoading(false)
     }
@@ -130,6 +177,7 @@ export const useFirebaseAuth = () => {
       setGoogleLoading(false)
     }
   }
+
   // ログアウト処理
   const logout = async () => {
     setLoading(true)
@@ -145,36 +193,84 @@ export const useFirebaseAuth = () => {
     }
   }
 
+  // Googleログインリダイレクト後の処理
   useEffect(() => {
-    // Googleログインリダイレクト後の処理
     const fetchRedirectResult = async () => {
       try {
         setRedirectResultFetched(true)
         const result = await getRedirectResult(auth)
         if (result) {
           const user = result.user
+
+          // getUserAPIを実行してログインユーザーの存在確認
+          const idToken = await user.getIdToken()
+          const loginUser = await getUser(idToken, user.uid)
+          const displayName = user.displayName || '新規ユーザー'
+          const photoURL = user.photoURL || '/images/default-user-icon.png'
+
+          // ログインユーザーが存在しない場合、新規ユーザーを作成
+          if (!loginUser) {
+            await createUser(idToken, {
+              uid: user.uid,
+              name: displayName,
+              icon_path: photoURL,
+            })
+          }
+
+          // updateUserAPIを実行してログイン時間を保存
+          const now = new Date().toISOString().slice(0, 19).replace('T', ' ')
+          await updateUser(idToken, {
+            uid: user.uid,
+            last_login_time: now,
+          })
+
+          const isFirstLogin = !loginUser
+          setFirstLogin(isFirstLogin)
           setCurrentUser(user)
           await router.push('/')
-          showToast('success', 'Googleアカウントでログインしました。')
+          showToast(
+            'success',
+            isFirstLogin
+              ? 'HayabusaTripへようこそ！'
+              : 'Googleアカウントでログインしました。'
+          )
         }
       } catch (e) {
-        showToast('error', 'アカウントが見つかりません。')
+        if (e instanceof Error) {
+          switch (e.message) {
+            case GET_USER_ERROR_MSG:
+              showToast('error', GET_USER_ERROR_MSG)
+              break
+            case CREATE_USER_ERROR_MSG:
+              showToast('error', CREATE_USER_ERROR_MSG)
+              break
+            case UPDATE_USER_ERROR_MSG:
+              showToast('error', UPDATE_USER_ERROR_MSG)
+              break
+            default:
+              showToast('error', '予期しないエラーが発生しました。')
+          }
+        } else {
+          showToast('error', 'アカウントが見つかりません。')
+        }
       } finally {
         setRedirectResultFetched(false)
       }
     }
 
     fetchRedirectResult()
-  }, [router, showToast])
+  }, [router, showToast, firstLogin])
 
   return {
     currentUser,
     loading,
     googleLoading,
     redirectResultFetched,
+    firstLogin,
     setLoading,
     setGoogleLoading,
     setRedirectResultFetched,
+    setFirstLogin,
     signup,
     verifyEmail,
     loginWithEmailAndPassword,
