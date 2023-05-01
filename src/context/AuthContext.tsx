@@ -27,6 +27,7 @@ interface AuthContext {
   ) => Promise<User | undefined>
   loginWithGoogle: () => Promise<void>
   logout: () => Promise<void>
+  resetPassword: (email: string) => Promise<boolean>
 }
 
 // AuthContextProviderのProps型の定義
@@ -55,6 +56,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     loginWithEmailAndPassword,
     loginWithGoogle,
     logout,
+    resetPassword,
   } = useFirebaseAuth()
 
   // AuthContextオブジェクトの定義
@@ -73,6 +75,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     loginWithEmailAndPassword,
     loginWithGoogle,
     logout,
+    resetPassword,
   }
 
   return <AuthCtx.Provider value={AuthContext}>{children}</AuthCtx.Provider>
