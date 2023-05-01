@@ -8,6 +8,7 @@ import {
   applyActionCode,
   sendEmailVerification,
   updateProfile,
+  sendPasswordResetEmail,
 } from 'firebase/auth'
 import type { User } from 'firebase/auth'
 import { FirebaseError } from 'firebase/app'
@@ -261,6 +262,32 @@ export const useFirebaseAuth = () => {
     fetchRedirectResult()
   }, [router, showToast, firstLogin])
 
+  const resetPassword = async (email: string): Promise<boolean> => {
+    setLoading(true)
+    try {
+      await sendPasswordResetEmail(auth, email, {
+        url: `${siteUrl}`,
+      })
+      showToast('info', 'パスワード再設定用のメールを送信しました。')
+      return true
+    } catch (e) {
+      const firebaseError = e as FirebaseError
+      switch (firebaseError.code) {
+        case 'auth/invalid-email':
+          showToast('error', '無効なメールアドレスです。')
+          break
+        case 'auth/user-not-found':
+          showToast('error', 'このメールアドレスのユーザーが見つかりません。')
+          break
+        default:
+          showToast('error', 'パスワード再設定用のメールの送信に失敗しました。')
+      }
+      return false
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return {
     currentUser,
     loading,
@@ -276,5 +303,6 @@ export const useFirebaseAuth = () => {
     loginWithEmailAndPassword,
     loginWithGoogle,
     logout,
+    resetPassword,
   }
 }

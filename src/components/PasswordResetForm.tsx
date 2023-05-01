@@ -3,12 +3,29 @@ import 'react-responsive-modal/styles.css'
 import { InputField } from '@/components/InputField'
 import { ModalButton } from '@/components/ModalButton'
 import { useSignUpForm } from '@/hooks/useSignUpForm'
+import { useAuthContext } from '@/context/AuthContext'
 
 type PasswordResetFormProps = {
-  setForm: (formName: string) => void
+  onClose: () => void
 }
 
-export const PasswordResetForm: FC<PasswordResetFormProps> = () => {
+export const PasswordResetForm: FC<PasswordResetFormProps> = ({ onClose }) => {
+  const { resetPassword } = useAuthContext()
+
+  const loginFunc = async (email: string) => {
+    const success = await resetPassword(email)
+    if (success) {
+      onClose()
+    }
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (isPasswordResetFormValid) {
+      loginFunc(email)
+    }
+  }
+
   const {
     email,
     emailError,
@@ -16,11 +33,6 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = () => {
     handleEmailChange,
     handleEmailBlur,
   } = useSignUpForm()
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    // ここでフォームの送信処理を行います。
-  }
 
   return (
     <>

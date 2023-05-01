@@ -28,7 +28,7 @@ export const AuthModal: FC<AuthModalProps> = ({ open, onClose, form }) => {
         <LoginForm setForm={setActiveForm} onClose={onClose} />
       )}
       {activeForm === FORM_PASSWORD_RESET && (
-        <PasswordResetForm setForm={setActiveForm} />
+        <PasswordResetForm onClose={onClose} />
       )}
     </Modal>
   )
