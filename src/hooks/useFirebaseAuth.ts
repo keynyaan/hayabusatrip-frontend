@@ -9,6 +9,7 @@ import {
   sendEmailVerification,
   updateProfile,
   sendPasswordResetEmail,
+  onAuthStateChanged,
 } from 'firebase/auth'
 import type { User } from 'firebase/auth'
 import { FirebaseError } from 'firebase/app'
@@ -258,10 +259,10 @@ export const useFirebaseAuth = () => {
         setRedirectResultFetched(false)
       }
     }
-
     fetchRedirectResult()
   }, [router, showToast, firstLogin])
 
+  // パスワード再設定のメール送信処理
   const resetPassword = async (email: string): Promise<boolean> => {
     setLoading(true)
     try {
@@ -287,6 +288,21 @@ export const useFirebaseAuth = () => {
       setLoading(false)
     }
   }
+
+  // リアルタイムで認証状態の変更を監視し、ログイン状態を保持
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user)
+      } else {
+        setCurrentUser(null)
+      }
+    })
+
+    return () => {
+      unsubscribe()
+    }
+  }, [])
 
   return {
     currentUser,
