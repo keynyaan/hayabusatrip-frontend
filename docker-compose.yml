@@ -12,3 +12,5 @@ services:
     volumes:
       - .:/frontend
     command: yarn dev
+    # 本番用
+    # command: yarn build && yarn start
