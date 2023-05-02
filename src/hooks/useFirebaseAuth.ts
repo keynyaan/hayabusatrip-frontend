@@ -18,7 +18,7 @@ import { useState, useEffect } from 'react'
 
 import { auth } from '@/../initFirebase'
 import { useToast } from '@/context/ToastContext'
-import { getUser, createUser, updateUser } from '@/api/userApi'
+import { DbUserData, getUser, createUser, updateUser } from '@/api/userApi'
 import {
   siteMeta,
   GET_USER_ERROR_MSG,
@@ -30,9 +30,10 @@ export const useFirebaseAuth = () => {
   const { siteUrl } = siteMeta
 
   const [currentUser, setCurrentUser] = useState<User | null>(null)
+  const [dbUserData, setDbUserData] = useState<DbUserData | null>(null)
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
-  const [redirectResultFetched, setRedirectResultFetched] = useState(false)
+  const [redirectResultFetched, setRedirectResultFetched] = useState(true)
   const [firstLogin, setFirstLogin] = useState(false)
 
   const router = useRouter()
@@ -66,6 +67,9 @@ export const useFirebaseAuth = () => {
       await sendEmailVerification(user, {
         url: `${siteUrl}`,
       })
+
+      // メール認証が完了するまでログアウトさせる
+      await signOut(auth)
 
       showToast(
         'info',
@@ -128,8 +132,9 @@ export const useFirebaseAuth = () => {
 
         // ユーザー情報取得APIを実行して初めてのログインか確認
         const idToken = await user.getIdToken()
-        const loginUser = await getUser(idToken, user.uid)
-        const isFirstLogin = !loginUser.last_login_time
+        const dbUserData = await getUser(idToken, user.uid)
+        const isFirstLogin = !dbUserData.last_login_time
+        setDbUserData(dbUserData)
 
         // ユーザー情報更新APIを実行してログイン時間を保存
         const now = new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -206,18 +211,20 @@ export const useFirebaseAuth = () => {
 
           // getUserAPIを実行してログインユーザーの存在確認
           const idToken = await user.getIdToken()
-          const loginUser = await getUser(idToken, user.uid)
+          let dbUserData = await getUser(idToken, user.uid)
           const displayName = user.displayName || '新規ユーザー'
           const photoURL = user.photoURL || '/images/default-user-icon.png'
+          const isFirstLogin = !dbUserData
 
-          // ログインユーザーが存在しない場合、新規ユーザーを作成
-          if (!loginUser) {
-            await createUser(idToken, {
+          // DBにユーザーが存在しない場合、新規ユーザーを作成
+          if (!dbUserData) {
+            dbUserData = await createUser(idToken, {
               uid: user.uid,
               name: displayName,
               icon_path: photoURL,
             })
           }
+          setDbUserData(dbUserData)
 
           // updateUserAPIを実行してログイン時間を保存
           const now = new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -225,8 +232,6 @@ export const useFirebaseAuth = () => {
             uid: user.uid,
             last_login_time: now,
           })
-
-          const isFirstLogin = !loginUser
           setFirstLogin(isFirstLogin)
           setCurrentUser(user)
           await router.push('/')
@@ -291,9 +296,21 @@ export const useFirebaseAuth = () => {
 
   // リアルタイムで認証状態の変更を監視し、ログイン状態を保持
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setCurrentUser(user)
+
+        try {
+          const fetchData = async () => {
+            const idToken = await user.getIdToken()
+            const dbUserData = await getUser(idToken, user.uid)
+            setDbUserData(dbUserData)
+          }
+
+          fetchData()
+        } catch (e) {
+          showToast('error', GET_USER_ERROR_MSG)
+        }
       } else {
         setCurrentUser(null)
       }
@@ -302,10 +319,11 @@ export const useFirebaseAuth = () => {
     return () => {
       unsubscribe()
     }
-  }, [])
+  }, [showToast])
 
   return {
     currentUser,
+    dbUserData,
     loading,
     googleLoading,
     redirectResultFetched,

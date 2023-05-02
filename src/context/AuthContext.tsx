@@ -2,10 +2,12 @@ import type { User } from 'firebase/auth'
 import { createContext, useContext } from 'react'
 
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
+import { DbUserData } from '@/api/userApi'
 
 // AuthContextのインターフェース定義
 interface AuthContext {
   currentUser: User | null
+  dbUserData: DbUserData | null
   loading: boolean
   googleLoading: boolean
   redirectResultFetched: boolean
@@ -43,6 +45,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   // FirebaseAuthの状態を取得
   const {
     currentUser,
+    dbUserData,
     loading,
     googleLoading,
     redirectResultFetched,
@@ -62,6 +65,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   // AuthContextオブジェクトの定義
   const AuthContext: AuthContext = {
     currentUser,
+    dbUserData,
     loading,
     googleLoading,
     redirectResultFetched,

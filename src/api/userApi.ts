@@ -6,6 +6,18 @@ import {
   UPDATE_USER_ERROR_MSG,
 } from '@/utils/constants'
 
+export type DbUserData = {
+  id: number
+  uid: string
+  created_at: string
+  updated_at: string
+  name: string
+  icon_path: string
+  request_count: number
+  last_reset_date: string | null
+  last_login_time: string | null
+}
+
 type CreateUserOptions = {
   uid: string
   name: string

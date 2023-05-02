@@ -12,7 +12,11 @@ export default function Home() {
     <>
       <Meta />
       <p>hayabusatrip</p>
-      {redirectResultFetched && spinner}
+      {redirectResultFetched
+        ? 'redirectResultFetchedはtrue'
+        : 'redirectResultFetchedはfalse'}
+      {loading && spinner}
+
       {!loading && !currentUser && <h2>未ログイン</h2>}
       {!loading && currentUser && (
         <>
