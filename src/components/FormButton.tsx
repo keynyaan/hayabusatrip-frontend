@@ -2,14 +2,14 @@ import React from 'react'
 import { ClipLoader } from 'react-spinners'
 import { useAuthContext } from '@/context/AuthContext'
 
-type ModalButtonProps = {
+type FormButtonProps = {
   label: string
   isFormValid: boolean
 }
 
 const spinner = <ClipLoader size={24} color="white" />
 
-export const ModalButton: React.FC<ModalButtonProps> = ({
+export const FormButton: React.FC<FormButtonProps> = ({
   label,
   isFormValid,
 }) => {

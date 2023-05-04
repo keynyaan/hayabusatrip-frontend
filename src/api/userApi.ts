@@ -34,7 +34,7 @@ type UpdateUserOptions = {
 }
 
 // 全てのユーザー情報の取得
-export const getUsers = async (idToken: string) => {
+export const getUsersAPI = async (idToken: string) => {
   try {
     const res = await axios.get(usersUrl, {
       headers: {
@@ -48,7 +48,7 @@ export const getUsers = async (idToken: string) => {
 }
 
 // 特定のユーザー情報の取得
-export const getUser = async (idToken: string, uid: string) => {
+export const getUserAPI = async (idToken: string, uid: string) => {
   try {
     const res = await axios.get(`${usersUrl}/${uid}`, {
       headers: {
@@ -62,7 +62,7 @@ export const getUser = async (idToken: string, uid: string) => {
 }
 
 // 特定のユーザー情報の取得
-export const createUser = async (
+export const createUserAPI = async (
   idToken: string,
   options: CreateUserOptions
 ) => {
@@ -83,7 +83,7 @@ export const createUser = async (
 }
 
 // ユーザー情報の更新
-export const updateUser = async (
+export const updateUserAPI = async (
   idToken: string,
   options: UpdateUserOptions
 ) => {

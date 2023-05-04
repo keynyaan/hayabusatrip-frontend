@@ -3,10 +3,10 @@ import 'react-responsive-modal/styles.css'
 import { DividerWithText } from '@/components/DividerWithText'
 import GoogleButton from '@/components/GoogleButton'
 import { InputField } from '@/components/InputField'
-import { ModalButton } from '@/components/ModalButton'
+import { FormButton } from '@/components/FormButton'
 import { SwitchFormLink } from '@/components/SwitchFormLink'
 import { useAuthContext } from '@/context/AuthContext'
-import { useSignUpForm } from '@/hooks/useSignUpForm'
+import { useForm } from '@/hooks/useForm'
 import { FORM_SIGN_UP, FORM_PASSWORD_RESET } from '@/utils/constants'
 
 type LoginFormProps = {
@@ -41,7 +41,7 @@ export const LoginForm: FC<LoginFormProps> = ({ setForm, onClose }) => {
     handlePasswordChange,
     handleEmailBlur,
     handlePasswordBlur,
-  } = useSignUpForm()
+  } = useForm()
 
   return (
     <>
@@ -49,6 +49,8 @@ export const LoginForm: FC<LoginFormProps> = ({ setForm, onClose }) => {
         <InputField
           id="email"
           type="email"
+          labelName="メールアドレス"
+          srOnly={true}
           placeholder="メールアドレス"
           maxLength={254}
           value={email}
@@ -59,13 +61,15 @@ export const LoginForm: FC<LoginFormProps> = ({ setForm, onClose }) => {
         <InputField
           id="password"
           type="password"
+          labelName="パスワード"
+          srOnly={true}
           placeholder="パスワード"
           value={password}
           onChange={handlePasswordChange}
           onBlur={handlePasswordBlur}
           error={passwordError}
         />
-        <ModalButton label="ログインする" isFormValid={isLoginFormValid} />
+        <FormButton label="ログイン" isFormValid={isLoginFormValid} />
       </form>
 
       <SwitchFormLink

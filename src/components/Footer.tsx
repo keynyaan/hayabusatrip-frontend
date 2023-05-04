@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
         </li>
       </ul>
       <div className="flex justify-center space-x-4">
-        <p>© 2023 keena</p>
+        <p>© 2023 HayabusaTrip</p>
         <Social />
       </div>
     </footer>

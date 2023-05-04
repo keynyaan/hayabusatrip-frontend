@@ -6,7 +6,7 @@ import { DbUserData } from '@/api/userApi'
 
 // AuthContextのインターフェース定義
 interface AuthContext {
-  currentUser: User | null
+  currentUser: User | null | undefined
   dbUserData: DbUserData | null
   loading: boolean
   googleLoading: boolean
@@ -30,6 +30,7 @@ interface AuthContext {
   loginWithGoogle: () => Promise<void>
   logout: () => Promise<void>
   resetPassword: (email: string) => Promise<boolean>
+  updateUser: (newUsername: string, newEmail: string) => Promise<void>
 }
 
 // AuthContextProviderのProps型の定義
@@ -60,6 +61,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     loginWithGoogle,
     logout,
     resetPassword,
+    updateUser,
   } = useFirebaseAuth()
 
   // AuthContextオブジェクトの定義
@@ -80,6 +82,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     loginWithGoogle,
     logout,
     resetPassword,
+    updateUser,
   }
 
   return <AuthCtx.Provider value={AuthContext}>{children}</AuthCtx.Provider>
