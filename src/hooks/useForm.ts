@@ -6,7 +6,7 @@ import {
   validatePasswordConfirm,
 } from '@/utils/validation'
 
-export const useSignUpForm = () => {
+export const useForm = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -34,6 +34,12 @@ export const useSignUpForm = () => {
 
   const isPasswordResetFormValid: boolean =
     Boolean(email) && !validateEmail(email)
+
+  const isUpdateUserFormValid: boolean =
+    Boolean(username) &&
+    Boolean(email) &&
+    !validateUsername(username) &&
+    !validateEmail(email)
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(e.target.value)
@@ -63,6 +69,7 @@ export const useSignUpForm = () => {
     isSignUpFormValid,
     isLoginFormValid,
     isPasswordResetFormValid,
+    isUpdateUserFormValid,
     handleUsernameChange,
     handleEmailChange,
     handlePasswordChange,

@@ -3,7 +3,9 @@ import React, { FC } from 'react'
 type InputFieldProps = {
   id: string
   type: string
-  placeholder: string
+  labelName: string
+  srOnly?: boolean
+  placeholder?: string
   maxLength?: number
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -14,6 +16,8 @@ type InputFieldProps = {
 export const InputField: FC<InputFieldProps> = ({
   id,
   type,
+  labelName,
+  srOnly,
   placeholder,
   maxLength,
   value,
@@ -22,8 +26,8 @@ export const InputField: FC<InputFieldProps> = ({
   error,
 }) => (
   <div>
-    <label className="sr-only" htmlFor={id}>
-      {placeholder}
+    <label className={`text-gray-500 ${srOnly ? 'sr-only' : ''}`} htmlFor={id}>
+      {labelName}
     </label>
     <input
       className={`w-full px-3 py-2 text-gray-700 border rounded focus:outline-none ${

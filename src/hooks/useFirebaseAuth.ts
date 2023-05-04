@@ -7,6 +7,7 @@ import {
   createUserWithEmailAndPassword,
   applyActionCode,
   sendEmailVerification,
+  updateEmail,
   updateProfile,
   sendPasswordResetEmail,
   onAuthStateChanged,
@@ -18,7 +19,12 @@ import { useState, useEffect } from 'react'
 
 import { auth } from '@/../initFirebase'
 import { useToast } from '@/context/ToastContext'
-import { DbUserData, getUser, createUser, updateUser } from '@/api/userApi'
+import {
+  DbUserData,
+  getUserAPI,
+  createUserAPI,
+  updateUserAPI,
+} from '@/api/userApi'
 import {
   siteMeta,
   GET_USER_ERROR_MSG,
@@ -29,7 +35,9 @@ import {
 export const useFirebaseAuth = () => {
   const { siteUrl } = siteMeta
 
-  const [currentUser, setCurrentUser] = useState<User | null>(null)
+  const [currentUser, setCurrentUser] = useState<User | null | undefined>(
+    undefined
+  )
   const [dbUserData, setDbUserData] = useState<DbUserData | null>(null)
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
@@ -53,7 +61,7 @@ export const useFirebaseAuth = () => {
 
       try {
         // ユーザー登録APIを実行
-        await createUser(idToken, { uid: user.uid, name: username })
+        await createUserAPI(idToken, { uid: user.uid, name: username })
       } catch (e) {
         await user.delete()
         showToast('error', CREATE_USER_ERROR_MSG)
@@ -132,13 +140,13 @@ export const useFirebaseAuth = () => {
 
         // ユーザー情報取得APIを実行して初めてのログインか確認
         const idToken = await user.getIdToken()
-        const dbUserData = await getUser(idToken, user.uid)
+        const dbUserData = await getUserAPI(idToken, user.uid)
         const isFirstLogin = !dbUserData.last_login_time
         setDbUserData(dbUserData)
 
         // ユーザー情報更新APIを実行してログイン時間を保存
         const now = new Date().toISOString().slice(0, 19).replace('T', ' ')
-        await updateUser(idToken, {
+        await updateUserAPI(idToken, {
           uid: user.uid,
           last_login_time: now,
         })
@@ -162,10 +170,10 @@ export const useFirebaseAuth = () => {
             showToast('error', UPDATE_USER_ERROR_MSG)
             break
           default:
-            showToast('error', '予期しないエラーが発生しました。')
+            showToast('error', 'メールアドレスまたはパスワードが不正です。')
         }
       } else {
-        showToast('error', 'メールアドレスまたはパスワードが不正です。')
+        showToast('error', '予期しないエラーが発生しました。')
       }
     } finally {
       setLoading(false)
@@ -211,14 +219,14 @@ export const useFirebaseAuth = () => {
 
           // getUserAPIを実行してログインユーザーの存在確認
           const idToken = await user.getIdToken()
-          let dbUserData = await getUser(idToken, user.uid)
+          let dbUserData = await getUserAPI(idToken, user.uid)
           const displayName = user.displayName || '新規ユーザー'
           const photoURL = user.photoURL || '/images/default-user-icon.png'
           const isFirstLogin = !dbUserData
 
           // DBにユーザーが存在しない場合、新規ユーザーを作成
           if (!dbUserData) {
-            dbUserData = await createUser(idToken, {
+            dbUserData = await createUserAPI(idToken, {
               uid: user.uid,
               name: displayName,
               icon_path: photoURL,
@@ -228,7 +236,7 @@ export const useFirebaseAuth = () => {
 
           // updateUserAPIを実行してログイン時間を保存
           const now = new Date().toISOString().slice(0, 19).replace('T', ' ')
-          await updateUser(idToken, {
+          await updateUserAPI(idToken, {
             uid: user.uid,
             last_login_time: now,
           })
@@ -255,10 +263,10 @@ export const useFirebaseAuth = () => {
               showToast('error', UPDATE_USER_ERROR_MSG)
               break
             default:
-              showToast('error', '予期しないエラーが発生しました。')
+              showToast('error', 'アカウントが見つかりません。')
           }
         } else {
-          showToast('error', 'アカウントが見つかりません。')
+          showToast('error', '予期しないエラーが発生しました。')
         }
       } finally {
         setRedirectResultFetched(false)
@@ -294,6 +302,74 @@ export const useFirebaseAuth = () => {
     }
   }
 
+  // ユーザー情報の更新処理
+  const updateUser = async (newUsername: string, newEmail: string) => {
+    if (!dbUserData || !currentUser) {
+      showToast('error', 'ユーザー情報が不正です。')
+      return
+    }
+
+    const usernameChanged = newUsername !== dbUserData.name
+    const emailChanged = newEmail !== currentUser.email
+
+    if (!usernameChanged && !emailChanged) {
+      showToast('info', 'ユーザー情報が変更されていません')
+      return
+    }
+
+    setLoading(true)
+
+    let usernameUpdateSuccess = true
+    let emailUpdateSuccess = true
+
+    if (usernameChanged) {
+      try {
+        const idToken = await currentUser.getIdToken()
+        const updateDbUserData = await updateUserAPI(idToken, {
+          uid: currentUser.uid,
+          name: newUsername,
+        })
+        setDbUserData(updateDbUserData)
+      } catch (error) {
+        usernameUpdateSuccess = false
+      }
+    }
+
+    if (emailChanged) {
+      try {
+        // 認証メールにユーザー名が表示されるように設定
+        await updateProfile(currentUser, {
+          displayName: newUsername,
+        })
+        await updateEmail(currentUser, newEmail)
+      } catch (error) {
+        emailUpdateSuccess = false
+      }
+    }
+
+    setLoading(false)
+
+    if (usernameChanged && emailChanged) {
+      if (usernameUpdateSuccess && emailUpdateSuccess) {
+        showToast('success', 'ユーザー情報を更新しました')
+      } else {
+        showToast('error', 'ユーザー情報の更新に失敗しました')
+      }
+    } else if (usernameChanged) {
+      if (usernameUpdateSuccess) {
+        showToast('success', 'ユーザー名を更新しました')
+      } else {
+        showToast('error', 'ユーザー名の更新に失敗しました')
+      }
+    } else if (emailChanged) {
+      if (emailUpdateSuccess) {
+        showToast('success', 'メールアドレスを更新しました')
+      } else {
+        showToast('error', 'メールアドレスの更新に失敗しました')
+      }
+    }
+  }
+
   // リアルタイムで認証状態の変更を監視し、ログイン状態を保持
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -303,7 +379,7 @@ export const useFirebaseAuth = () => {
         try {
           const fetchData = async () => {
             const idToken = await user.getIdToken()
-            const dbUserData = await getUser(idToken, user.uid)
+            const dbUserData = await getUserAPI(idToken, user.uid)
             setDbUserData(dbUserData)
           }
 
@@ -338,5 +414,6 @@ export const useFirebaseAuth = () => {
     loginWithGoogle,
     logout,
     resetPassword,
+    updateUser,
   }
 }

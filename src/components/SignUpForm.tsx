@@ -4,9 +4,9 @@ import 'react-responsive-modal/styles.css'
 import { DividerWithText } from '@/components/DividerWithText'
 import GoogleButton from '@/components/GoogleButton'
 import { InputField } from '@/components/InputField'
-import { ModalButton } from '@/components/ModalButton'
+import { FormButton } from '@/components/FormButton'
 import { SwitchFormLink } from '@/components/SwitchFormLink'
-import { useSignUpForm } from '@/hooks/useSignUpForm'
+import { useForm } from '@/hooks/useForm'
 import { FORM_LOGIN } from '@/utils/constants'
 import { useAuthContext } from '@/context/AuthContext'
 
@@ -53,7 +53,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
     handleEmailBlur,
     handlePasswordBlur,
     handlePasswordConfirmBlur,
-  } = useSignUpForm()
+  } = useForm()
 
   return (
     <>
@@ -77,12 +77,14 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
         </Link>
         に同意した上で、
         <br />
-        以下の「登録する」ボタンを押してください。
+        以下の「登録」ボタンを押してください。
       </p>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <InputField
           id="username"
           type="text"
+          labelName="ユーザー名"
+          srOnly={true}
           placeholder="ユーザー名"
           maxLength={20}
           value={username}
@@ -93,6 +95,8 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
         <InputField
           id="email"
           type="email"
+          labelName="メールアドレス"
+          srOnly={true}
           placeholder="メールアドレス"
           maxLength={254}
           value={email}
@@ -103,6 +107,8 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
         <InputField
           id="password"
           type="password"
+          labelName="パスワード"
+          srOnly={true}
           placeholder="パスワード"
           value={password}
           onChange={handlePasswordChange}
@@ -112,13 +118,15 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
         <InputField
           id="password-confirm"
           type="password"
+          labelName="パスワード（確認用）"
+          srOnly={true}
           placeholder="パスワード（確認用）"
           value={passwordConfirm}
           onChange={handlePasswordConfirmChange}
           onBlur={handlePasswordConfirmBlur}
           error={passwordConfirmError}
         />
-        <ModalButton label="登録する" isFormValid={isSignUpFormValid} />
+        <FormButton label="登録" isFormValid={isSignUpFormValid} />
       </form>
 
       <DividerWithText text="または" />

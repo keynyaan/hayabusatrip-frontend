@@ -9,8 +9,8 @@ export const siteMeta = {
 
 export const siteLogo = {
   src: '/images/logo.png',
-  width: 120,
-  height: 63,
+  width: 75,
+  height: 75,
 }
 
 export const FORM_SIGN_UP = '新規登録'

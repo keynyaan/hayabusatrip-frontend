@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import 'react-responsive-modal/styles.css'
 import { InputField } from '@/components/InputField'
-import { ModalButton } from '@/components/ModalButton'
-import { useSignUpForm } from '@/hooks/useSignUpForm'
+import { FormButton } from '@/components/FormButton'
+import { useForm } from '@/hooks/useForm'
 import { useAuthContext } from '@/context/AuthContext'
 
 type PasswordResetFormProps = {
@@ -32,7 +32,7 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = ({ onClose }) => {
     isPasswordResetFormValid,
     handleEmailChange,
     handleEmailBlur,
-  } = useSignUpForm()
+  } = useForm()
 
   return (
     <>
@@ -45,6 +45,8 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = ({ onClose }) => {
         <InputField
           id="email"
           type="email"
+          labelName="メールアドレス"
+          srOnly={true}
           placeholder="メールアドレス"
           maxLength={254}
           value={email}
@@ -52,7 +54,7 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = ({ onClose }) => {
           onBlur={handleEmailBlur}
           error={emailError}
         />
-        <ModalButton
+        <FormButton
           label="パスワード再設定メールを送信"
           isFormValid={isPasswordResetFormValid}
         />
