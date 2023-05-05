@@ -4,6 +4,7 @@ import {
   CREATE_USER_ERROR_MSG,
   GET_USER_ERROR_MSG,
   UPDATE_USER_ERROR_MSG,
+  DELETE_USER_ERROR_MSG,
 } from '@/utils/constants'
 
 export type DbUserData = {
@@ -100,5 +101,19 @@ export const updateUserAPI = async (
     return res.data
   } catch (e) {
     throw new Error(UPDATE_USER_ERROR_MSG)
+  }
+}
+
+// ユーザーの削除
+export const deleteUserAPI = async (idToken: string, uid: string) => {
+  try {
+    const res = await axios.delete(`${usersUrl}/${uid}`, {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    })
+    return res.data
+  } catch (e) {
+    throw new Error(DELETE_USER_ERROR_MSG)
   }
 }

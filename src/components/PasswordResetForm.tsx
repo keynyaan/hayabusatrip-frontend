@@ -7,13 +7,20 @@ import { useAuthContext } from '@/context/AuthContext'
 
 type PasswordResetFormProps = {
   onClose: () => void
+  login?: boolean
 }
 
-export const PasswordResetForm: FC<PasswordResetFormProps> = ({ onClose }) => {
-  const { resetPassword } = useAuthContext()
+export const PasswordResetForm: FC<PasswordResetFormProps> = ({
+  onClose,
+  login,
+}) => {
+  const { currentUser, resetPassword } = useAuthContext()
+
+  const currentUserEmail = currentUser?.email || ''
+  const isCurrentUserEmailValid = Boolean(currentUserEmail)
 
   const loginFunc = async (email: string) => {
-    const success = await resetPassword(email)
+    const success = await resetPassword(login ? currentUserEmail : email)
     if (success) {
       onClose()
     }
@@ -21,9 +28,7 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = ({ onClose }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (isPasswordResetFormValid) {
-      loginFunc(email)
-    }
+    loginFunc(email)
   }
 
   const {
@@ -34,29 +39,34 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = ({ onClose }) => {
     handleEmailBlur,
   } = useForm()
 
+  const isFormValid = login ? isCurrentUserEmailValid : isPasswordResetFormValid
+
   return (
     <>
       <p className=" text-gray-700 mb-4">
-        ご登録いただいたメールアドレスを入力してください。
+        ご登録いただいたメールアドレス
+        {login ? 'を宛先にして、' : 'を入力してください。'}
         <br />
         パスワード再設定のURLが記載されたメールを送信します。
       </p>
       <form className="space-y-4" onSubmit={handleSubmit}>
-        <InputField
-          id="email"
-          type="email"
-          labelName="メールアドレス"
-          srOnly={true}
-          placeholder="メールアドレス"
-          maxLength={254}
-          value={email}
-          onChange={handleEmailChange}
-          onBlur={handleEmailBlur}
-          error={emailError}
-        />
+        {!login && (
+          <InputField
+            id="email"
+            type="email"
+            labelName="メールアドレス"
+            srOnly={true}
+            placeholder="メールアドレス"
+            maxLength={254}
+            value={email}
+            onChange={handleEmailChange}
+            onBlur={handleEmailBlur}
+            error={emailError}
+          />
+        )}
         <FormButton
           label="パスワード再設定メールを送信"
-          isFormValid={isPasswordResetFormValid}
+          isFormValid={isFormValid}
         />
       </form>
     </>

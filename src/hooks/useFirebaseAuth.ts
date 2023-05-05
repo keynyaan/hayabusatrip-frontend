@@ -24,12 +24,14 @@ import {
   getUserAPI,
   createUserAPI,
   updateUserAPI,
+  deleteUserAPI,
 } from '@/api/userApi'
 import {
   siteMeta,
   GET_USER_ERROR_MSG,
   CREATE_USER_ERROR_MSG,
   UPDATE_USER_ERROR_MSG,
+  DELETE_USER_ERROR_MSG,
 } from '@/utils/constants'
 
 export const useFirebaseAuth = () => {
@@ -313,7 +315,7 @@ export const useFirebaseAuth = () => {
     const emailChanged = newEmail !== currentUser.email
 
     if (!usernameChanged && !emailChanged) {
-      showToast('info', 'ユーザー情報が変更されていません')
+      showToast('info', 'ユーザー情報が変更されていません。')
       return
     }
 
@@ -351,22 +353,59 @@ export const useFirebaseAuth = () => {
 
     if (usernameChanged && emailChanged) {
       if (usernameUpdateSuccess && emailUpdateSuccess) {
-        showToast('success', 'ユーザー情報を更新しました')
+        showToast('success', 'ユーザー情報を更新しました。')
       } else {
-        showToast('error', 'ユーザー情報の更新に失敗しました')
+        showToast('error', 'ユーザー情報の更新に失敗しました。')
       }
     } else if (usernameChanged) {
       if (usernameUpdateSuccess) {
-        showToast('success', 'ユーザー名を更新しました')
+        showToast('success', 'ユーザー名を更新しました。')
       } else {
-        showToast('error', 'ユーザー名の更新に失敗しました')
+        showToast('error', 'ユーザー名の更新に失敗しました。')
       }
     } else if (emailChanged) {
       if (emailUpdateSuccess) {
-        showToast('success', 'メールアドレスを更新しました')
+        showToast('success', 'メールアドレスを更新しました。')
       } else {
-        showToast('error', 'メールアドレスの更新に失敗しました')
+        showToast('error', 'メールアドレスの更新に失敗しました。')
       }
+    }
+  }
+
+  const deleteUser = async () => {
+    if (!currentUser) {
+      showToast('error', 'ログインしてください。')
+      return false
+    }
+
+    setLoading(true)
+
+    try {
+      // ユーザー削除APIを実行
+      const idToken = await currentUser.getIdToken()
+      await deleteUserAPI(idToken, currentUser.uid)
+
+      // Firebaseからユーザー情報を削除
+      await currentUser.delete()
+      setCurrentUser(null)
+      await router.push('/')
+      showToast('success', '退会が完了しました。ご利用ありがとうございました。')
+      return true
+    } catch (e) {
+      if (e instanceof Error) {
+        switch (e.message) {
+          case DELETE_USER_ERROR_MSG:
+            showToast('error', DELETE_USER_ERROR_MSG)
+            break
+          default:
+            showToast('error', '退会に失敗しました。')
+        }
+      } else {
+        showToast('error', '予期しないエラーが発生しました。')
+      }
+      return false
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -415,5 +454,6 @@ export const useFirebaseAuth = () => {
     logout,
     resetPassword,
     updateUser,
+    deleteUser,
   }
 }
