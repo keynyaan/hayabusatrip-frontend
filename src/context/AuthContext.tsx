@@ -31,6 +31,7 @@ interface AuthContext {
   logout: () => Promise<void>
   resetPassword: (email: string) => Promise<boolean>
   updateUser: (newUsername: string, newEmail: string) => Promise<void>
+  deleteUser: () => Promise<boolean>
 }
 
 // AuthContextProviderのProps型の定義
@@ -62,6 +63,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     logout,
     resetPassword,
     updateUser,
+    deleteUser,
   } = useFirebaseAuth()
 
   // AuthContextオブジェクトの定義
@@ -83,6 +85,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     logout,
     resetPassword,
     updateUser,
+    deleteUser,
   }
 
   return <AuthCtx.Provider value={AuthContext}>{children}</AuthCtx.Provider>

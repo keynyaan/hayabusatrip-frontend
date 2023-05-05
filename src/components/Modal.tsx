@@ -21,8 +21,10 @@ export const Modal: FC<ModalProps> = ({ open, onClose, title, children }) => {
         closeButton: 'modal-close-button',
       }}
     >
-      <h2 className="text-xl font-bold mb-5 text-gray-700">{title}</h2>
-      {children}
+      <div className="max-w-md">
+        <h2 className="text-xl font-bold mb-5 text-gray-700">{title}</h2>
+        {children}
+      </div>
     </ResponsiveModal>
   )
 }

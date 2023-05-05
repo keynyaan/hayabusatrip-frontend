@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import 'react-responsive-modal/styles.css'
 import { useForm } from '@/hooks/useForm'
@@ -6,12 +6,33 @@ import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 import { InputField } from '@/components/InputField'
 import { FormButton } from '@/components/FormButton'
+import { SettingsModal } from '@/components/SettingsModal'
+import { ActionButton } from '@/components/ActionButton'
+import { DividerWithText } from '@/components/DividerWithText'
+import { FORM_PASSWORD_RESET, FORM_UNSUBSCRIBE } from '@/utils/constants'
 
 export default function Settings() {
   const router = useRouter()
   const { showToast } = useToast()
 
   const { loading, updateUser, currentUser, dbUserData } = useAuthContext()
+
+  const [passwordResetModalOpen, setPasswordResetModalOpen] = useState(false)
+  const [unsubscribeModalOpen, setUnsubscribeModalOpen] = useState(false)
+
+  const onOpenPasswordResetModal = () => {
+    setPasswordResetModalOpen(true)
+  }
+  const onOpenUnsubscribeModal = () => {
+    setUnsubscribeModalOpen(true)
+  }
+
+  const onClosePasswordResetModal = () => {
+    setPasswordResetModalOpen(false)
+  }
+  const onCloseUnsubscribeModal = () => {
+    setUnsubscribeModalOpen(false)
+  }
 
   const updateUserFunc = async (username: string, email: string) => {
     await updateUser(username, email)
@@ -92,6 +113,34 @@ export default function Settings() {
             />
             <FormButton label="更新" isFormValid={isUpdateUserFormValid} />
           </form>
+
+          <DividerWithText text="または" />
+
+          <div className="flex justify-between mt-4">
+            <ActionButton
+              text="パスワード再設定"
+              onClick={onOpenPasswordResetModal}
+            />
+            {passwordResetModalOpen && (
+              <SettingsModal
+                open={passwordResetModalOpen}
+                onClose={onClosePasswordResetModal}
+                form={FORM_PASSWORD_RESET}
+              />
+            )}
+            <ActionButton
+              text="退会のお手続き"
+              onClick={onOpenUnsubscribeModal}
+              isUnsubscribe={true}
+            />
+            {unsubscribeModalOpen && (
+              <SettingsModal
+                open={unsubscribeModalOpen}
+                onClose={onCloseUnsubscribeModal}
+                form={FORM_UNSUBSCRIBE}
+              />
+            )}
+          </div>
         </div>
       )}
     </>

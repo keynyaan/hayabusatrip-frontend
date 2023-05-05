@@ -16,7 +16,9 @@ export const siteLogo = {
 export const FORM_SIGN_UP = '新規登録'
 export const FORM_LOGIN = 'ログイン'
 export const FORM_PASSWORD_RESET = 'パスワード再設定'
+export const FORM_UNSUBSCRIBE = '退会'
 
 export const GET_USER_ERROR_MSG = 'ユーザー情報の取得に失敗しました。'
-export const CREATE_USER_ERROR_MSG = 'ユーザー情報の登録に失敗しました。'
+export const CREATE_USER_ERROR_MSG = 'ユーザーの登録に失敗しました。'
 export const UPDATE_USER_ERROR_MSG = 'ユーザー情報の更新に失敗しました。'
+export const DELETE_USER_ERROR_MSG = 'ユーザーの削除に失敗しました。'
