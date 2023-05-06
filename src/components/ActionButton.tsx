@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import classNames from 'classnames'
 
 type ActionButtonProps = {
   text: string
@@ -13,11 +14,21 @@ export const ActionButton: FC<ActionButtonProps> = ({
 }) => {
   const textColor = isUnsubscribe ? 'red-500' : 'brand-color'
 
+  const buttonClasses = classNames(
+    'px-4',
+    'py-2',
+    'text-sm',
+    `text-${textColor}`,
+    `border`,
+    `border-${textColor}`,
+    'rounded',
+    `hover:bg-${textColor}`,
+    'hover:text-white',
+    'transition-all'
+  )
+
   return (
-    <button
-      className={`px-4 py-2 text-sm text-${textColor} border border-${textColor} rounded hover:bg-${textColor} hover:text-white transition-all`}
-      onClick={onClick}
-    >
+    <button className={buttonClasses} onClick={onClick}>
       {text}
     </button>
   )
