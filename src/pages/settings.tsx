@@ -15,7 +15,7 @@ export default function Settings() {
   const router = useRouter()
   const { showToast } = useToast()
 
-  const { loading, updateUser, currentUser, dbUserData } = useAuthContext()
+  const { anyLoading, updateUser, currentUser, dbUserData } = useAuthContext()
 
   const [passwordResetModalOpen, setPasswordResetModalOpen] = useState(false)
   const [unsubscribeModalOpen, setUnsubscribeModalOpen] = useState(false)
@@ -77,11 +77,11 @@ export default function Settings() {
       return
     }
 
-    if (!loading && currentUser === null) {
+    if (!anyLoading && currentUser === null) {
       router.push('/')
       showToast('error', 'ログインしてください。')
     }
-  }, [loading, currentUser, router, showToast])
+  }, [anyLoading, currentUser, router, showToast])
 
   return (
     <>
@@ -111,7 +111,11 @@ export default function Settings() {
               onBlur={handleEmailBlur}
               error={emailError}
             />
-            <FormButton label="更新" isFormValid={isUpdateUserFormValid} />
+            <FormButton
+              label="更新"
+              isFormValid={isUpdateUserFormValid}
+              isUpdateUser={true}
+            />
           </form>
 
           <DividerWithText text="または" />
