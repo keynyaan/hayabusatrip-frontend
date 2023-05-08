@@ -8,21 +8,23 @@ import { DbUserData } from '@/api/userApi'
 interface AuthContext {
   currentUser: User | null | undefined
   dbUserData: DbUserData | null
-  loading: boolean
-  googleLoading: boolean
+  signupLoading: boolean
+  loginLoading: boolean
+  googleLoginLoading: boolean
+  logoutLoading: boolean
+  authLoading: boolean
+  resetPasswordLoading: boolean
+  updateUserLoading: boolean
+  deleteUserLoading: boolean
+  anyLoading: boolean
   redirectResultFetched: boolean
   firstLogin: boolean
-  setLoading: (loading: boolean) => void
-  setGoogleLoading: (loading: boolean) => void
-  setRedirectResultFetched: (loading: boolean) => void
-  setFirstLogin: (firstLogin: boolean) => void
 
   signup: (
     email: string,
     password: string,
     username: string
   ) => Promise<User | undefined>
-  verifyEmail: (oobCode: string) => Promise<void>
   loginWithEmailAndPassword: (
     email: string,
     password: string
@@ -48,16 +50,18 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const {
     currentUser,
     dbUserData,
-    loading,
-    googleLoading,
+    signupLoading,
+    loginLoading,
+    googleLoginLoading,
+    logoutLoading,
+    authLoading,
+    resetPasswordLoading,
+    updateUserLoading,
+    deleteUserLoading,
+    anyLoading,
     redirectResultFetched,
     firstLogin,
-    setLoading,
-    setGoogleLoading,
-    setRedirectResultFetched,
-    setFirstLogin,
     signup,
-    verifyEmail,
     loginWithEmailAndPassword,
     loginWithGoogle,
     logout,
@@ -70,16 +74,18 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const AuthContext: AuthContext = {
     currentUser,
     dbUserData,
-    loading,
-    googleLoading,
+    signupLoading,
+    loginLoading,
+    googleLoginLoading,
+    logoutLoading,
+    authLoading,
+    resetPasswordLoading,
+    updateUserLoading,
+    deleteUserLoading,
+    anyLoading,
     redirectResultFetched,
     firstLogin,
-    setLoading,
-    setGoogleLoading,
-    setRedirectResultFetched,
-    setFirstLogin,
     signup,
-    verifyEmail,
     loginWithEmailAndPassword,
     loginWithGoogle,
     logout,

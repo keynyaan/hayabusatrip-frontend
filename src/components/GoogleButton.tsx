@@ -7,17 +7,17 @@ type GoogleButtonProps = {
 }
 
 const GoogleButton: React.FC<GoogleButtonProps> = ({ text }) => {
-  const { loginWithGoogle, googleLoading } = useAuthContext()
+  const { loginWithGoogle, googleLoginLoading } = useAuthContext()
 
   return (
     <button
       onClick={loginWithGoogle}
       className={`flex items-center justify-center w-full py-1 text-gray-700 rounded border-2 focus:outline-none focus:border-brand-color ${
-        !googleLoading
+        !googleLoginLoading
           ? 'hover:border-brand-color transition-all'
           : 'opacity-50 cursor-not-allowed'
       }`}
-      disabled={googleLoading}
+      disabled={googleLoginLoading}
     >
       <Image
         src="/images/google-logo.svg"

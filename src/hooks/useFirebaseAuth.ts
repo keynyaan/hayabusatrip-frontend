@@ -5,7 +5,6 @@ import {
   GoogleAuthProvider,
   getRedirectResult,
   createUserWithEmailAndPassword,
-  applyActionCode,
   sendEmailVerification,
   updateEmail,
   updateProfile,
@@ -41,8 +40,20 @@ export const useFirebaseAuth = () => {
     undefined
   )
   const [dbUserData, setDbUserData] = useState<DbUserData | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [googleLoading, setGoogleLoading] = useState(false)
+  const [signupLoading, setSignupLoading] = useState(false)
+  const [loginLoading, setLoginLoading] = useState(false)
+  const [googleLoginLoading, setGoogleLoginLoading] = useState(false)
+  const [logoutLoading, setLogoutLoading] = useState(false)
+  // Googleログインボタンのスピナー表示処理を分けるため、あえてauthLoadingには含めない
+  const authLoading = signupLoading || loginLoading || logoutLoading
+  const [resetPasswordLoading, setResetPasswordLoading] = useState(false)
+  const [updateUserLoading, setUpdateUserLoading] = useState(false)
+  const [deleteUserLoading, setDeleteUserLoading] = useState(false)
+  const anyLoading =
+    authLoading ||
+    resetPasswordLoading ||
+    updateUserLoading ||
+    deleteUserLoading
   const [redirectResultFetched, setRedirectResultFetched] = useState(true)
   const [firstLogin, setFirstLogin] = useState(false)
 
@@ -51,7 +62,7 @@ export const useFirebaseAuth = () => {
 
   // 新規登録処理
   const signup = async (email: string, password: string, username: string) => {
-    setLoading(true)
+    setSignupLoading(true)
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -96,36 +107,13 @@ export const useFirebaseAuth = () => {
           showToast('error', '新規登録に失敗しました。')
       }
     } finally {
-      setLoading(false)
-    }
-  }
-
-  // アドレス認証処理(Firebaseのデフォルトの機能ではなく、カスタマイズする必要が出てきたら使う)
-  const verifyEmail = async (oobCode: string) => {
-    setLoading(true)
-    try {
-      await applyActionCode(auth, oobCode)
-      showToast('success', 'メールアドレスの認証に成功しました。')
-    } catch (e) {
-      const firebaseError = e as FirebaseError
-      switch (firebaseError.code) {
-        case 'auth/expired-action-code':
-          showToast('error', '認証コードが期限切れです。')
-          break
-        case 'auth/invalid-action-code':
-          showToast('error', '無効な認証コードです。')
-          break
-        default:
-          showToast('error', 'メールアドレスの認証に失敗しました。')
-      }
-    } finally {
-      setLoading(false)
+      setSignupLoading(false)
     }
   }
 
   // ログイン処理
   const loginWithEmailAndPassword = async (email: string, password: string) => {
-    setLoading(true)
+    setLoginLoading(true)
     try {
       const result = await signInWithEmailAndPassword(auth, email, password)
       const isNotVerified = !result.user.emailVerified
@@ -178,26 +166,26 @@ export const useFirebaseAuth = () => {
         showToast('error', '予期しないエラーが発生しました。')
       }
     } finally {
-      setLoading(false)
+      setLoginLoading(false)
     }
   }
 
   // Googleログイン処理
   const loginWithGoogle = async () => {
-    setGoogleLoading(true)
+    setGoogleLoginLoading(true)
     try {
       const provider = new GoogleAuthProvider()
       await signInWithRedirect(auth, provider)
     } catch (e) {
       showToast('error', 'アカウントが見つかりません。')
     } finally {
-      setGoogleLoading(false)
+      setGoogleLoginLoading(false)
     }
   }
 
   // ログアウト処理
   const logout = async () => {
-    setLoading(true)
+    setLogoutLoading(true)
     try {
       await signOut(auth)
       setCurrentUser(null)
@@ -206,7 +194,7 @@ export const useFirebaseAuth = () => {
     } catch (e) {
       showToast('error', 'ログアウトに失敗しました。')
     } finally {
-      setLoading(false)
+      setLogoutLoading(false)
     }
   }
 
@@ -279,7 +267,7 @@ export const useFirebaseAuth = () => {
 
   // パスワード再設定のメール送信処理
   const resetPassword = async (email: string): Promise<boolean> => {
-    setLoading(true)
+    setResetPasswordLoading(true)
     try {
       await sendPasswordResetEmail(auth, email, {
         url: `${siteUrl}`,
@@ -300,7 +288,7 @@ export const useFirebaseAuth = () => {
       }
       return false
     } finally {
-      setLoading(false)
+      setResetPasswordLoading(false)
     }
   }
 
@@ -319,7 +307,7 @@ export const useFirebaseAuth = () => {
       return
     }
 
-    setLoading(true)
+    setUpdateUserLoading(true)
 
     let usernameUpdateSuccess = true
     let emailUpdateSuccess = true
@@ -349,7 +337,7 @@ export const useFirebaseAuth = () => {
       }
     }
 
-    setLoading(false)
+    setUpdateUserLoading(false)
 
     if (usernameChanged && emailChanged) {
       if (usernameUpdateSuccess && emailUpdateSuccess) {
@@ -378,7 +366,7 @@ export const useFirebaseAuth = () => {
       return false
     }
 
-    setLoading(true)
+    setDeleteUserLoading(true)
 
     try {
       // ユーザー削除APIを実行
@@ -405,7 +393,7 @@ export const useFirebaseAuth = () => {
       }
       return false
     } finally {
-      setLoading(false)
+      setDeleteUserLoading(false)
     }
   }
 
@@ -439,16 +427,18 @@ export const useFirebaseAuth = () => {
   return {
     currentUser,
     dbUserData,
-    loading,
-    googleLoading,
+    signupLoading,
+    loginLoading,
+    googleLoginLoading,
+    logoutLoading,
+    authLoading,
+    resetPasswordLoading,
+    updateUserLoading,
+    deleteUserLoading,
+    anyLoading,
     redirectResultFetched,
     firstLogin,
-    setLoading,
-    setGoogleLoading,
-    setRedirectResultFetched,
-    setFirstLogin,
     signup,
-    verifyEmail,
     loginWithEmailAndPassword,
     loginWithGoogle,
     logout,

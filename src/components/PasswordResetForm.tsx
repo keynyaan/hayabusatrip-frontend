@@ -67,6 +67,7 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = ({
         <FormButton
           label="パスワード再設定メールを送信"
           isFormValid={isFormValid}
+          isPasswordReset={true}
         />
       </form>
     </>
