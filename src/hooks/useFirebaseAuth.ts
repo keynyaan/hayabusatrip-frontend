@@ -320,7 +320,7 @@ export const useFirebaseAuth = () => {
           name: newUsername,
         })
         setDbUserData(updateDbUserData)
-      } catch (error) {
+      } catch (e) {
         usernameUpdateSuccess = false
       }
     }
@@ -332,7 +332,7 @@ export const useFirebaseAuth = () => {
           displayName: newUsername,
         })
         await updateEmail(currentUser, newEmail)
-      } catch (error) {
+      } catch (e) {
         emailUpdateSuccess = false
       }
     }

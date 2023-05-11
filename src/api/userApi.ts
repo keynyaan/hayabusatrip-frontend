@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { uploadImageToS3 } from '@/api/S3Api'
 import { usersUrl } from '@/utils/url'
 import {
   CREATE_USER_ERROR_MSG,
@@ -86,11 +87,18 @@ export const createUserAPI = async (
 // ユーザー情報の更新
 export const updateUserAPI = async (
   idToken: string,
-  options: UpdateUserOptions
+  options: UpdateUserOptions,
+  imageFile?: File
 ) => {
   try {
     const params: { user: UpdateUserOptions } = {
       user: options,
+    }
+
+    if (imageFile) {
+      const filename = `${options.uid}/${Date.now()}_${imageFile.name}`
+      const imageUrl = await uploadImageToS3(imageFile, filename)
+      params.user.icon_path = imageUrl
     }
 
     const res = await axios.patch(`${usersUrl}/${options.uid}`, params, {

@@ -1,5 +1,5 @@
 import type { User } from 'firebase/auth'
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import { DbUserData } from '@/api/userApi'
@@ -19,6 +19,7 @@ interface AuthContext {
   anyLoading: boolean
   redirectResultFetched: boolean
   firstLogin: boolean
+  userIconPath: string
 
   signup: (
     email: string,
@@ -34,6 +35,7 @@ interface AuthContext {
   resetPassword: (email: string) => Promise<boolean>
   updateUser: (newUsername: string, newEmail: string) => Promise<void>
   deleteUser: () => Promise<boolean>
+  setUserIconPath: (path: string) => void
 }
 
 // AuthContextProviderのProps型の定義
@@ -70,6 +72,8 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     deleteUser,
   } = useFirebaseAuth()
 
+  const [userIconPath, setUserIconPath] = useState('')
+
   // AuthContextオブジェクトの定義
   const AuthContext: AuthContext = {
     currentUser,
@@ -85,6 +89,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     anyLoading,
     redirectResultFetched,
     firstLogin,
+    userIconPath,
     signup,
     loginWithEmailAndPassword,
     loginWithGoogle,
@@ -92,6 +97,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     resetPassword,
     updateUser,
     deleteUser,
+    setUserIconPath,
   }
 
   return <AuthCtx.Provider value={AuthContext}>{children}</AuthCtx.Provider>

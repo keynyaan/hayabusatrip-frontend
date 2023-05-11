@@ -10,6 +10,7 @@ import { SettingsModal } from '@/components/SettingsModal'
 import { ActionButton } from '@/components/ActionButton'
 import { DividerWithText } from '@/components/DividerWithText'
 import { FORM_PASSWORD_RESET, FORM_UNSUBSCRIBE } from '@/utils/constants'
+import { UserIcon } from '@/components/UserIcon'
 
 export default function Settings() {
   const router = useRouter()
@@ -90,6 +91,9 @@ export default function Settings() {
           <h2 className="text-xl font-semibold mt-5 mb-5 text-gray-700">
             アカウント設定
           </h2>
+          <div className="flex justify-center mb-4">
+            <UserIcon isSettingsPage={true} />
+          </div>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <InputField
               id="username"
