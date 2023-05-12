@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useAuthContext } from '@/context/AuthContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
-import { uploadImageToS3 } from '@/api/S3Api'
 import { updateUserAPI } from '@/api/userApi'
 import { useToast } from '@/context/ToastContext'
 import {
@@ -15,7 +14,6 @@ import {
   SETTINGS_USER_ICON_HEIGHT,
   SETTINGS_USER_ICON_WIDTH,
 } from '@/utils/constants'
-import { getTimestamp } from '@/utils/getTimestamp'
 
 type UserIconProps = {
   isSettingsPage?: boolean
@@ -89,13 +87,9 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
 
     try {
       showToast('info', '画像を更新中です。')
-      const filename = `${dbUserData.uid}-${getTimestamp()}.${
-        file.type.split('/')[1]
-      }`
-      const imageUrl = await uploadImageToS3(file, filename)
       const idToken = await currentUser.getIdToken()
-      await updateUserAPI(idToken, { uid: dbUserData.uid, icon_path: imageUrl })
-      setUserIconPath(imageUrl)
+      const res = await updateUserAPI(idToken, { uid: dbUserData.uid }, file)
+      setUserIconPath(res.icon_path)
       showToast('success', '画像を更新しました。')
     } catch (e) {
       showToast('error', '画像のアップロードに失敗しました。')

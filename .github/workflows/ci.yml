@@ -36,9 +36,6 @@ jobs:
           echo NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=${{ secrets.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }} >> .env.local
           echo NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID }} >> .env.local
           echo NEXT_PUBLIC_FIREBASE_APP_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }} >> .env.local
-          echo NEXT_PUBLIC_S3_BUCKET_NAME=${{ secrets.NEXT_PUBLIC_S3_BUCKET_NAME }} >> .env.local
-          echo NEXT_PUBLIC_AWS_REGION=${{ secrets.NEXT_PUBLIC_AWS_REGION }} >> .env.local
-          echo NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID=${{ secrets.NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID }} >> .env.local
 
       - name: Build app and run tests
         run: |
@@ -66,9 +63,6 @@ jobs:
           echo NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=${{ secrets.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }} >> .env.local
           echo NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID }} >> .env.local
           echo NEXT_PUBLIC_FIREBASE_APP_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }} >> .env.local
-          echo NEXT_PUBLIC_S3_BUCKET_NAME=${{ secrets.NEXT_PUBLIC_S3_BUCKET_NAME }} >> .env.local
-          echo NEXT_PUBLIC_AWS_REGION=${{ secrets.NEXT_PUBLIC_AWS_REGION }} >> .env.local
-          echo NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID=${{ secrets.NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID }} >> .env.local
 
       - name: Install front-end dependencies
         run: docker-compose run --rm front yarn install --frozen-lockfile
