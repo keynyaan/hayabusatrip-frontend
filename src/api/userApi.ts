@@ -7,6 +7,7 @@ import {
   UPDATE_USER_ERROR_MSG,
   DELETE_USER_ERROR_MSG,
 } from '@/utils/constants'
+import { getTimestamp } from '@/utils/getTimestamp'
 
 export type DbUserData = {
   id: number
@@ -96,7 +97,9 @@ export const updateUserAPI = async (
     }
 
     if (imageFile) {
-      const filename = `${options.uid}/${Date.now()}_${imageFile.name}`
+      const filename = `${options.uid}-${getTimestamp()}.${
+        imageFile.type.split('/')[1]
+      }`
       const imageUrl = await uploadImageToS3(imageFile, filename)
       params.user.icon_path = imageUrl
     }
