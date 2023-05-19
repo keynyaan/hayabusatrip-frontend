@@ -32,6 +32,7 @@ import {
   UPDATE_USER_ERROR_MSG,
   DELETE_USER_ERROR_MSG,
 } from '@/utils/constants'
+import { getDatetimeTimestamp } from '@/utils/getTimestamp'
 
 export const useFirebaseAuth = () => {
   const { siteUrl } = siteMeta
@@ -135,7 +136,7 @@ export const useFirebaseAuth = () => {
         setDbUserData(dbUserData)
 
         // ユーザー情報更新APIを実行してログイン時間を保存
-        const now = new Date().toISOString().slice(0, 19).replace('T', ' ')
+        const now = getDatetimeTimestamp()
         await updateUserAPI(idToken, {
           uid: user.uid,
           last_login_time: now,
@@ -225,7 +226,7 @@ export const useFirebaseAuth = () => {
           setDbUserData(dbUserData)
 
           // updateUserAPIを実行してログイン時間を保存
-          const now = new Date().toISOString().slice(0, 19).replace('T', ' ')
+          const now = getDatetimeTimestamp()
           await updateUserAPI(idToken, {
             uid: user.uid,
             last_login_time: now,
