@@ -3,19 +3,23 @@ import React, { FC } from 'react'
 type InputFieldProps = {
   id: string
   type: string
+  minDate?: string
+  maxDate?: string
   labelName: string
   srOnly?: boolean
   placeholder?: string
   maxLength?: number
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  onBlur: () => void
-  error: string
+  onBlur?: () => void
+  error?: string
 }
 
 export const InputField: FC<InputFieldProps> = ({
   id,
   type,
+  minDate,
+  maxDate,
   labelName,
   srOnly,
   placeholder,
@@ -34,6 +38,8 @@ export const InputField: FC<InputFieldProps> = ({
         error ? 'border-red-500' : 'focus:border-brand-color'
       }`}
       type={type}
+      min={minDate}
+      max={maxDate}
       id={id}
       placeholder={placeholder}
       maxLength={maxLength}

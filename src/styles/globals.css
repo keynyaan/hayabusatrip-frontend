@@ -38,3 +38,11 @@
     @apply bg-gray-100 transition-all;
   }
 }
+
+input[type='date']::-webkit-calendar-picker-indicator:hover {
+  @apply cursor-pointer opacity-50 transition-opacity;
+}
+
+select:hover {
+  @apply cursor-pointer;
+}
