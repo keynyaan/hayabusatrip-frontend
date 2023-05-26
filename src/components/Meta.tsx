@@ -2,9 +2,9 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 import siteImg from 'public/images/ogp.png'
-import { siteMeta } from '@/utils/constants'
+import { SITE_META } from '@/utils/constants'
 
-const { siteTitle, siteDesc, siteUrl, siteLocale, siteType } = siteMeta
+const { siteTitle, siteDesc, siteUrl, siteLocale, siteType } = SITE_META
 
 type MetaProps = {
   pageTitle?: string

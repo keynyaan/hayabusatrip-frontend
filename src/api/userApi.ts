@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { uploadImageToS3 } from '@/api/S3Api'
-import { usersUrl } from '@/utils/url'
 import {
+  USERS_URL,
   CREATE_USER_ERROR_MSG,
   GET_USER_ERROR_MSG,
   UPDATE_USER_ERROR_MSG,
@@ -39,7 +39,7 @@ type UpdateUserOptions = {
 // 全てのユーザー情報の取得
 export const getUsersAPI = async (idToken: string) => {
   try {
-    const res = await axios.get(usersUrl, {
+    const res = await axios.get(USERS_URL, {
       headers: {
         Authorization: `Bearer ${idToken}`,
       },
@@ -53,7 +53,7 @@ export const getUsersAPI = async (idToken: string) => {
 // 特定のユーザー情報の取得
 export const getUserAPI = async (idToken: string, uid: string) => {
   try {
-    const res = await axios.get(`${usersUrl}/${uid}`, {
+    const res = await axios.get(`${USERS_URL}/${uid}`, {
       headers: {
         Authorization: `Bearer ${idToken}`,
       },
@@ -74,7 +74,7 @@ export const createUserAPI = async (
       user: options,
     }
 
-    const res = await axios.post(usersUrl, params, {
+    const res = await axios.post(USERS_URL, params, {
       headers: {
         Authorization: `Bearer ${idToken}`,
       },
@@ -104,7 +104,7 @@ export const updateUserAPI = async (
       params.user.icon_path = imageUrl
     }
 
-    const res = await axios.patch(`${usersUrl}/${options.uid}`, params, {
+    const res = await axios.patch(`${USERS_URL}/${options.uid}`, params, {
       headers: {
         Authorization: `Bearer ${idToken}`,
       },
@@ -118,7 +118,7 @@ export const updateUserAPI = async (
 // ユーザーの削除
 export const deleteUserAPI = async (idToken: string, uid: string) => {
   try {
-    const res = await axios.delete(`${usersUrl}/${uid}`, {
+    const res = await axios.delete(`${USERS_URL}/${uid}`, {
       headers: {
         Authorization: `Bearer ${idToken}`,
       },

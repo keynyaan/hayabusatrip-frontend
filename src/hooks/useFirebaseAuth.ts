@@ -26,7 +26,7 @@ import {
   deleteUserAPI,
 } from '@/api/userApi'
 import {
-  siteMeta,
+  SITE_META,
   GET_USER_ERROR_MSG,
   CREATE_USER_ERROR_MSG,
   UPDATE_USER_ERROR_MSG,
@@ -35,7 +35,7 @@ import {
 import { getDatetimeTimestamp } from '@/utils/getTimestamp'
 
 export const useFirebaseAuth = () => {
-  const { siteUrl } = siteMeta
+  const { siteUrl } = SITE_META
 
   const [currentUser, setCurrentUser] = useState<User | null | undefined>(
     undefined

@@ -1,8 +1,8 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 
-import { siteMeta } from '@/utils/constants'
+import { SITE_META } from '@/utils/constants'
 
-const { siteLang } = siteMeta
+const { siteLang } = SITE_META
 
 export default function Document() {
   return (

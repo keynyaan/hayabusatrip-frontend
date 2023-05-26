@@ -1,6 +1,6 @@
-import { siteMeta } from '@/utils/constants'
+import { SITE_META } from '@/utils/constants'
 
-const { siteTitle } = siteMeta
+const { siteTitle } = SITE_META
 
 export default function Privacy() {
   return (
