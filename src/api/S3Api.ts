@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { UPLOAD_ERROR_MSG } from '@/utils/constants'
-import { s3UploadUrl } from '@/utils/url'
+import { UPLOAD_ERROR_MSG, S3_UPLOAD_URL } from '@/utils/constants'
 
 export const uploadImageToS3 = async (file: File, filename: string) => {
   const formData = new FormData()
@@ -8,7 +7,7 @@ export const uploadImageToS3 = async (file: File, filename: string) => {
   formData.append('filename', filename)
 
   try {
-    const result = await axios.post(s3UploadUrl, formData, {
+    const result = await axios.post(S3_UPLOAD_URL, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

@@ -1,5 +1,5 @@
 // サイトのメタ情報
-export const siteMeta = {
+export const SITE_META = {
   siteTitle: 'HayabusaTrip',
   siteDesc: ' 旅行計画を作成して共有できるサイト ',
   siteUrl: 'https://www.hayabusatrip.com',
@@ -9,11 +9,15 @@ export const siteMeta = {
 }
 
 // サイトロゴの情報
-export const siteLogo = {
+export const SITE_LOGO = {
   src: '/images/logo.png',
   width: 72,
   height: 72,
 }
+
+// API実行用のURL
+export const USERS_URL = '/users'
+export const S3_UPLOAD_URL = '/s3/upload'
 
 // ユーザーアイコンのサイズ
 export const SETTINGS_USER_ICON_WIDTH = 96
