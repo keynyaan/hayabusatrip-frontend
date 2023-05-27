@@ -17,6 +17,7 @@ export const SITE_LOGO = {
 
 // API実行用のURL
 export const USERS_URL = '/users'
+export const TRIPS_URL = 'trips'
 export const S3_UPLOAD_URL = '/s3/upload'
 
 // ユーザーアイコンのサイズ
@@ -43,10 +44,20 @@ export const FORM_UNSUBSCRIBE = '退会'
 export const FORM_CREATE_TRIP = '旅行プラン作成'
 
 // トースト表示用のメッセージ
+// userAPI
 export const GET_USER_ERROR_MSG = 'ユーザー情報の取得に失敗しました。'
 export const CREATE_USER_ERROR_MSG = 'ユーザーの登録に失敗しました。'
 export const UPDATE_USER_ERROR_MSG = 'ユーザー情報の更新に失敗しました。'
 export const DELETE_USER_ERROR_MSG = 'ユーザーの削除に失敗しました。'
+// tripAPI
+export const CREATE_TRIP_SUCCESS_MSG = '旅行プランを作成しました。'
+export const UPDATE_TRIP_SUCCESS_MSG = '旅行プランを更新しました。'
+export const DELETE_TRIP_SUCCESS_MSG = '旅行プランを削除しました。'
+export const GET_TRIP_ERROR_MSG = '旅行プランの取得に失敗しました。'
+export const CREATE_TRIP_ERROR_MSG = '旅行プランの作成に失敗しました。'
+export const UPDATE_TRIP_ERROR_MSG = '旅行プランの更新に失敗しました。'
+export const DELETE_TRIP_ERROR_MSG = '旅行プランの削除に失敗しました。'
+// s3API
 export const UPLOAD_ERROR_MSG = '画像のアップロードに失敗しました。'
 
 // 旅行先の配列

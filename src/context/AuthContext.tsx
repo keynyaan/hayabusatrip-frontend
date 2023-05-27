@@ -1,8 +1,7 @@
 import type { User } from 'firebase/auth'
 import { createContext, useContext, useState } from 'react'
-
-import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import { DbUserData } from '@/api/userApi'
+import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 
 // AuthContextのインターフェース定義
 interface AuthContext {
@@ -20,6 +19,7 @@ interface AuthContext {
   redirectResultFetched: boolean
   firstLogin: boolean
   userIconPath: string
+  tripApiLoading: boolean
 
   signup: (
     email: string,
@@ -36,6 +36,7 @@ interface AuthContext {
   updateUser: (newUsername: string, newEmail: string) => Promise<void>
   deleteUser: () => Promise<boolean>
   setUserIconPath: (path: string) => void
+  setTripApiLoading: (tripApiLoading: boolean) => void
 }
 
 // AuthContextProviderのProps型の定義
@@ -73,6 +74,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   } = useFirebaseAuth()
 
   const [userIconPath, setUserIconPath] = useState('')
+  const [tripApiLoading, setTripApiLoading] = useState(false)
 
   // AuthContextオブジェクトの定義
   const AuthContext: AuthContext = {
@@ -90,6 +92,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     redirectResultFetched,
     firstLogin,
     userIconPath,
+    tripApiLoading,
     signup,
     loginWithEmailAndPassword,
     loginWithGoogle,
@@ -98,6 +101,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     updateUser,
     deleteUser,
     setUserIconPath,
+    setTripApiLoading,
   }
 
   return <AuthCtx.Provider value={AuthContext}>{children}</AuthCtx.Provider>

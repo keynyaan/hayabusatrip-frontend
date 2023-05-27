@@ -8,6 +8,7 @@ type FormButtonProps = {
   isUpdateUser?: boolean
   isPasswordReset?: boolean
   isUnsubscribe?: boolean
+  isTripApi?: boolean
 }
 
 const spinner = <ClipLoader size={24} color="white" />
@@ -18,13 +19,16 @@ export const FormButton: React.FC<FormButtonProps> = ({
   isUpdateUser,
   isPasswordReset,
   isUnsubscribe,
+  isTripApi,
 }) => {
   const {
     updateUserLoading,
     resetPasswordLoading,
     deleteUserLoading,
     anyLoading,
+    tripApiLoading,
   } = useAuthContext()
+
   let loading = false
 
   if (isUpdateUser) {
@@ -33,6 +37,8 @@ export const FormButton: React.FC<FormButtonProps> = ({
     loading = resetPasswordLoading
   } else if (isUnsubscribe) {
     loading = deleteUserLoading
+  } else if (isTripApi) {
+    loading = tripApiLoading
   } else {
     loading = anyLoading
   }
