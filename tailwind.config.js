@@ -9,6 +9,12 @@ module.exports = {
       backgroundColor: {
         'gray-100': 'rgba(243, 244, 246, 1)',
       },
+      textOverflow: {
+        ellipsis: 'ellipsis',
+      },
+      gridTemplateColumns: {
+        'auto-fit': 'repeat(auto-fit, minmax(17rem, 1fr))',
+      },
     },
   },
   plugins: [],

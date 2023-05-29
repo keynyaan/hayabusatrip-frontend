@@ -19,7 +19,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
       )}
       <Header />
-      <main className="pt-24 px-4 flex-grow">{children}</main>
+      <main className="pt-24 flex-grow">{children}</main>
       <Footer />
     </div>
   )

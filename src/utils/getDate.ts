@@ -17,3 +17,7 @@ export const getNextDay = (dateStr: string) => {
   const nextDay = add(date, { days: 1 })
   return format(nextDay, 'yyyy-MM-dd')
 }
+
+export const formatDate = (dateStr: string) => {
+  return format(new Date(dateStr), 'yyyy/MM/dd')
+}

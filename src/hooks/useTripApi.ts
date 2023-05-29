@@ -22,7 +22,8 @@ import {
 
 export const useTripApi = () => {
   const { showToast } = useToast()
-  const { setTripApiLoading } = useAuthContext()
+  const { dbTripsData, setTripApiLoading, setDbTripsData } = useAuthContext()
+
   const getTrips = async (idToken: string, user_uid: string) => {
     setTripApiLoading(true)
     try {
@@ -59,6 +60,7 @@ export const useTripApi = () => {
     setTripApiLoading(true)
     try {
       const data: DbTripData = await createTripAPI(idToken, user_uid, options)
+      setDbTripsData([...(dbTripsData || []), data])
       showToast('success', CREATE_TRIP_SUCCESS_MSG)
       return data
     } catch (e) {

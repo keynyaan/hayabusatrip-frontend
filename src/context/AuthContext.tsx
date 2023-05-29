@@ -2,11 +2,13 @@ import type { User } from 'firebase/auth'
 import { createContext, useContext, useState } from 'react'
 import { DbUserData } from '@/api/userApi'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
+import { DbTripData } from '@/api/tripApi'
 
 // AuthContextのインターフェース定義
 interface AuthContext {
   currentUser: User | null | undefined
   dbUserData: DbUserData | null
+  dbTripsData: DbTripData[] | null
   signupLoading: boolean
   loginLoading: boolean
   googleLoginLoading: boolean
@@ -37,6 +39,7 @@ interface AuthContext {
   deleteUser: () => Promise<boolean>
   setUserIconPath: (path: string) => void
   setTripApiLoading: (tripApiLoading: boolean) => void
+  setDbTripsData: (dbTripsData: DbTripData[]) => void
 }
 
 // AuthContextProviderのProps型の定義
@@ -53,6 +56,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const {
     currentUser,
     dbUserData,
+    dbTripsData,
     signupLoading,
     loginLoading,
     googleLoginLoading,
@@ -71,6 +75,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     resetPassword,
     updateUser,
     deleteUser,
+    setDbTripsData,
   } = useFirebaseAuth()
 
   const [userIconPath, setUserIconPath] = useState('')
@@ -80,6 +85,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const AuthContext: AuthContext = {
     currentUser,
     dbUserData,
+    dbTripsData,
     signupLoading,
     loginLoading,
     googleLoginLoading,
@@ -102,6 +108,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     deleteUser,
     setUserIconPath,
     setTripApiLoading,
+    setDbTripsData,
   }
 
   return <AuthCtx.Provider value={AuthContext}>{children}</AuthCtx.Provider>

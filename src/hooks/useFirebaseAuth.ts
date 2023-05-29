@@ -25,6 +25,7 @@ import {
   updateUserAPI,
   deleteUserAPI,
 } from '@/api/userApi'
+import { DbTripData, getTripsAPI } from '@/api/tripApi'
 import {
   SITE_META,
   GET_USER_ERROR_MSG,
@@ -41,6 +42,7 @@ export const useFirebaseAuth = () => {
     undefined
   )
   const [dbUserData, setDbUserData] = useState<DbUserData | null>(null)
+  const [dbTripsData, setDbTripsData] = useState<DbTripData[] | null>(null)
   const [signupLoading, setSignupLoading] = useState(false)
   const [loginLoading, setLoginLoading] = useState(false)
   const [googleLoginLoading, setGoogleLoginLoading] = useState(false)
@@ -134,6 +136,7 @@ export const useFirebaseAuth = () => {
         const dbUserData = await getUserAPI(idToken, user.uid)
         const isFirstLogin = !dbUserData.last_login_time
         setDbUserData(dbUserData)
+        setFirstLogin(isFirstLogin)
 
         // ユーザー情報更新APIを実行してログイン時間を保存
         const now = getDatetimeTimestamp()
@@ -142,7 +145,11 @@ export const useFirebaseAuth = () => {
           last_login_time: now,
         })
 
-        setFirstLogin(isFirstLogin)
+        // 旅行プラン取得APIを実行してデータを保存
+        const dbTripsData = await getTripsAPI(idToken, user.uid)
+        setDbTripsData(dbTripsData)
+
+        // ユーザー情報を保存して、ルートパスに遷移
         setCurrentUser(user)
         await router.push('/')
         showToast(
@@ -215,6 +222,9 @@ export const useFirebaseAuth = () => {
           const photoURL = user.photoURL || '/images/default-user-icon.png'
           const isFirstLogin = !dbUserData
 
+          // DBにユーザーが存在しない場合、trueを設定
+          setFirstLogin(isFirstLogin)
+
           // DBにユーザーが存在しない場合、新規ユーザーを作成
           if (!dbUserData) {
             dbUserData = await createUserAPI(idToken, {
@@ -231,7 +241,12 @@ export const useFirebaseAuth = () => {
             uid: user.uid,
             last_login_time: now,
           })
-          setFirstLogin(isFirstLogin)
+
+          // 旅行プラン取得APIを実行してデータを保存
+          const dbTripsData = await getTripsAPI(idToken, user.uid)
+          setDbTripsData(dbTripsData)
+
+          // ユーザー情報を保存して、ルートパスに遷移
           setCurrentUser(user)
           await router.push('/')
           showToast(
@@ -409,6 +424,8 @@ export const useFirebaseAuth = () => {
             const idToken = await user.getIdToken()
             const dbUserData = await getUserAPI(idToken, user.uid)
             setDbUserData(dbUserData)
+            const dbTripsData = await getTripsAPI(idToken, user.uid)
+            setDbTripsData(dbTripsData)
           }
 
           fetchData()
@@ -428,6 +445,7 @@ export const useFirebaseAuth = () => {
   return {
     currentUser,
     dbUserData,
+    dbTripsData,
     signupLoading,
     loginLoading,
     googleLoginLoading,
@@ -446,5 +464,6 @@ export const useFirebaseAuth = () => {
     resetPassword,
     updateUser,
     deleteUser,
+    setDbTripsData,
   }
 }
