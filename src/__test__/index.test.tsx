@@ -9,8 +9,8 @@ jest.mock('next/router', () => ({
 }))
 
 describe('Home', () => {
-  it('hayabusatripが表示されていること', () => {
+  it('未ログインが表示されていること', () => {
     render(<Home />)
-    expect(screen.getByText('hayabusatrip')).toBeInTheDocument()
+    expect(screen.getByText('未ログイン')).toBeInTheDocument()
   })
 })
