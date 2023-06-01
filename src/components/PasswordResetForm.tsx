@@ -19,7 +19,7 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = ({
   const currentUserEmail = currentUser?.email || ''
   const isCurrentUserEmailValid = Boolean(currentUserEmail)
 
-  const loginFunc = async (email: string) => {
+  const resetPasswordFunc = async (email: string) => {
     const success = await resetPassword(login ? currentUserEmail : email)
     if (success) {
       onClose()
@@ -28,7 +28,7 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    loginFunc(email)
+    resetPasswordFunc(email)
   }
 
   const {

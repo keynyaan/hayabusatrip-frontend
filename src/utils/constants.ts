@@ -15,9 +15,12 @@ export const SITE_LOGO = {
   height: 72,
 }
 
+// HTTPステータスコード
+export const HTTP_STATUS_NO_CONTENT = 204
+
 // API実行用のURL
 export const USERS_URL = '/users'
-export const TRIPS_URL = 'trips'
+export const TRIPS_URL = '/trips'
 export const S3_UPLOAD_URL = '/s3/upload'
 
 // ユーザーアイコンのサイズ
@@ -42,6 +45,13 @@ export const FORM_LOGIN = 'ログイン'
 export const FORM_PASSWORD_RESET = 'パスワード再設定'
 export const FORM_UNSUBSCRIBE = '退会'
 export const FORM_CREATE_TRIP = '旅行プラン作成'
+export const FORM_TRIP_PUBLISH_SETTINGS = '旅行プラン公開設定'
+export const FORM_COPY_TRIP = '旅行プランコピー'
+export const FORM_DELETE_TRIP = '旅行プラン削除'
+
+// 旅行タイトルの上限とコピー時の接尾辞
+export const MAX_TRIP_TITLE_LENGTH = 30
+export const COPY_SUFFIX = 'のコピー'
 
 // トースト表示用のメッセージ
 // userAPI
@@ -51,10 +61,16 @@ export const UPDATE_USER_ERROR_MSG = 'ユーザー情報の更新に失敗しま
 export const DELETE_USER_ERROR_MSG = 'ユーザーの削除に失敗しました。'
 // tripAPI
 export const CREATE_TRIP_SUCCESS_MSG = '旅行プランを作成しました。'
+export const COPY_TRIP_SUCCESS_MSG = '旅行プランをコピーしました。'
 export const UPDATE_TRIP_SUCCESS_MSG = '旅行プランを更新しました。'
 export const DELETE_TRIP_SUCCESS_MSG = '旅行プランを削除しました。'
 export const GET_TRIP_ERROR_MSG = '旅行プランの取得に失敗しました。'
 export const CREATE_TRIP_ERROR_MSG = '旅行プランの作成に失敗しました。'
+export const COPY_TRIP_TITLE_ERROR_MSG = `コピー元の旅行タイトルは${
+  MAX_TRIP_TITLE_LENGTH - COPY_SUFFIX.length
+}文字以下にしてください。`
+
+export const COPY_TRIP_ERROR_MSG = '旅行プランのコピーに失敗しました。'
 export const UPDATE_TRIP_ERROR_MSG = '旅行プランの更新に失敗しました。'
 export const DELETE_TRIP_ERROR_MSG = '旅行プランの削除に失敗しました。'
 // s3API

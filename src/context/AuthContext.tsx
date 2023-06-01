@@ -22,6 +22,7 @@ interface AuthContext {
   firstLogin: boolean
   userIconPath: string
   tripApiLoading: boolean
+  selectedTrip: DbTripData | null
 
   signup: (
     email: string,
@@ -40,6 +41,7 @@ interface AuthContext {
   setUserIconPath: (path: string) => void
   setTripApiLoading: (tripApiLoading: boolean) => void
   setDbTripsData: (dbTripsData: DbTripData[]) => void
+  setSelectedTrip: (selectedTrip: DbTripData | null) => void
 }
 
 // AuthContextProviderのProps型の定義
@@ -80,6 +82,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
 
   const [userIconPath, setUserIconPath] = useState('')
   const [tripApiLoading, setTripApiLoading] = useState(false)
+  const [selectedTrip, setSelectedTrip] = useState<DbTripData | null>(null)
 
   // AuthContextオブジェクトの定義
   const AuthContext: AuthContext = {
@@ -99,6 +102,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     firstLogin,
     userIconPath,
     tripApiLoading,
+    selectedTrip,
     signup,
     loginWithEmailAndPassword,
     loginWithGoogle,
@@ -109,6 +113,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     setUserIconPath,
     setTripApiLoading,
     setDbTripsData,
+    setSelectedTrip,
   }
 
   return <AuthCtx.Provider value={AuthContext}>{children}</AuthCtx.Provider>

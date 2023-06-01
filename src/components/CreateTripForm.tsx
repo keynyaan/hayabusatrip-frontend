@@ -59,6 +59,8 @@ export const CreateTripForm: FC<CreateTripFormProps> = ({ onClose }) => {
     handleTripTitleBlur,
   } = useForm()
 
+  const isFormValid = Boolean(currentUser) && Boolean(dbUserData)
+
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <InputField
@@ -102,7 +104,7 @@ export const CreateTripForm: FC<CreateTripFormProps> = ({ onClose }) => {
       <FormButton
         label="作成"
         isFormValid={isCreateTripFormValid}
-        isTripApi={true}
+        isTripApi={isFormValid}
       />
     </form>
   )
