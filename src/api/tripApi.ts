@@ -24,6 +24,17 @@ export type CreateTripOptions = {
   end_date: string
 }
 
+export type CopyTripOptions = {
+  user_id: number
+  prefecture_id: number
+  title: string
+  start_date: string
+  end_date: string
+  memo: string
+  image_path: string
+  is_public: boolean
+}
+
 export type UpdateTripOptions = {
   prefecture_id?: number
   title?: string
@@ -37,7 +48,7 @@ export type UpdateTripOptions = {
 // ユーザーの全ての旅行プランの取得
 export const getTripsAPI = async (idToken: string, user_uid: string) => {
   try {
-    const res = await axios.get(`${USERS_URL}/${user_uid}/${TRIPS_URL}`, {
+    const res = await axios.get(`${USERS_URL}/${user_uid}${TRIPS_URL}`, {
       headers: {
         Authorization: `Bearer ${idToken}`,
       },
@@ -56,7 +67,7 @@ export const getTripAPI = async (
 ) => {
   try {
     const res = await axios.get(
-      `${USERS_URL}/${user_uid}/${TRIPS_URL}/${trip_token}`,
+      `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}`,
       {
         headers: {
           Authorization: `Bearer ${idToken}`,
@@ -69,19 +80,19 @@ export const getTripAPI = async (
   }
 }
 
-// 旅行プランの作成
+// 旅行プランの作成・コピー
 export const createTripAPI = async (
   idToken: string,
   user_uid: string,
-  options: CreateTripOptions
+  options: CreateTripOptions | CopyTripOptions
 ) => {
   try {
-    const params: { trip: CreateTripOptions } = {
+    const params: { trip: CreateTripOptions | CopyTripOptions } = {
       trip: options,
     }
 
     const res = await axios.post(
-      `${USERS_URL}/${user_uid}/${TRIPS_URL}`,
+      `${USERS_URL}/${user_uid}${TRIPS_URL}`,
       params,
       {
         headers: {
@@ -108,7 +119,7 @@ export const updateTripAPI = async (
     }
 
     const res = await axios.patch(
-      `${USERS_URL}/${user_uid}/${TRIPS_URL}/${trip_token}`,
+      `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}`,
       params,
       {
         headers: {
@@ -130,14 +141,14 @@ export const deleteTripAPI = async (
 ) => {
   try {
     const res = await axios.delete(
-      `${USERS_URL}/${user_uid}/${TRIPS_URL}/${trip_token}`,
+      `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}`,
       {
         headers: {
           Authorization: `Bearer ${idToken}`,
         },
       }
     )
-    return res.data
+    return res.status
   } catch (e) {
     throw e
   }

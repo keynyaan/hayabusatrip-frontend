@@ -1,11 +1,14 @@
 import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useAuthContext } from '@/context/AuthContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import { updateUserAPI } from '@/api/userApi'
+import { DropdownMenu } from '@/components/DropdownMenu'
+import { DropdownMenuButton } from '@/components/DropdownMenuButton'
+import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
+import { useDropdown } from '@/hooks/useDropdown'
 import {
   FILE_SIZE_LIMIT_BYTES,
   FILE_SIZE_LIMIT_MB,
@@ -22,20 +25,12 @@ type UserIconProps = {
 export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
   const { currentUser, dbUserData, logout, userIconPath, setUserIconPath } =
     useAuthContext()
+  const { dropdownRef, isDropdownVisible, hideDropdown, toggleDropdown } =
+    useDropdown()
 
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement | null>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const { showToast } = useToast()
-
-  const hideDropdown = () => {
-    setIsDropdownVisible(false)
-  }
-
-  const toggleDropdown = () => {
-    setIsDropdownVisible(!isDropdownVisible)
-  }
 
   const handleLogout = () => {
     hideDropdown()
@@ -106,23 +101,8 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
     if (currentUser) {
       hideDropdown()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser])
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        hideDropdown()
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [dropdownRef])
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -180,24 +160,12 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
           />
         </div>
       )}
-      {isDropdownVisible && (
-        <div className="absolute z-15 bg-white text-gray-700 rounded shadow right-0 mt-2">
-          <Link href="/settings">
-            <button
-              onClick={hideDropdown}
-              className="whitespace-nowrap p-3 w-full text-left hover:bg-gray-100 transition-colors"
-            >
-              アカウント設定
-            </button>
-          </Link>
-          <button
-            onClick={handleLogout}
-            className="whitespace-nowrap p-3 w-full text-left hover:bg-gray-100 transition-colors"
-          >
-            ログアウト
-          </button>
-        </div>
-      )}
+      <DropdownMenu isVisible={isDropdownVisible}>
+        <Link href="/settings">
+          <DropdownMenuButton onClick={hideDropdown} label="アカウント設定" />
+        </Link>
+        <DropdownMenuButton onClick={handleLogout} label="ログアウト" />
+      </DropdownMenu>
     </div>
   )
 }

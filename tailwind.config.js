@@ -13,7 +13,7 @@ module.exports = {
         ellipsis: 'ellipsis',
       },
       gridTemplateColumns: {
-        'auto-fit': 'repeat(auto-fit, minmax(17rem, 1fr))',
+        'auto-fit': 'repeat(auto-fit, minmax(16rem, 1fr))',
       },
     },
   },

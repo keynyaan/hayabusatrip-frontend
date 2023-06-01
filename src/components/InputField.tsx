@@ -1,4 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC, useRef } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCopy } from '@fortawesome/free-solid-svg-icons'
+import { useToast } from '@/context/ToastContext'
 
 type InputFieldProps = {
   id: string
@@ -10,9 +13,11 @@ type InputFieldProps = {
   placeholder?: string
   maxLength?: number
   value: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onBlur?: () => void
   error?: string
+  readonly?: boolean
+  onCopy?: boolean
 }
 
 export const InputField: FC<InputFieldProps> = ({
@@ -28,25 +33,54 @@ export const InputField: FC<InputFieldProps> = ({
   onChange,
   onBlur,
   error,
-}) => (
-  <div>
-    <label className={`text-gray-500 ${srOnly ? 'sr-only' : ''}`} htmlFor={id}>
-      {labelName}
-    </label>
-    <input
-      className={`w-full px-3 py-2 text-gray-700 border rounded focus:outline-none ${
-        error ? 'border-red-500' : 'focus:border-brand-color'
-      }`}
-      type={type}
-      min={minDate}
-      max={maxDate}
-      id={id}
-      placeholder={placeholder}
-      maxLength={maxLength}
-      value={value}
-      onChange={onChange}
-      onBlur={onBlur}
-    />
-    {error && <p className="text-red-500">{error}</p>}
-  </div>
-)
+  readonly,
+  onCopy,
+}) => {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const { showToast } = useToast()
+
+  const handleCopy = () => {
+    if (inputRef.current) {
+      navigator.clipboard
+        .writeText(inputRef.current.value)
+        .then(() => showToast('success', 'URLをコピーしました'))
+        .catch(() => showToast('error', 'コピーに失敗しました'))
+    }
+  }
+
+  return (
+    <div className="relative">
+      <label
+        className={`text-gray-500 ${srOnly ? 'sr-only' : ''}`}
+        htmlFor={id}
+      >
+        {labelName}
+      </label>
+      <input
+        ref={inputRef}
+        className={`w-full px-3 py-2 text-gray-700 border rounded focus:outline-none ${
+          error ? 'border-red-500' : 'focus:border-brand-color'
+        } ${onCopy && 'pr-8'}`}
+        type={type}
+        min={minDate}
+        max={maxDate}
+        id={id}
+        placeholder={placeholder}
+        maxLength={maxLength}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        readOnly={readonly}
+      />
+      {onCopy && (
+        <button
+          onClick={handleCopy}
+          className="absolute right-2 top-1/2 text-gray-500 hover:text-gray-400 transition"
+        >
+          <FontAwesomeIcon icon={faCopy} />
+        </button>
+      )}
+      {error && <p className="text-red-500">{error}</p>}
+    </div>
+  )
+}
