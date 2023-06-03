@@ -46,3 +46,9 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
 select:hover {
   @apply cursor-pointer;
 }
+
+li.cursor-default a:hover {
+  cursor: default;
+  background-color: transparent;
+  color: black;
+}
