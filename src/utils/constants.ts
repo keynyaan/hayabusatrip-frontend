@@ -126,3 +126,9 @@ export const TRIP_DESTINATION_ITEMS = [
   { value: '46', name: '鹿児島県' },
   { value: '47', name: '沖縄県' },
 ]
+
+// 公開設定の配列
+export const PUBLISH_SETTINGS_ITEMS = [
+  { value: 'true', name: '公開' },
+  { value: 'false', name: '非公開' },
+]
