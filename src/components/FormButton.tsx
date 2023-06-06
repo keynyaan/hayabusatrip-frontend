@@ -1,5 +1,5 @@
 import React from 'react'
-import { ClipLoader } from 'react-spinners'
+import { Spinner } from '@/components/Spinner'
 import { useAuthContext } from '@/context/AuthContext'
 
 type FormButtonProps = {
@@ -10,8 +10,6 @@ type FormButtonProps = {
   isUnsubscribe?: boolean
   isTripApi?: boolean
 }
-
-const spinner = <ClipLoader size={24} color="white" />
 
 export const FormButton: React.FC<FormButtonProps> = ({
   label,
@@ -57,7 +55,7 @@ export const FormButton: React.FC<FormButtonProps> = ({
       type="submit"
       disabled={!isFormValid || loading}
     >
-      {loading ? spinner : label}
+      {loading ? <Spinner isFormButton={true} /> : label}
     </button>
   )
 }

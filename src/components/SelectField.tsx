@@ -1,11 +1,14 @@
 import React, { FC } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 type SelectFieldProps = {
   id: string
   labelName: string
   srOnly?: boolean
-  value: string
-  items: { value: string; name: string }[]
+  value?: string
+  items: { value: string; name: string }[] | number[]
+  search?: boolean
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
 
@@ -15,26 +18,41 @@ export const SelectField: FC<SelectFieldProps> = ({
   srOnly,
   value,
   items,
+  search,
   onChange,
 }) => (
   <div>
     <label className={`text-gray-500 ${srOnly ? 'sr-only' : ''}`} htmlFor={id}>
+      {search && (
+        <FontAwesomeIcon icon={faSearch} className="mr-2 text-gray-700" />
+      )}
       {labelName}
     </label>
     <select
       className="w-full pl-3 py-2 text-gray-700 border rounded focus:outline-none focus:border-brand-color"
       id={id}
-      value={value}
+      name={id}
+      defaultValue={value ? undefined : ''}
       onChange={onChange}
     >
-      <option value="" disabled>
-        {labelName}を選択してください
+      <option value="" disabled={!search}>
+        {search ? 'すべて' : `${labelName}を選択してください`}
       </option>
-      {items.map((item) => (
-        <option key={item.value} value={item.value}>
-          {item.name}
-        </option>
-      ))}
+      {items.map((item, index) => {
+        if (typeof item === 'number') {
+          return (
+            <option key={index} value={item}>
+              {item}
+            </option>
+          )
+        } else {
+          return (
+            <option key={item.value} value={item.value}>
+              {item.name}
+            </option>
+          )
+        }
+      })}
     </select>
   </div>
 )
