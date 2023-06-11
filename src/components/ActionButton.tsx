@@ -1,15 +1,19 @@
 import React, { FC } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHouse } from '@fortawesome/free-solid-svg-icons'
 
 type ActionButtonProps = {
   text: string
-  onClick: () => void
+  onClick?: () => void
   isUnsubscribe?: boolean
+  showHomeIcon?: boolean
 }
 
 export const ActionButton: FC<ActionButtonProps> = ({
   text,
   onClick,
-  isUnsubscribe = false,
+  isUnsubscribe,
+  showHomeIcon,
 }) => {
   return (
     <button
@@ -20,6 +24,7 @@ export const ActionButton: FC<ActionButtonProps> = ({
       }`}
       onClick={onClick}
     >
+      {showHomeIcon && <FontAwesomeIcon icon={faHouse} className="mr-2" />}
       {text}
     </button>
   )
