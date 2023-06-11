@@ -87,11 +87,11 @@ export default function Settings() {
   return (
     <>
       {currentUser && (
-        <div className="mx-auto max-w-md">
-          <h2 className="text-xl font-semibold mt-5 mb-5 text-gray-700">
+        <div className="mx-auto max-w-md space-y-4 p-4">
+          <h2 className="text-xl font-semibold text-gray-700">
             アカウント設定
           </h2>
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-center">
             <UserIcon isSettingsPage={true} />
           </div>
           <form className="space-y-4" onSubmit={handleSubmit}>
