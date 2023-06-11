@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import {
   getTripsAPI,
   getTripAPI,
@@ -28,6 +29,7 @@ import {
 } from '@/utils/constants'
 
 export const useTripApi = () => {
+  const router = useRouter()
   const { showToast } = useToast()
   const { dbTripsData, setTripApiLoading, setDbTripsData } = useAuthContext()
 
@@ -43,17 +45,13 @@ export const useTripApi = () => {
     }
   }
 
-  const getTrip = async (
-    idToken: string,
-    user_uid: string,
-    trip_token: string
-  ) => {
+  const getTrip = async (trip_token: string, user_uid?: string) => {
     setTripApiLoading(true)
     try {
-      const data: DbTripData = await getTripAPI(idToken, user_uid, trip_token)
+      const data: DbTripData = await getTripAPI(trip_token, user_uid)
       return data
     } catch (e) {
-      showToast('error', GET_TRIP_ERROR_MSG)
+      // 利用側のコードで、404ページを返すため何もしない
     } finally {
       setTripApiLoading(false)
     }
@@ -68,6 +66,7 @@ export const useTripApi = () => {
     try {
       const data: DbTripData = await createTripAPI(idToken, user_uid, options)
       setDbTripsData([...(dbTripsData || []), data])
+      await router.push('/')
       showToast('success', CREATE_TRIP_SUCCESS_MSG)
       return data
     } catch (e) {
@@ -162,6 +161,7 @@ export const useTripApi = () => {
           )
           setDbTripsData(updatedTripsData)
         }
+        await router.push('/')
         showToast('success', DELETE_TRIP_SUCCESS_MSG)
         return true
       } else {

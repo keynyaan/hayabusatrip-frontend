@@ -61,6 +61,11 @@ export const useForm = () => {
     Boolean(endDate) &&
     !validateEndDate(startDate, endDate)
 
+  const isTripTitleFormValid: boolean =
+    Boolean(tripTitle) && !validateTripTitle(tripTitle)
+
+  const isTripDestinationFormValid: boolean = tripDestination !== ''
+
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(e.target.value)
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -124,6 +129,8 @@ export const useForm = () => {
     isPasswordResetFormValid,
     isUpdateUserFormValid,
     isCreateTripFormValid,
+    isTripTitleFormValid,
+    isTripDestinationFormValid,
     handleUsernameChange,
     handleEmailChange,
     handlePasswordChange,
