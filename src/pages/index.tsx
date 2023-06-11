@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import 'react-responsive-modal/styles.css'
 import type { DbTripData } from '@/api/tripApi'
 import { Meta } from '@/components/Meta'
@@ -9,11 +8,8 @@ import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { TripFilter } from '@/components/TripFilter'
 import { useAuthContext } from '@/context/AuthContext'
-import { useToast } from '@/context/ToastContext'
 
 export default function Home() {
-  const router = useRouter()
-  const { showToast } = useToast()
   const { currentUser, dbTripsData, authLoading } = useAuthContext()
 
   const [pageNumber, setPageNumber] = useState(0)
@@ -26,24 +22,21 @@ export default function Home() {
     setPageNumber(0)
   }, [dbTripsData])
 
-  if (authLoading || !dbTripsData) {
-    return (
-      <div className="flex justify-center items-center mt-16">
-        <Spinner />
-      </div>
-    )
+  if (!currentUser) {
+    return currentUser === null ? (
+      <p>非ログインユーザー向けの画面を表示</p>
+    ) : null
   }
 
-  if (!currentUser) {
-    router.push('/')
-    showToast('error', 'ログインしてください。')
+  if (authLoading || !dbTripsData) {
+    return <Spinner />
   }
 
   if (dbTripsData.length === 0) {
     return (
       <div className="flex flex-col items-center">
         <Image
-          src={`${process.env.NEXT_PUBLIC_S3_OBJECT_URL}/utils/sleeping-dog.png`}
+          src={`${process.env.NEXT_PUBLIC_S3_OBJECT_URL}/utils/no_plan_sleeping_dog.png`}
           alt={'旅行プランがない時の眠る犬のイラスト'}
           width={250}
           height={250}
@@ -75,7 +68,7 @@ export default function Home() {
                 検索条件を変更してください。
               </p>
               <Image
-                src={`${process.env.NEXT_PUBLIC_S3_OBJECT_URL}/utils/playing-cat.png`}
+                src={`${process.env.NEXT_PUBLIC_S3_OBJECT_URL}/utils/plan_not_found_playing_cat.png`}
                 alt={'旅行プランが見つからない時のボールで遊ぶ猫のイラスト'}
                 width={250}
                 height={250}

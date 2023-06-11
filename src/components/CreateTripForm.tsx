@@ -31,7 +31,6 @@ export const CreateTripForm: FC<CreateTripFormProps> = ({ onClose }) => {
 
       if (success) {
         onClose()
-        // 作成した旅行ページに遷移する処理を後で作成
       }
     } else {
       showToast('error', 'ログインしてください。')
@@ -58,8 +57,6 @@ export const CreateTripForm: FC<CreateTripFormProps> = ({ onClose }) => {
     handleEndDateChange,
     handleTripTitleBlur,
   } = useForm()
-
-  const isFormValid = Boolean(currentUser) && Boolean(dbUserData)
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
@@ -104,7 +101,7 @@ export const CreateTripForm: FC<CreateTripFormProps> = ({ onClose }) => {
       <FormButton
         label="作成"
         isFormValid={isCreateTripFormValid}
-        isTripApi={isFormValid}
+        isTripApi={true}
       />
     </form>
   )

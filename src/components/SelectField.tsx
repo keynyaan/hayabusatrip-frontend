@@ -32,7 +32,7 @@ export const SelectField: FC<SelectFieldProps> = ({
       className="w-full pl-3 py-2 text-gray-700 border rounded focus:outline-none focus:border-brand-color"
       id={id}
       name={id}
-      defaultValue={value ? undefined : ''}
+      value={value}
       onChange={onChange}
     >
       <option value="" disabled={!search}>

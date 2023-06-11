@@ -21,6 +21,7 @@ export const HTTP_STATUS_NO_CONTENT = 204
 // API実行用のURL
 export const USERS_URL = '/users'
 export const TRIPS_URL = '/trips'
+export const SPOTS_URL = '/spots'
 export const S3_UPLOAD_URL = '/s3/upload'
 
 // ユーザーアイコンのサイズ
@@ -47,6 +48,8 @@ export const FORM_UNSUBSCRIBE = '退会'
 export const FORM_CREATE_TRIP = '旅行プラン作成'
 export const FORM_TRIP_PUBLISH_SETTINGS = '旅行プラン公開設定'
 export const FORM_COPY_TRIP = '旅行プランコピー'
+export const FORM_TRIP_TITLE = '旅行タイトル変更'
+export const FORM_TRIP_DESTINATION = '旅行先変更'
 export const FORM_DELETE_TRIP = '旅行プラン削除'
 
 // 旅行タイトルの上限とコピー時の接尾辞
@@ -69,10 +72,17 @@ export const CREATE_TRIP_ERROR_MSG = '旅行プランの作成に失敗しまし
 export const COPY_TRIP_TITLE_ERROR_MSG = `コピー元の旅行タイトルは${
   MAX_TRIP_TITLE_LENGTH - COPY_SUFFIX.length
 }文字以下にしてください。`
-
 export const COPY_TRIP_ERROR_MSG = '旅行プランのコピーに失敗しました。'
 export const UPDATE_TRIP_ERROR_MSG = '旅行プランの更新に失敗しました。'
 export const DELETE_TRIP_ERROR_MSG = '旅行プランの削除に失敗しました。'
+// spotAPI
+export const CREATE_SPOT_SUCCESS_MSG = '旅行スポットを作成しました。'
+export const UPDATE_SPOT_SUCCESS_MSG = '旅行スポットを更新しました。'
+export const DELETE_SPOT_SUCCESS_MSG = '旅行スポットを削除しました。'
+export const GET_SPOT_ERROR_MSG = '旅行スポットの取得に失敗しました。'
+export const CREATE_SPOT_ERROR_MSG = '旅行スポットの作成に失敗しました。'
+export const UPDATE_SPOT_ERROR_MSG = '旅行スポットの更新に失敗しました。'
+export const DELETE_SPOT_ERROR_MSG = '旅行スポットの削除に失敗しました。'
 // s3API
 export const UPLOAD_ERROR_MSG = '画像のアップロードに失敗しました。'
 

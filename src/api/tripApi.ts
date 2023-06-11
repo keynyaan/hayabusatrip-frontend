@@ -60,20 +60,13 @@ export const getTripsAPI = async (idToken: string, user_uid: string) => {
 }
 
 // 特定の旅行プランの取得
-export const getTripAPI = async (
-  idToken: string,
-  user_uid: string,
-  trip_token: string
-) => {
+export const getTripAPI = async (trip_token: string, user_uid?: string) => {
   try {
-    const res = await axios.get(
-      `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}`,
-      {
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
-      }
-    )
+    const url = user_uid
+      ? `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}`
+      : `${TRIPS_URL}/${trip_token}`
+
+    const res = await axios.get(url)
     return res.data
   } catch (e) {
     throw e

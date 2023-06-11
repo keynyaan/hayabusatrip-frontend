@@ -1,14 +1,19 @@
 import type { User } from 'firebase/auth'
 import { createContext, useContext, useState } from 'react'
+import { DbSpotData } from '@/api/spotApi'
+import { DbTripData } from '@/api/tripApi'
 import { DbUserData } from '@/api/userApi'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
-import { DbTripData } from '@/api/tripApi'
 
 // AuthContextのインターフェース定義
 interface AuthContext {
   currentUser: User | null | undefined
   dbUserData: DbUserData | null
   dbTripsData: DbTripData[] | null
+  selectedTrip: DbTripData | null
+  tripApiLoading: boolean
+  dbSpotsData: DbSpotData[] | null
+  spotApiLoading: boolean
   signupLoading: boolean
   loginLoading: boolean
   googleLoginLoading: boolean
@@ -21,8 +26,6 @@ interface AuthContext {
   redirectResultFetched: boolean
   firstLogin: boolean
   userIconPath: string
-  tripApiLoading: boolean
-  selectedTrip: DbTripData | null
 
   signup: (
     email: string,
@@ -39,9 +42,11 @@ interface AuthContext {
   updateUser: (newUsername: string, newEmail: string) => Promise<void>
   deleteUser: () => Promise<boolean>
   setUserIconPath: (path: string) => void
-  setTripApiLoading: (tripApiLoading: boolean) => void
   setDbTripsData: (dbTripsData: DbTripData[]) => void
   setSelectedTrip: (selectedTrip: DbTripData | null) => void
+  setTripApiLoading: (tripApiLoading: boolean) => void
+  setDbSpotsData: (dbSpotsData: DbSpotData[]) => void
+  setSpotApiLoading: (spotApiLoading: boolean) => void
 }
 
 // AuthContextProviderのProps型の定義
@@ -81,14 +86,20 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   } = useFirebaseAuth()
 
   const [userIconPath, setUserIconPath] = useState('')
-  const [tripApiLoading, setTripApiLoading] = useState(false)
   const [selectedTrip, setSelectedTrip] = useState<DbTripData | null>(null)
+  const [tripApiLoading, setTripApiLoading] = useState(false)
+  const [dbSpotsData, setDbSpotsData] = useState<DbSpotData[] | null>(null)
+  const [spotApiLoading, setSpotApiLoading] = useState(false)
 
   // AuthContextオブジェクトの定義
   const AuthContext: AuthContext = {
     currentUser,
     dbUserData,
     dbTripsData,
+    selectedTrip,
+    tripApiLoading,
+    dbSpotsData,
+    spotApiLoading,
     signupLoading,
     loginLoading,
     googleLoginLoading,
@@ -101,8 +112,6 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     redirectResultFetched,
     firstLogin,
     userIconPath,
-    tripApiLoading,
-    selectedTrip,
     signup,
     loginWithEmailAndPassword,
     loginWithGoogle,
@@ -111,9 +120,11 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     updateUser,
     deleteUser,
     setUserIconPath,
-    setTripApiLoading,
     setDbTripsData,
     setSelectedTrip,
+    setTripApiLoading,
+    setDbSpotsData,
+    setSpotApiLoading,
   }
 
   return <AuthCtx.Provider value={AuthContext}>{children}</AuthCtx.Provider>
