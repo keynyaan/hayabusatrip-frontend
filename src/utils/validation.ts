@@ -1,9 +1,9 @@
 import { MIN_DATE_OBJ, MAX_DATE_OBJ } from '@/utils/constants'
 
 export const validateUsername = (username: string) => {
-  // ひらがな、カタカナ（全角）、カタカナ（半角）、漢字、数字（半角）、数字（全角）、
+  // ひらがな、カタカナ（全角）、カタカナ（半角）、長音記号、漢字、数字（半角）、数字（全角）、
   // 英語（小文字・大文字・半角）、英語（小文字・大文字・全角）のみ許可
-  const pattern = /^[ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠々ゔ０-９0-9a-zA-Zａ-ｚＡ-Ｚ]+$/
+  const pattern = /^[ぁ-んァ-ヶｱ-ﾝﾞﾟー一-龠々ゔ０-９0-9a-zA-Zａ-ｚＡ-Ｚ]+$/
   if (username === '') return 'ユーザー名を入力してください'
   if (!pattern.test(username)) {
     return 'ユーザー名は日本語または英数字を使用してください'
@@ -45,12 +45,12 @@ export const validatePasswordConfirm = (
   return ''
 }
 
-export const validateTripTitle = (username: string) => {
-  // ひらがな、カタカナ（全角）、カタカナ（半角）、漢字、数字（半角）、数字（全角）、
+export const validateTripTitle = (tripTitle: string) => {
+  // ひらがな、カタカナ（全角）、カタカナ（半角）、長音記号、漢字、数字（半角）、数字（全角）、
   // 英語（小文字・大文字・半角）、英語（小文字・大文字・全角）のみ許可
-  const pattern = /^[ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠々ゔ０-９0-9a-zA-Zａ-ｚＡ-Ｚ]+$/
-  if (username === '') return '旅行タイトルを入力してください'
-  if (!pattern.test(username)) {
+  const pattern = /^[ぁ-んァ-ヶｱ-ﾝﾞﾟー一-龠々ゔ０-９0-9a-zA-Zａ-ｚＡ-Ｚ]+$/
+  if (tripTitle === '') return '旅行タイトルを入力してください'
+  if (!pattern.test(tripTitle)) {
     return '旅行タイトルは日本語または英数字を使用してください'
   }
   return ''
