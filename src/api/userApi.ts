@@ -6,6 +6,7 @@ import {
   GET_USER_ERROR_MSG,
   UPDATE_USER_ERROR_MSG,
   DELETE_USER_ERROR_MSG,
+  USER_ICONS_DIRECTORY,
 } from '@/utils/constants'
 import { getTimestamp } from '@/utils/getTimestamp'
 
@@ -97,11 +98,11 @@ export const updateUserAPI = async (
     }
 
     if (imageFile) {
-      const filename = `${options.uid}-${getTimestamp()}.${
-        imageFile.type.split('/')[1]
-      }`
+      const filename = `${USER_ICONS_DIRECTORY}/${
+        options.uid
+      }-${getTimestamp()}.${imageFile.type.split('/')[1]}`
       const imageUrl = await uploadImageToS3(imageFile, filename)
-      params.user.icon_path = imageUrl
+      params.user.icon_path = `${imageUrl}?v=${getTimestamp()}`
     }
 
     const res = await axios.patch(`${USERS_URL}/${options.uid}`, params, {

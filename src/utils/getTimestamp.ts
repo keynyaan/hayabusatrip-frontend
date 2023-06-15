@@ -1,11 +1,11 @@
 import { format, utcToZonedTime } from 'date-fns-tz'
 
-const nowInJapan = utcToZonedTime(new Date(), 'Asia/Tokyo')
-
 export const getTimestamp = () => {
-  return format(nowInJapan, 'yyyyMMddHHmmss')
+  const nowInJapan = utcToZonedTime(new Date(), 'Asia/Tokyo')
+  return format(nowInJapan, 'yyyyMMddHHmmssSSS')
 }
 
 export const getDatetimeTimestamp = () => {
+  const nowInJapan = utcToZonedTime(new Date(), 'Asia/Tokyo')
   return format(nowInJapan, 'yyyy-MM-dd HH:mm:ss.SSS')
 }

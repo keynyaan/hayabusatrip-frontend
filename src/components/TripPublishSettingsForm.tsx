@@ -68,7 +68,7 @@ export const TripPublishSettingsForm: FC<TripPublishSettingsFormProps> = ({
           />
           <form onSubmit={handleSubmit}>
             <FormButton
-              label={selectedTrip.is_public ? '非公開に設定' : '公開に設定'}
+              label={selectedTrip.is_public ? '非公開に変更' : '公開に変更'}
               isFormValid={isFormValid}
               isTripApi={true}
             />

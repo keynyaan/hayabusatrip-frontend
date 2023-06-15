@@ -14,6 +14,7 @@ interface AuthContext {
   tripApiLoading: boolean
   dbSpotsData: DbSpotData[] | null
   spotApiLoading: boolean
+  S3ApiLoading: boolean
   signupLoading: boolean
   loginLoading: boolean
   googleLoginLoading: boolean
@@ -47,6 +48,7 @@ interface AuthContext {
   setTripApiLoading: (tripApiLoading: boolean) => void
   setDbSpotsData: (dbSpotsData: DbSpotData[]) => void
   setSpotApiLoading: (spotApiLoading: boolean) => void
+  setS3ApiLoading: (S3ApiLoading: boolean) => void
 }
 
 // AuthContextProviderのProps型の定義
@@ -90,6 +92,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const [tripApiLoading, setTripApiLoading] = useState(false)
   const [dbSpotsData, setDbSpotsData] = useState<DbSpotData[] | null>(null)
   const [spotApiLoading, setSpotApiLoading] = useState(false)
+  const [S3ApiLoading, setS3ApiLoading] = useState(false)
 
   // AuthContextオブジェクトの定義
   const AuthContext: AuthContext = {
@@ -100,6 +103,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     tripApiLoading,
     dbSpotsData,
     spotApiLoading,
+    S3ApiLoading,
     signupLoading,
     loginLoading,
     googleLoginLoading,
@@ -125,6 +129,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     setTripApiLoading,
     setDbSpotsData,
     setSpotApiLoading,
+    setS3ApiLoading,
   }
 
   return <AuthCtx.Provider value={AuthContext}>{children}</AuthCtx.Provider>
