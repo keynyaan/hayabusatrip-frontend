@@ -46,10 +46,11 @@ export const FORM_LOGIN = 'ログイン'
 export const FORM_PASSWORD_RESET = 'パスワード再設定'
 export const FORM_UNSUBSCRIBE = '退会'
 export const FORM_CREATE_TRIP = '旅行プラン作成'
-export const FORM_TRIP_PUBLISH_SETTINGS = '旅行プラン公開設定'
-export const FORM_COPY_TRIP = '旅行プランコピー'
+export const FORM_TRIP_PHOTO = '旅行写真変更'
+export const FORM_TRIP_PUBLISH_SETTINGS = '公開状態変更'
 export const FORM_TRIP_TITLE = '旅行タイトル変更'
 export const FORM_TRIP_DESTINATION = '旅行先変更'
+export const FORM_COPY_TRIP = '旅行プランコピー'
 export const FORM_DELETE_TRIP = '旅行プラン削除'
 
 // 旅行タイトルの上限とコピー時の接尾辞
@@ -83,8 +84,14 @@ export const GET_SPOT_ERROR_MSG = '旅行スポットの取得に失敗しまし
 export const CREATE_SPOT_ERROR_MSG = '旅行スポットの作成に失敗しました。'
 export const UPDATE_SPOT_ERROR_MSG = '旅行スポットの更新に失敗しました。'
 export const DELETE_SPOT_ERROR_MSG = '旅行スポットの削除に失敗しました。'
-// s3API
+// S3API
+export const UPLOAD_LOADING_MSG = '画像を更新中です。'
+export const UPLOAD_SUCCESS_MSG = '画像を更新しました。'
 export const UPLOAD_ERROR_MSG = '画像のアップロードに失敗しました。'
+
+// S3API実行時の保存先ディレクトリ
+export const USER_ICONS_DIRECTORY = 'user_icons'
+export const TRIP_IMAGES_DIRECTORY = 'trip_images'
 
 // 旅行先の配列
 export const TRIP_DESTINATION_ITEMS = [
@@ -137,7 +144,7 @@ export const TRIP_DESTINATION_ITEMS = [
   { value: '47', name: '沖縄県' },
 ]
 
-// 公開設定の配列
+// 公開状態の配列
 export const PUBLISH_SETTINGS_ITEMS = [
   { value: 'true', name: '公開' },
   { value: 'false', name: '非公開' },

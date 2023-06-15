@@ -18,6 +18,7 @@ import {
   FORM_COPY_TRIP,
   FORM_DELETE_TRIP,
   FORM_TRIP_DESTINATION,
+  FORM_TRIP_PHOTO,
   FORM_TRIP_PUBLISH_SETTINGS,
   FORM_TRIP_TITLE,
   TRIPS_URL,
@@ -35,10 +36,11 @@ export const TripCard: React.FC<TripCardProps> = ({ trip, isDetailPage }) => {
   const { dropdownRef, isDropdownVisible, hideDropdown, toggleDropdown } =
     useDropdown()
 
+  const [tripPhotoOpen, setTripPhotoOpen] = useState(false)
   const [tripPublishSettingsOpen, setTripPublishSettingsOpen] = useState(false)
-  const [copyTripOpen, setCopyTripOpen] = useState(false)
   const [tripTitleOpen, setTripTitleOpen] = useState(false)
   const [tripDestinationOpen, setTripDestinationOpen] = useState(false)
+  const [copyTripOpen, setCopyTripOpen] = useState(false)
   const [deleteTripOpen, setDeleteTripOpen] = useState(false)
 
   const onOpenModal = (
@@ -98,16 +100,16 @@ export const TripCard: React.FC<TripCardProps> = ({ trip, isDetailPage }) => {
           <FontAwesomeIcon icon={faEllipsis} className="text-white text-2xl" />
         </div>
         <DropdownMenu isVisible={isDropdownVisible}>
-          <DropdownMenuButton
-            onClick={() => onOpenModal(setTripPublishSettingsOpen)}
-            label="公開設定"
-          />
-          {isDetailPage ?? (
+          {isDetailPage && (
             <DropdownMenuButton
-              onClick={() => onOpenModal(setCopyTripOpen)}
-              label="コピー"
+              onClick={() => onOpenModal(setTripPhotoOpen)}
+              label="写真の変更"
             />
           )}
+          <DropdownMenuButton
+            onClick={() => onOpenModal(setTripPublishSettingsOpen)}
+            label="公開状態の変更"
+          />
           <DropdownMenuButton
             onClick={() => onOpenModal(setTripTitleOpen)}
             label="タイトルの変更"
@@ -116,24 +118,30 @@ export const TripCard: React.FC<TripCardProps> = ({ trip, isDetailPage }) => {
             onClick={() => onOpenModal(setTripDestinationOpen)}
             label="旅行先の変更"
           />
+          {isDetailPage ?? (
+            <DropdownMenuButton
+              onClick={() => onOpenModal(setCopyTripOpen)}
+              label="コピー"
+            />
+          )}
           <DropdownMenuButton
             onClick={() => onOpenModal(setDeleteTripOpen)}
             label="削除"
             className="text-red-500"
           />
         </DropdownMenu>
+        {tripPhotoOpen && (
+          <TripCardModal
+            open={tripPhotoOpen}
+            onClose={() => onCloseModal(setTripPhotoOpen)}
+            form={FORM_TRIP_PHOTO}
+          />
+        )}
         {tripPublishSettingsOpen && (
           <TripCardModal
             open={tripPublishSettingsOpen}
             onClose={() => onCloseModal(setTripPublishSettingsOpen)}
             form={FORM_TRIP_PUBLISH_SETTINGS}
-          />
-        )}
-        {copyTripOpen && (
-          <TripCardModal
-            open={copyTripOpen}
-            onClose={() => onCloseModal(setCopyTripOpen)}
-            form={FORM_COPY_TRIP}
           />
         )}
         {tripTitleOpen && (
@@ -148,6 +156,13 @@ export const TripCard: React.FC<TripCardProps> = ({ trip, isDetailPage }) => {
             open={tripDestinationOpen}
             onClose={() => onCloseModal(setTripDestinationOpen)}
             form={FORM_TRIP_DESTINATION}
+          />
+        )}
+        {copyTripOpen && (
+          <TripCardModal
+            open={copyTripOpen}
+            onClose={() => onCloseModal(setCopyTripOpen)}
+            form={FORM_COPY_TRIP}
           />
         )}
         {deleteTripOpen && (

@@ -160,7 +160,7 @@ export const TripFilter: React.FC<TripFilterProps> = ({
         </div>
         <SelectField
           id="publish-settings"
-          labelName="公開設定"
+          labelName="公開状態"
           items={PUBLISH_SETTINGS_ITEMS}
           search={true}
           onChange={handleStatusFilterChange}

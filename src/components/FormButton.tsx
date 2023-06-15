@@ -9,6 +9,8 @@ type FormButtonProps = {
   isPasswordReset?: boolean
   isUnsubscribe?: boolean
   isTripApi?: boolean
+  isS3Api?: boolean
+  onClick?: () => void
 }
 
 export const FormButton: React.FC<FormButtonProps> = ({
@@ -18,6 +20,8 @@ export const FormButton: React.FC<FormButtonProps> = ({
   isPasswordReset,
   isUnsubscribe,
   isTripApi,
+  isS3Api,
+  onClick,
 }) => {
   const {
     updateUserLoading,
@@ -25,6 +29,7 @@ export const FormButton: React.FC<FormButtonProps> = ({
     deleteUserLoading,
     anyLoading,
     tripApiLoading,
+    S3ApiLoading,
   } = useAuthContext()
 
   let loading = false
@@ -37,6 +42,8 @@ export const FormButton: React.FC<FormButtonProps> = ({
     loading = deleteUserLoading
   } else if (isTripApi) {
     loading = tripApiLoading
+  } else if (isS3Api) {
+    loading = S3ApiLoading
   } else {
     loading = anyLoading
   }
@@ -54,6 +61,7 @@ export const FormButton: React.FC<FormButtonProps> = ({
       }`}
       type="submit"
       disabled={!isFormValid || loading}
+      onClick={onClick}
     >
       {loading ? <Spinner isFormButton={true} /> : label}
     </button>
