@@ -22,13 +22,13 @@ export type DbUserData = {
   last_login_time: string | null
 }
 
-type CreateUserOptions = {
+export type CreateUserOptions = {
   uid: string
   name: string
   icon_path?: string
 }
 
-type UpdateUserOptions = {
+export type UpdateUserOptions = {
   uid: string
   name?: string
   icon_path?: string

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { updateTripAPI, DbTripData } from '@/api/tripApi'
 import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
@@ -8,9 +9,12 @@ import {
   FILE_SIZE_LIMIT_BYTES,
   FILE_SIZE_LIMIT_MB,
   TRIP_IMAGES_DIRECTORY,
+  USER_ICONS_DIRECTORY,
+  USERS_URL,
 } from '@/utils/constants'
 import { uploadImageToS3 } from '@/api/S3Api'
 import { getTimestamp } from '@/utils/getTimestamp'
+import { UpdateUserOptions } from '@/api/userApi'
 
 export const useS3Api = () => {
   const { showToast } = useToast()
@@ -21,17 +25,13 @@ export const useS3Api = () => {
     selectedTrip,
     setS3ApiLoading,
     setDbTripsData,
+    setUserIconPath,
   } = useAuthContext()
 
-  const uploadTripImage = async (file: File) => {
-    if (!(currentUser && dbUserData && selectedTrip)) {
-      showToast('error', 'ログインしてください。')
-      return
-    }
-
+  const validateFile = (file: File) => {
     if (!file.type.startsWith('image/')) {
       showToast('error', '画像ファイルを選択してください。')
-      return
+      return false
     }
 
     if (file.size > FILE_SIZE_LIMIT_BYTES) {
@@ -39,6 +39,19 @@ export const useS3Api = () => {
         'error',
         `画像ファイルのサイズは${FILE_SIZE_LIMIT_MB}MB以下にしてください。`
       )
+      return false
+    }
+
+    return true
+  }
+
+  const uploadTripImage = async (file: File) => {
+    if (!(currentUser && dbUserData && selectedTrip)) {
+      showToast('error', 'ログインしてください。')
+      return
+    }
+
+    if (!validateFile(file)) {
       return
     }
 
@@ -76,7 +89,48 @@ export const useS3Api = () => {
     }
   }
 
+  const uploadUserIconImage = async (file: File) => {
+    if (!(currentUser && dbUserData)) {
+      showToast('error', 'ログインしてください。')
+      return
+    }
+
+    if (!validateFile(file)) {
+      return
+    }
+
+    const params: { user: UpdateUserOptions } = {
+      user: { uid: dbUserData.uid },
+    }
+
+    const idToken = await currentUser.getIdToken()
+    const filename = `${USER_ICONS_DIRECTORY}/${
+      currentUser.uid
+    }-${getTimestamp()}.${file.type.split('/')[1]}`
+
+    setS3ApiLoading(true)
+    showToast('info', UPLOAD_LOADING_MSG)
+
+    try {
+      const imageUrl = await uploadImageToS3(file, filename)
+      params.user.icon_path = `${imageUrl}?v=${getTimestamp()}`
+      const res = await axios.patch(`${USERS_URL}/${dbUserData.uid}`, params, {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      })
+      setUserIconPath(res.data.icon_path)
+      showToast('success', UPLOAD_SUCCESS_MSG)
+      return res.data
+    } catch (e) {
+      showToast('error', UPLOAD_ERROR_MSG)
+    } finally {
+      setS3ApiLoading(false)
+    }
+  }
+
   return {
     uploadTripImage,
+    uploadUserIconImage,
   }
 }

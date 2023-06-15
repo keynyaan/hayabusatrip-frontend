@@ -3,15 +3,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
-import { updateUserAPI } from '@/api/userApi'
 import { DropdownMenu } from '@/components/DropdownMenu'
 import { DropdownMenuButton } from '@/components/DropdownMenuButton'
 import { useAuthContext } from '@/context/AuthContext'
-import { useToast } from '@/context/ToastContext'
 import { useDropdown } from '@/hooks/useDropdown'
+import { useS3Api } from '@/hooks/useS3Api'
 import {
-  FILE_SIZE_LIMIT_BYTES,
-  FILE_SIZE_LIMIT_MB,
   HEADER_USER_ICON_HEIGHT,
   HEADER_USER_ICON_WIDTH,
   SETTINGS_USER_ICON_HEIGHT,
@@ -27,10 +24,10 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
     useAuthContext()
   const { dropdownRef, isDropdownVisible, hideDropdown, toggleDropdown } =
     useDropdown()
+  const { uploadUserIconImage } = useS3Api()
 
   const [isHovered, setIsHovered] = useState(false)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
-  const { showToast } = useToast()
 
   const handleLogout = () => {
     hideDropdown()
@@ -56,39 +53,12 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    if (!event.target.files || event.target.files.length === 0) {
+    if (!event.target.files?.length) {
       return
     }
 
-    const file = event.target.files[0]
-
-    if (!dbUserData || !currentUser) {
-      showToast('error', 'ユーザー情報が不正です。')
-      return
-    }
-
-    if (!file.type.startsWith('image/')) {
-      showToast('error', '画像ファイルを選択してください。')
-      return
-    }
-
-    if (file.size > FILE_SIZE_LIMIT_BYTES) {
-      showToast(
-        'error',
-        `画像ファイルのサイズは${FILE_SIZE_LIMIT_MB}MB以下にしてください。`
-      )
-      return
-    }
-
-    try {
-      showToast('info', '画像を更新中です。')
-      const idToken = await currentUser.getIdToken()
-      const res = await updateUserAPI(idToken, { uid: dbUserData.uid }, file)
-      setUserIconPath(res.icon_path)
-      showToast('success', '画像を更新しました。')
-    } catch (e) {
-      showToast('error', '画像のアップロードに失敗しました。')
-    }
+    const imageFile = event.target.files[0]
+    await uploadUserIconImage(imageFile)
   }
 
   useEffect(() => {
