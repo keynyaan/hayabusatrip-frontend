@@ -18,6 +18,7 @@ type InputFieldProps = {
   error?: string
   readonly?: boolean
   onCopy?: boolean
+  isTripDate?: boolean
 }
 
 export const InputField: FC<InputFieldProps> = ({
@@ -35,6 +36,7 @@ export const InputField: FC<InputFieldProps> = ({
   error,
   readonly,
   onCopy,
+  isTripDate,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const { showToast } = useToast()
@@ -49,9 +51,11 @@ export const InputField: FC<InputFieldProps> = ({
   }
 
   return (
-    <div className="relative">
+    <div className={`relative ${isTripDate ? 'flex items-center' : ''}`}>
       <label
-        className={`text-gray-500 ${srOnly ? 'sr-only' : ''}`}
+        className={`text-gray-500 whitespace-nowrap ${
+          srOnly ? 'sr-only' : ''
+        } ${isTripDate ? 'text-lg w-20' : ''}`}
         htmlFor={id}
       >
         {labelName}

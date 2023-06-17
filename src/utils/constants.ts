@@ -35,9 +35,9 @@ export const FILE_SIZE_LIMIT_MB = 5
 export const FILE_SIZE_LIMIT_BYTES = FILE_SIZE_LIMIT_MB * 1024 * 1024
 
 // 有効な日付範囲
-export const MIN_DATE = '1000-01-01'
+export const MIN_DATE = '0001-01-01'
 export const MAX_DATE = '9999-12-31'
-export const MIN_DATE_OBJ = new Date('1000-01-01')
+export const MIN_DATE_OBJ = new Date('0001-01-01')
 export const MAX_DATE_OBJ = new Date('9999-12-31')
 
 // フォームの名前
