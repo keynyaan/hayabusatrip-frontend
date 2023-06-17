@@ -3,10 +3,11 @@ import { useRouter } from 'next/router'
 import { useAuthContext } from '@/context/AuthContext'
 import { NotFound } from '@/components/NotFound'
 import { Spinner } from '@/components/Spinner'
+import { TripCard } from '@/components/TripCard'
+import { TripDate } from '@/components/TripDate'
 import { useSpotApi } from '@/hooks/useSpotApi'
 import { useTripApi } from '@/hooks/useTripApi'
 import { GET_TRIP_ERROR_MSG } from '@/utils/constants'
-import { TripCard } from '@/components/TripCard'
 
 export default function TripDetail() {
   const router = useRouter()
@@ -58,9 +59,17 @@ export default function TripDetail() {
     return <NotFound />
   }
 
+  if (!selectedTrip) {
+    return null
+  }
+
   return (
     <div className="m-4 space-y-4 max-w-md mx-auto">
       <TripCard trip={selectedTrip} isDetailPage={true} />
+      <TripDate
+        start_date={selectedTrip.start_date}
+        end_date={selectedTrip.end_date}
+      />
     </div>
   )
 }
