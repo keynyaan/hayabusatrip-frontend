@@ -6,37 +6,49 @@ import { useToast } from '@/context/ToastContext'
 type InputFieldProps = {
   id: string
   type: string
-  minDate?: string
-  maxDate?: string
   labelName: string
+  value: string | number
+  min?: string
+  max?: string
   srOnly?: boolean
   placeholder?: string
   maxLength?: number
-  value: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onBlur?: () => void
   error?: string
   readonly?: boolean
   onCopy?: boolean
   isTripDate?: boolean
+  inputmode?:
+    | 'none'
+    | 'text'
+    | 'tel'
+    | 'url'
+    | 'email'
+    | 'numeric'
+    | 'decimal'
+    | 'search'
+  pattern?: string
 }
 
 export const InputField: FC<InputFieldProps> = ({
   id,
   type,
-  minDate,
-  maxDate,
   labelName,
+  value,
+  min,
+  max,
   srOnly,
   placeholder,
   maxLength,
-  value,
   onChange,
   onBlur,
   error,
   readonly,
   onCopy,
   isTripDate,
+  inputmode,
+  pattern,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const { showToast } = useToast()
@@ -66,8 +78,8 @@ export const InputField: FC<InputFieldProps> = ({
           error ? 'border-red-500' : 'focus:border-brand-color'
         } ${onCopy && 'pr-8'}`}
         type={type}
-        min={minDate}
-        max={maxDate}
+        min={min}
+        max={max}
         id={id}
         placeholder={placeholder}
         maxLength={maxLength}
@@ -75,6 +87,8 @@ export const InputField: FC<InputFieldProps> = ({
         onChange={onChange}
         onBlur={onBlur}
         readOnly={readonly}
+        inputMode={inputmode}
+        pattern={pattern}
       />
       {onCopy && (
         <button

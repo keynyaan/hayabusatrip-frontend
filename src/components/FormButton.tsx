@@ -9,6 +9,7 @@ type FormButtonProps = {
   isPasswordReset?: boolean
   isUnsubscribe?: boolean
   isTripApi?: boolean
+  isSpotApi?: boolean
   isS3Api?: boolean
   onClick?: () => void
 }
@@ -20,6 +21,7 @@ export const FormButton: React.FC<FormButtonProps> = ({
   isPasswordReset,
   isUnsubscribe,
   isTripApi,
+  isSpotApi,
   isS3Api,
   onClick,
 }) => {
@@ -29,6 +31,7 @@ export const FormButton: React.FC<FormButtonProps> = ({
     deleteUserLoading,
     anyLoading,
     tripApiLoading,
+    spotApiLoading,
     S3ApiLoading,
   } = useAuthContext()
 
@@ -42,6 +45,8 @@ export const FormButton: React.FC<FormButtonProps> = ({
     loading = deleteUserLoading
   } else if (isTripApi) {
     loading = tripApiLoading
+  } else if (isSpotApi) {
+    loading = spotApiLoading
   } else if (isS3Api) {
     loading = S3ApiLoading
   } else {

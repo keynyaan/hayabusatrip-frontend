@@ -81,8 +81,8 @@ export const CreateTripForm: FC<CreateTripFormProps> = ({ onClose }) => {
       <InputField
         id="start-date"
         type="date"
-        minDate={MIN_DATE}
-        maxDate={MAX_DATE}
+        min={MIN_DATE}
+        max={MAX_DATE}
         labelName="開始日"
         value={startDate}
         onChange={handleStartDateChange}
@@ -91,8 +91,8 @@ export const CreateTripForm: FC<CreateTripFormProps> = ({ onClose }) => {
       <InputField
         id="end-date"
         type="date"
-        minDate={MIN_DATE}
-        maxDate={MAX_DATE}
+        min={MIN_DATE}
+        max={MAX_DATE}
         labelName="終了日"
         value={endDate}
         onChange={handleEndDateChange}
