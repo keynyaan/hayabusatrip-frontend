@@ -1,12 +1,13 @@
 import React, { FC } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 type ActionButtonProps = {
   text: string
   onClick?: () => void
   isUnsubscribe?: boolean
   showHomeIcon?: boolean
+  showPlusIcon?: boolean
 }
 
 export const ActionButton: FC<ActionButtonProps> = ({
@@ -14,6 +15,7 @@ export const ActionButton: FC<ActionButtonProps> = ({
   onClick,
   isUnsubscribe,
   showHomeIcon,
+  showPlusIcon,
 }) => {
   return (
     <button
@@ -25,6 +27,7 @@ export const ActionButton: FC<ActionButtonProps> = ({
       onClick={onClick}
     >
       {showHomeIcon && <FontAwesomeIcon icon={faHouse} className="mr-2" />}
+      {showPlusIcon && <FontAwesomeIcon icon={faPlus} className="mr-2" />}
       {text}
     </button>
   )

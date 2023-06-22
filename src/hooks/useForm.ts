@@ -1,14 +1,21 @@
 import { useState } from 'react'
+import { OptionType } from '@/components/SelectWithIconField'
+import { SPOT_CATEGORY_OPTIONS } from '@/utils/constants'
+import { getToday, getTomorrow, getNextDay } from '@/utils/getDate'
 import {
   validateUsername,
   validateEmail,
   validatePassword,
   validatePasswordConfirm,
   validateTripTitle,
+  validateSpotName,
   validateStartDate,
   validateEndDate,
+  validateStartTime,
+  validateEndTime,
+  validateCost,
+  validateSpotMemo,
 } from '@/utils/validation'
-import { getToday, getTomorrow, getNextDay } from '@/utils/getDate'
 
 export const useForm = () => {
   const [username, setUsername] = useState('')
@@ -17,15 +24,28 @@ export const useForm = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [tripTitle, setTripTitle] = useState('')
   const [tripDestination, setTripDestination] = useState('')
+  const [startDate, setStartDate] = useState(getToday())
+  const [endDate, setEndDate] = useState(getTomorrow())
+  const [spotName, setSpotName] = useState('')
+  const [spotCategory, setSpotCategory] = useState<string>(
+    SPOT_CATEGORY_OPTIONS[0].value
+  )
+  const [startTime, setStartTime] = useState('')
+  const [endTime, setEndTime] = useState('')
+  const [cost, setCost] = useState('0')
+  const [spotMemo, setSpotMemo] = useState('')
   const [usernameError, setUsernameError] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [passwordConfirmError, setPasswordConfirmError] = useState('')
   const [tripTitleError, setTripTitleError] = useState('')
+  const [spotNameError, setSpotNameError] = useState('')
   const [startDateError, setStartDateError] = useState('')
   const [endDateError, setEndDateError] = useState('')
-  const [startDate, setStartDate] = useState(getToday())
-  const [endDate, setEndDate] = useState(getTomorrow())
+  const [startTimeError, setStartTimeError] = useState('')
+  const [endTimeError, setEndTimeError] = useState('')
+  const [costError, setCostError] = useState('')
+  const [spotMemoError, setSpotMemoError] = useState('')
 
   const isSignUpFormValid: boolean =
     Boolean(username) &&
@@ -54,17 +74,28 @@ export const useForm = () => {
 
   const isCreateTripFormValid: boolean =
     Boolean(tripTitle) &&
-    !validateTripTitle(tripTitle) &&
-    tripDestination !== '' &&
     Boolean(startDate) &&
-    !validateStartDate(startDate) &&
     Boolean(endDate) &&
+    tripDestination !== '' &&
+    !validateTripTitle(tripTitle) &&
+    !validateStartDate(startDate) &&
     !validateEndDate(startDate, endDate)
 
   const isTripTitleFormValid: boolean =
     Boolean(tripTitle) && !validateTripTitle(tripTitle)
 
   const isTripDestinationFormValid: boolean = tripDestination !== ''
+
+  const isAddSpotFormValid: boolean =
+    Boolean(spotName) &&
+    Boolean(spotCategory) &&
+    Boolean(startTime) &&
+    Boolean(endTime) &&
+    Boolean(cost) &&
+    !validateSpotName(spotName) &&
+    !validateStartTime(startTime) &&
+    !validateEndTime(endTime) &&
+    !validateCost(cost)
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(e.target.value)
@@ -99,6 +130,41 @@ export const useForm = () => {
     setEndDate(newEndDate)
     setEndDateError(validateEndDate(startDate, newEndDate))
   }
+  const handleSpotNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newSpotName = e.target.value
+
+    setSpotName(newSpotName)
+    setSpotNameError(validateSpotName(newSpotName))
+  }
+  const handleSpotCategoryChange = (selectedOption: OptionType | null) => {
+    if (selectedOption) {
+      setSpotCategory(selectedOption.value)
+    }
+  }
+  const handleStartTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newStartTime = e.target.value
+    setStartTime(newStartTime)
+    setStartTimeError(validateStartTime(newStartTime))
+  }
+  const handleEndTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEndTime = e.target.value
+    setEndTime(newEndTime)
+    setEndTimeError(validateEndTime(newEndTime))
+  }
+  const handleCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newCostStr = e.target.value
+    const isValidNumber = /^0$|^[1-9]\d*$/.test(newCostStr)
+
+    if (newCostStr === '' || isValidNumber) {
+      setCost(newCostStr)
+      setCostError(validateCost(newCostStr))
+    }
+  }
+  const handleSpotMemoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newSpotMemo = e.target.value
+    setSpotMemo(newSpotMemo)
+    setSpotMemoError(validateSpotMemo(newSpotMemo))
+  }
 
   const handleUsernameBlur = () => setUsernameError(validateUsername(username))
   const handleEmailBlur = () => setEmailError(validateEmail(email))
@@ -107,6 +173,12 @@ export const useForm = () => {
     setPasswordConfirmError(validatePasswordConfirm(password, passwordConfirm))
   const handleTripTitleBlur = () =>
     setTripTitleError(validateTripTitle(tripTitle))
+  const handleSpotNameBlur = () => setSpotNameError(validateSpotName(spotName))
+  const handleStartTimeBlur = () =>
+    setStartTimeError(validateStartTime(startTime))
+  const handleEndTimeBlur = () => setEndTimeError(validateEndTime(endTime))
+  const handleCostBlur = () => setCostError(validateCost(cost))
+  const handleSpotMemoBlur = () => setSpotMemoError(validateSpotMemo(spotMemo))
 
   return {
     username,
@@ -117,13 +189,24 @@ export const useForm = () => {
     tripDestination,
     startDate,
     endDate,
+    spotName,
+    spotCategory,
+    startTime,
+    endTime,
+    cost,
+    spotMemo,
     usernameError,
     emailError,
     passwordError,
     passwordConfirmError,
     tripTitleError,
+    spotNameError,
     startDateError,
     endDateError,
+    startTimeError,
+    endTimeError,
+    costError,
+    spotMemoError,
     isSignUpFormValid,
     isLoginFormValid,
     isPasswordResetFormValid,
@@ -131,18 +214,30 @@ export const useForm = () => {
     isCreateTripFormValid,
     isTripTitleFormValid,
     isTripDestinationFormValid,
+    isAddSpotFormValid,
     handleUsernameChange,
     handleEmailChange,
     handlePasswordChange,
     handlePasswordConfirmChange,
     handleTripTitleChange,
+    handleTripDestinationChange,
+    handleStartDateChange,
+    handleEndDateChange,
+    handleSpotNameChange,
+    handleSpotCategoryChange,
+    handleStartTimeChange,
+    handleEndTimeChange,
+    handleCostChange,
+    handleSpotMemoChange,
     handleUsernameBlur,
     handleEmailBlur,
     handlePasswordBlur,
     handlePasswordConfirmBlur,
     handleTripTitleBlur,
-    handleTripDestinationChange,
-    handleStartDateChange,
-    handleEndDateChange,
+    handleSpotNameBlur,
+    handleStartTimeBlur,
+    handleEndTimeBlur,
+    handleCostBlur,
+    handleSpotMemoBlur,
   }
 }

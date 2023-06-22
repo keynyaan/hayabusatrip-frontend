@@ -109,7 +109,7 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
           />
           {isSettingsPage && (
             <div
-              className="cursor-pointer absolute bottom-0 right-0 bg-brand-color rounded-full"
+              className="cursor-pointer absolute bottom-0 right-0 bg-brand-color rounded-full w-8 h-8 flex items-center justify-center"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -117,7 +117,6 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
                 icon={faCamera}
                 className="p-1 text-white"
                 onClick={handleClickIcon}
-                size="lg"
               />
             </div>
           )}

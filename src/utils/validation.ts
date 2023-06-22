@@ -1,4 +1,10 @@
-import { MIN_DATE_OBJ, MAX_DATE_OBJ } from '@/utils/constants'
+import {
+  MIN_DATE_OBJ,
+  MAX_DATE_OBJ,
+  MAX_COST,
+  MAX_SPOT_MEMO,
+  MAX_SPOT_NAME,
+} from '@/utils/constants'
 
 export const validateUsername = (username: string) => {
   // ひらがな、カタカナ（全角）、カタカナ（半角）、長音記号、漢字、数字（半角）、数字（全角）、
@@ -56,6 +62,20 @@ export const validateTripTitle = (tripTitle: string) => {
   return ''
 }
 
+export const validateSpotName = (spotName: string) => {
+  // ひらがな、カタカナ（全角）、カタカナ（半角）、長音記号、漢字、数字（半角）、数字（全角）、
+  // 英語（小文字・大文字・半角）、英語（小文字・大文字・全角）のみ許可
+  const pattern = /^[ぁ-んァ-ヶｱ-ﾝﾞﾟー一-龠々ゔ０-９0-9a-zA-Zａ-ｚＡ-Ｚ]+$/
+  if (spotName === '') return 'スポット名を入力してください'
+  if (!pattern.test(spotName)) {
+    return 'スポット名は日本語または英数字を使用してください'
+  }
+
+  if (spotName.length > MAX_SPOT_NAME)
+    return `スポット名は${MAX_SPOT_NAME}文字以下で入力してください`
+  return ''
+}
+
 export const validateStartDate = (startDate: string) => {
   if (startDate === '') return '開始日を入力してください'
 
@@ -81,6 +101,32 @@ export const validateEndDate = (startDate: string, endDate: string) => {
   if (endDateObj < startDateObj) {
     return '終了日は開始日以降の日付を入力してください'
   }
+
+  return ''
+}
+
+export const validateStartTime = (startTime: string) => {
+  if (startTime === '') return '開始時間を入力してください'
+
+  return ''
+}
+
+export const validateEndTime = (endTime: string) => {
+  if (endTime === '') return '終了時間を入力してください'
+
+  return ''
+}
+
+export const validateCost = (cost: string) => {
+  if (cost === '') return '費用を入力してください'
+  if (parseInt(cost) > MAX_COST) return '費用は1億未満の数値を入力してください'
+
+  return ''
+}
+
+export const validateSpotMemo = (spotMemo: string) => {
+  if (spotMemo.length > MAX_SPOT_MEMO)
+    return `一言メモは${MAX_SPOT_MEMO}文字以下で入力してください`
 
   return ''
 }

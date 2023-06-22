@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import { ActionButton } from '@/components/ActionButton'
+import { AddSpotForm } from '@/components/AddSpotForm'
 import { InputField } from '@/components/InputField'
+import { Modal } from '@/components/Modal'
 import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 import { useTripApi } from '@/hooks/useTripApi'
 import { addDay, differenceInDates } from '@/utils/getDate'
-import { MIN_DATE_OBJ, MAX_DATE_OBJ } from '@/utils/constants'
+import { MIN_DATE_OBJ, MAX_DATE_OBJ, FORM_ADD_SPOT } from '@/utils/constants'
 
 type TripDateProps = {
   start_date: string
@@ -14,9 +17,20 @@ type TripDateProps = {
 export const TripDate: React.FC<TripDateProps> = ({ start_date, end_date }) => {
   const dates = differenceInDates(start_date, end_date)
   const [tripDates, setTripDates] = useState(dates)
+  const [selectedDate, setSelectedDate] = useState('')
+  const [addSpotModalOpen, setAddSpotModalOpen] = useState(false)
   const { currentUser, selectedTrip, setSelectedTrip } = useAuthContext()
   const { updateTrip } = useTripApi()
   const { showToast } = useToast()
+
+  const onOpenAddSpotModal = (date: string) => {
+    setSelectedDate(date)
+    setAddSpotModalOpen(true)
+  }
+
+  const onCloseAddSpotModal = () => {
+    setAddSpotModalOpen(false)
+  }
 
   const updateTripFunc = async (startDate: string, endDate: string) => {
     if (currentUser && selectedTrip) {
@@ -70,25 +84,39 @@ export const TripDate: React.FC<TripDateProps> = ({ start_date, end_date }) => {
     }
 
   return (
-    <div className="m-4">
+    <div className="m-4 space-y-4">
       {tripDates.map((_, i) => {
         const minDate = addDay(MIN_DATE_OBJ, i)
         const maxDate = addDay(MAX_DATE_OBJ, i + 1 - tripDates.length)
         return (
-          <div key={i}>
+          <div key={i} className="flex flex-col space-y-2">
             <InputField
               id={`day${i + 1}`}
               type="date"
-              minDate={minDate}
-              maxDate={maxDate}
+              min={minDate}
+              max={maxDate}
               labelName={`${i + 1}日目`}
               value={tripDates[i]}
               onChange={handleStartDateChange(i, minDate, maxDate)}
               isTripDate={true}
             />
+            <ActionButton
+              text="スポットを追加"
+              onClick={() => onOpenAddSpotModal(tripDates[i])}
+              showPlusIcon={true}
+            />
           </div>
         )
       })}
+      {addSpotModalOpen && (
+        <Modal
+          open={addSpotModalOpen}
+          onClose={onCloseAddSpotModal}
+          title={FORM_ADD_SPOT}
+        >
+          <AddSpotForm onClose={onCloseAddSpotModal} date={selectedDate} />
+        </Modal>
+      )}
     </div>
   )
 }
