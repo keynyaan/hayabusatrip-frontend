@@ -407,8 +407,10 @@ export const useFirebaseAuth = () => {
             const idToken = await user.getIdToken()
             const dbUserData = await getUserAPI(idToken, user.uid)
             setDbUserData(dbUserData)
-            const dbTripsData = await getTripsAPI(idToken, user.uid)
-            setDbTripsData(dbTripsData)
+            if (dbUserData) {
+              const dbTripsData = await getTripsAPI(idToken, user.uid)
+              setDbTripsData(dbTripsData)
+            }
           }
 
           fetchData()
