@@ -1,9 +1,8 @@
 import {
   signInWithEmailAndPassword,
   signOut,
-  signInWithRedirect,
+  signInWithPopup,
   GoogleAuthProvider,
-  getRedirectResult,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   updateEmail,
@@ -57,7 +56,6 @@ export const useFirebaseAuth = () => {
     resetPasswordLoading ||
     updateUserLoading ||
     deleteUserLoading
-  const [redirectResultFetched, setRedirectResultFetched] = useState(true)
   const [firstLogin, setFirstLogin] = useState(false)
 
   const router = useRouter()
@@ -183,9 +181,69 @@ export const useFirebaseAuth = () => {
     setGoogleLoginLoading(true)
     try {
       const provider = new GoogleAuthProvider()
-      await signInWithRedirect(auth, provider)
+      const result = await signInWithPopup(auth, provider)
+      if (result) {
+        const user = result.user
+
+        // getUserAPIを実行してログインユーザーの存在確認
+        const idToken = await user.getIdToken()
+        let dbUserData = await getUserAPI(idToken, user.uid)
+        const displayName = user.displayName || '新規ユーザー'
+        const photoURL = user.photoURL || '/images/default-user-icon.png'
+        const isFirstLogin = !dbUserData
+
+        // DBにユーザーが存在しない場合、trueを設定
+        setFirstLogin(isFirstLogin)
+
+        // DBにユーザーが存在しない場合、新規ユーザーを作成
+        if (!dbUserData) {
+          dbUserData = await createUserAPI(idToken, {
+            uid: user.uid,
+            name: displayName,
+            icon_path: photoURL,
+          })
+        }
+        setDbUserData(dbUserData)
+
+        // updateUserAPIを実行してログイン時間を保存
+        const now = getDatetimeTimestamp()
+        await updateUserAPI(idToken, {
+          uid: user.uid,
+          last_login_time: now,
+        })
+
+        // 旅行プラン取得APIを実行してデータを保存
+        const dbTripsData = await getTripsAPI(idToken, user.uid)
+        setDbTripsData(dbTripsData)
+
+        // ユーザー情報を保存して、ルートパスに遷移
+        setCurrentUser(user)
+        await router.push('/')
+        showToast(
+          'success',
+          isFirstLogin
+            ? 'HayabusaTripへようこそ！'
+            : 'Googleアカウントでログインしました。'
+        )
+      }
     } catch (e) {
-      showToast('error', 'アカウントが見つかりません。')
+      if (e instanceof Error) {
+        switch (e.message) {
+          case GET_USER_ERROR_MSG:
+            showToast('error', GET_USER_ERROR_MSG)
+            break
+          case CREATE_USER_ERROR_MSG:
+            showToast('error', CREATE_USER_ERROR_MSG)
+            break
+          case UPDATE_USER_ERROR_MSG:
+            showToast('error', UPDATE_USER_ERROR_MSG)
+            break
+          default:
+            showToast('error', 'アカウントが見つかりません。')
+        }
+      } else {
+        showToast('error', '予期しないエラーが発生しました。')
+      }
     } finally {
       setGoogleLoginLoading(false)
     }
@@ -205,81 +263,6 @@ export const useFirebaseAuth = () => {
       setLogoutLoading(false)
     }
   }
-
-  // Googleログインリダイレクト後の処理
-  useEffect(() => {
-    const fetchRedirectResult = async () => {
-      try {
-        setRedirectResultFetched(true)
-        const result = await getRedirectResult(auth)
-        if (result) {
-          const user = result.user
-
-          // getUserAPIを実行してログインユーザーの存在確認
-          const idToken = await user.getIdToken()
-          let dbUserData = await getUserAPI(idToken, user.uid)
-          const displayName = user.displayName || '新規ユーザー'
-          const photoURL = user.photoURL || '/images/default-user-icon.png'
-          const isFirstLogin = !dbUserData
-
-          // DBにユーザーが存在しない場合、trueを設定
-          setFirstLogin(isFirstLogin)
-
-          // DBにユーザーが存在しない場合、新規ユーザーを作成
-          if (!dbUserData) {
-            dbUserData = await createUserAPI(idToken, {
-              uid: user.uid,
-              name: displayName,
-              icon_path: photoURL,
-            })
-          }
-          setDbUserData(dbUserData)
-
-          // updateUserAPIを実行してログイン時間を保存
-          const now = getDatetimeTimestamp()
-          await updateUserAPI(idToken, {
-            uid: user.uid,
-            last_login_time: now,
-          })
-
-          // 旅行プラン取得APIを実行してデータを保存
-          const dbTripsData = await getTripsAPI(idToken, user.uid)
-          setDbTripsData(dbTripsData)
-
-          // ユーザー情報を保存して、ルートパスに遷移
-          setCurrentUser(user)
-          await router.push('/')
-          showToast(
-            'success',
-            isFirstLogin
-              ? 'HayabusaTripへようこそ！'
-              : 'Googleアカウントでログインしました。'
-          )
-        }
-      } catch (e) {
-        if (e instanceof Error) {
-          switch (e.message) {
-            case GET_USER_ERROR_MSG:
-              showToast('error', GET_USER_ERROR_MSG)
-              break
-            case CREATE_USER_ERROR_MSG:
-              showToast('error', CREATE_USER_ERROR_MSG)
-              break
-            case UPDATE_USER_ERROR_MSG:
-              showToast('error', UPDATE_USER_ERROR_MSG)
-              break
-            default:
-              showToast('error', 'アカウントが見つかりません。')
-          }
-        } else {
-          showToast('error', '予期しないエラーが発生しました。')
-        }
-      } finally {
-        setRedirectResultFetched(false)
-      }
-    }
-    fetchRedirectResult()
-  }, [router, showToast, firstLogin])
 
   // パスワード再設定のメール送信処理
   const resetPassword = async (email: string): Promise<boolean> => {
@@ -455,7 +438,6 @@ export const useFirebaseAuth = () => {
     updateUserLoading,
     deleteUserLoading,
     anyLoading,
-    redirectResultFetched,
     firstLogin,
     signup,
     loginWithEmailAndPassword,

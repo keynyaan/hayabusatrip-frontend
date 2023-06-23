@@ -24,7 +24,6 @@ interface AuthContext {
   updateUserLoading: boolean
   deleteUserLoading: boolean
   anyLoading: boolean
-  redirectResultFetched: boolean
   firstLogin: boolean
   userIconPath: string
 
@@ -75,7 +74,6 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     updateUserLoading,
     deleteUserLoading,
     anyLoading,
-    redirectResultFetched,
     firstLogin,
     signup,
     loginWithEmailAndPassword,
@@ -113,7 +111,6 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     updateUserLoading,
     deleteUserLoading,
     anyLoading,
-    redirectResultFetched,
     firstLogin,
     userIconPath,
     signup,
