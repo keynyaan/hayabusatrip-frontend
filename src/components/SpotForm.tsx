@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import 'react-responsive-modal/styles.css'
 import { SelectWithIconField } from '@/components/SelectWithIconField'
 import { FormButton } from '@/components/FormButton'
@@ -12,20 +12,52 @@ import {
   MAX_COST_LENGTH,
   MAX_SPOT_MEMO,
   MAX_SPOT_NAME,
+  SPOT_FORM_MODE_CREATE,
+  SPOT_FORM_MODE_UPDATE,
   SPOT_CATEGORY_OPTIONS,
   SPOT_ROWS,
   TRIP_DESTINATION_ITEMS,
 } from '@/utils/constants'
+import { getTimeFromString } from '@/utils/getDate'
 
-type AddSpotFormProps = {
+type SpotFormProps = {
   onClose: () => void
-  date: string
+  mode: typeof SPOT_FORM_MODE_CREATE | typeof SPOT_FORM_MODE_UPDATE
+  date?: string
 }
 
-export const AddSpotForm: FC<AddSpotFormProps> = ({ onClose, date }) => {
-  const { currentUser, dbUserData, selectedTrip } = useAuthContext()
-  const { createSpot } = useSpotApi()
+export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date = '' }) => {
+  const { currentUser, dbUserData, selectedTrip, selectedSpot } =
+    useAuthContext()
+  const { createSpot, updateSpot } = useSpotApi()
   const { showToast } = useToast()
+  const {
+    spotName,
+    spotCategory,
+    startTime,
+    endTime,
+    cost,
+    spotMemo,
+    spotNameError,
+    startTimeError,
+    endTimeError,
+    costError,
+    spotMemoError,
+    isSpotFormValid,
+    handleSpotNameChange,
+    handleSpotCategoryChange,
+    handleStartTimeChange,
+    handleEndTimeChange,
+    handleCostChange,
+    handleSpotMemoChange,
+    handleSpotNameBlur,
+    handleStartTimeBlur,
+    handleEndTimeBlur,
+    handleCostBlur,
+    handleSpotMemoBlur,
+  } = useForm()
+
+  const spotDate = selectedSpot?.date || date
   const selectedTripItem = TRIP_DESTINATION_ITEMS.find(
     (item) => item.value === String(selectedTrip?.prefecture_id)
   )
@@ -35,7 +67,6 @@ export const AddSpotForm: FC<AddSpotFormProps> = ({ onClose, date }) => {
 
   const createSpotFunc = async () => {
     if (currentUser && dbUserData && selectedTrip) {
-      console.log(startTime)
       const idToken = await currentUser.getIdToken()
       const success = await createSpot(
         idToken,
@@ -45,7 +76,34 @@ export const AddSpotForm: FC<AddSpotFormProps> = ({ onClose, date }) => {
           trip_id: selectedTrip.id,
           spot_icon: spotCategory,
           title: spotName,
-          date: date,
+          date: spotDate,
+          start_time: startTime,
+          end_time: endTime,
+          cost: parseInt(cost),
+          memo: spotMemo,
+        }
+      )
+
+      if (success) {
+        onClose()
+      }
+    } else {
+      showToast('error', 'ログインしてください。')
+    }
+  }
+
+  const updateSpotFunc = async () => {
+    if (currentUser && dbUserData && selectedTrip && selectedSpot) {
+      const idToken = await currentUser.getIdToken()
+      const success = await updateSpot(
+        idToken,
+        currentUser.uid,
+        selectedTrip.trip_token,
+        selectedSpot.id,
+        {
+          spot_icon: spotCategory,
+          title: spotName,
+          date: spotDate,
           start_time: startTime,
           end_time: endTime,
           cost: parseInt(cost),
@@ -63,34 +121,40 @@ export const AddSpotForm: FC<AddSpotFormProps> = ({ onClose, date }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    createSpotFunc()
+    mode === SPOT_FORM_MODE_CREATE ? createSpotFunc() : updateSpotFunc()
   }
 
-  const {
-    spotName,
-    spotCategory,
-    startTime,
-    endTime,
-    cost,
-    spotMemo,
-    spotNameError,
-    startTimeError,
-    endTimeError,
-    costError,
-    spotMemoError,
-    isAddSpotFormValid,
-    handleSpotNameChange,
-    handleSpotCategoryChange,
-    handleStartTimeChange,
-    handleEndTimeChange,
-    handleCostChange,
-    handleSpotMemoChange,
-    handleSpotNameBlur,
-    handleStartTimeBlur,
-    handleEndTimeBlur,
-    handleCostBlur,
-    handleSpotMemoBlur,
-  } = useForm()
+  useEffect(() => {
+    if (mode === SPOT_FORM_MODE_UPDATE && selectedSpot) {
+      handleSpotNameChange({
+        target: { value: selectedSpot.title },
+      } as React.ChangeEvent<HTMLInputElement>)
+
+      const spotCategoryOption = SPOT_CATEGORY_OPTIONS.find(
+        (option) => option.value === selectedSpot.spot_icon
+      )
+      if (spotCategoryOption) {
+        handleSpotCategoryChange(spotCategoryOption)
+      }
+
+      handleStartTimeChange({
+        target: { value: getTimeFromString(selectedSpot.start_time) },
+      } as React.ChangeEvent<HTMLInputElement>)
+
+      handleEndTimeChange({
+        target: { value: getTimeFromString(selectedSpot.end_time) },
+      } as React.ChangeEvent<HTMLInputElement>)
+
+      handleCostChange({
+        target: { value: String(selectedSpot.cost) },
+      } as React.ChangeEvent<HTMLInputElement>)
+
+      handleSpotMemoChange({
+        target: { value: selectedSpot.memo },
+      } as React.ChangeEvent<HTMLTextAreaElement>)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, selectedSpot])
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
@@ -98,7 +162,7 @@ export const AddSpotForm: FC<AddSpotFormProps> = ({ onClose, date }) => {
         id="spot-date"
         type="date"
         labelName="日付"
-        value={date}
+        value={spotDate}
         readonly={true}
       />
 
@@ -172,8 +236,8 @@ export const AddSpotForm: FC<AddSpotFormProps> = ({ onClose, date }) => {
       />
 
       <FormButton
-        label="追加"
-        isFormValid={isAddSpotFormValid}
+        label={mode === SPOT_FORM_MODE_CREATE ? '追加' : '更新'}
+        isFormValid={isSpotFormValid}
         isSpotApi={true}
       />
     </form>

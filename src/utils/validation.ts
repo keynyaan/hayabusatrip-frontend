@@ -1,3 +1,5 @@
+import { isBefore } from 'date-fns'
+import { parseTimeObj } from '@/utils/getDate'
 import {
   MIN_DATE_OBJ,
   MAX_DATE_OBJ,
@@ -111,8 +113,15 @@ export const validateStartTime = (startTime: string) => {
   return ''
 }
 
-export const validateEndTime = (endTime: string) => {
+export const validateEndTime = (startTime: string, endTime: string) => {
   if (endTime === '') return '終了時間を入力してください'
+
+  const startTimeObj = parseTimeObj(startTime)
+  const endTimeObj = parseTimeObj(endTime)
+
+  if (isBefore(endTimeObj, startTimeObj)) {
+    return '終了時間は開始時間以降の時間を入力してください'
+  }
 
   return ''
 }

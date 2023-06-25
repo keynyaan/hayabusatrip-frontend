@@ -13,6 +13,7 @@ interface AuthContext {
   selectedTrip: DbTripData | null
   tripApiLoading: boolean
   dbSpotsData: DbSpotData[] | null
+  selectedSpot: DbSpotData | null
   spotApiLoading: boolean
   S3ApiLoading: boolean
   signupLoading: boolean
@@ -46,6 +47,7 @@ interface AuthContext {
   setSelectedTrip: (selectedTrip: DbTripData | null) => void
   setTripApiLoading: (tripApiLoading: boolean) => void
   setDbSpotsData: (dbSpotsData: DbSpotData[]) => void
+  setSelectedSpot: (selectedSpot: DbSpotData | null) => void
   setSpotApiLoading: (spotApiLoading: boolean) => void
   setS3ApiLoading: (S3ApiLoading: boolean) => void
 }
@@ -89,6 +91,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const [selectedTrip, setSelectedTrip] = useState<DbTripData | null>(null)
   const [tripApiLoading, setTripApiLoading] = useState(false)
   const [dbSpotsData, setDbSpotsData] = useState<DbSpotData[] | null>(null)
+  const [selectedSpot, setSelectedSpot] = useState<DbSpotData | null>(null)
   const [spotApiLoading, setSpotApiLoading] = useState(false)
   const [S3ApiLoading, setS3ApiLoading] = useState(false)
 
@@ -100,6 +103,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     selectedTrip,
     tripApiLoading,
     dbSpotsData,
+    selectedSpot,
     spotApiLoading,
     S3ApiLoading,
     signupLoading,
@@ -125,6 +129,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     setSelectedTrip,
     setTripApiLoading,
     setDbSpotsData,
+    setSelectedSpot,
     setSpotApiLoading,
     setS3ApiLoading,
   }
