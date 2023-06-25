@@ -66,10 +66,16 @@ export const FORM_TRIP_DESTINATION = '旅行先変更'
 export const FORM_COPY_TRIP = '旅行プランコピー'
 export const FORM_DELETE_TRIP = '旅行プラン削除'
 export const FORM_ADD_SPOT = 'スポット追加'
+export const FORM_UPDATE_SPOT = 'スポット更新'
+export const FORM_DELETE_SPOT = 'スポット削除'
 
 // 旅行タイトルの上限とコピー時の接尾辞
 export const MAX_TRIP_TITLE_LENGTH = 30
 export const COPY_SUFFIX = 'のコピー'
+
+// スポットフォームのモード
+export const SPOT_FORM_MODE_CREATE = 'create'
+export const SPOT_FORM_MODE_UPDATE = 'update'
 
 // スポット名の上限値
 export const MAX_SPOT_NAME = 30

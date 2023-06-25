@@ -1,7 +1,12 @@
 import { useState } from 'react'
 import { OptionType } from '@/components/SelectWithIconField'
 import { SPOT_CATEGORY_OPTIONS } from '@/utils/constants'
-import { getToday, getTomorrow, getNextDay } from '@/utils/getDate'
+import {
+  getToday,
+  getTomorrow,
+  getNextDay,
+  getOneHourAhead,
+} from '@/utils/getDate'
 import {
   validateUsername,
   validateEmail,
@@ -86,7 +91,7 @@ export const useForm = () => {
 
   const isTripDestinationFormValid: boolean = tripDestination !== ''
 
-  const isAddSpotFormValid: boolean =
+  const isSpotFormValid: boolean =
     Boolean(spotName) &&
     Boolean(spotCategory) &&
     Boolean(startTime) &&
@@ -94,7 +99,7 @@ export const useForm = () => {
     Boolean(cost) &&
     !validateSpotName(spotName) &&
     !validateStartTime(startTime) &&
-    !validateEndTime(endTime) &&
+    !validateEndTime(startTime, endTime) &&
     !validateCost(cost)
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -143,13 +148,21 @@ export const useForm = () => {
   }
   const handleStartTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newStartTime = e.target.value
+
     setStartTime(newStartTime)
     setStartTimeError(validateStartTime(newStartTime))
+
+    if (newStartTime !== '') {
+      const newEndTime = getOneHourAhead(newStartTime)
+      setEndTime(newEndTime)
+      // 終了日にエラーが出ている状態で、開始日を変更してもエラーが消えない対策
+      setEndTimeError(validateEndTime(newStartTime, newEndTime))
+    }
   }
   const handleEndTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEndTime = e.target.value
     setEndTime(newEndTime)
-    setEndTimeError(validateEndTime(newEndTime))
+    setEndTimeError(validateEndTime(startTime, newEndTime))
   }
   const handleCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newCostStr = e.target.value
@@ -176,7 +189,8 @@ export const useForm = () => {
   const handleSpotNameBlur = () => setSpotNameError(validateSpotName(spotName))
   const handleStartTimeBlur = () =>
     setStartTimeError(validateStartTime(startTime))
-  const handleEndTimeBlur = () => setEndTimeError(validateEndTime(endTime))
+  const handleEndTimeBlur = () =>
+    setEndTimeError(validateEndTime(startTime, endTime))
   const handleCostBlur = () => setCostError(validateCost(cost))
   const handleSpotMemoBlur = () => setSpotMemoError(validateSpotMemo(spotMemo))
 
@@ -214,7 +228,7 @@ export const useForm = () => {
     isCreateTripFormValid,
     isTripTitleFormValid,
     isTripDestinationFormValid,
-    isAddSpotFormValid,
+    isSpotFormValid,
     handleUsernameChange,
     handleEmailChange,
     handlePasswordChange,

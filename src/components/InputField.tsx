@@ -67,7 +67,7 @@ export const InputField: FC<InputFieldProps> = ({
       <label
         className={`text-gray-500 whitespace-nowrap ${
           srOnly ? 'sr-only' : ''
-        } ${isTripDate ? 'text-lg w-20' : ''}`}
+        } ${isTripDate ? 'w-20' : ''}`}
         htmlFor={id}
       >
         {labelName}

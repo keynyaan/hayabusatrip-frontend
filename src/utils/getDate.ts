@@ -1,5 +1,12 @@
-import { add, addDays, differenceInDays } from 'date-fns'
+import { add, addDays, differenceInDays, parse } from 'date-fns'
+import { ja } from 'date-fns/locale'
 import { format, utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz'
+
+export const getJapaneseDay = (dateStr: string) => {
+  const date = utcToZonedTime(new Date(dateStr), 'Asia/Tokyo')
+  const day = format(date, 'MM/dd(eee)', { locale: ja })
+  return day
+}
 
 export const getToday = () => {
   const nowInJapan = utcToZonedTime(new Date(), 'Asia/Tokyo')
@@ -37,4 +44,30 @@ export const differenceInDates = (start_date: string, end_date: string) => {
   return Array.from({ length: dayCount }, (_, i) =>
     format(zonedTimeToUtc(addDays(startDate, i), timeZone), 'yyyy-MM-dd')
   )
+}
+
+export const getTimeFromString = (dateStr: string) => {
+  const date = new Date(dateStr)
+  return format(date, 'HH:mm')
+}
+
+export const parseTimeObj = (time: string) => {
+  const format = 'HH:mm'
+  const date = new Date()
+  return parse(time, format, date)
+}
+
+export const getOneHourAhead = (time: string): string => {
+  const formatString = 'HH:mm'
+  const now = new Date()
+
+  let date = parse(time, formatString, now)
+
+  if (date.getHours() < 23) {
+    date = add(date, { hours: 1 })
+  } else {
+    date.setMinutes(59)
+  }
+
+  return format(date, formatString)
 }
