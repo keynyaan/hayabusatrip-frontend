@@ -66,10 +66,7 @@ export default function TripDetail() {
   return (
     <div className="m-4 space-y-4 max-w-md mx-auto">
       <TripCard trip={selectedTrip} isDetailPage={true} />
-      <TripDate
-        start_date={selectedTrip.start_date}
-        end_date={selectedTrip.end_date}
-      />
+      <TripDate />
     </div>
   )
 }

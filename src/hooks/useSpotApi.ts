@@ -87,28 +87,41 @@ export const useSpotApi = () => {
     idToken: string,
     user_uid: string,
     trip_token: string,
-    spot_id: number,
-    options: UpdateSpotOptions
+    spot_id?: number,
+    options?: UpdateSpotOptions,
+    base_date?: string,
+    date_offset?: string,
+    hideToast?: boolean
   ) => {
     setSpotApiLoading(true)
     try {
-      const data: DbSpotData = await updateSpotAPI(
+      const data: DbSpotData | DbSpotData[] = await updateSpotAPI(
         idToken,
         user_uid,
         trip_token,
         spot_id,
-        options
+        options,
+        base_date,
+        date_offset
       )
+
+      let updatedSpotsData: DbSpotData[]
+
       if (dbSpotsData) {
-        const updatedSpotsData = dbSpotsData.map((spotData: DbSpotData) =>
-          spotData.id === spot_id ? data : spotData
-        )
+        if (spot_id) {
+          updatedSpotsData = dbSpotsData.map((spotData: DbSpotData) =>
+            spotData.id === spot_id ? (data as DbSpotData) : spotData
+          )
+        } else {
+          updatedSpotsData = data as DbSpotData[]
+        }
+
         setDbSpotsData(updatedSpotsData)
       }
-      showToast('success', UPDATE_SPOT_SUCCESS_MSG)
+      !hideToast && showToast('success', UPDATE_SPOT_SUCCESS_MSG)
       return data
     } catch (e) {
-      showToast('error', UPDATE_SPOT_ERROR_MSG)
+      !hideToast && showToast('error', UPDATE_SPOT_ERROR_MSG)
     } finally {
       setSpotApiLoading(false)
     }
@@ -118,7 +131,9 @@ export const useSpotApi = () => {
     idToken: string,
     user_uid: string,
     trip_token: string,
-    spot_id: number
+    spot_id?: number,
+    date?: string,
+    hideToast?: boolean
   ) => {
     setSpotApiLoading(true)
     try {
@@ -126,23 +141,30 @@ export const useSpotApi = () => {
         idToken,
         user_uid,
         trip_token,
-        spot_id
+        spot_id,
+        date
       )
       if (statusCode === HTTP_STATUS_NO_CONTENT) {
         if (dbSpotsData) {
-          const updatedSpotsData = dbSpotsData.filter(
-            (spotData: DbSpotData) => spotData.id !== spot_id
+          const deletedSpotsData = dbSpotsData.filter(
+            (spotData: DbSpotData) => {
+              if (spot_id) {
+                return spotData.id !== spot_id
+              } else if (date) {
+                return spotData.date !== date
+              }
+            }
           )
-          setDbSpotsData(updatedSpotsData)
+          setDbSpotsData(deletedSpotsData)
         }
-        showToast('success', DELETE_SPOT_SUCCESS_MSG)
+        !hideToast && showToast('success', DELETE_SPOT_SUCCESS_MSG)
         return true
       } else {
-        showToast('error', DELETE_SPOT_ERROR_MSG)
+        !hideToast && showToast('error', DELETE_SPOT_ERROR_MSG)
         return false
       }
     } catch (e) {
-      showToast('error', DELETE_SPOT_ERROR_MSG)
+      !hideToast && showToast('error', DELETE_SPOT_ERROR_MSG)
     } finally {
       setSpotApiLoading(false)
     }

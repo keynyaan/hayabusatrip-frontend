@@ -22,7 +22,7 @@ type SpotCardProps = {
 export const SpotCard: React.FC<SpotCardProps> = ({ spot }) => {
   const { dbUserData, selectedTrip, setSelectedSpot } = useAuthContext()
   const [deleteSpotModalOpen, setDeleteSpotModalOpen] = useState(false)
-  const [addSpotModalOpen, setAddSpotModalOpen] = useState(false)
+  const [updateSpotModalOpen, setUpdateSpotModalOpen] = useState(false)
 
   const isOwner = selectedTrip?.user_id === dbUserData?.id
 
@@ -36,17 +36,17 @@ export const SpotCard: React.FC<SpotCardProps> = ({ spot }) => {
     setDeleteSpotModalOpen(true)
   }
 
-  const onOpenAddSpotModal = () => {
+  const onOpenUpdateSpotModal = () => {
     setSelectedSpot(spot)
-    setAddSpotModalOpen(true)
+    setUpdateSpotModalOpen(true)
   }
 
   const onCloseDeleteSpotModal = () => {
     setDeleteSpotModalOpen(false)
   }
 
-  const onCloseAddSpotModal = () => {
-    setAddSpotModalOpen(false)
+  const onCloseUpdateSpotModal = () => {
+    setUpdateSpotModalOpen(false)
   }
 
   return (
@@ -56,7 +56,7 @@ export const SpotCard: React.FC<SpotCardProps> = ({ spot }) => {
           isOwner ? 'hover:shadow-xl transition cursor-pointer' : ''
         }`}
         key={spot.id}
-        onClick={isOwner ? onOpenAddSpotModal : undefined}
+        onClick={isOwner ? onOpenUpdateSpotModal : undefined}
       >
         {isOwner && (
           <div
@@ -102,15 +102,16 @@ export const SpotCard: React.FC<SpotCardProps> = ({ spot }) => {
           <DeleteSpotForm onClose={onCloseDeleteSpotModal} />
         </Modal>
       )}
-      {addSpotModalOpen && (
+      {updateSpotModalOpen && (
         <Modal
-          open={addSpotModalOpen}
-          onClose={onCloseAddSpotModal}
+          open={updateSpotModalOpen}
+          onClose={onCloseUpdateSpotModal}
           title={FORM_UPDATE_SPOT}
         >
           <SpotForm
-            onClose={onCloseAddSpotModal}
+            onClose={onCloseUpdateSpotModal}
             mode={SPOT_FORM_MODE_UPDATE}
+            date={spot.date}
           />
         </Modal>
       )}

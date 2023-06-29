@@ -68,6 +68,7 @@ export const FORM_DELETE_TRIP = '旅行プラン削除'
 export const FORM_ADD_SPOT = 'スポット追加'
 export const FORM_UPDATE_SPOT = 'スポット更新'
 export const FORM_DELETE_SPOT = 'スポット削除'
+export const FORM_DELETE_TRIP_DATE = '日程削除'
 
 // 旅行タイトルの上限とコピー時の接尾辞
 export const MAX_TRIP_TITLE_LENGTH = 30
@@ -99,6 +100,7 @@ export const CREATE_TRIP_SUCCESS_MSG = '旅行プランを作成しました。'
 export const COPY_TRIP_SUCCESS_MSG = '旅行プランをコピーしました。'
 export const UPDATE_TRIP_SUCCESS_MSG = '旅行プランを更新しました。'
 export const DELETE_TRIP_SUCCESS_MSG = '旅行プランを削除しました。'
+export const DELETE_TRIP_DATE_SUCCESS_MSG = '旅行日程を削除しました。'
 export const GET_TRIP_ERROR_MSG = '旅行プランの取得に失敗しました。'
 export const CREATE_TRIP_ERROR_MSG = '旅行プランの作成に失敗しました。'
 export const COPY_TRIP_TITLE_ERROR_MSG = `コピー元の旅行タイトルは${
@@ -107,6 +109,7 @@ export const COPY_TRIP_TITLE_ERROR_MSG = `コピー元の旅行タイトルは${
 export const COPY_TRIP_ERROR_MSG = '旅行プランのコピーに失敗しました。'
 export const UPDATE_TRIP_ERROR_MSG = '旅行プランの更新に失敗しました。'
 export const DELETE_TRIP_ERROR_MSG = '旅行プランの削除に失敗しました。'
+export const DELETE_TRIP_DATE_ERROR_MSG = '旅行日程の削除に失敗しました。'
 // spotAPI
 export const CREATE_SPOT_SUCCESS_MSG = '旅行スポットを作成しました。'
 export const UPDATE_SPOT_SUCCESS_MSG = '旅行スポットを更新しました。'

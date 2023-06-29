@@ -1,4 +1,4 @@
-import { add, addDays, differenceInDays, parse } from 'date-fns'
+import { add, sub, addDays, differenceInDays, parse } from 'date-fns'
 import { ja } from 'date-fns/locale'
 import { format, utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz'
 
@@ -23,6 +23,12 @@ export const getNextDay = (dateStr: string) => {
   const date = utcToZonedTime(new Date(dateStr), 'Asia/Tokyo')
   const nextDay = add(date, { days: 1 })
   return format(nextDay, 'yyyy-MM-dd')
+}
+
+export const getPreviousDay = (dateStr: string) => {
+  const date = utcToZonedTime(new Date(dateStr), 'Asia/Tokyo')
+  const previousDay = sub(date, { days: 1 })
+  return format(previousDay, 'yyyy-MM-dd')
 }
 
 export const formatDate = (dateStr: string) => {

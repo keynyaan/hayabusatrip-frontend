@@ -12,6 +12,7 @@ import {
 } from '@/api/tripApi'
 import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
+import { useSpotApi } from '@/hooks/useSpotApi'
 import {
   CREATE_TRIP_SUCCESS_MSG,
   COPY_TRIP_SUCCESS_MSG,
@@ -26,12 +27,23 @@ import {
   COPY_TRIP_TITLE_ERROR_MSG,
   MAX_TRIP_TITLE_LENGTH,
   HTTP_STATUS_NO_CONTENT,
+  DELETE_TRIP_DATE_ERROR_MSG,
+  DELETE_TRIP_DATE_SUCCESS_MSG,
 } from '@/utils/constants'
+import { getNextDay, getPreviousDay } from '@/utils/getDate'
 
 export const useTripApi = () => {
   const router = useRouter()
   const { showToast } = useToast()
-  const { dbTripsData, setTripApiLoading, setDbTripsData } = useAuthContext()
+  const {
+    dbTripsData,
+    selectedTrip,
+    dbSpotsData,
+    setTripApiLoading,
+    setDbTripsData,
+    setSelectedTrip,
+  } = useAuthContext()
+  const { updateSpot, deleteSpot } = useSpotApi()
 
   const getTrips = async (idToken: string, user_uid: string) => {
     setTripApiLoading(true)
@@ -175,6 +187,74 @@ export const useTripApi = () => {
     }
   }
 
+  const deleteTripDate = async (
+    idToken: string,
+    user_uid: string,
+    trip_token: string,
+    date: string
+  ) => {
+    setTripApiLoading(true)
+    if (!selectedTrip) {
+      throw new Error('selectedTrip must be provided.')
+    }
+
+    try {
+      let newStartDate = selectedTrip.start_date
+      let newEndDate = selectedTrip.end_date
+      const isInBetweenDay = date !== newStartDate && date !== newEndDate
+
+      if (date === newStartDate) {
+        newStartDate = getNextDay(newStartDate)
+      } else {
+        newEndDate = getPreviousDay(newEndDate)
+      }
+
+      const data: DbTripData = await updateTripAPI(
+        idToken,
+        user_uid,
+        trip_token,
+        {
+          start_date: newStartDate,
+          end_date: newEndDate,
+        }
+      )
+      if (dbTripsData) {
+        const updatedTripsData = dbTripsData.map((tripData: DbTripData) =>
+          tripData.trip_token === trip_token ? data : tripData
+        )
+        setDbTripsData(updatedTripsData)
+      }
+      if (selectedTrip) {
+        setSelectedTrip(data)
+      }
+
+      if (Boolean(dbSpotsData?.length)) {
+        await deleteSpot(idToken, user_uid, trip_token, undefined, date, true)
+
+        if (isInBetweenDay) {
+          // 削除した旅行日の日付分、スポットの日付を1日前倒しする
+          await updateSpot(
+            idToken,
+            user_uid,
+            trip_token,
+            undefined,
+            undefined,
+            date,
+            '-1',
+            true
+          )
+        }
+      }
+
+      showToast('success', DELETE_TRIP_DATE_SUCCESS_MSG)
+      return data
+    } catch (e) {
+      showToast('error', DELETE_TRIP_DATE_ERROR_MSG)
+    } finally {
+      setTripApiLoading(false)
+    }
+  }
+
   return {
     getTrips,
     getTrip,
@@ -182,5 +262,6 @@ export const useTripApi = () => {
     copyTrip,
     updateTrip,
     deleteTrip,
+    deleteTripDate,
   }
 }
