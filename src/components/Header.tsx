@@ -10,7 +10,7 @@ export const Header: React.FC = () => {
     <header className="fixed top-0 left-0 w-full bg-gray-100 z-10 shadow h-24 p-4 flex justify-between items-center">
       <Logo />
       {currentUser && !authLoading && dbTripsData && <UserActionButtons />}
-      {!currentUser && <AuthButtons />}
+      {currentUser === null && <AuthButtons />}
     </header>
   )
 }
