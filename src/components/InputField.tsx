@@ -17,6 +17,7 @@ type InputFieldProps = {
   onBlur?: () => void
   error?: string
   readonly?: boolean
+  disabled?: boolean
   onCopy?: boolean
   isTripDate?: boolean
   inputmode?:
@@ -45,6 +46,7 @@ export const InputField: FC<InputFieldProps> = ({
   onBlur,
   error,
   readonly,
+  disabled,
   onCopy,
   isTripDate,
   inputmode,
@@ -87,6 +89,7 @@ export const InputField: FC<InputFieldProps> = ({
         onChange={onChange}
         onBlur={onBlur}
         readOnly={readonly}
+        disabled={disabled}
         inputMode={inputmode}
         pattern={pattern}
       />

@@ -23,10 +23,10 @@ import { getTimeFromString } from '@/utils/getDate'
 type SpotFormProps = {
   onClose: () => void
   mode: typeof SPOT_FORM_MODE_CREATE | typeof SPOT_FORM_MODE_UPDATE
-  date?: string
+  date: string
 }
 
-export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date = '' }) => {
+export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
   const { currentUser, dbUserData, selectedTrip, selectedSpot } =
     useAuthContext()
   const { createSpot, updateSpot } = useSpotApi()
@@ -57,7 +57,6 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date = '' }) => {
     handleSpotMemoBlur,
   } = useForm()
 
-  const spotDate = selectedSpot?.date || date
   const selectedTripItem = TRIP_DESTINATION_ITEMS.find(
     (item) => item.value === String(selectedTrip?.prefecture_id)
   )
@@ -76,7 +75,7 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date = '' }) => {
           trip_id: selectedTrip.id,
           spot_icon: spotCategory,
           title: spotName,
-          date: spotDate,
+          date: date,
           start_time: startTime,
           end_time: endTime,
           cost: parseInt(cost),
@@ -103,7 +102,7 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date = '' }) => {
         {
           spot_icon: spotCategory,
           title: spotName,
-          date: spotDate,
+          date: date,
           start_time: startTime,
           end_time: endTime,
           cost: parseInt(cost),
@@ -162,8 +161,8 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date = '' }) => {
         id="spot-date"
         type="date"
         labelName="日付"
-        value={spotDate}
-        readonly={true}
+        value={date}
+        disabled={true}
       />
 
       <InputField

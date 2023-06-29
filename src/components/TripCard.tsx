@@ -32,7 +32,7 @@ type TripCardProps = {
 }
 
 export const TripCard: React.FC<TripCardProps> = ({ trip, isDetailPage }) => {
-  const { selectedTrip, dbUserData, setSelectedTrip } = useAuthContext()
+  const { dbUserData, setSelectedTrip } = useAuthContext()
   const { dropdownRef, isDropdownVisible, hideDropdown, toggleDropdown } =
     useDropdown()
 
@@ -43,7 +43,7 @@ export const TripCard: React.FC<TripCardProps> = ({ trip, isDetailPage }) => {
   const [copyTripOpen, setCopyTripOpen] = useState(false)
   const [deleteTripOpen, setDeleteTripOpen] = useState(false)
 
-  const isOwner = isDetailPage && selectedTrip?.user_id === dbUserData?.id
+  const isOwner = trip?.user_id === dbUserData?.id
 
   const onOpenModal = (
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>

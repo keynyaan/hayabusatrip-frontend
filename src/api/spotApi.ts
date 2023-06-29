@@ -103,23 +103,30 @@ export const updateSpotAPI = async (
   idToken: string,
   user_uid: string,
   trip_token: string,
-  spot_id: number,
-  options: UpdateSpotOptions
+  spot_id?: number,
+  options?: UpdateSpotOptions,
+  base_date?: string,
+  date_offset?: string
 ) => {
-  try {
-    const params: { spot: UpdateSpotOptions } = {
-      spot: options,
-    }
-
-    const res = await axios.patch(
-      `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}${SPOTS_URL}/${spot_id}`,
-      params,
-      {
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
-      }
+  if (!(options && spot_id) && !(base_date && date_offset)) {
+    throw new Error(
+      'Either options&&spot_id or base_date&&date_offset must be provided.'
     )
+  }
+
+  try {
+    const url =
+      options && spot_id
+        ? `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}${SPOTS_URL}/${spot_id}`
+        : `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}${SPOTS_URL}?base_date=${base_date}&date_offset=${date_offset}`
+
+    const params = options ? { spot: options } : null
+
+    const res = await axios.put(url, params, {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    })
     return res.data
   } catch (e) {
     throw e
@@ -131,17 +138,23 @@ export const deleteSpotAPI = async (
   idToken: string,
   user_uid: string,
   trip_token: string,
-  spot_id: number
+  spot_id?: number,
+  date?: string
 ) => {
+  if (!spot_id && !date) {
+    throw new Error('Either spot_id or date must be provided.')
+  }
+
   try {
-    const res = await axios.delete(
-      `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}${SPOTS_URL}/${spot_id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
-      }
-    )
+    const url = date
+      ? `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}${SPOTS_URL}?date=${date}`
+      : `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}${SPOTS_URL}/${spot_id}`
+
+    const res = await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    })
     return res.status
   } catch (e) {
     throw e
