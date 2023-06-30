@@ -52,3 +52,13 @@ li.cursor-default a:hover {
   background-color: transparent;
   color: black;
 }
+
+input[type='date'].full-clickable-date::-webkit-calendar-picker-indicator {
+  position: absolute;
+  padding: 100px;
+}
+
+input[type='date'].full-clickable-date {
+  position: relative;
+  padding-left: 0px;
+}

@@ -10,6 +10,7 @@ import { SpotCard } from '@/components/SpotCard'
 import { SpotForm } from '@/components/SpotForm'
 import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
+import { useSpotApi } from '@/hooks/useSpotApi'
 import { useTripApi } from '@/hooks/useTripApi'
 import {
   MIN_DATE_OBJ,
@@ -17,8 +18,14 @@ import {
   FORM_ADD_SPOT,
   SPOT_FORM_MODE_CREATE,
   FORM_DELETE_TRIP_DATE,
+  UPDATE_SPOT_MIN_BASE_DATE,
 } from '@/utils/constants'
-import { addDay, differenceInDates, getJapaneseDay } from '@/utils/getDate'
+import {
+  addDay,
+  differenceInDates,
+  differenceInDatesStr,
+  getJapaneseDay,
+} from '@/utils/getDate'
 
 export const TripDate: React.FC = ({}) => {
   const {
@@ -28,6 +35,7 @@ export const TripDate: React.FC = ({}) => {
     dbSpotsData,
     setSelectedTrip,
   } = useAuthContext()
+  const { updateSpot } = useSpotApi()
   const { updateTrip } = useTripApi()
   const { showToast } = useToast()
   const initialTripDates = selectedTrip
@@ -109,6 +117,24 @@ export const TripDate: React.FC = ({}) => {
     }
   }
 
+  const updateSpotFunc = async (base_date: string, date_offset: string) => {
+    if (currentUser && selectedTrip) {
+      const idToken = await currentUser.getIdToken()
+      await updateSpot(
+        idToken,
+        currentUser.uid,
+        selectedTrip.trip_token,
+        undefined,
+        undefined,
+        base_date,
+        date_offset,
+        true
+      )
+    } else {
+      showToast('error', 'ログインしてください。')
+    }
+  }
+
   const handleStartDateChange =
     (i: number, minDateString: string, maxDateString: string) =>
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -136,7 +162,10 @@ export const TripDate: React.FC = ({}) => {
 
       const startDate = newTripDates[0]
       const endDate = newTripDates[newTripDates.length - 1]
+      const date_offset = differenceInDatesStr(newTripDates[0], tripDates[0])
+
       updateTripFunc(startDate, endDate)
+      updateSpotFunc(UPDATE_SPOT_MIN_BASE_DATE, date_offset)
     }
 
   useEffect(() => {
@@ -171,6 +200,8 @@ export const TripDate: React.FC = ({}) => {
                   value={tripDates[i]}
                   onChange={handleStartDateChange(i, minDate, maxDate)}
                   isTripDate={true}
+                  fullClickableDate={true}
+                  tabIndex={-1}
                 />
                 {!isDayTrip && (
                   <div
