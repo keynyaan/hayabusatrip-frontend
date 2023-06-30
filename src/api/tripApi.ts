@@ -24,17 +24,6 @@ export type CreateTripOptions = {
   end_date: string
 }
 
-export type CopyTripOptions = {
-  user_id: number
-  prefecture_id: number
-  title: string
-  start_date: string
-  end_date: string
-  memo: string
-  image_path: string
-  is_public: boolean
-}
-
 export type UpdateTripOptions = {
   prefecture_id?: number
   title?: string
@@ -77,22 +66,21 @@ export const getTripAPI = async (trip_token: string, user_uid?: string) => {
 export const createTripAPI = async (
   idToken: string,
   user_uid: string,
-  options: CreateTripOptions | CopyTripOptions
+  options?: CreateTripOptions,
+  copy_trip_token?: string
 ) => {
   try {
-    const params: { trip: CreateTripOptions | CopyTripOptions } = {
-      trip: options,
-    }
+    const url = options
+      ? `${USERS_URL}/${user_uid}${TRIPS_URL}`
+      : `${USERS_URL}/${user_uid}${TRIPS_URL}?copy_trip_token=${copy_trip_token}`
 
-    const res = await axios.post(
-      `${USERS_URL}/${user_uid}${TRIPS_URL}`,
-      params,
-      {
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
-      }
-    )
+    const params = options ? { trip: options } : null
+
+    const res = await axios.post(url, params, {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    })
     return res.data
   } catch (e) {
     throw e

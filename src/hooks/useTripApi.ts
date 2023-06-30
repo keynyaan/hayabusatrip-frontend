@@ -6,7 +6,6 @@ import {
   updateTripAPI,
   deleteTripAPI,
   CreateTripOptions,
-  CopyTripOptions,
   UpdateTripOptions,
   DbTripData,
 } from '@/api/tripApi'
@@ -103,18 +102,12 @@ export const useTripApi = () => {
         return
       }
 
-      const options: CopyTripOptions = {
-        user_id: trip.user_id,
-        prefecture_id: trip.prefecture_id,
-        title: copiedTitle,
-        start_date: trip.start_date,
-        end_date: trip.end_date,
-        memo: trip.memo,
-        image_path: trip.image_path,
-        is_public: false,
-      }
-
-      const data: DbTripData = await createTripAPI(idToken, user_uid, options)
+      const data: DbTripData = await createTripAPI(
+        idToken,
+        user_uid,
+        undefined,
+        trip.trip_token
+      )
       setDbTripsData([...(dbTripsData || []), data])
       showToast('success', COPY_TRIP_SUCCESS_MSG)
       return data
