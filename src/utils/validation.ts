@@ -84,7 +84,7 @@ export const validateStartDate = (startDate: string) => {
   const startDateObj = new Date(startDate)
 
   if (startDateObj < MIN_DATE_OBJ || startDateObj > MAX_DATE_OBJ) {
-    return '開始日は1000年1月1日から9999年12月31日の間の日付を入力してください'
+    return '開始日は2000年1月1日から9999年12月31日の間の日付を入力してください'
   }
 
   return ''
@@ -97,7 +97,7 @@ export const validateEndDate = (startDate: string, endDate: string) => {
   const endDateObj = new Date(endDate)
 
   if (endDateObj < MIN_DATE_OBJ || endDateObj > MAX_DATE_OBJ) {
-    return '終了日は1000年1月1日から9999年12月31日の間の日付を入力してください'
+    return '終了日は2000年1月1日から9999年12月31日の間の日付を入力してください'
   }
 
   if (endDateObj < startDateObj) {

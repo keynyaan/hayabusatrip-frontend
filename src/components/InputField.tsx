@@ -30,6 +30,8 @@ type InputFieldProps = {
     | 'decimal'
     | 'search'
   pattern?: string
+  fullClickableDate?: boolean
+  tabIndex?: number
 }
 
 export const InputField: FC<InputFieldProps> = ({
@@ -51,6 +53,8 @@ export const InputField: FC<InputFieldProps> = ({
   isTripDate,
   inputmode,
   pattern,
+  fullClickableDate,
+  tabIndex,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const { showToast } = useToast()
@@ -78,7 +82,9 @@ export const InputField: FC<InputFieldProps> = ({
         ref={inputRef}
         className={`w-full px-3 py-2 text-gray-700 border rounded focus:outline-none ${
           error ? 'border-red-500' : 'focus:border-brand-color'
-        } ${onCopy && 'pr-8'}`}
+        } ${onCopy ? 'pr-8' : ''} ${
+          fullClickableDate ? 'full-clickable-date' : ''
+        }`}
         type={type}
         min={min}
         max={max}
@@ -92,6 +98,7 @@ export const InputField: FC<InputFieldProps> = ({
         disabled={disabled}
         inputMode={inputmode}
         pattern={pattern}
+        tabIndex={tabIndex}
       />
       {onCopy && (
         <button
