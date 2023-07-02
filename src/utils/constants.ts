@@ -9,6 +9,7 @@ import {
   faLocationDot,
   faCar,
   faShip,
+  faCoins,
 } from '@fortawesome/free-solid-svg-icons'
 
 // サイトのメタ情報
@@ -79,6 +80,11 @@ export const COPY_SUFFIX = 'のコピー'
 export const SPOT_FORM_MODE_CREATE = 'create'
 export const SPOT_FORM_MODE_UPDATE = 'update'
 
+// タブリストの識別子
+export const TRIP_TAB = 'trip'
+export const COST_TAB = 'cost'
+export const MEMO_TAB = 'memo'
+
 // スポット名の上限値
 export const MAX_SPOT_NAME = 30
 
@@ -88,7 +94,11 @@ export const MAX_COST_LENGTH = 8
 
 // スポットメモの設定値
 export const MAX_SPOT_MEMO = 50
-export const SPOT_ROWS = 3
+export const SPOT_MEMO_ROWS = 3
+
+// 旅行メモの設定値
+export const MAX_TRIP_MEMO = 1000
+export const TRIP_MEMO_ROWS = 20
 
 // トースト表示用のメッセージ
 // userAPI
@@ -100,6 +110,7 @@ export const DELETE_USER_ERROR_MSG = 'ユーザーの削除に失敗しました
 export const CREATE_TRIP_SUCCESS_MSG = '旅行プランを作成しました。'
 export const COPY_TRIP_SUCCESS_MSG = '旅行プランをコピーしました。'
 export const UPDATE_TRIP_SUCCESS_MSG = '旅行プランを更新しました。'
+export const UPDATE_TRIP_MEMO_SUCCESS_MSG = 'メモを更新しました。'
 export const DELETE_TRIP_SUCCESS_MSG = '旅行プランを削除しました。'
 export const DELETE_TRIP_DATE_SUCCESS_MSG = '旅行日程を削除しました。'
 export const GET_TRIP_ERROR_MSG = '旅行プランの取得に失敗しました。'
@@ -109,6 +120,7 @@ export const COPY_TRIP_TITLE_ERROR_MSG = `コピー元の旅行タイトルは${
 }文字以下にしてください。`
 export const COPY_TRIP_ERROR_MSG = '旅行プランのコピーに失敗しました。'
 export const UPDATE_TRIP_ERROR_MSG = '旅行プランの更新に失敗しました。'
+export const UPDATE_TRIP_MEMO_ERROR_MSG = 'メモの更新に失敗しました。'
 export const DELETE_TRIP_ERROR_MSG = '旅行プランの削除に失敗しました。'
 export const DELETE_TRIP_DATE_ERROR_MSG = '旅行日程の削除に失敗しました。'
 // spotAPI
@@ -207,4 +219,59 @@ export const SPOT_CATEGORY_OPTIONS = [
   { value: 'train', label: '列車', icon: faTrain, color: 'bg-blue-400' },
   { value: 'airplane', label: '飛行機', icon: faPlane, color: 'bg-blue-400' },
   { value: 'ship', label: '船', icon: faShip, color: 'bg-blue-400' },
+]
+
+// 費用カテゴリーの配列
+export const COST_CATEGORY_OPTIONS = [
+  {
+    value: 'sightseeing',
+    label: '観光費',
+    icon: faLocationDot,
+    textColor: 'text-red-400',
+    bgColor: 'bg-red-50',
+    items: ['sightseeing'],
+  },
+  {
+    value: 'meal',
+    label: '食費',
+    icon: faUtensils,
+    textColor: 'text-orange-400',
+    bgColor: 'bg-orange-50',
+    items: ['meal'],
+  },
+  {
+    value: 'stay',
+    label: '宿泊費',
+    icon: faHotel,
+    textColor: 'text-violet-400',
+    bgColor: 'bg-violet-50',
+    items: ['stay'],
+  },
+  {
+    value: 'travel',
+    label: '交通費',
+    icon: faCar,
+    textColor: 'text-blue-400',
+    bgColor: 'bg-blue-50',
+    items: ['walk', 'bike', 'car', 'bus', 'train', 'airplane', 'ship'],
+  },
+  {
+    value: 'total',
+    label: '合計',
+    icon: faCoins,
+    textColor: 'text-amber-400',
+    bgColor: 'bg-amber-50',
+    items: [
+      'sightseeing',
+      'meal',
+      'stay',
+      'walk',
+      'bike',
+      'car',
+      'bus',
+      'train',
+      'airplane',
+      'ship',
+    ],
+  },
 ]

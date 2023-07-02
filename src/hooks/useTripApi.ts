@@ -28,6 +28,8 @@ import {
   HTTP_STATUS_NO_CONTENT,
   DELETE_TRIP_DATE_ERROR_MSG,
   DELETE_TRIP_DATE_SUCCESS_MSG,
+  UPDATE_TRIP_MEMO_SUCCESS_MSG,
+  UPDATE_TRIP_MEMO_ERROR_MSG,
 } from '@/utils/constants'
 import { getNextDay, getPreviousDay } from '@/utils/getDate'
 
@@ -125,6 +127,7 @@ export const useTripApi = () => {
     options: UpdateTripOptions
   ) => {
     setTripApiLoading(true)
+    const isMemo = options.memo !== undefined
     try {
       const data: DbTripData = await updateTripAPI(
         idToken,
@@ -138,10 +141,21 @@ export const useTripApi = () => {
         )
         setDbTripsData(updatedTripsData)
       }
-      showToast('success', UPDATE_TRIP_SUCCESS_MSG)
+
+      if (selectedTrip) {
+        setSelectedTrip(data)
+      }
+
+      showToast(
+        'success',
+        `${isMemo ? UPDATE_TRIP_MEMO_SUCCESS_MSG : UPDATE_TRIP_SUCCESS_MSG}`
+      )
       return data
     } catch (e) {
-      showToast('error', UPDATE_TRIP_ERROR_MSG)
+      showToast(
+        'error',
+        `${isMemo ? UPDATE_TRIP_MEMO_ERROR_MSG : UPDATE_TRIP_ERROR_MSG}`
+      )
     } finally {
       setTripApiLoading(false)
     }
