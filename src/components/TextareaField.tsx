@@ -12,6 +12,8 @@ type TextareaFieldProps = {
   readonly?: boolean
   maxLength?: number
   rows?: number
+  resizeNone?: boolean
+  disabled?: boolean
 }
 
 export const TextareaField: FC<TextareaFieldProps> = ({
@@ -26,6 +28,8 @@ export const TextareaField: FC<TextareaFieldProps> = ({
   readonly,
   maxLength,
   rows,
+  resizeNone,
+  disabled,
 }) => {
   return (
     <div className="relative">
@@ -36,9 +40,9 @@ export const TextareaField: FC<TextareaFieldProps> = ({
         {labelName}
       </label>
       <textarea
-        className={`w-full px-3 py-2 text-gray-700 text-sm border rounded focus:outline-none resize-none ${
-          error ? 'border-red-500' : 'focus:border-brand-color'
-        }`}
+        className={`w-full px-3 py-2 text-gray-700 text-sm bg-white border rounded focus:outline-none ${
+          resizeNone ? 'resize-none' : ''
+        } ${error ? 'border-red-500' : 'focus:border-brand-color'}`}
         id={id}
         placeholder={placeholder}
         maxLength={maxLength}
@@ -47,6 +51,7 @@ export const TextareaField: FC<TextareaFieldProps> = ({
         onBlur={onBlur}
         readOnly={readonly}
         rows={rows}
+        disabled={disabled}
       />
       {error && <p className="text-red-500">{error}</p>}
     </div>

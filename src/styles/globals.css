@@ -26,6 +26,14 @@
   }
 }
 
+.tab-item {
+  @apply p-2 flex-grow text-center text-gray-700 border-b-2 border-gray-300 cursor-pointer;
+
+  &.active {
+    @apply text-brand-color border-brand-color;
+  }
+}
+
 .modal-close-button {
   @apply rounded outline-none;
 

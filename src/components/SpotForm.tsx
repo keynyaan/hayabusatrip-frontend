@@ -15,7 +15,7 @@ import {
   SPOT_FORM_MODE_CREATE,
   SPOT_FORM_MODE_UPDATE,
   SPOT_CATEGORY_OPTIONS,
-  SPOT_ROWS,
+  SPOT_MEMO_ROWS,
   TRIP_DESTINATION_ITEMS,
 } from '@/utils/constants'
 import { getTimeFromString } from '@/utils/getDate'
@@ -231,7 +231,8 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
         onBlur={handleSpotMemoBlur}
         error={spotMemoError}
         maxLength={MAX_SPOT_MEMO}
-        rows={SPOT_ROWS}
+        rows={SPOT_MEMO_ROWS}
+        resizeNone={true}
       />
 
       <FormButton

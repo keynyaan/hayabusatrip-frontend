@@ -6,6 +6,7 @@ import {
   MAX_COST,
   MAX_SPOT_MEMO,
   MAX_SPOT_NAME,
+  MAX_TRIP_MEMO,
 } from '@/utils/constants'
 
 export const validateUsername = (username: string) => {
@@ -129,6 +130,13 @@ export const validateEndTime = (startTime: string, endTime: string) => {
 export const validateCost = (cost: string) => {
   if (cost === '') return '費用を入力してください'
   if (parseInt(cost) > MAX_COST) return '費用は1億未満の数値を入力してください'
+
+  return ''
+}
+
+export const validateTripMemo = (tripMemo: string) => {
+  if (tripMemo.length > MAX_TRIP_MEMO)
+    return `メモは${MAX_TRIP_MEMO}文字以下で入力してください`
 
   return ''
 }

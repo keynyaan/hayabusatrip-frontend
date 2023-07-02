@@ -20,6 +20,7 @@ import {
   validateEndTime,
   validateCost,
   validateSpotMemo,
+  validateTripMemo,
 } from '@/utils/validation'
 
 export const useForm = () => {
@@ -38,6 +39,7 @@ export const useForm = () => {
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
   const [cost, setCost] = useState('0')
+  const [tripMemo, setTripMemo] = useState('')
   const [spotMemo, setSpotMemo] = useState('')
   const [usernameError, setUsernameError] = useState('')
   const [emailError, setEmailError] = useState('')
@@ -50,6 +52,7 @@ export const useForm = () => {
   const [startTimeError, setStartTimeError] = useState('')
   const [endTimeError, setEndTimeError] = useState('')
   const [costError, setCostError] = useState('')
+  const [tripMemoError, setTripMemoError] = useState('')
   const [spotMemoError, setSpotMemoError] = useState('')
 
   const isSignUpFormValid: boolean =
@@ -90,6 +93,8 @@ export const useForm = () => {
     Boolean(tripTitle) && !validateTripTitle(tripTitle)
 
   const isTripDestinationFormValid: boolean = tripDestination !== ''
+
+  const isTripMemoFormValid = !validateTripMemo(tripMemo)
 
   const isSpotFormValid: boolean =
     Boolean(spotName) &&
@@ -173,6 +178,11 @@ export const useForm = () => {
       setCostError(validateCost(newCostStr))
     }
   }
+  const handleTripMemoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newTripMemo = e.target.value
+    setTripMemo(newTripMemo)
+    setTripMemoError(validateTripMemo(newTripMemo))
+  }
   const handleSpotMemoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newSpotMemo = e.target.value
     setSpotMemo(newSpotMemo)
@@ -192,6 +202,7 @@ export const useForm = () => {
   const handleEndTimeBlur = () =>
     setEndTimeError(validateEndTime(startTime, endTime))
   const handleCostBlur = () => setCostError(validateCost(cost))
+  const handleTripMemoBlur = () => setTripMemoError(validateTripMemo(tripMemo))
   const handleSpotMemoBlur = () => setSpotMemoError(validateSpotMemo(spotMemo))
 
   return {
@@ -208,6 +219,7 @@ export const useForm = () => {
     startTime,
     endTime,
     cost,
+    tripMemo,
     spotMemo,
     usernameError,
     emailError,
@@ -220,6 +232,7 @@ export const useForm = () => {
     startTimeError,
     endTimeError,
     costError,
+    tripMemoError,
     spotMemoError,
     isSignUpFormValid,
     isLoginFormValid,
@@ -228,6 +241,7 @@ export const useForm = () => {
     isCreateTripFormValid,
     isTripTitleFormValid,
     isTripDestinationFormValid,
+    isTripMemoFormValid,
     isSpotFormValid,
     handleUsernameChange,
     handleEmailChange,
@@ -242,6 +256,7 @@ export const useForm = () => {
     handleStartTimeChange,
     handleEndTimeChange,
     handleCostChange,
+    handleTripMemoChange,
     handleSpotMemoChange,
     handleUsernameBlur,
     handleEmailBlur,
@@ -252,6 +267,7 @@ export const useForm = () => {
     handleStartTimeBlur,
     handleEndTimeBlur,
     handleCostBlur,
+    handleTripMemoBlur,
     handleSpotMemoBlur,
   }
 }

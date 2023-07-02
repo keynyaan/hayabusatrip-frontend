@@ -14,8 +14,7 @@ type TripPublishSettingsFormProps = {
 export const TripPublishSettingsForm: FC<TripPublishSettingsFormProps> = ({
   onClose,
 }) => {
-  const { currentUser, dbUserData, selectedTrip, setSelectedTrip } =
-    useAuthContext()
+  const { currentUser, dbUserData, selectedTrip } = useAuthContext()
   const { updateTrip } = useTripApi()
   const { showToast } = useToast()
   const { siteUrl } = SITE_META
@@ -34,7 +33,6 @@ export const TripPublishSettingsForm: FC<TripPublishSettingsFormProps> = ({
 
       if (success) {
         onClose()
-        setSelectedTrip(success)
       }
     } else {
       showToast('error', 'ログインしてください。')

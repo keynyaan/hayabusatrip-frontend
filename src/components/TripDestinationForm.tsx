@@ -15,8 +15,7 @@ type TripDestinationFormProps = {
 export const TripDestinationForm: FC<TripDestinationFormProps> = ({
   onClose,
 }) => {
-  const { currentUser, dbUserData, selectedTrip, setSelectedTrip } =
-    useAuthContext()
+  const { currentUser, dbUserData, selectedTrip } = useAuthContext()
   const { updateTrip } = useTripApi()
   const { showToast } = useToast()
 
@@ -34,7 +33,6 @@ export const TripDestinationForm: FC<TripDestinationFormProps> = ({
 
       if (success) {
         onClose()
-        setSelectedTrip(success)
       }
     } else {
       showToast('error', 'ログインしてください。')
