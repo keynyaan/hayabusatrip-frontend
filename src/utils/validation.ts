@@ -1,5 +1,5 @@
 import { isBefore } from 'date-fns'
-import { parseTimeObj } from '@/utils/getDate'
+import { differenceInDatesNum, parseTimeObj } from '@/utils/getDate'
 import {
   MIN_DATE_OBJ,
   MAX_DATE_OBJ,
@@ -7,6 +7,7 @@ import {
   MAX_SPOT_MEMO,
   MAX_SPOT_NAME,
   MAX_TRIP_MEMO,
+  MAX_TRIP_DURATION,
 } from '@/utils/constants'
 
 export const validateUsername = (username: string) => {
@@ -103,6 +104,10 @@ export const validateEndDate = (startDate: string, endDate: string) => {
 
   if (endDateObj < startDateObj) {
     return '終了日は開始日以降の日付を入力してください'
+  }
+
+  if (!(differenceInDatesNum(endDate, startDate) < MAX_TRIP_DURATION)) {
+    return `終了日は開始日から${MAX_TRIP_DURATION}日以内に設定してください`
   }
 
   return ''
