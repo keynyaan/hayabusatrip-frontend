@@ -5,7 +5,12 @@ import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 import { useForm } from '@/hooks/useForm'
 import { useTripApi } from '@/hooks/useTripApi'
-import { MAX_TRIP_MEMO, TRIP_MEMO_ROWS } from '@/utils/constants'
+import {
+  MAX_TRIP_MEMO,
+  TRIP_MEMO_ROWS,
+  UPDATE_TRIP_MEMO_ERROR_MSG,
+  UPDATE_TRIP_MEMO_SUCCESS_MSG,
+} from '@/utils/constants'
 
 type TripMemoProps = {
   isOwner: boolean
@@ -26,9 +31,16 @@ export const TripMemo: React.FC<TripMemoProps> = ({ isOwner }) => {
   const updateTripMemoFunc = async () => {
     if (currentUser && selectedTrip) {
       const idToken = await currentUser.getIdToken()
-      await updateTrip(idToken, currentUser.uid, selectedTrip.trip_token, {
-        memo: tripMemo,
-      })
+      await updateTrip(
+        idToken,
+        currentUser.uid,
+        selectedTrip.trip_token,
+        {
+          memo: tripMemo,
+        },
+        UPDATE_TRIP_MEMO_SUCCESS_MSG,
+        UPDATE_TRIP_MEMO_ERROR_MSG
+      )
     } else {
       showToast('error', 'ログインしてください。')
     }

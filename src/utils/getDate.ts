@@ -78,10 +78,9 @@ export const getOneHourAhead = (time: string): string => {
   return format(date, formatString)
 }
 
-export const differenceInDatesStr = (dateStr1: string, dateStr2: string) => {
+export const differenceInDatesNum = (dateStr1: string, dateStr2: string) => {
   const timeZone = 'Asia/Tokyo'
   const date1 = utcToZonedTime(new Date(dateStr1), timeZone)
   const date2 = utcToZonedTime(new Date(dateStr2), timeZone)
-  const diff = differenceInDays(date1, date2)
-  return diff.toString()
+  return differenceInDays(date1, date2)
 }

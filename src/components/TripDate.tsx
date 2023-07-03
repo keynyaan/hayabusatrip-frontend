@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, createRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import { DbSpotData } from '@/api/spotApi'
@@ -19,8 +19,17 @@ import {
   SPOT_FORM_MODE_CREATE,
   FORM_DELETE_TRIP_DATE,
   UPDATE_SPOT_MIN_BASE_DATE,
+  MAX_TRIP_DURATION,
+  HEADER_HEIGHT,
+  UPDATE_TRIP_DATE_ERROR_MSG,
+  UPDATE_TRIP_DATE_SUCCESS_MSG,
 } from '@/utils/constants'
-import { addDay, differenceInDatesStr, getJapaneseDay } from '@/utils/getDate'
+import {
+  addDay,
+  differenceInDatesNum,
+  getJapaneseDay,
+  getNextDay,
+} from '@/utils/getDate'
 
 type TripDateProps = {
   tripDates: string[]
@@ -44,6 +53,7 @@ export const TripDate: React.FC<TripDateProps> = ({
   const [deleteDateModalOpen, setDeleteDateModalOpen] = useState(false)
 
   const isDayTrip = selectedTrip?.start_date === selectedTrip?.end_date
+  const tripDateRefs = tripDates.map(() => createRef<HTMLDivElement>())
 
   const onOpenAddSpotModal = (date: string) => {
     setSelectedDate(date)
@@ -70,6 +80,24 @@ export const TripDate: React.FC<TripDateProps> = ({
         start_date: startDate,
         end_date: endDate,
       })
+    } else {
+      showToast('error', 'ログインしてください。')
+    }
+  }
+
+  const addTripDateFunc = async () => {
+    if (currentUser && selectedTrip) {
+      const idToken = await currentUser.getIdToken()
+      await updateTrip(
+        idToken,
+        currentUser.uid,
+        selectedTrip.trip_token,
+        {
+          end_date: getNextDay(selectedTrip.end_date),
+        },
+        UPDATE_TRIP_DATE_SUCCESS_MSG,
+        UPDATE_TRIP_DATE_ERROR_MSG
+      )
     } else {
       showToast('error', 'ログインしてください。')
     }
@@ -120,94 +148,131 @@ export const TripDate: React.FC<TripDateProps> = ({
 
       const startDate = newTripDates[0]
       const endDate = newTripDates[newTripDates.length - 1]
-      const date_offset = differenceInDatesStr(newTripDates[0], tripDates[0])
+      const date_offset = differenceInDatesNum(newTripDates[0], tripDates[0])
 
       updateTripFunc(startDate, endDate)
-      updateSpotFunc(UPDATE_SPOT_MIN_BASE_DATE, date_offset)
+      updateSpotFunc(UPDATE_SPOT_MIN_BASE_DATE, date_offset.toString())
     }
 
-  return (
-    <div className="m-4 space-y-20">
-      {tripDates.map((date, i) => {
-        const minDate = addDay(MIN_DATE_OBJ, i)
-        const maxDate = addDay(MAX_DATE_OBJ, i + 1 - tripDates.length)
-        const spotsForDate = getSpotsForDate(date)
+  const handleDateButtonClick = (index: number) => {
+    const element = tripDateRefs[index].current
+    if (element) {
+      const top = element.getBoundingClientRect().top - HEADER_HEIGHT
+      window.scrollTo({ top, behavior: 'smooth' })
+    }
+  }
 
-        return (
-          <div key={i} className="flex flex-col space-y-2">
-            {isOwner ? (
-              <div className="flex items-center space-x-2">
-                <InputField
-                  id={`day${i + 1}`}
-                  type="date"
-                  min={minDate}
-                  max={maxDate}
-                  labelName={`${i + 1}日目`}
-                  value={date}
-                  onChange={handleStartDateChange(i, minDate, maxDate)}
-                  isTripDate={true}
-                  fullClickableDate={true}
-                  tabIndex={-1}
+  const dateButtonsClass =
+    'py-2 text-sm text-gray-700 border hover:text-brand-color hover:border-brand-color transition rounded-3xl'
+
+  const dateButtons = (
+    <div className="grid grid-cols-5 gap-2">
+      {tripDates.map((_, i) => (
+        <button
+          key={i}
+          className={dateButtonsClass}
+          onClick={() => handleDateButtonClick(i)}
+        >
+          {i + 1}日目
+        </button>
+      ))}
+      {tripDates.length !== MAX_TRIP_DURATION && (
+        <button className={dateButtonsClass} onClick={addTripDateFunc}>
+          <span className="text-xs">＋</span>追加
+        </button>
+      )}
+    </div>
+  )
+
+  return (
+    <div className="m-4 space-y-6">
+      {dateButtons}
+      <div className="space-y-20">
+        {tripDates.map((date, i) => {
+          const minDate = addDay(MIN_DATE_OBJ, i)
+          const maxDate = addDay(MAX_DATE_OBJ, i + 1 - tripDates.length)
+          const spotsForDate = getSpotsForDate(date)
+
+          return (
+            <div
+              key={i}
+              className="flex flex-col space-y-2"
+              ref={tripDateRefs[i]}
+            >
+              {isOwner ? (
+                <div className="flex items-center space-x-2">
+                  <InputField
+                    id={`day${i + 1}`}
+                    type="date"
+                    min={minDate}
+                    max={maxDate}
+                    labelName={`${i + 1}日目`}
+                    value={date}
+                    onChange={handleStartDateChange(i, minDate, maxDate)}
+                    isTripDate={true}
+                    fullClickableDate={true}
+                    tabIndex={-1}
+                  />
+                  {!isDayTrip && (
+                    <div
+                      className="w-10 h-10 transition-all p-2 text-red-500 hover:text-white rounded-full  hover:bg-red-500 flex items-center justify-center cursor-pointer"
+                      onClick={() => onOpenDeleteDateModal(date)}
+                    >
+                      <FontAwesomeIcon icon={faTrashCan} size="lg" />
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className={`relative flex items-center`}>
+                  <p className={`text-gray-500 whitespace-nowrap`}>
+                    {`${i + 1}日目`}
+                  </p>
+                  <p className={`w-full px-3 py-2 text-gray-700`}>
+                    {getJapaneseDay(date)}
+                  </p>
+                </div>
+              )}
+              {spotsForDate?.map((spot, index) => (
+                <div key={index}>
+                  <SpotCard spot={spot} />
+                </div>
+              ))}
+              {isOwner && (
+                <ActionButton
+                  text="スポットを追加"
+                  onClick={() => onOpenAddSpotModal(date)}
+                  showPlusIcon={true}
                 />
-                {!isDayTrip && (
-                  <div
-                    className="w-10 h-10 transition-all p-2 text-red-500 hover:text-white rounded-full  hover:bg-red-500 flex items-center justify-center cursor-pointer"
-                    onClick={() => onOpenDeleteDateModal(date)}
-                  >
-                    <FontAwesomeIcon icon={faTrashCan} size="lg" />
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className={`relative flex items-center`}>
-                <p className={`text-gray-500 whitespace-nowrap`}>
-                  {`${i + 1}日目`}
-                </p>
-                <p className={`w-full px-3 py-2 text-gray-700`}>
-                  {getJapaneseDay(date)}
-                </p>
-              </div>
-            )}
-            {spotsForDate?.map((spot, index) => (
-              <div key={index}>
-                <SpotCard spot={spot} />
-              </div>
-            ))}
-            {isOwner && (
-              <ActionButton
-                text="スポットを追加"
-                onClick={() => onOpenAddSpotModal(date)}
-                showPlusIcon={true}
-              />
-            )}
-          </div>
-        )
-      })}
-      {addSpotModalOpen && (
-        <Modal
-          open={addSpotModalOpen}
-          onClose={onCloseAddSpotModal}
-          title={FORM_ADD_SPOT}
-        >
-          <SpotForm
+              )}
+            </div>
+          )
+        })}
+        {addSpotModalOpen && (
+          <Modal
+            open={addSpotModalOpen}
             onClose={onCloseAddSpotModal}
-            mode={SPOT_FORM_MODE_CREATE}
-            date={selectedDate}
-          />
-        </Modal>
-      )}
-      {deleteDateModalOpen && (
-        <Modal
-          open={deleteDateModalOpen}
-          onClose={onCloseDeleteDateModal}
-          title={FORM_DELETE_TRIP_DATE}
-        >
-          <DeleteTripDateForm
+            title={FORM_ADD_SPOT}
+          >
+            <SpotForm
+              onClose={onCloseAddSpotModal}
+              mode={SPOT_FORM_MODE_CREATE}
+              date={selectedDate}
+            />
+          </Modal>
+        )}
+        {deleteDateModalOpen && (
+          <Modal
+            open={deleteDateModalOpen}
             onClose={onCloseDeleteDateModal}
-            date={selectedDate}
-          />
-        </Modal>
-      )}
+            title={FORM_DELETE_TRIP_DATE}
+          >
+            <DeleteTripDateForm
+              onClose={onCloseDeleteDateModal}
+              date={selectedDate}
+            />
+          </Modal>
+        )}
+      </div>
     </div>
   )
 }

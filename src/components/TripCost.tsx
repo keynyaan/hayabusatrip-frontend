@@ -38,7 +38,7 @@ export const TripCost: React.FC<TripCostProps> = ({
   }
 
   return (
-    <div className="px-4 space-y-4 max-w-xs mx-auto">
+    <div className="px-4 max-w-xs mx-auto">
       <Accordion allowZeroExpanded>
         {COST_CATEGORY_OPTIONS.map((option, i) => (
           <React.Fragment key={i}>
