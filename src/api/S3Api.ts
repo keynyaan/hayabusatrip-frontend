@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { UPLOAD_ERROR_MSG, S3_UPLOAD_URL } from '@/utils/constants'
+import { S3_UPLOAD_URL } from '@/utils/constants'
 
 export const uploadImageToS3 = async (file: File, filename: string) => {
   const formData = new FormData()
@@ -14,6 +14,6 @@ export const uploadImageToS3 = async (file: File, filename: string) => {
     })
     return result.data.location
   } catch (e) {
-    throw new Error(UPLOAD_ERROR_MSG)
+    throw e
   }
 }
