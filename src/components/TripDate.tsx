@@ -23,6 +23,8 @@ import {
   HEADER_HEIGHT,
   UPDATE_TRIP_DATE_ERROR_MSG,
   UPDATE_TRIP_DATE_SUCCESS_MSG,
+  ADD_TRIP_DATE_ERROR_MSG,
+  ADD_TRIP_DATE_SUCCESS_MSG,
 } from '@/utils/constants'
 import {
   addDay,
@@ -76,10 +78,17 @@ export const TripDate: React.FC<TripDateProps> = ({
   const updateTripFunc = async (startDate: string, endDate: string) => {
     if (currentUser && selectedTrip) {
       const idToken = await currentUser.getIdToken()
-      await updateTrip(idToken, currentUser.uid, selectedTrip.trip_token, {
-        start_date: startDate,
-        end_date: endDate,
-      })
+      await updateTrip(
+        idToken,
+        currentUser.uid,
+        selectedTrip.trip_token,
+        {
+          start_date: startDate,
+          end_date: endDate,
+        },
+        UPDATE_TRIP_DATE_SUCCESS_MSG,
+        UPDATE_TRIP_DATE_ERROR_MSG
+      )
     } else {
       showToast('error', 'ログインしてください。')
     }
@@ -95,8 +104,8 @@ export const TripDate: React.FC<TripDateProps> = ({
         {
           end_date: getNextDay(selectedTrip.end_date),
         },
-        UPDATE_TRIP_DATE_SUCCESS_MSG,
-        UPDATE_TRIP_DATE_ERROR_MSG
+        ADD_TRIP_DATE_SUCCESS_MSG,
+        ADD_TRIP_DATE_ERROR_MSG
       )
     } else {
       showToast('error', 'ログインしてください。')

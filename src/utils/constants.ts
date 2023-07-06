@@ -116,8 +116,13 @@ export const DELETE_USER_ERROR_MSG = 'ユーザーの削除に失敗しました
 export const CREATE_TRIP_SUCCESS_MSG = '旅行プランを作成しました。'
 export const COPY_TRIP_SUCCESS_MSG = '旅行プランをコピーしました。'
 export const UPDATE_TRIP_SUCCESS_MSG = '旅行プランを更新しました。'
+export const UPDATE_TRIP_PUBLISH_SETTINGS_SUCCESS_MSG =
+  '公開状態を変更しました。'
+export const UPDATE_TRIP_TITLE_SUCCESS_MSG = '旅行タイトルを変更しました。'
+export const UPDATE_TRIP_DESTINATION_SUCCESS_MSG = '旅行先を変更しました。'
 export const UPDATE_TRIP_MEMO_SUCCESS_MSG = 'メモを更新しました。'
-export const UPDATE_TRIP_DATE_SUCCESS_MSG = '旅行日程を追加しました。'
+export const ADD_TRIP_DATE_SUCCESS_MSG = '旅行日程を追加しました。'
+export const UPDATE_TRIP_DATE_SUCCESS_MSG = '旅行日程を変更しました。'
 export const DELETE_TRIP_SUCCESS_MSG = '旅行プランを削除しました。'
 export const DELETE_TRIP_DATE_SUCCESS_MSG = '旅行日程を削除しました。'
 export const GET_TRIP_ERROR_MSG = '旅行プランの取得に失敗しました。'
@@ -127,8 +132,13 @@ export const COPY_TRIP_TITLE_ERROR_MSG = `コピー元の旅行タイトルは${
 }文字以下にしてください。`
 export const COPY_TRIP_ERROR_MSG = '旅行プランのコピーに失敗しました。'
 export const UPDATE_TRIP_ERROR_MSG = '旅行プランの更新に失敗しました。'
+export const UPDATE_TRIP_PUBLISH_SETTINGS_ERROR_MSG =
+  '公開状態の変更に失敗しました。'
+export const UPDATE_TRIP_TITLE_ERROR_MSG = '旅行タイトルの変更に失敗しました。'
+export const UPDATE_TRIP_DESTINATION_ERROR_MSG = '旅行先の変更に失敗しました。'
 export const UPDATE_TRIP_MEMO_ERROR_MSG = 'メモの更新に失敗しました。'
-export const UPDATE_TRIP_DATE_ERROR_MSG = '旅行日程の追加に失敗しました。'
+export const ADD_TRIP_DATE_ERROR_MSG = '旅行日程の追加に失敗しました。'
+export const UPDATE_TRIP_DATE_ERROR_MSG = '旅行日程の変更に失敗しました。'
 export const DELETE_TRIP_ERROR_MSG = '旅行プランの削除に失敗しました。'
 export const DELETE_TRIP_DATE_ERROR_MSG = '旅行日程の削除に失敗しました。'
 // spotAPI
@@ -140,9 +150,14 @@ export const CREATE_SPOT_ERROR_MSG = '旅行スポットの追加に失敗しま
 export const UPDATE_SPOT_ERROR_MSG = '旅行スポットの更新に失敗しました。'
 export const DELETE_SPOT_ERROR_MSG = '旅行スポットの削除に失敗しました。'
 // S3API
-export const UPLOAD_LOADING_MSG = '画像を更新中です。'
-export const UPLOAD_SUCCESS_MSG = '画像を更新しました。'
-export const UPLOAD_ERROR_MSG = '画像のアップロードに失敗しました。'
+export const UPLOAD_USER_ICON_LOADING_MSG = 'ユーザーアイコンを更新中です。'
+export const UPLOAD_TRIP_IMAGE_LOADING_MSG = '旅行写真を更新中です。'
+export const UPLOAD_USER_ICON_SUCCESS_MSG = 'ユーザーアイコンを更新しました。'
+export const UPLOAD_TRIP_IMAGE_SUCCESS_MSG = '旅行写真を更新しました。'
+export const UPLOAD_USER_ICON_ERROR_MSG =
+  'ユーザーアイコンのアップロードに失敗しました。'
+export const UPLOAD_TRIP_IMAGE_ERROR_MSG =
+  '旅行写真のアップロードに失敗しました。'
 
 // S3API実行時の保存先ディレクトリ
 export const USER_ICONS_DIRECTORY = 'user_icons'

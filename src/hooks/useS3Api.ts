@@ -3,14 +3,17 @@ import { updateTripAPI, DbTripData } from '@/api/tripApi'
 import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 import {
-  UPLOAD_LOADING_MSG,
-  UPLOAD_SUCCESS_MSG,
-  UPLOAD_ERROR_MSG,
   FILE_SIZE_LIMIT_BYTES,
   FILE_SIZE_LIMIT_MB,
   TRIP_IMAGES_DIRECTORY,
   USER_ICONS_DIRECTORY,
   USERS_URL,
+  UPLOAD_TRIP_IMAGE_ERROR_MSG,
+  UPLOAD_TRIP_IMAGE_LOADING_MSG,
+  UPLOAD_TRIP_IMAGE_SUCCESS_MSG,
+  UPLOAD_USER_ICON_ERROR_MSG,
+  UPLOAD_USER_ICON_LOADING_MSG,
+  UPLOAD_USER_ICON_SUCCESS_MSG,
 } from '@/utils/constants'
 import { uploadImageToS3 } from '@/api/S3Api'
 import { getTimestamp } from '@/utils/getTimestamp'
@@ -61,7 +64,7 @@ export const useS3Api = () => {
     }-${getTimestamp()}.${file.type.split('/')[1]}`
 
     setS3ApiLoading(true)
-    showToast('info', UPLOAD_LOADING_MSG)
+    showToast('info', UPLOAD_TRIP_IMAGE_LOADING_MSG)
 
     try {
       const imageUrl = await uploadImageToS3(file, filename)
@@ -80,10 +83,10 @@ export const useS3Api = () => {
         )
         setDbTripsData(updatedTripsData)
       }
-      showToast('success', UPLOAD_SUCCESS_MSG)
+      showToast('success', UPLOAD_TRIP_IMAGE_SUCCESS_MSG)
       return data
     } catch (e) {
-      showToast('error', UPLOAD_ERROR_MSG)
+      showToast('error', UPLOAD_TRIP_IMAGE_ERROR_MSG)
     } finally {
       setS3ApiLoading(false)
     }
@@ -109,7 +112,7 @@ export const useS3Api = () => {
     }-${getTimestamp()}.${file.type.split('/')[1]}`
 
     setS3ApiLoading(true)
-    showToast('info', UPLOAD_LOADING_MSG)
+    showToast('info', UPLOAD_USER_ICON_LOADING_MSG)
 
     try {
       const imageUrl = await uploadImageToS3(file, filename)
@@ -120,10 +123,10 @@ export const useS3Api = () => {
         },
       })
       setUserIconPath(res.data.icon_path)
-      showToast('success', UPLOAD_SUCCESS_MSG)
+      showToast('success', UPLOAD_USER_ICON_SUCCESS_MSG)
       return res.data
     } catch (e) {
-      showToast('error', UPLOAD_ERROR_MSG)
+      showToast('error', UPLOAD_USER_ICON_ERROR_MSG)
     } finally {
       setS3ApiLoading(false)
     }

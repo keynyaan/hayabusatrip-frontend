@@ -5,7 +5,12 @@ import { InputField } from '@/components//InputField'
 import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 import { useTripApi } from '@/hooks/useTripApi'
-import { SITE_META, TRIPS_URL } from '@/utils/constants'
+import {
+  SITE_META,
+  TRIPS_URL,
+  UPDATE_TRIP_PUBLISH_SETTINGS_ERROR_MSG,
+  UPDATE_TRIP_PUBLISH_SETTINGS_SUCCESS_MSG,
+} from '@/utils/constants'
 
 type TripPublishSettingsFormProps = {
   onClose: () => void
@@ -28,7 +33,9 @@ export const TripPublishSettingsForm: FC<TripPublishSettingsFormProps> = ({
         selectedTrip.trip_token,
         {
           is_public: !selectedTrip.is_public,
-        }
+        },
+        UPDATE_TRIP_PUBLISH_SETTINGS_SUCCESS_MSG,
+        UPDATE_TRIP_PUBLISH_SETTINGS_ERROR_MSG
       )
 
       if (success) {
