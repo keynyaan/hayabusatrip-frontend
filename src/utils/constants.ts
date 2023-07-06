@@ -58,7 +58,7 @@ export const MAX_DATE = '9999-12-31'
 export const MIN_DATE_OBJ = new Date('2000-01-01')
 export const MAX_DATE_OBJ = new Date('9999-12-31')
 
-// フォームの名前
+// モーダルタイトル
 export const FORM_SIGN_UP = '新規登録'
 export const FORM_LOGIN = 'ログイン'
 export const FORM_PASSWORD_RESET = 'パスワード再設定'
@@ -74,6 +74,7 @@ export const FORM_ADD_SPOT = 'スポット追加'
 export const FORM_UPDATE_SPOT = 'スポット更新'
 export const FORM_DELETE_SPOT = 'スポット削除'
 export const FORM_DELETE_TRIP_DATE = '日程削除'
+export const DESCRIPTION_VIEW_MODE = '閲覧モードとは？'
 
 // 旅行タイトルの上限とコピー時の接尾辞
 export const MAX_TRIP_TITLE_LENGTH = 30

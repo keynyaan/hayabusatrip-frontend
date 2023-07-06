@@ -8,6 +8,7 @@ type ActionButtonProps = {
   isUnsubscribe?: boolean
   showHomeIcon?: boolean
   showPlusIcon?: boolean
+  isWfull?: boolean
 }
 
 export const ActionButton: FC<ActionButtonProps> = ({
@@ -16,10 +17,13 @@ export const ActionButton: FC<ActionButtonProps> = ({
   isUnsubscribe,
   showHomeIcon,
   showPlusIcon,
+  isWfull,
 }) => {
   return (
     <button
       className={`px-4 py-2 text-sm border rounded hover:text-white transition-all ${
+        isWfull ? 'w-full' : ''
+      } ${
         isUnsubscribe
           ? 'text-red-500 border-red-500 hover:bg-red-500'
           : 'text-brand-color border-brand-color hover:bg-brand-color'

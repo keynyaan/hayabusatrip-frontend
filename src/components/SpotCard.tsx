@@ -17,14 +17,13 @@ import { getTimeFromString } from '@/utils/getDate'
 
 type SpotCardProps = {
   spot: DbSpotData
+  viewMode: boolean
 }
 
-export const SpotCard: React.FC<SpotCardProps> = ({ spot }) => {
-  const { dbUserData, selectedTrip, setSelectedSpot } = useAuthContext()
+export const SpotCard: React.FC<SpotCardProps> = ({ spot, viewMode }) => {
+  const { setSelectedSpot } = useAuthContext()
   const [deleteSpotModalOpen, setDeleteSpotModalOpen] = useState(false)
   const [updateSpotModalOpen, setUpdateSpotModalOpen] = useState(false)
-
-  const isOwner = selectedTrip?.user_id === dbUserData?.id
 
   const spotIcon =
     SPOT_CATEGORY_OPTIONS.find((option) => option.value === spot.spot_icon) ||
@@ -53,12 +52,12 @@ export const SpotCard: React.FC<SpotCardProps> = ({ spot }) => {
     <>
       <div
         className={`relative p-3 pr-6 rounded shadow-md ${
-          isOwner ? 'hover:shadow-xl transition cursor-pointer' : ''
+          viewMode ? '' : 'hover:shadow-xl transition cursor-pointer'
         }`}
         key={spot.id}
-        onClick={isOwner ? onOpenUpdateSpotModal : undefined}
+        onClick={viewMode ? undefined : onOpenUpdateSpotModal}
       >
-        {isOwner && (
+        {!viewMode && (
           <div
             className="absolute top-0 right-0 w-6 h-6 transition-all p-2 text-red-500 hover:text-white rounded-full  hover:bg-red-500 flex items-center justify-center"
             onClick={onOpenDeleteSpotModal}
