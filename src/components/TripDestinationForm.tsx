@@ -6,7 +6,11 @@ import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 import { useForm } from '@/hooks/useForm'
 import { useTripApi } from '@/hooks/useTripApi'
-import { TRIP_DESTINATION_ITEMS } from '@/utils/constants'
+import {
+  TRIP_DESTINATION_ITEMS,
+  UPDATE_TRIP_DESTINATION_ERROR_MSG,
+  UPDATE_TRIP_DESTINATION_SUCCESS_MSG,
+} from '@/utils/constants'
 
 type TripDestinationFormProps = {
   onClose: () => void
@@ -28,7 +32,9 @@ export const TripDestinationForm: FC<TripDestinationFormProps> = ({
         selectedTrip.trip_token,
         {
           prefecture_id: parseInt(tripDestination),
-        }
+        },
+        UPDATE_TRIP_DESTINATION_SUCCESS_MSG,
+        UPDATE_TRIP_DESTINATION_ERROR_MSG
       )
 
       if (success) {

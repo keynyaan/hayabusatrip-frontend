@@ -6,6 +6,10 @@ import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 import { useForm } from '@/hooks/useForm'
 import { useTripApi } from '@/hooks/useTripApi'
+import {
+  UPDATE_TRIP_TITLE_SUCCESS_MSG,
+  UPDATE_TRIP_TITLE_ERROR_MSG,
+} from '@/utils/constants'
 
 type TripTitleFormProps = {
   onClose: () => void
@@ -25,7 +29,9 @@ export const TripTitleForm: FC<TripTitleFormProps> = ({ onClose }) => {
         selectedTrip.trip_token,
         {
           title: tripTitle,
-        }
+        },
+        UPDATE_TRIP_TITLE_SUCCESS_MSG,
+        UPDATE_TRIP_TITLE_ERROR_MSG
       )
 
       if (success) {
