@@ -78,6 +78,7 @@ export const TripMemo: React.FC<TripMemoProps> = ({ viewMode }) => {
         labelName="メモ"
         value={tripMemo}
         srOnly={true}
+        placeholder="旅行の持ち物や共有事項などを自由にメモしてください。"
         onChange={handleTripMemoChange}
         onBlur={handleTripMemoBlur}
         error={tripMemoError}
