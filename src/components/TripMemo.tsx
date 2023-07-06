@@ -13,10 +13,10 @@ import {
 } from '@/utils/constants'
 
 type TripMemoProps = {
-  isOwner: boolean
+  viewMode: boolean
 }
 
-export const TripMemo: React.FC<TripMemoProps> = ({ isOwner }) => {
+export const TripMemo: React.FC<TripMemoProps> = ({ viewMode }) => {
   const { currentUser, selectedTrip } = useAuthContext()
   const {
     tripMemo,
@@ -60,7 +60,18 @@ export const TripMemo: React.FC<TripMemoProps> = ({ isOwner }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTrip])
 
-  return isOwner ? (
+  return viewMode ? (
+    <div className="mx-4">
+      <TextareaField
+        id="trip-memo"
+        labelName="メモ"
+        value={tripMemo}
+        srOnly={true}
+        rows={TRIP_MEMO_ROWS}
+        disabled={true}
+      />
+    </div>
+  ) : (
     <form className="mx-4 space-y-4" onSubmit={handleSubmit}>
       <TextareaField
         id="trip-memo"
@@ -79,16 +90,5 @@ export const TripMemo: React.FC<TripMemoProps> = ({ isOwner }) => {
         isTripApi={true}
       />
     </form>
-  ) : (
-    <div className="mx-4">
-      <TextareaField
-        id="trip-memo"
-        labelName="メモ"
-        value={tripMemo}
-        srOnly={true}
-        rows={TRIP_MEMO_ROWS}
-        disabled={true}
-      />
-    </div>
   )
 }

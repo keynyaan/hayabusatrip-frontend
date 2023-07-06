@@ -29,10 +29,15 @@ import { formatDate } from '@/utils/getDate'
 type TripCardProps = {
   trip: DbTripData | null
   isDetailPage?: boolean
+  viewMode?: boolean
 }
 
-export const TripCard: React.FC<TripCardProps> = ({ trip, isDetailPage }) => {
-  const { dbUserData, setSelectedTrip } = useAuthContext()
+export const TripCard: React.FC<TripCardProps> = ({
+  trip,
+  isDetailPage,
+  viewMode,
+}) => {
+  const { setSelectedTrip } = useAuthContext()
   const { dropdownRef, isDropdownVisible, hideDropdown, toggleDropdown } =
     useDropdown()
 
@@ -42,8 +47,6 @@ export const TripCard: React.FC<TripCardProps> = ({ trip, isDetailPage }) => {
   const [tripDestinationOpen, setTripDestinationOpen] = useState(false)
   const [copyTripOpen, setCopyTripOpen] = useState(false)
   const [deleteTripOpen, setDeleteTripOpen] = useState(false)
-
-  const isOwner = trip?.user_id === dbUserData?.id
 
   const onOpenModal = (
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -95,7 +98,7 @@ export const TripCard: React.FC<TripCardProps> = ({ trip, isDetailPage }) => {
             </div>
           </Link>
         )}
-        {isOwner && (
+        {!viewMode && (
           <>
             <div
               className="absolute top-0 right-0 m-2 w-10 h-10 rounded-full bg-gray-500 bg-opacity-80 hover:bg-opacity-60 transition p-1 flex items-center justify-center cursor-pointer"
@@ -185,7 +188,7 @@ export const TripCard: React.FC<TripCardProps> = ({ trip, isDetailPage }) => {
       {isDetailPage ? (
         <div className="p-3 text-gray-700">
           <div className="flex justify-center items-center mb-2 text-lg">
-            {isOwner && (
+            {!viewMode && (
               <FontAwesomeIcon
                 icon={trip.is_public ? faUnlock : faLock}
                 className="mr-2"

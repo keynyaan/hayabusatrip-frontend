@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { differenceInMinutes, parseISO } from 'date-fns'
+import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAuthContext } from '@/context/AuthContext'
+import { DescriptionViewMode } from '@/components/DescriptionViewMode'
+import { Modal } from '@/components/Modal'
 import { NotFound } from '@/components/NotFound'
 import { Spinner } from '@/components/Spinner'
+import { SwitchButton } from '@/components/SwitchButton'
 import { TripCard } from '@/components/TripCard'
 import { TripCost } from '@/components/TripCost'
 import { TripDate } from '@/components/TripDate'
@@ -15,6 +20,7 @@ import {
   TRIP_TAB,
   COST_TAB,
   MEMO_TAB,
+  DESCRIPTION_VIEW_MODE,
 } from '@/utils/constants'
 import { differenceInDates } from '@/utils/getDate'
 
@@ -41,7 +47,22 @@ export default function TripDetail() {
     ? differenceInDates(selectedTrip.start_date, selectedTrip.end_date)
     : []
   const [tripDates, setTripDates] = useState(initialTripDates)
-  const isOwner = selectedTrip?.user_id === dbUserData?.id
+  const [isOwner, setIsOwner] = useState(false)
+  const [viewMode, setViewMode] = useState(true)
+  const [descriptionViewModeModalOpen, setDescriptionViewModeModalOpen] =
+    useState(false)
+
+  const handleChange = () => {
+    setViewMode(!viewMode)
+  }
+
+  const onOpenDescriptionViewModeModal = () => {
+    setDescriptionViewModeModalOpen(true)
+  }
+
+  const onCloseDescriptionViewModeModal = () => {
+    setDescriptionViewModeModalOpen(false)
+  }
 
   const getSpotsForDate = (date: string, items?: string[]) => {
     const spots = dbSpotsData?.filter(
@@ -117,7 +138,15 @@ export default function TripDetail() {
     }
   }, [selectedTrip])
 
-  if (isDataLoading) {
+  useEffect(() => {
+    if (selectedTrip && dbUserData) {
+      const isOwner = selectedTrip.user_id === dbUserData.id
+      setIsOwner(isOwner)
+      setViewMode(!isOwner)
+    }
+  }, [selectedTrip, dbUserData])
+
+  if (isDataLoading || !selectedTrip) {
     return <Spinner />
   }
 
@@ -125,13 +154,34 @@ export default function TripDetail() {
     return <NotFound />
   }
 
-  if (!selectedTrip) {
-    return null
-  }
-
   return (
     <div className="m-4 space-y-6 max-w-md mx-auto">
-      <TripCard trip={selectedTrip} isDetailPage={true} />
+      <TripCard trip={selectedTrip} isDetailPage={true} viewMode={viewMode} />
+
+      {isOwner && (
+        <div className="flex items-center justify-center space-x-1">
+          <FontAwesomeIcon
+            icon={faCircleQuestion}
+            className="text-gray-700 hover:text-brand-color transition cursor-pointer"
+            onClick={onOpenDescriptionViewModeModal}
+          />
+          <SwitchButton
+            label="閲覧モード"
+            checked={viewMode}
+            onChange={handleChange}
+          />
+        </div>
+      )}
+
+      {descriptionViewModeModalOpen && (
+        <Modal
+          open={descriptionViewModeModalOpen}
+          onClose={onCloseDescriptionViewModeModal}
+          title={DESCRIPTION_VIEW_MODE}
+        >
+          <DescriptionViewMode />
+        </Modal>
+      )}
 
       <div className="flex">
         <div
@@ -157,7 +207,7 @@ export default function TripDetail() {
       {selectedTab === TRIP_TAB && (
         <TripDate
           tripDates={tripDates}
-          isOwner={isOwner}
+          viewMode={viewMode}
           setTripDates={setTripDates}
           getSpotsForDate={getSpotsForDate}
         />
@@ -165,7 +215,7 @@ export default function TripDetail() {
       {selectedTab === COST_TAB && (
         <TripCost tripDates={tripDates} getSpotsForDate={getSpotsForDate} />
       )}
-      {selectedTab === MEMO_TAB && <TripMemo isOwner={isOwner} />}
+      {selectedTab === MEMO_TAB && <TripMemo viewMode={viewMode} />}
     </div>
   )
 }

@@ -35,14 +35,14 @@ import {
 
 type TripDateProps = {
   tripDates: string[]
-  isOwner: boolean
+  viewMode: boolean
   setTripDates: Dispatch<SetStateAction<string[]>>
   getSpotsForDate: (date: string, items?: string[]) => DbSpotData[] | undefined
 }
 
 export const TripDate: React.FC<TripDateProps> = ({
   tripDates,
-  isOwner,
+  viewMode,
   setTripDates,
   getSpotsForDate,
 }) => {
@@ -185,7 +185,7 @@ export const TripDate: React.FC<TripDateProps> = ({
           {i + 1}日目
         </button>
       ))}
-      {tripDates.length !== MAX_TRIP_DURATION && (
+      {!viewMode && tripDates.length !== MAX_TRIP_DURATION && (
         <button className={dateButtonsClass} onClick={addTripDateFunc}>
           <span className="text-xs">＋</span>追加
         </button>
@@ -196,7 +196,7 @@ export const TripDate: React.FC<TripDateProps> = ({
   return (
     <div className="m-4 space-y-6">
       {dateButtons}
-      <div className="space-y-20">
+      <div className="space-y-10">
         {tripDates.map((date, i) => {
           const minDate = addDay(MIN_DATE_OBJ, i)
           const maxDate = addDay(MAX_DATE_OBJ, i + 1 - tripDates.length)
@@ -208,7 +208,16 @@ export const TripDate: React.FC<TripDateProps> = ({
               className="flex flex-col space-y-2"
               ref={tripDateRefs[i]}
             >
-              {isOwner ? (
+              {viewMode ? (
+                <div className="relative flex items-center h-11 space-x-1">
+                  <p className="text-gray-500 whitespace-nowrap">
+                    {`${i + 1}日目`}
+                  </p>
+                  <p className="w-full px-3 py-2 text-gray-700">
+                    {getJapaneseDay(date)}
+                  </p>
+                </div>
+              ) : (
                 <div className="flex items-center space-x-2">
                   <InputField
                     id={`day${i + 1}`}
@@ -231,28 +240,22 @@ export const TripDate: React.FC<TripDateProps> = ({
                     </div>
                   )}
                 </div>
-              ) : (
-                <div className={`relative flex items-center`}>
-                  <p className={`text-gray-500 whitespace-nowrap`}>
-                    {`${i + 1}日目`}
-                  </p>
-                  <p className={`w-full px-3 py-2 text-gray-700`}>
-                    {getJapaneseDay(date)}
-                  </p>
-                </div>
               )}
               {spotsForDate?.map((spot, index) => (
                 <div key={index}>
-                  <SpotCard spot={spot} />
+                  <SpotCard spot={spot} viewMode={viewMode} />
                 </div>
               ))}
-              {isOwner && (
-                <ActionButton
-                  text="スポットを追加"
-                  onClick={() => onOpenAddSpotModal(date)}
-                  showPlusIcon={true}
-                />
-              )}
+              <div className="h-10">
+                {!viewMode && (
+                  <ActionButton
+                    text="スポットを追加"
+                    onClick={() => onOpenAddSpotModal(date)}
+                    showPlusIcon={true}
+                    isWfull={true}
+                  />
+                )}
+              </div>
             </div>
           )
         })}
