@@ -245,7 +245,7 @@ export const SPOT_CATEGORY_OPTIONS = [
   },
   { value: 'car', label: '車', icon: faCar, color: 'bg-blue-400' },
   { value: 'bus', label: 'バス', icon: faBus, color: 'bg-blue-400' },
-  { value: 'train', label: '列車', icon: faTrain, color: 'bg-blue-400' },
+  { value: 'train', label: '電車', icon: faTrain, color: 'bg-blue-400' },
   { value: 'airplane', label: '飛行機', icon: faPlane, color: 'bg-blue-400' },
   { value: 'ship', label: '船', icon: faShip, color: 'bg-blue-400' },
 ]

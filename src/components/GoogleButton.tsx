@@ -14,7 +14,7 @@ const GoogleButton: React.FC<GoogleButtonProps> = ({ text }) => {
       onClick={loginWithGoogle}
       className={`flex items-center justify-center w-full py-1 text-gray-700 rounded border-2 focus:outline-none focus:border-brand-color ${
         !googleLoginLoading
-          ? 'hover:border-brand-color transition-all'
+          ? 'hover:border-brand-color transition'
           : 'opacity-50 cursor-not-allowed'
       }`}
       disabled={googleLoginLoading}

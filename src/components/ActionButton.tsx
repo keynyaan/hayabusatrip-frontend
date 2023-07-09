@@ -21,7 +21,7 @@ export const ActionButton: FC<ActionButtonProps> = ({
 }) => {
   return (
     <button
-      className={`px-4 py-2 text-sm border rounded hover:text-white transition-all ${
+      className={`px-4 py-2 text-sm border rounded hover:text-white transition ${
         isWfull ? 'w-full' : ''
       } ${
         isUnsubscribe

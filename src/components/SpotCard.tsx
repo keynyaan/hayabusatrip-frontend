@@ -59,7 +59,7 @@ export const SpotCard: React.FC<SpotCardProps> = ({ spot, viewMode }) => {
       >
         {!viewMode && (
           <div
-            className="absolute top-0 right-0 w-6 h-6 transition-all p-2 text-red-500 hover:text-white rounded-full  hover:bg-red-500 flex items-center justify-center"
+            className="absolute top-0 right-0 w-6 h-6 transition p-2 text-red-500 hover:text-white rounded-full  hover:bg-red-500 flex items-center justify-center"
             onClick={onOpenDeleteSpotModal}
           >
             <FontAwesomeIcon icon={faXmark} size="sm" />

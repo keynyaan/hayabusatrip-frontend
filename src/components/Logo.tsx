@@ -15,7 +15,7 @@ export const Logo: React.FC = () => {
         height={height}
         alt="サイトのロゴ"
         priority
-        className="hover:scale-105 transition-transform"
+        className="hover:scale-105 transition"
       />
     </Link>
   )

@@ -11,7 +11,7 @@ export const Button: React.FC<ButtonProps> = ({
   label,
   className,
 }) => {
-  const classes = `transition-all rounded px-4 py-1 ${className || ''}`
+  const classes = `transition rounded px-4 py-1 ${className || ''}`
   return (
     <button onClick={onClick} className={classes}>
       {label}

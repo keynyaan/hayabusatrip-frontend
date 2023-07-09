@@ -61,7 +61,7 @@ export const FormButton: React.FC<FormButtonProps> = ({
           : 'bg-brand-color focus:border-brand-color'
       } ${
         isFormValid && !loading
-          ? 'hover:bg-opacity-80 transition-all'
+          ? 'hover:bg-opacity-80 transition'
           : 'opacity-50 cursor-not-allowed'
       }`}
       type="submit"
