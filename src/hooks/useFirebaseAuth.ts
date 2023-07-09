@@ -35,7 +35,7 @@ import {
 import { getDatetimeTimestamp } from '@/utils/getTimestamp'
 
 export const useFirebaseAuth = () => {
-  const { siteUrl } = SITE_META
+  const { siteTitle, siteUrl } = SITE_META
 
   const [currentUser, setCurrentUser] = useState<User | null | undefined>(
     undefined
@@ -152,7 +152,7 @@ export const useFirebaseAuth = () => {
         await router.push('/')
         showToast(
           'success',
-          isFirstLogin ? 'HayabusaTripへようこそ！' : 'ログインしました。'
+          isFirstLogin ? `${siteTitle}へようこそ！` : 'ログインしました。'
         )
         return user
       }
@@ -222,7 +222,7 @@ export const useFirebaseAuth = () => {
         showToast(
           'success',
           isFirstLogin
-            ? 'HayabusaTripへようこそ！'
+            ? `${siteTitle}へようこそ！`
             : 'Googleアカウントでログインしました。'
         )
       }
