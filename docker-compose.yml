@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   front:
@@ -11,6 +11,7 @@ services:
       - '3000:3000'
     volumes:
       - .:/frontend
+      - /frontend/node_modules
     command: yarn dev
     # 本番用
     # command: yarn build && yarn start
