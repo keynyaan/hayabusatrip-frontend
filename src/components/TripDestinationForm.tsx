@@ -19,7 +19,8 @@ type TripDestinationFormProps = {
 export const TripDestinationForm: FC<TripDestinationFormProps> = ({
   onClose,
 }) => {
-  const { currentUser, dbUserData, selectedTrip } = useAuthContext()
+  const { currentUser, dbUserData, selectedTrip, tripApiLoading } =
+    useAuthContext()
   const { updateTrip } = useTripApi()
   const { showToast } = useToast()
 
@@ -82,7 +83,7 @@ export const TripDestinationForm: FC<TripDestinationFormProps> = ({
             <FormButton
               label="変更"
               isFormValid={isTripDestinationFormValid}
-              isTripApi={true}
+              loading={tripApiLoading}
             />
           </form>
         </div>

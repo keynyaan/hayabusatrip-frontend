@@ -14,7 +14,7 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = ({
   onClose,
   login,
 }) => {
-  const { currentUser, resetPassword } = useAuthContext()
+  const { currentUser, resetPasswordLoading, resetPassword } = useAuthContext()
 
   const currentUserEmail = currentUser?.email || ''
   const isCurrentUserEmailValid = Boolean(currentUserEmail)
@@ -67,7 +67,7 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = ({
         <FormButton
           label="パスワード再設定メールを送信"
           isFormValid={isFormValid}
-          isPasswordReset={true}
+          loading={resetPasswordLoading}
         />
       </form>
     </>

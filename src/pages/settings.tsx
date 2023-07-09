@@ -16,7 +16,8 @@ export default function Settings() {
   const router = useRouter()
   const { showToast } = useToast()
 
-  const { anyLoading, updateUser, currentUser, dbUserData } = useAuthContext()
+  const { anyLoading, updateUserLoading, updateUser, currentUser, dbUserData } =
+    useAuthContext()
 
   const [passwordResetModalOpen, setPasswordResetModalOpen] = useState(false)
   const [unsubscribeModalOpen, setUnsubscribeModalOpen] = useState(false)
@@ -118,7 +119,7 @@ export default function Settings() {
             <FormButton
               label="更新"
               isFormValid={isUpdateUserFormValid}
-              isUpdateUser={true}
+              loading={updateUserLoading}
             />
           </form>
 

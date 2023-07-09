@@ -10,7 +10,8 @@ type CopyTripFormProps = {
 }
 
 export const CopyTripForm: FC<CopyTripFormProps> = ({ onClose }) => {
-  const { currentUser, dbUserData, selectedTrip } = useAuthContext()
+  const { currentUser, dbUserData, selectedTrip, tripApiLoading } =
+    useAuthContext()
   const { copyTrip } = useTripApi()
   const { showToast } = useToast()
 
@@ -46,7 +47,7 @@ export const CopyTripForm: FC<CopyTripFormProps> = ({ onClose }) => {
             <FormButton
               label="コピー"
               isFormValid={isFormValid}
-              isTripApi={true}
+              loading={tripApiLoading}
             />
           </form>
         </div>

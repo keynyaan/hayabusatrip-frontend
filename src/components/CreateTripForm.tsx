@@ -14,7 +14,7 @@ type CreateTripFormProps = {
 }
 
 export const CreateTripForm: FC<CreateTripFormProps> = ({ onClose }) => {
-  const { currentUser, dbUserData } = useAuthContext()
+  const { currentUser, dbUserData, tripApiLoading } = useAuthContext()
   const { createTrip } = useTripApi()
   const { showToast } = useToast()
 
@@ -101,7 +101,7 @@ export const CreateTripForm: FC<CreateTripFormProps> = ({ onClose }) => {
       <FormButton
         label="作成"
         isFormValid={isCreateTripFormValid}
-        isTripApi={true}
+        loading={tripApiLoading}
       />
     </form>
   )

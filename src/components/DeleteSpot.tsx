@@ -10,8 +10,13 @@ type DeleteSpotFormProps = {
 }
 
 export const DeleteSpotForm: FC<DeleteSpotFormProps> = ({ onClose }) => {
-  const { currentUser, dbUserData, selectedTrip, selectedSpot } =
-    useAuthContext()
+  const {
+    currentUser,
+    dbUserData,
+    selectedTrip,
+    selectedSpot,
+    spotApiLoading,
+  } = useAuthContext()
   const { deleteSpot } = useSpotApi()
   const { showToast } = useToast()
 
@@ -53,7 +58,7 @@ export const DeleteSpotForm: FC<DeleteSpotFormProps> = ({ onClose }) => {
             <FormButton
               label="削除"
               isFormValid={isFormValid}
-              isSpotApi={true}
+              loading={spotApiLoading}
             />
           </form>
         </div>
