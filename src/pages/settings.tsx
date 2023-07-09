@@ -145,7 +145,7 @@ export default function Settings() {
             <ActionButton
               text="退会のお手続き"
               onClick={onOpenUnsubscribeModal}
-              isUnsubscribe={true}
+              isRedStyle={true}
             />
             {unsubscribeModalOpen && (
               <SettingsModal
