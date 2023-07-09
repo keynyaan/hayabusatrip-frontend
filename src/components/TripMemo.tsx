@@ -17,7 +17,7 @@ type TripMemoProps = {
 }
 
 export const TripMemo: React.FC<TripMemoProps> = ({ viewMode }) => {
-  const { currentUser, selectedTrip } = useAuthContext()
+  const { currentUser, selectedTrip, tripApiLoading } = useAuthContext()
   const {
     tripMemo,
     tripMemoError,
@@ -88,7 +88,7 @@ export const TripMemo: React.FC<TripMemoProps> = ({ viewMode }) => {
       <FormButton
         label="更新"
         isFormValid={isTripMemoFormValid}
-        isTripApi={true}
+        loading={tripApiLoading}
       />
     </form>
   )

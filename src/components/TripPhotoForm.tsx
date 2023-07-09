@@ -10,7 +10,7 @@ type TripPhotoFormProps = {
 }
 
 export const TripPhotoForm: FC<TripPhotoFormProps> = ({ onClose }) => {
-  const { selectedTrip, setSelectedTrip } = useAuthContext()
+  const { selectedTrip, S3ApiLoading, setSelectedTrip } = useAuthContext()
   const { uploadTripImage } = useS3Api()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
@@ -44,7 +44,7 @@ export const TripPhotoForm: FC<TripPhotoFormProps> = ({ onClose }) => {
           <FormButton
             label="アップロード"
             isFormValid={true}
-            isS3Api={true}
+            loading={S3ApiLoading}
             onClick={handleClickButton}
           />
           <input

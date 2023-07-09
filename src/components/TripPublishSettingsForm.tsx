@@ -19,7 +19,8 @@ type TripPublishSettingsFormProps = {
 export const TripPublishSettingsForm: FC<TripPublishSettingsFormProps> = ({
   onClose,
 }) => {
-  const { currentUser, dbUserData, selectedTrip } = useAuthContext()
+  const { currentUser, dbUserData, selectedTrip, tripApiLoading } =
+    useAuthContext()
   const { updateTrip } = useTripApi()
   const { showToast } = useToast()
   const { siteUrl } = SITE_META
@@ -75,7 +76,7 @@ export const TripPublishSettingsForm: FC<TripPublishSettingsFormProps> = ({
             <FormButton
               label={selectedTrip.is_public ? '非公開に変更' : '公開に変更'}
               isFormValid={isFormValid}
-              isTripApi={true}
+              loading={tripApiLoading}
             />
           </form>
         </div>

@@ -27,8 +27,13 @@ type SpotFormProps = {
 }
 
 export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
-  const { currentUser, dbUserData, selectedTrip, selectedSpot } =
-    useAuthContext()
+  const {
+    currentUser,
+    dbUserData,
+    selectedTrip,
+    selectedSpot,
+    spotApiLoading,
+  } = useAuthContext()
   const { createSpot, updateSpot } = useSpotApi()
   const { showToast } = useToast()
   const {
@@ -238,7 +243,7 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
       <FormButton
         label={mode === SPOT_FORM_MODE_CREATE ? '追加' : '更新'}
         isFormValid={isSpotFormValid}
-        isSpotApi={true}
+        loading={spotApiLoading}
       />
     </form>
   )

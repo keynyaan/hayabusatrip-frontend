@@ -15,7 +15,8 @@ export const DeleteTripDateForm: FC<DeleteTripDateFormProps> = ({
   onClose,
   date,
 }) => {
-  const { currentUser, dbUserData, selectedTrip } = useAuthContext()
+  const { currentUser, dbUserData, selectedTrip, tripApiLoading } =
+    useAuthContext()
   const { deleteTripDate } = useTripApi()
   const { showToast } = useToast()
 
@@ -60,7 +61,7 @@ export const DeleteTripDateForm: FC<DeleteTripDateFormProps> = ({
             <FormButton
               label="削除"
               isFormValid={isFormValid}
-              isTripApi={true}
+              loading={tripApiLoading}
             />
           </form>
         </div>

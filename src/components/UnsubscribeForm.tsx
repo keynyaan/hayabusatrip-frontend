@@ -8,7 +8,7 @@ type PasswordResetFormProps = {
 }
 
 export const UnsubscribeForm: FC<PasswordResetFormProps> = ({ onClose }) => {
-  const { deleteUser } = useAuthContext()
+  const { anyLoading, deleteUser } = useAuthContext()
   const [isChecked, setIsChecked] = useState(false)
 
   const deleteUserFunc = async () => {
@@ -44,7 +44,8 @@ export const UnsubscribeForm: FC<PasswordResetFormProps> = ({ onClose }) => {
         <FormButton
           label="アカウントを削除"
           isFormValid={isChecked}
-          isUnsubscribe={true}
+          loading={anyLoading}
+          isRedStyle={true}
         />
       </form>
     </>
