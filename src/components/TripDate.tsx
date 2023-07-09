@@ -233,7 +233,7 @@ export const TripDate: React.FC<TripDateProps> = ({
                   />
                   {!isDayTrip && (
                     <div
-                      className="w-10 h-10 transition-all p-2 text-red-500 hover:text-white rounded-full  hover:bg-red-500 flex items-center justify-center cursor-pointer"
+                      className="w-10 h-10 transition p-2 text-red-500 hover:text-white rounded-full  hover:bg-red-500 flex items-center justify-center cursor-pointer"
                       onClick={() => onOpenDeleteDateModal(date)}
                     >
                       <FontAwesomeIcon icon={faTrashCan} size="lg" />

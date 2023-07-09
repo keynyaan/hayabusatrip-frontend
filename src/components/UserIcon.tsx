@@ -100,7 +100,7 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
                 ? SETTINGS_USER_ICON_HEIGHT
                 : HEADER_USER_ICON_HEIGHT
             }
-            className={`cursor-pointer rounded-full transition-opacity object-cover w-full h-full ${
+            className={`cursor-pointer rounded-full transition object-cover w-full h-full ${
               isHovered ? 'opacity-80' : ''
             }`}
             priority={isSettingsPage}
