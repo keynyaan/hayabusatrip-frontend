@@ -16,7 +16,7 @@ type SignUpFormProps = {
 }
 
 export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
-  const { signup, anyLoading } = useAuthContext()
+  const { signup, signupLoading } = useAuthContext()
 
   const signUpFunc = async (
     email: string,
@@ -129,7 +129,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
         <FormButton
           label="登録"
           isFormValid={isSignUpFormValid}
-          loading={anyLoading}
+          loading={signupLoading}
         />
       </form>
 

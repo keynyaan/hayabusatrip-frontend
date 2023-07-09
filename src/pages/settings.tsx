@@ -16,8 +16,13 @@ export default function Settings() {
   const router = useRouter()
   const { showToast } = useToast()
 
-  const { anyLoading, updateUserLoading, updateUser, currentUser, dbUserData } =
-    useAuthContext()
+  const {
+    deleteUserLoading,
+    updateUserLoading,
+    updateUser,
+    currentUser,
+    dbUserData,
+  } = useAuthContext()
 
   const [passwordResetModalOpen, setPasswordResetModalOpen] = useState(false)
   const [unsubscribeModalOpen, setUnsubscribeModalOpen] = useState(false)
@@ -79,11 +84,11 @@ export default function Settings() {
       return
     }
 
-    if (!anyLoading && currentUser === null) {
+    if (!deleteUserLoading && currentUser === null) {
       router.push('/')
       showToast('error', 'ログインしてください。')
     }
-  }, [anyLoading, currentUser, router, showToast])
+  }, [deleteUserLoading, currentUser, router, showToast])
 
   return (
     <>

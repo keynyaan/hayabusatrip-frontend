@@ -15,7 +15,7 @@ type LoginFormProps = {
 }
 
 export const LoginForm: FC<LoginFormProps> = ({ setForm, onClose }) => {
-  const { anyLoading, loginWithEmailAndPassword } = useAuthContext()
+  const { loginLoading, loginWithEmailAndPassword } = useAuthContext()
 
   const loginFunc = async (email: string, password: string) => {
     const user = await loginWithEmailAndPassword(email, password)
@@ -72,7 +72,7 @@ export const LoginForm: FC<LoginFormProps> = ({ setForm, onClose }) => {
         <FormButton
           label="ログイン"
           isFormValid={isLoginFormValid}
-          loading={anyLoading}
+          loading={loginLoading}
         />
       </form>
 
