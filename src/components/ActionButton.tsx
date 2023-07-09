@@ -5,7 +5,7 @@ import { faHouse, faPlus } from '@fortawesome/free-solid-svg-icons'
 type ActionButtonProps = {
   text: string
   onClick?: () => void
-  isUnsubscribe?: boolean
+  isRedStyle?: boolean
   showHomeIcon?: boolean
   showPlusIcon?: boolean
   isWfull?: boolean
@@ -14,7 +14,7 @@ type ActionButtonProps = {
 export const ActionButton: FC<ActionButtonProps> = ({
   text,
   onClick,
-  isUnsubscribe,
+  isRedStyle,
   showHomeIcon,
   showPlusIcon,
   isWfull,
@@ -24,7 +24,7 @@ export const ActionButton: FC<ActionButtonProps> = ({
       className={`px-4 py-2 text-sm border rounded hover:text-white transition ${
         isWfull ? 'w-full' : ''
       } ${
-        isUnsubscribe
+        isRedStyle
           ? 'text-red-500 border-red-500 hover:bg-red-500'
           : 'text-brand-color border-brand-color hover:bg-brand-color'
       }`}
