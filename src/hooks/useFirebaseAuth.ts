@@ -51,11 +51,6 @@ export const useFirebaseAuth = () => {
   const [resetPasswordLoading, setResetPasswordLoading] = useState(false)
   const [updateUserLoading, setUpdateUserLoading] = useState(false)
   const [deleteUserLoading, setDeleteUserLoading] = useState(false)
-  const anyLoading =
-    authLoading ||
-    resetPasswordLoading ||
-    updateUserLoading ||
-    deleteUserLoading
   const [firstLogin, setFirstLogin] = useState(false)
 
   const router = useRouter()
@@ -439,7 +434,6 @@ export const useFirebaseAuth = () => {
     resetPasswordLoading,
     updateUserLoading,
     deleteUserLoading,
-    anyLoading,
     firstLogin,
     signup,
     loginWithEmailAndPassword,
