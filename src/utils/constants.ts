@@ -20,6 +20,7 @@ export const SITE_META = {
   siteLang: 'ja',
   siteLocale: 'ja_JP',
   siteType: 'website',
+  siteStartYear: '2023',
 }
 
 // サイトロゴの情報
@@ -163,6 +164,10 @@ export const UPLOAD_TRIP_IMAGE_ERROR_MSG =
 // S3API実行時の保存先ディレクトリ
 export const USER_ICONS_DIRECTORY = 'user_icons'
 export const TRIP_IMAGES_DIRECTORY = 'trip_images'
+
+// ブランドカラーコード
+export const TWITTER_COLOR = '#1DA1F2'
+export const GITHUB_COLOR = '#171515'
 
 // 旅行先の配列
 export const TRIP_DESTINATION_ITEMS = [
