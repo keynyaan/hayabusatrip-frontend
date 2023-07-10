@@ -17,6 +17,7 @@ export default function Settings() {
   const { showToast } = useToast()
 
   const {
+    authLoading,
     deleteUserLoading,
     updateUserLoading,
     updateUser,
@@ -84,11 +85,11 @@ export default function Settings() {
       return
     }
 
-    if (!deleteUserLoading && currentUser === null) {
+    if (!authLoading && !deleteUserLoading && currentUser === null) {
       router.push('/')
       showToast('error', 'ログインしてください。')
     }
-  }, [deleteUserLoading, currentUser, router, showToast])
+  }, [authLoading, deleteUserLoading, currentUser, router, showToast])
 
   return (
     <>
