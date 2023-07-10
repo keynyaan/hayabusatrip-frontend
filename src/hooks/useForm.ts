@@ -54,6 +54,10 @@ export const useForm = () => {
   const [costError, setCostError] = useState('')
   const [tripMemoError, setTripMemoError] = useState('')
   const [spotMemoError, setSpotMemoError] = useState('')
+  const [emailTouched, setEmailTouched] = useState(false)
+  const [usernameTouched, setUsernameTouched] = useState(false)
+  const [tripTitleTouched, setTripTitleTouched] = useState(false)
+  const [spotNameTouched, setSpotNameTouched] = useState(false)
 
   const isSignUpFormValid: boolean =
     Boolean(username) &&
@@ -107,17 +111,27 @@ export const useForm = () => {
     !validateEndTime(startTime, endTime) &&
     !validateCost(cost)
 
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setUsername(e.target.value)
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsernameTouched(true)
+    const newUsername = e.target.value
+    setUsername(newUsername)
+    setUsernameError(validateUsername(newUsername))
+  }
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmailTouched(true)
     setEmail(e.target.value)
+  }
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value)
   const handlePasswordConfirmChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => setPasswordConfirm(e.target.value)
-  const handleTripTitleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setTripTitle(e.target.value)
+  const handleTripTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTripTitleTouched(true)
+    const newTripTitle = e.target.value
+    setTripTitle(newTripTitle)
+    setTripTitleError(validateTripTitle(newTripTitle))
+  }
   const handleTripDestinationChange = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => setTripDestination(e.target.value)
@@ -141,8 +155,8 @@ export const useForm = () => {
     setEndDateError(validateEndDate(startDate, newEndDate))
   }
   const handleSpotNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSpotNameTouched(true)
     const newSpotName = e.target.value
-
     setSpotName(newSpotName)
     setSpotNameError(validateSpotName(newSpotName))
   }
@@ -189,14 +203,29 @@ export const useForm = () => {
     setSpotMemoError(validateSpotMemo(newSpotMemo))
   }
 
-  const handleUsernameBlur = () => setUsernameError(validateUsername(username))
-  const handleEmailBlur = () => setEmailError(validateEmail(email))
+  const handleUsernameBlur = () => {
+    if (usernameTouched) {
+      setUsernameError(validateUsername(username))
+    }
+  }
+  const handleEmailBlur = () => {
+    if (emailTouched) {
+      setEmailError(validateEmail(email))
+    }
+  }
   const handlePasswordBlur = () => setPasswordError(validatePassword(password))
   const handlePasswordConfirmBlur = () =>
     setPasswordConfirmError(validatePasswordConfirm(password, passwordConfirm))
-  const handleTripTitleBlur = () =>
-    setTripTitleError(validateTripTitle(tripTitle))
-  const handleSpotNameBlur = () => setSpotNameError(validateSpotName(spotName))
+  const handleTripTitleBlur = () => {
+    if (tripTitleTouched) {
+      setTripTitleError(validateTripTitle(tripTitle))
+    }
+  }
+  const handleSpotNameBlur = () => {
+    if (spotNameTouched) {
+      setSpotNameError(validateSpotName(spotName))
+    }
+  }
   const handleStartTimeBlur = () =>
     setStartTimeError(validateStartTime(startTime))
   const handleEndTimeBlur = () =>
