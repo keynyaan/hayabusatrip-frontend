@@ -35,15 +35,16 @@
 }
 
 .modal-close-button {
-  @apply rounded outline-none;
-
   & svg {
     @apply fill-gray-400;
   }
 
-  &:hover,
-  &:focus {
+  &:hover {
     @apply bg-gray-100 transition;
+  }
+
+  &:focus {
+    @apply outline-none ring-2 ring-brand-color rounded;
   }
 }
 
