@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ActionButton } from '@/components/ActionButton'
+import { SecondaryButton } from '@/components/SecondaryButton'
 
 export const NotFound = () => {
   return (
@@ -20,7 +20,7 @@ export const NotFound = () => {
         共有されたURLからアクセスした場合、コピーミスがないか確認してください。URLが正しい場合、旅行プランが既に削除・非公開にされている可能性があるため、共有元の相手にご確認ください。
       </p>
       <Link href="/">
-        <ActionButton text="ホームへ戻る" showHomeIcon={true} />
+        <SecondaryButton text="ホームへ戻る" showHomeIcon={true} />
       </Link>
     </div>
   )

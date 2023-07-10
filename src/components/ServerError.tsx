@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ActionButton } from '@/components/ActionButton'
+import { SecondaryButton } from '@/components/SecondaryButton'
 
 export const ServerError = () => {
   return (
@@ -18,7 +18,7 @@ export const ServerError = () => {
         何らかの理由でサーバーが応答していません。時間をおいて再度アクセスするか、サイトの管理者にお問い合わせください。
       </p>
       <Link href="/">
-        <ActionButton text="ホームへ戻る" showHomeIcon={true} />
+        <SecondaryButton text="ホームへ戻る" showHomeIcon={true} />
       </Link>
     </div>
   )

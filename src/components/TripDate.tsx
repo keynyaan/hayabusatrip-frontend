@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, createRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import { DbSpotData } from '@/api/spotApi'
-import { ActionButton } from '@/components/ActionButton'
+import { SecondaryButton } from '@/components/SecondaryButton'
 import { DeleteTripDateForm } from '@/components/DeleteTripDateForm'
 import { InputField } from '@/components/InputField'
 import { Modal } from '@/components/Modal'
@@ -248,7 +248,7 @@ export const TripDate: React.FC<TripDateProps> = ({
               ))}
               <div className="h-10">
                 {!viewMode && (
-                  <ActionButton
+                  <SecondaryButton
                     text="スポットを追加"
                     onClick={() => onOpenAddSpotModal(date)}
                     showPlusIcon={true}

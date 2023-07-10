@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CreateTripForm } from '@/components/CreateTripForm'
-import { Button } from '@/components/Button'
+import { PrimaryButton } from '@/components/PrimaryButton'
 import { Modal } from '@/components/Modal'
 import { FORM_CREATE_TRIP } from '@/utils/constants'
 
@@ -17,7 +17,7 @@ export const CreateTripButton: React.FC = () => {
 
   return (
     <div className="space-x-4">
-      <Button
+      <PrimaryButton
         onClick={onOpenCreateTripModal}
         label={FORM_CREATE_TRIP}
         className="bg-brand-color text-white hover:bg-opacity-80"

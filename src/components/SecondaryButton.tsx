@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse, faPlus } from '@fortawesome/free-solid-svg-icons'
 
-type ActionButtonProps = {
+type SecondaryButtonProps = {
   text: string
   onClick?: () => void
   isRedStyle?: boolean
@@ -11,7 +11,7 @@ type ActionButtonProps = {
   isWfull?: boolean
 }
 
-export const ActionButton: FC<ActionButtonProps> = ({
+export const SecondaryButton: FC<SecondaryButtonProps> = ({
   text,
   onClick,
   isRedStyle,
