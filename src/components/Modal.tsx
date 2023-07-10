@@ -15,7 +15,6 @@ export const Modal: FC<ModalProps> = ({ open, onClose, title, children }) => {
       open={open}
       onClose={onClose}
       center
-      focusTrapped={false}
       classNames={{
         modal: 'rounded',
         closeButton: 'modal-close-button',
