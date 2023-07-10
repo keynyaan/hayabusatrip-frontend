@@ -218,6 +218,7 @@ export const TRIP_DESTINATION_ITEMS = [
   { value: '45', name: '宮崎県', spotName: 'サンメッセ日南' },
   { value: '46', name: '鹿児島県', spotName: '西大山駅' },
   { value: '47', name: '沖縄県', spotName: '万座毛' },
+  { value: '48', name: '海外', spotName: 'エッフェル塔' },
 ]
 
 // 公開状態の配列
