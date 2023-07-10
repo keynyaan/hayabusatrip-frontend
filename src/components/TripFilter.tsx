@@ -81,33 +81,34 @@ export const TripFilter: React.FC<TripFilterProps> = ({
   }
 
   const getUniqueYears = (trips: DbTripData[]) => {
-    return Array.from(
-      new Set(trips.map((trip) => new Date(trip.start_date).getFullYear()))
+    const yearsSet = new Set(
+      trips.map((trip) => new Date(trip.start_date).getFullYear())
     )
+    return Array.from(yearsSet).sort((a, b) => a - b)
   }
 
   const getUniqueMonths = (trips: DbTripData[]) => {
-    return Array.from(
-      new Set(trips.map((trip) => new Date(trip.start_date).getMonth() + 1))
+    const monthsSet = new Set(
+      trips.map((trip) => new Date(trip.start_date).getMonth() + 1)
     )
+    return Array.from(monthsSet).sort((a, b) => a - b)
   }
 
   const getUniqueDays = (trips: DbTripData[]) => {
-    return Array.from(
-      new Set(
-        trips.flatMap((trip) => {
-          const days = []
-          for (
-            let d = new Date(trip.start_date);
-            d <= new Date(trip.end_date);
-            d.setDate(d.getDate() + 1)
-          ) {
-            days.push(d.getDate())
-          }
-          return days
-        })
-      )
+    const daysSet = new Set(
+      trips.flatMap((trip) => {
+        const days = []
+        for (
+          let d = new Date(trip.start_date);
+          d <= new Date(trip.end_date);
+          d.setDate(d.getDate() + 1)
+        ) {
+          days.push(d.getDate())
+        }
+        return days
+      })
     )
+    return Array.from(daysSet).sort((a, b) => a - b)
   }
 
   const getUniqueDestinations = (trips: DbTripData[]) => {
