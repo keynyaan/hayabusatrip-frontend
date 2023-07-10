@@ -7,7 +7,7 @@ import { useToast } from '@/context/ToastContext'
 import { InputField } from '@/components/InputField'
 import { FormButton } from '@/components/FormButton'
 import { SettingsModal } from '@/components/SettingsModal'
-import { ActionButton } from '@/components/ActionButton'
+import { SecondaryButton } from '@/components/SecondaryButton'
 import { DividerWithText } from '@/components/DividerWithText'
 import { FORM_PASSWORD_RESET, FORM_UNSUBSCRIBE } from '@/utils/constants'
 import { UserIcon } from '@/components/UserIcon'
@@ -131,7 +131,7 @@ export default function Settings() {
           <DividerWithText text="または" />
 
           <div className="flex justify-between mt-4">
-            <ActionButton
+            <SecondaryButton
               text="パスワード再設定"
               onClick={onOpenPasswordResetModal}
             />
@@ -142,7 +142,7 @@ export default function Settings() {
                 form={FORM_PASSWORD_RESET}
               />
             )}
-            <ActionButton
+            <SecondaryButton
               text="退会のお手続き"
               onClick={onOpenUnsubscribeModal}
               isRedStyle={true}

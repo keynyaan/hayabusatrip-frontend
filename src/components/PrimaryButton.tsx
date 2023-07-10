@@ -1,12 +1,12 @@
 import React from 'react'
 
-type ButtonProps = {
+type PrimaryButtonProps = {
   onClick: () => void
   label: string
   className?: string
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   onClick,
   label,
   className,
