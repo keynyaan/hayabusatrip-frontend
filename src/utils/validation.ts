@@ -16,19 +16,12 @@ import {
 } from '@/utils/constants'
 
 export const validateUsername = (username: string) => {
-  // ひらがな、カタカナ（全角）、カタカナ（半角）、長音記号、漢字、数字（半角）、数字（全角）、
-  // 英語（小文字・大文字・半角）、英語（小文字・大文字・全角）のみ許可
-  const pattern = /^[ぁ-んァ-ヶｱ-ﾝﾞﾟー一-龠々ゔ０-９0-9a-zA-Zａ-ｚＡ-Ｚ]+$/
-  if (username === '') {
+  if (!/\S/.test(username)) {
     return 'ユーザー名を入力してください'
   }
 
   if (username.length > MAX_USERNAME_LENGTH) {
     return `ユーザー名は${MAX_USERNAME_LENGTH}文字以下で入力してください`
-  }
-
-  if (!pattern.test(username)) {
-    return 'ユーザー名は日本語または英数字を使用してください'
   }
 
   return ''
@@ -92,15 +85,8 @@ export const validatePasswordConfirm = (
 }
 
 export const validateTripTitle = (tripTitle: string) => {
-  // ひらがな、カタカナ（全角）、カタカナ（半角）、長音記号、漢字、数字（半角）、数字（全角）、
-  // 英語（小文字・大文字・半角）、英語（小文字・大文字・全角）のみ許可
-  const pattern = /^[ぁ-んァ-ヶｱ-ﾝﾞﾟー一-龠々ゔ０-９0-9a-zA-Zａ-ｚＡ-Ｚ]+$/
-  if (tripTitle === '') {
+  if (!/\S/.test(tripTitle)) {
     return '旅行タイトルを入力してください'
-  }
-
-  if (!pattern.test(tripTitle)) {
-    return '旅行タイトルは日本語または英数字を使用してください'
   }
 
   if (tripTitle.length > MAX_TRIP_TITLE_LENGTH) {
@@ -111,15 +97,8 @@ export const validateTripTitle = (tripTitle: string) => {
 }
 
 export const validateSpotName = (spotName: string) => {
-  // ひらがな、カタカナ（全角）、カタカナ（半角）、長音記号、漢字、数字（半角）、数字（全角）、
-  // 英語（小文字・大文字・半角）、英語（小文字・大文字・全角）のみ許可
-  const pattern = /^[ぁ-んァ-ヶｱ-ﾝﾞﾟー一-龠々ゔ０-９0-9a-zA-Zａ-ｚＡ-Ｚ]+$/
-  if (spotName === '') {
+  if (!/\S/.test(spotName)) {
     return 'スポット名を入力してください'
-  }
-
-  if (!pattern.test(spotName)) {
-    return 'スポット名は日本語または英数字を使用してください'
   }
 
   if (spotName.length > MAX_SPOT_NAME) {
