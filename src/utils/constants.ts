@@ -77,6 +77,12 @@ export const FORM_DELETE_SPOT = 'スポット削除'
 export const FORM_DELETE_TRIP_DATE = '日程削除'
 export const DESCRIPTION_VIEW_MODE = '閲覧モードとは？'
 
+// ユーザー関連の上限値
+export const MAX_USERNAME_LENGTH = 20
+export const MAX_EMAIL_LENGTH = 254
+export const MIN_PASSWORD_LENGTH = 8
+export const MAX_PASSWORD_LENGTH = 64
+
 // 旅行タイトルの上限とコピー時の接尾辞
 export const MAX_TRIP_TITLE_LENGTH = 30
 export const COPY_SUFFIX = 'のコピー'

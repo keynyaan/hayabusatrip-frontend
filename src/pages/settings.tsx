@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import 'react-responsive-modal/styles.css'
-import { useForm } from '@/hooks/useForm'
 import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 import { InputField } from '@/components/InputField'
+import { DividerWithText } from '@/components/DividerWithText'
 import { FormButton } from '@/components/FormButton'
 import { SettingsModal } from '@/components/SettingsModal'
 import { SecondaryButton } from '@/components/SecondaryButton'
-import { DividerWithText } from '@/components/DividerWithText'
-import { FORM_PASSWORD_RESET, FORM_UNSUBSCRIBE } from '@/utils/constants'
 import { UserIcon } from '@/components/UserIcon'
+import { useForm } from '@/hooks/useForm'
+import {
+  FORM_PASSWORD_RESET,
+  FORM_UNSUBSCRIBE,
+  MAX_EMAIL_LENGTH,
+  MAX_USERNAME_LENGTH,
+} from '@/utils/constants'
 
 export default function Settings() {
   const router = useRouter()
@@ -106,7 +111,7 @@ export default function Settings() {
               id="username"
               type="text"
               labelName="ユーザー名"
-              maxLength={20}
+              maxLength={MAX_USERNAME_LENGTH}
               value={username}
               onChange={handleUsernameChange}
               onBlur={handleUsernameBlur}
@@ -116,7 +121,7 @@ export default function Settings() {
               id="email"
               type="email"
               labelName="メールアドレス"
-              maxLength={254}
+              maxLength={MAX_EMAIL_LENGTH}
               value={email}
               onChange={handleEmailChange}
               onBlur={handleEmailBlur}

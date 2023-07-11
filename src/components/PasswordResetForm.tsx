@@ -2,8 +2,9 @@ import React, { FC } from 'react'
 import 'react-responsive-modal/styles.css'
 import { InputField } from '@/components/InputField'
 import { FormButton } from '@/components/FormButton'
-import { useForm } from '@/hooks/useForm'
 import { useAuthContext } from '@/context/AuthContext'
+import { useForm } from '@/hooks/useForm'
+import { MAX_EMAIL_LENGTH } from '@/utils/constants'
 
 type PasswordResetFormProps = {
   onClose: () => void
@@ -57,7 +58,7 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = ({
             labelName="メールアドレス"
             srOnly={true}
             placeholder="メールアドレス"
-            maxLength={254}
+            maxLength={MAX_EMAIL_LENGTH}
             value={email}
             onChange={handleEmailChange}
             onBlur={handleEmailBlur}
