@@ -21,7 +21,7 @@ export const SecondaryButton: FC<SecondaryButtonProps> = ({
 }) => {
   return (
     <button
-      className={`px-4 py-2 text-sm border rounded hover:text-white transition ${
+      className={`h-10 px-4 py-2 text-sm border rounded hover:text-white transition ${
         isWfull ? 'w-full' : ''
       } ${
         isRedStyle
