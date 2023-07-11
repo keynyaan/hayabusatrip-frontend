@@ -6,9 +6,14 @@ import GoogleButton from '@/components/GoogleButton'
 import { InputField } from '@/components/InputField'
 import { FormButton } from '@/components/FormButton'
 import { SwitchFormLink } from '@/components/SwitchFormLink'
-import { useForm } from '@/hooks/useForm'
-import { FORM_LOGIN } from '@/utils/constants'
 import { useAuthContext } from '@/context/AuthContext'
+import { useForm } from '@/hooks/useForm'
+import {
+  FORM_LOGIN,
+  MAX_EMAIL_LENGTH,
+  MAX_PASSWORD_LENGTH,
+  MAX_USERNAME_LENGTH,
+} from '@/utils/constants'
 
 type SignUpFormProps = {
   setForm: (formName: string) => void
@@ -86,7 +91,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
           labelName="ユーザー名"
           srOnly={true}
           placeholder="ユーザー名"
-          maxLength={20}
+          maxLength={MAX_USERNAME_LENGTH}
           value={username}
           onChange={handleUsernameChange}
           onBlur={handleUsernameBlur}
@@ -98,7 +103,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
           labelName="メールアドレス"
           srOnly={true}
           placeholder="メールアドレス"
-          maxLength={254}
+          maxLength={MAX_EMAIL_LENGTH}
           value={email}
           onChange={handleEmailChange}
           onBlur={handleEmailBlur}
@@ -110,6 +115,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
           labelName="パスワード"
           srOnly={true}
           placeholder="パスワード"
+          maxLength={MAX_PASSWORD_LENGTH}
           value={password}
           onChange={handlePasswordChange}
           onBlur={handlePasswordBlur}
@@ -121,6 +127,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
           labelName="パスワード（確認用）"
           srOnly={true}
           placeholder="パスワード（確認用）"
+          maxLength={MAX_PASSWORD_LENGTH}
           value={passwordConfirm}
           onChange={handlePasswordConfirmChange}
           onBlur={handlePasswordConfirmBlur}

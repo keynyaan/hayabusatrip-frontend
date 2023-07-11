@@ -5,7 +5,12 @@ import { FormButton } from '@/components/FormButton'
 import { SelectField } from '@/components/SelectField'
 import { useForm } from '@/hooks/useForm'
 import { useTripApi } from '@/hooks/useTripApi'
-import { MAX_DATE, MIN_DATE, TRIP_DESTINATION_ITEMS } from '@/utils/constants'
+import {
+  MAX_DATE,
+  MAX_TRIP_TITLE_LENGTH,
+  MIN_DATE,
+  TRIP_DESTINATION_ITEMS,
+} from '@/utils/constants'
 import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 
@@ -65,7 +70,7 @@ export const CreateTripForm: FC<CreateTripFormProps> = ({ onClose }) => {
         type="text"
         labelName="旅行タイトル"
         placeholder="例：海の幸を味わう北海道旅"
-        maxLength={30}
+        maxLength={MAX_TRIP_TITLE_LENGTH}
         value={tripTitle}
         onChange={handleTripTitleChange}
         onBlur={handleTripTitleBlur}

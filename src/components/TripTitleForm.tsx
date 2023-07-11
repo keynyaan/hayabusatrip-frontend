@@ -9,6 +9,7 @@ import { useTripApi } from '@/hooks/useTripApi'
 import {
   UPDATE_TRIP_TITLE_SUCCESS_MSG,
   UPDATE_TRIP_TITLE_ERROR_MSG,
+  MAX_TRIP_TITLE_LENGTH,
 } from '@/utils/constants'
 
 type TripTitleFormProps = {
@@ -75,7 +76,7 @@ export const TripTitleForm: FC<TripTitleFormProps> = ({ onClose }) => {
             type="text"
             labelName="旅行タイトル"
             srOnly={true}
-            maxLength={30}
+            maxLength={MAX_TRIP_TITLE_LENGTH}
             value={tripTitle}
             onChange={handleTripTitleChange}
             onBlur={handleTripTitleBlur}
