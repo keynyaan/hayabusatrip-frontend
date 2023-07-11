@@ -29,7 +29,7 @@ export const SelectField: FC<SelectFieldProps> = ({
       {labelName}
     </label>
     <select
-      className="w-full pl-3 py-2 text-gray-700 border rounded focus:outline-none focus:border-brand-color"
+      className="h-10 w-full pl-3 py-2 text-gray-700 border rounded focus:outline-none focus:border-brand-color"
       id={id}
       name={id}
       value={value}

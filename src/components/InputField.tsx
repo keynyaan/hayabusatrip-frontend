@@ -80,7 +80,7 @@ export const InputField: FC<InputFieldProps> = ({
       </label>
       <input
         ref={inputRef}
-        className={`w-full px-3 py-2 text-gray-700 border rounded focus:outline-none ${
+        className={`h-10 w-full px-3 py-2 text-gray-700 border rounded focus:outline-none ${
           error ? 'border-red-500' : 'focus:border-brand-color'
         } ${onCopy ? 'pr-8' : ''} ${
           fullClickableDate ? 'full-clickable-date' : ''
