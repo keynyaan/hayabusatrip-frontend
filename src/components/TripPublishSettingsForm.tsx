@@ -6,6 +6,7 @@ import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 import { useTripApi } from '@/hooks/useTripApi'
 import {
+  NOT_LOGIN_ERROR_MSG,
   SITE_META,
   TRIPS_URL,
   UPDATE_TRIP_PUBLISH_SETTINGS_ERROR_MSG,
@@ -43,7 +44,7 @@ export const TripPublishSettingsForm: FC<TripPublishSettingsFormProps> = ({
         onClose()
       }
     } else {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
   }
 

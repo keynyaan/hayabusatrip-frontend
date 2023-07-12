@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { uploadImageToS3 } from '@/api/S3Api'
 import { updateTripAPI, DbTripData } from '@/api/tripApi'
+import { UpdateUserOptions } from '@/api/userApi'
 import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 import {
   FILE_SIZE_LIMIT_BYTES,
-  FILE_SIZE_LIMIT_MB,
   TRIP_IMAGES_DIRECTORY,
   USER_ICONS_DIRECTORY,
   USERS_URL,
@@ -14,10 +15,11 @@ import {
   UPLOAD_USER_ICON_ERROR_MSG,
   UPLOAD_USER_ICON_LOADING_MSG,
   UPLOAD_USER_ICON_SUCCESS_MSG,
+  NOT_LOGIN_ERROR_MSG,
+  UPLOAD_FILE_SIZE_ERROR_MSG,
+  UPLOAD_FILE_TYPE_ERROR_MSG,
 } from '@/utils/constants'
-import { uploadImageToS3 } from '@/api/S3Api'
 import { getTimestamp } from '@/utils/getTimestamp'
-import { UpdateUserOptions } from '@/api/userApi'
 
 export const useS3Api = () => {
   const { showToast } = useToast()
@@ -33,15 +35,12 @@ export const useS3Api = () => {
 
   const validateFile = (file: File) => {
     if (!file.type.startsWith('image/')) {
-      showToast('error', '画像ファイルを選択してください。')
+      showToast('error', UPLOAD_FILE_TYPE_ERROR_MSG)
       return false
     }
 
     if (file.size > FILE_SIZE_LIMIT_BYTES) {
-      showToast(
-        'error',
-        `画像ファイルのサイズは${FILE_SIZE_LIMIT_MB}MB以下にしてください。`
-      )
+      showToast('error', UPLOAD_FILE_SIZE_ERROR_MSG)
       return false
     }
 
@@ -50,7 +49,7 @@ export const useS3Api = () => {
 
   const uploadTripImage = async (file: File) => {
     if (!(currentUser && dbUserData && selectedTrip)) {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
       return
     }
 
@@ -94,7 +93,7 @@ export const useS3Api = () => {
 
   const uploadUserIconImage = async (file: File) => {
     if (!(currentUser && dbUserData)) {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
       return
     }
 

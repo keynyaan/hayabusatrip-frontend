@@ -10,6 +10,7 @@ import {
   UPDATE_TRIP_TITLE_SUCCESS_MSG,
   UPDATE_TRIP_TITLE_ERROR_MSG,
   MAX_TRIP_TITLE_LENGTH,
+  NOT_LOGIN_ERROR_MSG,
 } from '@/utils/constants'
 
 type TripTitleFormProps = {
@@ -40,7 +41,7 @@ export const TripTitleForm: FC<TripTitleFormProps> = ({ onClose }) => {
         onClose()
       }
     } else {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
   }
 

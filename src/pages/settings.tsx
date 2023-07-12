@@ -13,11 +13,12 @@ import { UserIcon } from '@/components/UserIcon'
 import { useForm } from '@/hooks/useForm'
 import {
   FORM_PASSWORD_RESET,
-  FORM_UNSUBSCRIBE,
+  FORM_DELETE_ACCOUNT,
   MAX_EMAIL_LENGTH,
   MAX_USERNAME_LENGTH,
   SETTINGS_PAGE_DESC,
   SETTINGS_PAGE_TITLE,
+  NOT_LOGIN_ERROR_MSG,
 } from '@/utils/constants'
 
 export default function Settings() {
@@ -26,7 +27,7 @@ export default function Settings() {
 
   const {
     authLoading,
-    deleteUserLoading,
+    deleteAccountLoading,
     updateUserLoading,
     updateUser,
     currentUser,
@@ -34,20 +35,20 @@ export default function Settings() {
   } = useAuthContext()
 
   const [passwordResetModalOpen, setPasswordResetModalOpen] = useState(false)
-  const [unsubscribeModalOpen, setUnsubscribeModalOpen] = useState(false)
+  const [deleteAccountModalOpen, setDeleteAccountModalOpen] = useState(false)
 
   const onOpenPasswordResetModal = () => {
     setPasswordResetModalOpen(true)
   }
-  const onOpenUnsubscribeModal = () => {
-    setUnsubscribeModalOpen(true)
+  const onOpenDeleteAccountModal = () => {
+    setDeleteAccountModalOpen(true)
   }
 
   const onClosePasswordResetModal = () => {
     setPasswordResetModalOpen(false)
   }
-  const onCloseUnsubscribeModal = () => {
-    setUnsubscribeModalOpen(false)
+  const onCloseDeleteAccountModal = () => {
+    setDeleteAccountModalOpen(false)
   }
 
   const updateUserFunc = async (username: string, email: string) => {
@@ -93,11 +94,11 @@ export default function Settings() {
       return
     }
 
-    if (!authLoading && !deleteUserLoading && currentUser === null) {
+    if (!authLoading && !deleteAccountLoading && currentUser === null) {
       router.push('/')
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
-  }, [authLoading, deleteUserLoading, currentUser, router, showToast])
+  }, [authLoading, deleteAccountLoading, currentUser, router, showToast])
 
   return (
     <>
@@ -155,14 +156,14 @@ export default function Settings() {
               )}
               <SecondaryButton
                 text="退会のお手続き"
-                onClick={onOpenUnsubscribeModal}
+                onClick={onOpenDeleteAccountModal}
                 isRedStyle={true}
               />
-              {unsubscribeModalOpen && (
+              {deleteAccountModalOpen && (
                 <SettingsModal
-                  open={unsubscribeModalOpen}
-                  onClose={onCloseUnsubscribeModal}
-                  form={FORM_UNSUBSCRIBE}
+                  open={deleteAccountModalOpen}
+                  onClose={onCloseDeleteAccountModal}
+                  form={FORM_DELETE_ACCOUNT}
                 />
               )}
             </div>

@@ -2,6 +2,10 @@ import React, { FC, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
 import { useToast } from '@/context/ToastContext'
+import {
+  HANDLE_COPY_SUCCESS_MSG,
+  HANDLE_COPY_ERROR_MSG,
+} from '@/utils/constants'
 
 type InputFieldProps = {
   id: string
@@ -63,8 +67,8 @@ export const InputField: FC<InputFieldProps> = ({
     if (inputRef.current) {
       navigator.clipboard
         .writeText(inputRef.current.value)
-        .then(() => showToast('success', 'URLをコピーしました'))
-        .catch(() => showToast('error', 'コピーに失敗しました'))
+        .then(() => showToast('success', HANDLE_COPY_SUCCESS_MSG))
+        .catch(() => showToast('error', HANDLE_COPY_ERROR_MSG))
     }
   }
 

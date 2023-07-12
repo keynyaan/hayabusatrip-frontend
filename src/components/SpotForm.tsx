@@ -17,6 +17,7 @@ import {
   SPOT_CATEGORY_OPTIONS,
   SPOT_MEMO_ROWS,
   TRIP_DESTINATION_ITEMS,
+  NOT_LOGIN_ERROR_MSG,
 } from '@/utils/constants'
 import { getTimeFromString } from '@/utils/getDate'
 
@@ -92,7 +93,7 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
         onClose()
       }
     } else {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
   }
 
@@ -119,7 +120,7 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
         onClose()
       }
     } else {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
   }
 

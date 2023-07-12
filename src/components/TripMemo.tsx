@@ -7,6 +7,7 @@ import { useForm } from '@/hooks/useForm'
 import { useTripApi } from '@/hooks/useTripApi'
 import {
   MAX_TRIP_MEMO,
+  NOT_LOGIN_ERROR_MSG,
   TRIP_MEMO_ROWS,
   UPDATE_TRIP_MEMO_ERROR_MSG,
   UPDATE_TRIP_MEMO_SUCCESS_MSG,
@@ -42,7 +43,7 @@ export const TripMemo: React.FC<TripMemoProps> = ({ viewMode }) => {
         UPDATE_TRIP_MEMO_ERROR_MSG
       )
     } else {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
   }
 

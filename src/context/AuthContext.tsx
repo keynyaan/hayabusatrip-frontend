@@ -23,7 +23,7 @@ interface AuthContext {
   authLoading: boolean
   resetPasswordLoading: boolean
   updateUserLoading: boolean
-  deleteUserLoading: boolean
+  deleteAccountLoading: boolean
   firstLogin: boolean
   userIconPath: string
 
@@ -40,7 +40,7 @@ interface AuthContext {
   logout: () => Promise<void>
   resetPassword: (email: string) => Promise<boolean>
   updateUser: (newUsername: string, newEmail: string) => Promise<void>
-  deleteUser: () => Promise<boolean>
+  deleteAccount: () => Promise<boolean>
   setUserIconPath: (path: string) => void
   setDbTripsData: (dbTripsData: DbTripData[]) => void
   setSelectedTrip: (selectedTrip: DbTripData | null) => void
@@ -73,7 +73,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     authLoading,
     resetPasswordLoading,
     updateUserLoading,
-    deleteUserLoading,
+    deleteAccountLoading,
     firstLogin,
     signup,
     loginWithEmailAndPassword,
@@ -81,7 +81,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     logout,
     resetPassword,
     updateUser,
-    deleteUser,
+    deleteAccount,
     setDbTripsData,
   } = useFirebaseAuth()
 
@@ -111,7 +111,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     authLoading,
     resetPasswordLoading,
     updateUserLoading,
-    deleteUserLoading,
+    deleteAccountLoading,
     firstLogin,
     userIconPath,
     signup,
@@ -120,7 +120,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     logout,
     resetPassword,
     updateUser,
-    deleteUser,
+    deleteAccount,
     setUserIconPath,
     setDbTripsData,
     setSelectedTrip,

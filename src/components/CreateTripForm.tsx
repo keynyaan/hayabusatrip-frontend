@@ -9,6 +9,7 @@ import {
   MAX_DATE,
   MAX_TRIP_TITLE_LENGTH,
   MIN_DATE,
+  NOT_LOGIN_ERROR_MSG,
   TRIP_DESTINATION_ITEMS,
 } from '@/utils/constants'
 import { useAuthContext } from '@/context/AuthContext'
@@ -38,7 +39,7 @@ export const CreateTripForm: FC<CreateTripFormProps> = ({ onClose }) => {
         onClose()
       }
     } else {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
   }
 
