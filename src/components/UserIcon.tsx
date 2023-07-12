@@ -11,6 +11,7 @@ import { useS3Api } from '@/hooks/useS3Api'
 import {
   HEADER_USER_ICON_HEIGHT,
   HEADER_USER_ICON_WIDTH,
+  SETTINGS_PAGE_TITLE,
   SETTINGS_USER_ICON_HEIGHT,
   SETTINGS_USER_ICON_WIDTH,
 } from '@/utils/constants'
@@ -131,7 +132,10 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
       )}
       <DropdownMenu isVisible={isDropdownVisible}>
         <Link href="/settings">
-          <DropdownMenuButton onClick={hideDropdown} label="アカウント設定" />
+          <DropdownMenuButton
+            onClick={hideDropdown}
+            label={SETTINGS_PAGE_TITLE}
+          />
         </Link>
         <DropdownMenuButton onClick={handleLogout} label="ログアウト" />
       </DropdownMenu>

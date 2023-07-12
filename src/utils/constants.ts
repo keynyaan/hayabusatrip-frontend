@@ -15,7 +15,8 @@ import {
 // サイトのメタ情報
 export const SITE_META = {
   siteTitle: 'HayabusaTrip',
-  siteDesc: ' 旅行計画を作成して共有できるサイト ',
+  siteDesc:
+    'HayabusaTripは誰でも簡単に旅行プランを作成・共有できるサービスです。次の旅行に向けて準備をしませんか？ ',
   siteUrl: 'https://www.hayabusatrip.com',
   siteLang: 'ja',
   siteLocale: 'ja_JP',
@@ -29,6 +30,34 @@ export const SITE_LOGO = {
   width: 72,
   height: 72,
 }
+
+// プライバシーポリシーのメタ情報
+export const PRIVACY_PAGE_TITLE = 'プライバシーポリシー'
+export const PRIVACY_PAGE_DESC = `旅行プラン作成サービス「HayabusaTrip」の${PRIVACY_PAGE_TITLE}のページです。`
+
+// 利用規約のメタ情報
+export const TERMS_PAGE_TITLE = '利用規約'
+export const TERMS_PAGE_DESC = `旅行プラン作成サービス「HayabusaTrip」の${TERMS_PAGE_TITLE}のページです。`
+
+// 旅行プラン一覧のメタ情報
+export const TRIP_INDEX_PAGE_TITLE = '旅行プラン一覧'
+export const TRIP_INDEX_PAGE_DESC = `旅行プラン作成サービス「HayabusaTrip」の${TRIP_INDEX_PAGE_TITLE}のページです。`
+
+// 旅行プラン詳細のメタ情報
+export const TRIP_DESC_PAGE_TITLE = '旅行プラン詳細'
+export const TRIP_DESC_PAGE_DESC = `旅行プラン作成サービス「HayabusaTrip」の${TRIP_DESC_PAGE_TITLE}のページです。`
+
+// アカウント設定のメタ情報
+export const SETTINGS_PAGE_TITLE = 'アカウント設定'
+export const SETTINGS_PAGE_DESC = `旅行プラン作成サービス「HayabusaTrip」の${SETTINGS_PAGE_TITLE}のページです。`
+
+// 404ページのメタ情報
+export const NOT_FOUND_PAGE_TITLE = 'ページが見つかりません'
+export const NOT_FOUND_PAGE_DESC = `旅行プラン作成サービス「HayabusaTrip」の${NOT_FOUND_PAGE_TITLE}のページです。`
+
+// 500ページのメタ情報
+export const SERVER_ERROR_PAGE_TITLE = 'サーバーエラーが発生しました'
+export const SERVER_ERROR_PAGE_DESC = `旅行プラン作成サービス「HayabusaTrip」の${SERVER_ERROR_PAGE_TITLE}のページです。`
 
 // ヘッダーの高さ
 export const HEADER_HEIGHT = 96

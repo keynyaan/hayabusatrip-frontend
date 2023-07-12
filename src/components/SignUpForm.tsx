@@ -13,6 +13,8 @@ import {
   MAX_EMAIL_LENGTH,
   MAX_PASSWORD_LENGTH,
   MAX_USERNAME_LENGTH,
+  PRIVACY_PAGE_TITLE,
+  TERMS_PAGE_TITLE,
 } from '@/utils/constants'
 
 type SignUpFormProps = {
@@ -69,7 +71,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          利用規約
+          {TERMS_PAGE_TITLE}
         </Link>
         および
         <Link
@@ -78,7 +80,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          プライバシーポリシー
+          {PRIVACY_PAGE_TITLE}
         </Link>
         に同意した上で、
         <br />

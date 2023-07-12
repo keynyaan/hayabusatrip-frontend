@@ -8,6 +8,7 @@ import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { TripFilter } from '@/components/TripFilter'
 import { useAuthContext } from '@/context/AuthContext'
+import { TRIP_INDEX_PAGE_TITLE, TRIP_INDEX_PAGE_DESC } from '@/utils/constants'
 
 export default function Home() {
   const { currentUser, dbTripsData, authLoading } = useAuthContext()
@@ -24,7 +25,10 @@ export default function Home() {
 
   if (!currentUser) {
     return currentUser === null ? (
-      <p>非ログインユーザー向けの画面を表示</p>
+      <>
+        <Meta />
+        <p>非ログインユーザー向けの画面を表示</p>
+      </>
     ) : null
   }
 
@@ -52,7 +56,7 @@ export default function Home() {
 
   return (
     <>
-      <Meta />
+      <Meta pageTitle={TRIP_INDEX_PAGE_TITLE} pageDesc={TRIP_INDEX_PAGE_DESC} />
       <>
         <div className="m-4 space-y-4">
           <TripFilter
