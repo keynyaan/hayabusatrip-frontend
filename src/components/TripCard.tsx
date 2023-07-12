@@ -71,6 +71,7 @@ export const TripCard: React.FC<TripCardProps> = ({
       fill
       priority={true}
       className={`object-cover ${isDetailPage ? '' : 'rounded-t-md'}`}
+      onContextMenu={(e) => e.preventDefault()}
     />
   )
 
