@@ -51,7 +51,7 @@ export const SpotCard: React.FC<SpotCardProps> = ({ spot, viewMode }) => {
   return (
     <>
       <div
-        className={`relative p-3 pr-6 rounded shadow-md ${
+        className={`relative p-3 pr-6 rounded shadow-md bg-white ${
           viewMode ? '' : 'hover:shadow-xl transition cursor-pointer'
         }`}
         key={spot.id}

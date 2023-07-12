@@ -173,7 +173,7 @@ export const TripDate: React.FC<TripDateProps> = ({
   }
 
   const dateButtonsClass =
-    'py-2 text-sm text-gray-700 border hover:text-brand-color hover:border-brand-color transition rounded-3xl'
+    'py-2 text-sm text-gray-700 border hover:text-brand-color hover:border-brand-color transition rounded-3xl bg-white'
 
   const dateButtons = (
     <div className="grid grid-cols-5 gap-2">
