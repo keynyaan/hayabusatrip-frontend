@@ -6,6 +6,7 @@ import { useToast } from '@/context/ToastContext'
 import { InputField } from '@/components/InputField'
 import { DividerWithText } from '@/components/DividerWithText'
 import { FormButton } from '@/components/FormButton'
+import { Meta } from '@/components/Meta'
 import { SettingsModal } from '@/components/SettingsModal'
 import { SecondaryButton } from '@/components/SecondaryButton'
 import { UserIcon } from '@/components/UserIcon'
@@ -15,6 +16,8 @@ import {
   FORM_UNSUBSCRIBE,
   MAX_EMAIL_LENGTH,
   MAX_USERNAME_LENGTH,
+  SETTINGS_PAGE_DESC,
+  SETTINGS_PAGE_TITLE,
 } from '@/utils/constants'
 
 export default function Settings() {
@@ -99,69 +102,72 @@ export default function Settings() {
   return (
     <>
       {currentUser && (
-        <div className="mx-auto max-w-md space-y-4 p-4">
-          <h2 className="text-xl font-semibold text-gray-700">
-            アカウント設定
-          </h2>
-          <div className="flex justify-center">
-            <UserIcon isSettingsPage={true} />
-          </div>
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <InputField
-              id="username"
-              type="text"
-              labelName="ユーザー名"
-              maxLength={MAX_USERNAME_LENGTH}
-              value={username}
-              onChange={handleUsernameChange}
-              onBlur={handleUsernameBlur}
-              error={usernameError}
-            />
-            <InputField
-              id="email"
-              type="email"
-              labelName="メールアドレス"
-              maxLength={MAX_EMAIL_LENGTH}
-              value={email}
-              onChange={handleEmailChange}
-              onBlur={handleEmailBlur}
-              error={emailError}
-            />
-            <FormButton
-              label="更新"
-              isFormValid={isUpdateUserFormValid}
-              loading={updateUserLoading}
-            />
-          </form>
-
-          <DividerWithText text="または" />
-
-          <div className="flex justify-between mt-4">
-            <SecondaryButton
-              text="パスワード再設定"
-              onClick={onOpenPasswordResetModal}
-            />
-            {passwordResetModalOpen && (
-              <SettingsModal
-                open={passwordResetModalOpen}
-                onClose={onClosePasswordResetModal}
-                form={FORM_PASSWORD_RESET}
+        <>
+          <Meta pageTitle={SETTINGS_PAGE_TITLE} pageDesc={SETTINGS_PAGE_DESC} />
+          <div className="mx-auto max-w-md space-y-4 p-4">
+            <h2 className="text-xl font-semibold text-gray-700">
+              {SETTINGS_PAGE_TITLE}
+            </h2>
+            <div className="flex justify-center">
+              <UserIcon isSettingsPage={true} />
+            </div>
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              <InputField
+                id="username"
+                type="text"
+                labelName="ユーザー名"
+                maxLength={MAX_USERNAME_LENGTH}
+                value={username}
+                onChange={handleUsernameChange}
+                onBlur={handleUsernameBlur}
+                error={usernameError}
               />
-            )}
-            <SecondaryButton
-              text="退会のお手続き"
-              onClick={onOpenUnsubscribeModal}
-              isRedStyle={true}
-            />
-            {unsubscribeModalOpen && (
-              <SettingsModal
-                open={unsubscribeModalOpen}
-                onClose={onCloseUnsubscribeModal}
-                form={FORM_UNSUBSCRIBE}
+              <InputField
+                id="email"
+                type="email"
+                labelName="メールアドレス"
+                maxLength={MAX_EMAIL_LENGTH}
+                value={email}
+                onChange={handleEmailChange}
+                onBlur={handleEmailBlur}
+                error={emailError}
               />
-            )}
+              <FormButton
+                label="更新"
+                isFormValid={isUpdateUserFormValid}
+                loading={updateUserLoading}
+              />
+            </form>
+
+            <DividerWithText text="または" />
+
+            <div className="flex justify-between mt-4">
+              <SecondaryButton
+                text="パスワード再設定"
+                onClick={onOpenPasswordResetModal}
+              />
+              {passwordResetModalOpen && (
+                <SettingsModal
+                  open={passwordResetModalOpen}
+                  onClose={onClosePasswordResetModal}
+                  form={FORM_PASSWORD_RESET}
+                />
+              )}
+              <SecondaryButton
+                text="退会のお手続き"
+                onClick={onOpenUnsubscribeModal}
+                isRedStyle={true}
+              />
+              {unsubscribeModalOpen && (
+                <SettingsModal
+                  open={unsubscribeModalOpen}
+                  onClose={onCloseUnsubscribeModal}
+                  form={FORM_UNSUBSCRIBE}
+                />
+              )}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </>
   )

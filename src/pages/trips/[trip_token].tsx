@@ -5,6 +5,7 @@ import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAuthContext } from '@/context/AuthContext'
 import { DescriptionViewMode } from '@/components/DescriptionViewMode'
+import { Meta } from '@/components/Meta'
 import { Modal } from '@/components/Modal'
 import { NotFound } from '@/components/NotFound'
 import { Spinner } from '@/components/Spinner'
@@ -21,6 +22,8 @@ import {
   COST_TAB,
   MEMO_TAB,
   DESCRIPTION_VIEW_MODE,
+  TRIP_DESC_PAGE_DESC,
+  TRIP_DESC_PAGE_TITLE,
 } from '@/utils/constants'
 import { differenceInDates } from '@/utils/getDate'
 
@@ -155,67 +158,70 @@ export default function TripDetail() {
   }
 
   return (
-    <div className="m-4 space-y-6 max-w-md mx-auto">
-      <TripCard trip={selectedTrip} isDetailPage={true} viewMode={viewMode} />
+    <>
+      <Meta pageTitle={TRIP_DESC_PAGE_TITLE} pageDesc={TRIP_DESC_PAGE_DESC} />
+      <div className="m-4 space-y-6 max-w-md mx-auto">
+        <TripCard trip={selectedTrip} isDetailPage={true} viewMode={viewMode} />
 
-      {isOwner && (
-        <div className="flex items-center justify-center space-x-1">
-          <FontAwesomeIcon
-            icon={faCircleQuestion}
-            className="text-gray-700 hover:text-brand-color transition cursor-pointer"
-            onClick={onOpenDescriptionViewModeModal}
+        {isOwner && (
+          <div className="flex items-center justify-center space-x-1">
+            <FontAwesomeIcon
+              icon={faCircleQuestion}
+              className="text-gray-700 hover:text-brand-color transition cursor-pointer"
+              onClick={onOpenDescriptionViewModeModal}
+            />
+            <SwitchButton
+              label="閲覧モード"
+              checked={viewMode}
+              onChange={handleChange}
+            />
+          </div>
+        )}
+
+        {descriptionViewModeModalOpen && (
+          <Modal
+            open={descriptionViewModeModalOpen}
+            onClose={onCloseDescriptionViewModeModal}
+            title={DESCRIPTION_VIEW_MODE}
+          >
+            <DescriptionViewMode />
+          </Modal>
+        )}
+
+        <div className="flex">
+          <div
+            className={`tab-item ${selectedTab === TRIP_TAB ? 'active' : ''}`}
+            onClick={() => setSelectedTab(TRIP_TAB)}
+          >
+            旅行
+          </div>
+          <div
+            className={`tab-item ${selectedTab === COST_TAB ? 'active' : ''}`}
+            onClick={() => setSelectedTab(COST_TAB)}
+          >
+            費用
+          </div>
+          <div
+            className={`tab-item ${selectedTab === MEMO_TAB ? 'active' : ''}`}
+            onClick={() => setSelectedTab(MEMO_TAB)}
+          >
+            メモ
+          </div>
+        </div>
+
+        {selectedTab === TRIP_TAB && (
+          <TripDate
+            tripDates={tripDates}
+            viewMode={viewMode}
+            setTripDates={setTripDates}
+            getSpotsForDate={getSpotsForDate}
           />
-          <SwitchButton
-            label="閲覧モード"
-            checked={viewMode}
-            onChange={handleChange}
-          />
-        </div>
-      )}
-
-      {descriptionViewModeModalOpen && (
-        <Modal
-          open={descriptionViewModeModalOpen}
-          onClose={onCloseDescriptionViewModeModal}
-          title={DESCRIPTION_VIEW_MODE}
-        >
-          <DescriptionViewMode />
-        </Modal>
-      )}
-
-      <div className="flex">
-        <div
-          className={`tab-item ${selectedTab === TRIP_TAB ? 'active' : ''}`}
-          onClick={() => setSelectedTab(TRIP_TAB)}
-        >
-          旅行
-        </div>
-        <div
-          className={`tab-item ${selectedTab === COST_TAB ? 'active' : ''}`}
-          onClick={() => setSelectedTab(COST_TAB)}
-        >
-          費用
-        </div>
-        <div
-          className={`tab-item ${selectedTab === MEMO_TAB ? 'active' : ''}`}
-          onClick={() => setSelectedTab(MEMO_TAB)}
-        >
-          メモ
-        </div>
+        )}
+        {selectedTab === COST_TAB && (
+          <TripCost tripDates={tripDates} getSpotsForDate={getSpotsForDate} />
+        )}
+        {selectedTab === MEMO_TAB && <TripMemo viewMode={viewMode} />}
       </div>
-
-      {selectedTab === TRIP_TAB && (
-        <TripDate
-          tripDates={tripDates}
-          viewMode={viewMode}
-          setTripDates={setTripDates}
-          getSpotsForDate={getSpotsForDate}
-        />
-      )}
-      {selectedTab === COST_TAB && (
-        <TripCost tripDates={tripDates} getSpotsForDate={getSpotsForDate} />
-      )}
-      {selectedTab === MEMO_TAB && <TripMemo viewMode={viewMode} />}
-    </div>
+    </>
   )
 }
