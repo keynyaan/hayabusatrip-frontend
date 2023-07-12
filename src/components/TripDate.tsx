@@ -25,6 +25,7 @@ import {
   UPDATE_TRIP_DATE_SUCCESS_MSG,
   ADD_TRIP_DATE_ERROR_MSG,
   ADD_TRIP_DATE_SUCCESS_MSG,
+  NOT_LOGIN_ERROR_MSG,
 } from '@/utils/constants'
 import {
   addDay,
@@ -90,7 +91,7 @@ export const TripDate: React.FC<TripDateProps> = ({
         UPDATE_TRIP_DATE_ERROR_MSG
       )
     } else {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
   }
 
@@ -108,7 +109,7 @@ export const TripDate: React.FC<TripDateProps> = ({
         ADD_TRIP_DATE_ERROR_MSG
       )
     } else {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
   }
 
@@ -126,7 +127,7 @@ export const TripDate: React.FC<TripDateProps> = ({
         true
       )
     } else {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
   }
 

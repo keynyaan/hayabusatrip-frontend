@@ -7,6 +7,7 @@ import { useToast } from '@/context/ToastContext'
 import { useForm } from '@/hooks/useForm'
 import { useTripApi } from '@/hooks/useTripApi'
 import {
+  NOT_LOGIN_ERROR_MSG,
   TRIP_DESTINATION_ITEMS,
   UPDATE_TRIP_DESTINATION_ERROR_MSG,
   UPDATE_TRIP_DESTINATION_SUCCESS_MSG,
@@ -42,7 +43,7 @@ export const TripDestinationForm: FC<TripDestinationFormProps> = ({
         onClose()
       }
     } else {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
   }
 

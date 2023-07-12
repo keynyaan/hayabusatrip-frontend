@@ -31,11 +31,37 @@ import {
   CREATE_USER_ERROR_MSG,
   UPDATE_USER_ERROR_MSG,
   DELETE_USER_ERROR_MSG,
+  SIGNUP_INFO_MSG,
+  DELETE_ACCOUNT_ERROR_MSG,
+  DELETE_ACCOUNT_SUCCESS_MSG,
+  GOOGLE_LOGIN_ERROR_MSG,
+  LOGIN_ERROR_MSG,
+  LOGIN_FIRST_SUCCESS_MSG,
+  LOGIN_IS_NOT_VIRIFIED_ERROR_MSG,
+  LOGIN_SUCCESS_MSG,
+  LOGOUT_ERROR_MSG,
+  LOGOUT_SUCCESS_MSG,
+  NOT_LOGIN_ERROR_MSG,
+  RESET_PASSWORD_ERROR_MSG,
+  RESET_PASSWORD_INFO_MSG,
+  RESET_PASSWORD_INVALID_EMAIL_ERROR_MSG,
+  RESET_PASSWORD_USER_NOT_FOUND_ERROR_MSG,
+  SIGNUP_EMAIL_ALREADY_IN_USE_ERROR_MSG,
+  SIGNUP_ERROR_MSG,
+  UNEXPECTED_ERROR_MSG,
+  UPDATE_USER_EMAIL_ERROR_MSG,
+  UPDATE_USER_EMAIL_SUCCESS_MSG,
+  UPDATE_USER_INVALID_USER_ERROR_MSG,
+  UPDATE_USER_NOT_CHANGED_INFO_MSG,
+  UPDATE_USER_USERNAME_AND_EMAIL_ERROR_MSG,
+  UPDATE_USER_USERNAME_AND_EMAIL_SUCCESS_MSG,
+  UPDATE_USER_USERNAME_ERROR_MSG,
+  UPDATE_USER_USERNAME_SUCCESS_MSG,
 } from '@/utils/constants'
 import { getDatetimeTimestamp } from '@/utils/getTimestamp'
 
 export const useFirebaseAuth = () => {
-  const { siteTitle, siteUrl } = SITE_META
+  const { siteUrl } = SITE_META
 
   const [currentUser, setCurrentUser] = useState<User | null | undefined>(
     undefined
@@ -50,7 +76,7 @@ export const useFirebaseAuth = () => {
   const authLoading = signupLoading || loginLoading || logoutLoading
   const [resetPasswordLoading, setResetPasswordLoading] = useState(false)
   const [updateUserLoading, setUpdateUserLoading] = useState(false)
-  const [deleteUserLoading, setDeleteUserLoading] = useState(false)
+  const [deleteAccountLoading, setDeleteAccountLoading] = useState(false)
   const [firstLogin, setFirstLogin] = useState(false)
 
   const router = useRouter()
@@ -88,19 +114,16 @@ export const useFirebaseAuth = () => {
       // メール認証が完了するまでログアウトさせる
       await signOut(auth)
 
-      showToast(
-        'info',
-        '登録はまだ完了していません。 確認メールをご確認ください。'
-      )
+      showToast('info', SIGNUP_INFO_MSG)
       return user
     } catch (e) {
       const firebaseError = e as FirebaseError
       switch (firebaseError.code) {
         case 'auth/email-already-in-use':
-          showToast('error', 'このメールアドレスは既に使用されています。')
+          showToast('error', SIGNUP_EMAIL_ALREADY_IN_USE_ERROR_MSG)
           break
         default:
-          showToast('error', '新規登録に失敗しました。')
+          showToast('error', SIGNUP_ERROR_MSG)
       }
     } finally {
       setSignupLoading(false)
@@ -116,10 +139,7 @@ export const useFirebaseAuth = () => {
 
       // メールアドレスが認証済のユーザーのみログイン処理実行
       if (isNotVerified) {
-        showToast(
-          'error',
-          'メールアドレスが未認証です。確認メールをご確認ください。'
-        )
+        showToast('error', LOGIN_IS_NOT_VIRIFIED_ERROR_MSG)
         await signOut(auth)
       } else {
         const user = result.user
@@ -147,7 +167,7 @@ export const useFirebaseAuth = () => {
         await router.push('/')
         showToast(
           'success',
-          isFirstLogin ? `${siteTitle}へようこそ！` : 'ログインしました。'
+          isFirstLogin ? LOGIN_FIRST_SUCCESS_MSG : LOGIN_SUCCESS_MSG
         )
         return user
       }
@@ -161,10 +181,10 @@ export const useFirebaseAuth = () => {
             showToast('error', UPDATE_USER_ERROR_MSG)
             break
           default:
-            showToast('error', 'メールアドレスまたはパスワードが不正です。')
+            showToast('error', LOGIN_ERROR_MSG)
         }
       } else {
-        showToast('error', '予期しないエラーが発生しました。')
+        showToast('error', UNEXPECTED_ERROR_MSG)
       }
     } finally {
       setLoginLoading(false)
@@ -216,9 +236,7 @@ export const useFirebaseAuth = () => {
         await router.push('/')
         showToast(
           'success',
-          isFirstLogin
-            ? `${siteTitle}へようこそ！`
-            : 'Googleアカウントでログインしました。'
+          isFirstLogin ? LOGIN_FIRST_SUCCESS_MSG : LOGIN_SUCCESS_MSG
         )
       }
     } catch (e) {
@@ -234,10 +252,10 @@ export const useFirebaseAuth = () => {
             showToast('error', UPDATE_USER_ERROR_MSG)
             break
           default:
-            showToast('error', 'アカウントが見つかりません。')
+            showToast('error', GOOGLE_LOGIN_ERROR_MSG)
         }
       } else {
-        showToast('error', '予期しないエラーが発生しました。')
+        showToast('error', UNEXPECTED_ERROR_MSG)
       }
     } finally {
       setGoogleLoginLoading(false)
@@ -251,9 +269,9 @@ export const useFirebaseAuth = () => {
       await signOut(auth)
       setCurrentUser(null)
       await router.push('/')
-      showToast('success', 'ログアウトしました。')
+      showToast('success', LOGOUT_SUCCESS_MSG)
     } catch (e) {
-      showToast('error', 'ログアウトに失敗しました。')
+      showToast('error', LOGOUT_ERROR_MSG)
     } finally {
       setLogoutLoading(false)
     }
@@ -266,19 +284,19 @@ export const useFirebaseAuth = () => {
       await sendPasswordResetEmail(auth, email, {
         url: `${siteUrl}`,
       })
-      showToast('info', 'パスワード再設定用のメールを送信しました。')
+      showToast('info', RESET_PASSWORD_INFO_MSG)
       return true
     } catch (e) {
       const firebaseError = e as FirebaseError
       switch (firebaseError.code) {
         case 'auth/invalid-email':
-          showToast('error', '無効なメールアドレスです。')
+          showToast('error', RESET_PASSWORD_INVALID_EMAIL_ERROR_MSG)
           break
         case 'auth/user-not-found':
-          showToast('error', 'このメールアドレスのユーザーが見つかりません。')
+          showToast('error', RESET_PASSWORD_USER_NOT_FOUND_ERROR_MSG)
           break
         default:
-          showToast('error', 'パスワード再設定用のメールの送信に失敗しました。')
+          showToast('error', RESET_PASSWORD_ERROR_MSG)
       }
       return false
     } finally {
@@ -289,7 +307,7 @@ export const useFirebaseAuth = () => {
   // ユーザー情報の更新処理
   const updateUser = async (newUsername: string, newEmail: string) => {
     if (!dbUserData || !currentUser) {
-      showToast('error', 'ユーザー情報が不正です。')
+      showToast('error', UPDATE_USER_INVALID_USER_ERROR_MSG)
       return
     }
 
@@ -297,7 +315,7 @@ export const useFirebaseAuth = () => {
     const emailChanged = newEmail !== currentUser.email
 
     if (!usernameChanged && !emailChanged) {
-      showToast('info', 'ユーザー情報が変更されていません。')
+      showToast('info', UPDATE_USER_NOT_CHANGED_INFO_MSG)
       return
     }
 
@@ -335,32 +353,32 @@ export const useFirebaseAuth = () => {
 
     if (usernameChanged && emailChanged) {
       if (usernameUpdateSuccess && emailUpdateSuccess) {
-        showToast('success', 'ユーザー情報を更新しました。')
+        showToast('success', UPDATE_USER_USERNAME_AND_EMAIL_SUCCESS_MSG)
       } else {
-        showToast('error', 'ユーザー情報の更新に失敗しました。')
+        showToast('error', UPDATE_USER_USERNAME_AND_EMAIL_ERROR_MSG)
       }
     } else if (usernameChanged) {
       if (usernameUpdateSuccess) {
-        showToast('success', 'ユーザー名を更新しました。')
+        showToast('success', UPDATE_USER_USERNAME_SUCCESS_MSG)
       } else {
-        showToast('error', 'ユーザー名の更新に失敗しました。')
+        showToast('error', UPDATE_USER_USERNAME_ERROR_MSG)
       }
     } else if (emailChanged) {
       if (emailUpdateSuccess) {
-        showToast('success', 'メールアドレスを更新しました。')
+        showToast('success', UPDATE_USER_EMAIL_SUCCESS_MSG)
       } else {
-        showToast('error', 'メールアドレスの更新に失敗しました。')
+        showToast('error', UPDATE_USER_EMAIL_ERROR_MSG)
       }
     }
   }
 
-  const deleteUser = async () => {
+  const deleteAccount = async () => {
     if (!currentUser) {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
       return false
     }
 
-    setDeleteUserLoading(true)
+    setDeleteAccountLoading(true)
 
     try {
       // ユーザー削除APIを実行
@@ -371,7 +389,7 @@ export const useFirebaseAuth = () => {
       await currentUser.delete()
       setCurrentUser(null)
       await router.push('/')
-      showToast('success', '退会が完了しました。ご利用ありがとうございました。')
+      showToast('success', DELETE_ACCOUNT_SUCCESS_MSG)
       return true
     } catch (e) {
       if (e instanceof Error) {
@@ -380,14 +398,14 @@ export const useFirebaseAuth = () => {
             showToast('error', DELETE_USER_ERROR_MSG)
             break
           default:
-            showToast('error', '退会に失敗しました。')
+            showToast('error', DELETE_ACCOUNT_ERROR_MSG)
         }
       } else {
-        showToast('error', '予期しないエラーが発生しました。')
+        showToast('error', UNEXPECTED_ERROR_MSG)
       }
       return false
     } finally {
-      setDeleteUserLoading(false)
+      setDeleteAccountLoading(false)
     }
   }
 
@@ -433,7 +451,7 @@ export const useFirebaseAuth = () => {
     authLoading,
     resetPasswordLoading,
     updateUserLoading,
-    deleteUserLoading,
+    deleteAccountLoading,
     firstLogin,
     signup,
     loginWithEmailAndPassword,
@@ -441,7 +459,7 @@ export const useFirebaseAuth = () => {
     logout,
     resetPassword,
     updateUser,
-    deleteUser,
+    deleteAccount,
     setDbTripsData,
   }
 }

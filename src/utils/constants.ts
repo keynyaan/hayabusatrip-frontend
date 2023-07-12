@@ -92,7 +92,7 @@ export const MAX_DATE_OBJ = new Date('9999-12-31')
 export const FORM_SIGN_UP = '新規登録'
 export const FORM_LOGIN = 'ログイン'
 export const FORM_PASSWORD_RESET = 'パスワード再設定'
-export const FORM_UNSUBSCRIBE = '退会'
+export const FORM_DELETE_ACCOUNT = '退会'
 export const FORM_CREATE_TRIP = '旅行プラン作成'
 export const FORM_TRIP_PHOTO = '旅行写真変更'
 export const FORM_TRIP_PUBLISH_SETTINGS = '公開状態変更'
@@ -191,10 +191,60 @@ export const UPLOAD_USER_ICON_LOADING_MSG = 'ユーザーアイコンを更新�
 export const UPLOAD_TRIP_IMAGE_LOADING_MSG = '旅行写真を更新中です。'
 export const UPLOAD_USER_ICON_SUCCESS_MSG = 'ユーザーアイコンを更新しました。'
 export const UPLOAD_TRIP_IMAGE_SUCCESS_MSG = '旅行写真を更新しました。'
+export const UPLOAD_FILE_TYPE_ERROR_MSG = '画像ファイルを選択してください。'
+export const UPLOAD_FILE_SIZE_ERROR_MSG = `画像ファイルのサイズは${FILE_SIZE_LIMIT_MB}MB以下にしてください。`
 export const UPLOAD_USER_ICON_ERROR_MSG =
   'ユーザーアイコンのアップロードに失敗しました。'
 export const UPLOAD_TRIP_IMAGE_ERROR_MSG =
   '旅行写真のアップロードに失敗しました。'
+// signup
+export const SIGNUP_INFO_MSG =
+  '登録はまだ完了していません。 確認メールをご確認ください。'
+export const SIGNUP_ERROR_MSG = '新規登録に失敗しました。'
+export const SIGNUP_EMAIL_ALREADY_IN_USE_ERROR_MSG =
+  'このメールアドレスは既に使用されています。'
+// loginWithEmailAndPassword
+export const LOGIN_SUCCESS_MSG = 'ログインしました。'
+export const LOGIN_FIRST_SUCCESS_MSG = `${SITE_META.siteTitle}へようこそ！`
+export const LOGIN_ERROR_MSG = 'メールアドレスまたはパスワードが不正です。'
+export const LOGIN_IS_NOT_VIRIFIED_ERROR_MSG =
+  'メールアドレスが未認証です。確認メールをご確認ください。'
+// loginWithGoogle
+export const GOOGLE_LOGIN_ERROR_MSG = 'アカウントが見つかりません。'
+// logout
+export const LOGOUT_SUCCESS_MSG = 'ログアウトしました。'
+export const LOGOUT_ERROR_MSG = 'ログアウトに失敗しました。'
+// resetPassword
+export const RESET_PASSWORD_INFO_MSG =
+  'パスワード再設定用のメールを送信しました。'
+export const RESET_PASSWORD_ERROR_MSG =
+  'パスワード再設定用のメールの送信に失敗しました。'
+export const RESET_PASSWORD_INVALID_EMAIL_ERROR_MSG =
+  '無効なメールアドレスです。'
+export const RESET_PASSWORD_USER_NOT_FOUND_ERROR_MSG =
+  'このメールアドレスのユーザーが見つかりません。'
+// updateUser
+export const UPDATE_USER_NOT_CHANGED_INFO_MSG =
+  'ユーザー情報が変更されていません。'
+export const UPDATE_USER_USERNAME_AND_EMAIL_SUCCESS_MSG =
+  'ユーザー情報を更新しました。'
+export const UPDATE_USER_USERNAME_SUCCESS_MSG = 'ユーザー名を更新しました。'
+export const UPDATE_USER_EMAIL_SUCCESS_MSG = 'メールアドレスを更新しました。'
+export const UPDATE_USER_INVALID_USER_ERROR_MSG = 'ユーザー情報が不正です。'
+export const UPDATE_USER_USERNAME_AND_EMAIL_ERROR_MSG =
+  'ユーザー情報の更新に失敗しました。'
+export const UPDATE_USER_USERNAME_ERROR_MSG = 'ユーザー名の更新に失敗しました。'
+export const UPDATE_USER_EMAIL_ERROR_MSG = 'メールアドレスを更新しました。'
+// deleteAccount
+export const DELETE_ACCOUNT_SUCCESS_MSG =
+  '退会が完了しました。ご利用ありがとうございました。'
+export const DELETE_ACCOUNT_ERROR_MSG = '退会に失敗しました。'
+// handleCopy
+export const HANDLE_COPY_SUCCESS_MSG = 'URLをコピーしました'
+export const HANDLE_COPY_ERROR_MSG = 'コピーに失敗しました'
+// 共通
+export const UNEXPECTED_ERROR_MSG = '予期しないエラーが発生しました。'
+export const NOT_LOGIN_ERROR_MSG = 'ログインしてください。'
 
 // S3API実行時の保存先ディレクトリ
 export const USER_ICONS_DIRECTORY = 'user_icons'

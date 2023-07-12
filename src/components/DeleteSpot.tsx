@@ -4,6 +4,7 @@ import { FormButton } from '@/components/FormButton'
 import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 import { useSpotApi } from '@/hooks/useSpotApi'
+import { NOT_LOGIN_ERROR_MSG } from '@/utils/constants'
 
 type DeleteSpotFormProps = {
   onClose: () => void
@@ -34,7 +35,7 @@ export const DeleteSpotForm: FC<DeleteSpotFormProps> = ({ onClose }) => {
         onClose()
       }
     } else {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
   }
 

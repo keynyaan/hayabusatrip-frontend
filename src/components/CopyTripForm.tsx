@@ -4,6 +4,7 @@ import { FormButton } from '@/components/FormButton'
 import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 import { useTripApi } from '@/hooks/useTripApi'
+import { NOT_LOGIN_ERROR_MSG } from '@/utils/constants'
 
 type CopyTripFormProps = {
   onClose: () => void
@@ -24,7 +25,7 @@ export const CopyTripForm: FC<CopyTripFormProps> = ({ onClose }) => {
         onClose()
       }
     } else {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
   }
 

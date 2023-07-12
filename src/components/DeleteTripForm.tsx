@@ -4,6 +4,7 @@ import { FormButton } from '@/components/FormButton'
 import { useAuthContext } from '@/context/AuthContext'
 import { useToast } from '@/context/ToastContext'
 import { useTripApi } from '@/hooks/useTripApi'
+import { NOT_LOGIN_ERROR_MSG } from '@/utils/constants'
 
 type DeleteTripFormProps = {
   onClose: () => void
@@ -28,7 +29,7 @@ export const DeleteTripForm: FC<DeleteTripFormProps> = ({ onClose }) => {
         onClose()
       }
     } else {
-      showToast('error', 'ログインしてください。')
+      showToast('error', NOT_LOGIN_ERROR_MSG)
     }
   }
 
