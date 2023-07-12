@@ -206,7 +206,7 @@ export const TripCard: React.FC<TripCardProps> = ({
 
   return (
     <div
-      className={`relative ${
+      className={`relative bg-white ${
         isDetailPage
           ? ''
           : 'rounded-lg overflow-hidden shadow-md hover:shadow-xl transition'
@@ -227,7 +227,7 @@ export const TripCard: React.FC<TripCardProps> = ({
           legacyBehavior
           key={trip.id}
         >
-          <a className="border-2 border-transparent focus:border-brand-color block outline-none rounded-lg">
+          <a className="border-2 border-transparent focus:border-brand-color block outline-none rounded-lg bg-white">
             <div className="relative pb-[66.666667%]">
               <div className="absolute inset-0">{tripImage}</div>
             </div>

@@ -7,7 +7,7 @@ export const Header: React.FC = () => {
   const { authLoading, currentUser, dbTripsData } = useAuthContext()
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-gray-100 z-10 shadow h-24 p-4 flex justify-between items-center">
+    <header className="fixed top-0 left-0 w-full bg-white z-10 shadow h-24 p-4 flex justify-between items-center">
       <Logo />
       {currentUser && !authLoading && dbTripsData && <UserActionButtons />}
       {currentUser === null && <AuthButtons />}
