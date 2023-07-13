@@ -12,11 +12,11 @@ export const NotFound = () => {
         width={250}
         height={250}
       />
-      <p className="text-brand-color text-xl">
+      <p className="text-brand-color text-base sm:text-xl">
         指定されたページが見つかりませんでした
       </p>
 
-      <p className="text-gray-700">
+      <p className="text-gray-700 text-sm sm:text-base">
         共有されたURLからアクセスした場合、コピーミスがないか確認してください。URLが正しい場合、旅行プランが既に削除・非公開にされている可能性があるため、共有元の相手にご確認ください。
       </p>
       <Link href="/">

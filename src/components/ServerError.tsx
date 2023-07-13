@@ -12,9 +12,11 @@ export const ServerError = () => {
         width={250}
         height={250}
       />
-      <p className="text-brand-color text-xl">サーバーエラーが発生しました</p>
+      <p className="text-brand-color text-base sm:text-xl">
+        サーバーエラーが発生しました
+      </p>
 
-      <p className="text-gray-700">
+      <p className="text-gray-700 text-sm sm:text-base">
         何らかの理由でサーバーが応答していません。時間をおいて再度アクセスするか、サイトの管理者にお問い合わせください。
       </p>
       <Link href="/">
