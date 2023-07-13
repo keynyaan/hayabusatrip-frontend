@@ -54,12 +54,11 @@ export const TripCost: React.FC<TripCostProps> = ({
                         {({ expanded }) => (
                           <FontAwesomeIcon
                             icon={expanded ? faAngleUp : faAngleDown}
-                            size="sm"
-                            className="text-gray-500"
+                            className="text-xs sm:text-sm text-gray-500"
                           />
                         )}
                       </AccordionItemState>
-                      <div className="flex space-x-2">
+                      <div className="flex items-center space-x-2">
                         <div
                           className={`flex w-6 h-6 items-center justify-center`}
                         >
@@ -69,12 +68,12 @@ export const TripCost: React.FC<TripCostProps> = ({
                             className={option.textColor}
                           />
                         </div>
-                        <p className="text-gray-700 shrink-0 w-12 text-right">
+                        <p className="text-sm sm:text-base text-gray-700 shrink-0 w-12 text-right">
                           {option.label}
                         </p>
                       </div>
                     </div>
-                    <p className="text-gray-700 w-24 text-right">
+                    <p className="text-sm sm:text-base text-gray-700 w-24 text-right">
                       ¥{getTotalCost(option.items)}
                     </p>
                   </div>
@@ -82,7 +81,7 @@ export const TripCost: React.FC<TripCostProps> = ({
               </AccordionItemHeading>
               <AccordionItemPanel>
                 <div
-                  className={`text-gray-700 text-sm p-4 rounded-xl space-y-2 ${option.bgColor}`}
+                  className={`text-gray-700 text-xs sm:text-sm p-4 rounded-xl space-y-2 ${option.bgColor}`}
                 >
                   <p className="text-center">【内訳】</p>
                   {tripDates.map((date, i) => {

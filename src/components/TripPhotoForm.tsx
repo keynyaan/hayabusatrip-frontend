@@ -38,7 +38,7 @@ export const TripPhotoForm: FC<TripPhotoFormProps> = ({ onClose }) => {
     <>
       {selectedTrip && (
         <div className="space-y-4">
-          <p className="text-gray-700 mb-4">
+          <p className="text-sm sm:text-base text-gray-700 mb-4">
             {FILE_SIZE_LIMIT_MB}MB以下の画像ファイルをアップロードしてください。
           </p>
           <FormButton

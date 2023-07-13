@@ -78,8 +78,8 @@ export const TripCard: React.FC<TripCardProps> = ({
   const tripDescription = (
     <>
       <div
-        className={`flex justify-center items-center mb-2 ${
-          isDetailPage ? 'text-lg' : 'text-sm'
+        className={`flex justify-center items-center mb-2 text-sm ${
+          isDetailPage ? 'sm:text-base' : ''
         }`}
       >
         {!viewMode && (
@@ -99,8 +99,8 @@ export const TripCard: React.FC<TripCardProps> = ({
         </h3>
       </div>
       <div
-        className={`flex justify-between ${
-          isDetailPage ? 'text-sm' : 'text-xs'
+        className={`flex justify-between text-xs ${
+          isDetailPage ? 'sm:text-sm' : ''
         }`}
       >
         <p className="text-gray-500">
@@ -114,7 +114,6 @@ export const TripCard: React.FC<TripCardProps> = ({
     </>
   )
 
-  const customButton = isDetailPage ? '' : 'h-10 text-sm py-0'
   const dropDownMenu = (
     <div className="absolute top-0 right-0">
       <div
@@ -128,35 +127,30 @@ export const TripCard: React.FC<TripCardProps> = ({
           <DropdownMenuButton
             onClick={() => onOpenModal(setTripPhotoOpen)}
             label="写真の変更"
-            className={customButton}
           />
         )}
         <DropdownMenuButton
           onClick={() => onOpenModal(setTripPublishSettingsOpen)}
           label="公開状態の変更"
-          className={customButton}
         />
         <DropdownMenuButton
           onClick={() => onOpenModal(setTripTitleOpen)}
           label="タイトルの変更"
-          className={customButton}
         />
         <DropdownMenuButton
           onClick={() => onOpenModal(setTripDestinationOpen)}
           label="旅行先の変更"
-          className={customButton}
         />
         {isDetailPage ?? (
           <DropdownMenuButton
             onClick={() => onOpenModal(setCopyTripOpen)}
             label="コピー"
-            className={customButton}
           />
         )}
         <DropdownMenuButton
           onClick={() => onOpenModal(setDeleteTripOpen)}
           label="削除"
-          className={`${customButton} text-red-500`}
+          className="text-red-500"
         />
       </DropdownMenu>
       {tripPhotoOpen && (

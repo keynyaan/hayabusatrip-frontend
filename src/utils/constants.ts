@@ -27,8 +27,8 @@ export const SITE_META = {
 // サイトロゴの情報
 export const SITE_LOGO = {
   src: '/images/logo.png',
-  width: 72,
-  height: 72,
+  width: 60,
+  height: 60,
 }
 
 // プライバシーポリシーのメタ情報
@@ -60,7 +60,7 @@ export const SERVER_ERROR_PAGE_TITLE = 'サーバーエラーが発生しまし�
 export const SERVER_ERROR_PAGE_DESC = `旅行プラン作成サービス「HayabusaTrip」の${SERVER_ERROR_PAGE_TITLE}のページです。`
 
 // ヘッダーの高さ
-export const HEADER_HEIGHT = 96
+export const HEADER_HEIGHT = 64
 
 // HTTPステータスコード
 export const HTTP_STATUS_NO_CONTENT = 204

@@ -12,7 +12,7 @@ export const GoogleButton: React.FC<GoogleButtonProps> = ({ text }) => {
   return (
     <button
       onClick={loginWithGoogle}
-      className={`flex items-center justify-center w-full text-gray-700 rounded border-2 focus:outline-none focus:border-brand-color ${
+      className={`text-sm sm:text-base flex items-center justify-center w-full text-gray-700 rounded border-2 focus:outline-none focus:border-brand-color ${
         !googleLoginLoading
           ? 'hover:border-brand-color transition'
           : 'opacity-50 cursor-not-allowed'

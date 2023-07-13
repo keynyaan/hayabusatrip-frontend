@@ -173,7 +173,7 @@ export const TripDate: React.FC<TripDateProps> = ({
   }
 
   const dateButtonsClass =
-    'py-2 text-sm text-gray-700 border hover:text-brand-color hover:border-brand-color transition rounded-3xl bg-white'
+    'py-2 text-xs sm:text-sm text-gray-700 border hover:text-brand-color hover:border-brand-color transition rounded-3xl bg-white'
 
   const dateButtons = (
     <div className="grid grid-cols-5 gap-2">
@@ -210,7 +210,7 @@ export const TripDate: React.FC<TripDateProps> = ({
               ref={tripDateRefs[i]}
             >
               {viewMode ? (
-                <div className="relative flex items-center h-11 space-x-1">
+                <div className="text-sm sm:text-base relative flex items-center h-10 space-x-1">
                   <p className="text-gray-500 whitespace-nowrap">
                     {`${i + 1}日目`}
                   </p>
@@ -234,10 +234,10 @@ export const TripDate: React.FC<TripDateProps> = ({
                   />
                   {!isDayTrip && (
                     <div
-                      className="w-10 h-10 transition p-2 text-red-500 hover:text-white rounded-full  hover:bg-red-500 flex items-center justify-center cursor-pointer"
+                      className="text-lg sm:text-xl w-10 h-10 transition p-2 text-red-500 hover:text-white rounded-full  hover:bg-red-500 flex items-center justify-center cursor-pointer"
                       onClick={() => onOpenDeleteDateModal(date)}
                     >
-                      <FontAwesomeIcon icon={faTrashCan} size="lg" />
+                      <FontAwesomeIcon icon={faTrashCan} />
                     </div>
                   )}
                 </div>

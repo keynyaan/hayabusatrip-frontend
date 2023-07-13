@@ -25,7 +25,7 @@ export const DeleteAccountForm: FC<PasswordResetFormProps> = ({ onClose }) => {
 
   return (
     <>
-      <p className="text-gray-700 mb-4">
+      <p className="text-sm sm:text-base text-gray-700 mb-4">
         アカウントを削除すると、これまでのデータは全て削除され、復元できなくなります。この操作は取り消せません。本当にアカウントを削除してもよろしいですか？
       </p>
       <form className="space-y-4" onSubmit={handleSubmit}>
@@ -37,7 +37,10 @@ export const DeleteAccountForm: FC<PasswordResetFormProps> = ({ onClose }) => {
             checked={isChecked}
             onChange={(e) => setIsChecked(e.target.checked)}
           />
-          <label htmlFor="confirmDeletion" className="text-gray-700">
+          <label
+            htmlFor="confirmDeletion"
+            className="text-sm sm:text-base text-gray-700"
+          >
             同意する
           </label>
         </div>

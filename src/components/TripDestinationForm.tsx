@@ -71,7 +71,9 @@ export const TripDestinationForm: FC<TripDestinationFormProps> = ({
     <>
       {selectedTrip && (
         <div className="space-y-4">
-          <p className="text-gray-700 mb-4">旅行先を変更します。</p>
+          <p className="text-sm sm:text-base text-gray-700 mb-4">
+            旅行先を変更します。
+          </p>
           <SelectField
             id="trip-destination"
             labelName="旅行先"

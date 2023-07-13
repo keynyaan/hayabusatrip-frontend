@@ -71,7 +71,9 @@ export const TripTitleForm: FC<TripTitleFormProps> = ({ onClose }) => {
     <>
       {selectedTrip && (
         <div className="space-y-4">
-          <p className="text-gray-700 mb-4">旅行タイトルを変更します。</p>
+          <p className="text-sm sm:text-base text-gray-700 mb-4">
+            旅行タイトルを変更します。
+          </p>
           <InputField
             id="trip-title"
             type="text"
