@@ -52,7 +52,7 @@ export const DeleteTripDateForm: FC<DeleteTripDateFormProps> = ({
     <>
       {selectedTrip && (
         <div className="space-y-4">
-          <p className="text-gray-700 mb-4">
+          <p className="text-sm sm:text-base text-gray-700 mb-4">
             「{formatDate(date)}
             」の日程を削除します。同じ日程の旅行スポットも全て削除されます。
             <br />

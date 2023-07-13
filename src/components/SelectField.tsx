@@ -22,14 +22,22 @@ export const SelectField: FC<SelectFieldProps> = ({
   onChange,
 }) => (
   <div>
-    <label className={`text-gray-500 ${srOnly ? 'sr-only' : ''}`} htmlFor={id}>
+    <label
+      className={`text-sm sm:text-base text-gray-500 ${
+        srOnly ? 'sr-only' : ''
+      }`}
+      htmlFor={id}
+    >
       {search && (
-        <FontAwesomeIcon icon={faSearch} className="mr-2 text-gray-700" />
+        <FontAwesomeIcon
+          icon={faSearch}
+          className="text-sm sm:text-base mr-2 text-gray-700"
+        />
       )}
       {labelName}
     </label>
     <select
-      className="h-10 w-full pl-3 py-2 text-gray-700 border rounded focus:outline-none focus:border-brand-color"
+      className="text-sm sm:text-base h-10 w-full pl-3 py-2 text-gray-700 border rounded focus:outline-none focus:border-brand-color"
       id={id}
       name={id}
       value={value}

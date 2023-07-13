@@ -60,7 +60,7 @@ export const TripPublishSettingsForm: FC<TripPublishSettingsFormProps> = ({
     <>
       {selectedTrip && (
         <div className="space-y-4">
-          <p className="text-gray-700 mb-4">
+          <p className="text-sm sm:text-base text-gray-700 mb-4">
             {selectedTrip.is_public
               ? `「${selectedTrip.title}」を非公開にします。この旅行プランはあなただけが下記のURLでアクセスできます。`
               : `「${selectedTrip.title}」を下記のURLで公開します。旅行プランに個人情報やクレジットカード番号などは記載しないようにご注意ください。`}

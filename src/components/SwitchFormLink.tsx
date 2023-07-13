@@ -16,7 +16,7 @@ export const SwitchFormLink: React.FC<SwitchFormLinkProps> = ({
   }
 
   return (
-    <p className="text-gray-700 mt-4 text-center">
+    <p className="text-sm sm:text-base text-gray-700 mt-4 text-center">
       {text}
       <button
         onClick={handleClick}

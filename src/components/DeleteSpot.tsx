@@ -54,7 +54,7 @@ export const DeleteSpotForm: FC<DeleteSpotFormProps> = ({ onClose }) => {
     <>
       {selectedSpot && (
         <div className="space-y-4">
-          <p className="text-gray-700 mb-4">{`「${selectedSpot.title}」を削除します。`}</p>
+          <p className="text-sm sm:text-base text-gray-700 mb-4">{`「${selectedSpot.title}」を削除します。`}</p>
           <form onSubmit={handleSubmit}>
             <FormButton
               label="削除"

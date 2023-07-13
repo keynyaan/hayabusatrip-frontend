@@ -2,32 +2,32 @@
   @apply mx-auto max-w-3xl px-4 py-8 text-gray-700;
 
   & h1 {
-    @apply text-2xl font-bold mb-8 text-center;
+    @apply text-xl md:text-2xl font-bold mb-8 text-center;
   }
 
   & h2 {
-    @apply text-xl font-bold mt-8 mb-2 border-b border-gray-300 pb-1;
+    @apply text-lg md:text-xl font-bold mt-8 mb-2 border-b border-gray-300 pb-1;
   }
 
   & p {
-    @apply mb-4;
+    @apply text-sm md:text-base mb-4;
   }
 
   & ol {
-    @apply list-decimal list-inside;
+    @apply text-sm md:text-base list-decimal list-inside;
   }
 
   & ul {
-    @apply list-disc list-inside mt-2 pl-2 mb-2;
+    @apply text-sm md:text-base list-disc list-inside mt-2 pl-2 mb-2;
   }
 
   & li {
-    @apply mb-1;
+    @apply text-sm md:text-base mb-1;
   }
 }
 
 .tab-item {
-  @apply p-2 flex-grow text-center text-gray-700 border-b-2 border-gray-300 cursor-pointer;
+  @apply text-sm sm:text-base p-2 flex-grow text-center text-gray-700 border-b-2 border-gray-300 cursor-pointer;
 
   &.active {
     @apply text-brand-color border-brand-color;

@@ -64,7 +64,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
 
   return (
     <>
-      <p className=" text-gray-700 mb-4">
+      <p className=" text-sm sm:text-base text-gray-700 mb-4">
         <Link
           href="/terms"
           className="text-brand-color hover:underline"
@@ -82,9 +82,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
         >
           {PRIVACY_PAGE_TITLE}
         </Link>
-        に同意した上で、
-        <br />
-        以下の「登録」ボタンを押してください。
+        に同意した上で、 以下の「登録」ボタンを押してください。
       </p>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <InputField

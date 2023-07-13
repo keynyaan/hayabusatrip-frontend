@@ -14,7 +14,10 @@ export const SwitchButton: FC<SwitchButtonProps> = ({
 }) => {
   return (
     <div className="flex items-center justify-center space-x-2">
-      <label htmlFor="react-switch" className="text-gray-700">
+      <label
+        htmlFor="react-switch"
+        className="text-sm sm:text-base text-gray-700"
+      >
         {label}
       </label>
       <ReactSwitch

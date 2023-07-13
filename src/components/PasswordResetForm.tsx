@@ -44,10 +44,9 @@ export const PasswordResetForm: FC<PasswordResetFormProps> = ({
 
   return (
     <>
-      <p className=" text-gray-700 mb-4">
+      <p className=" text-sm sm:text-base text-gray-700 mb-4">
         ご登録いただいたメールアドレス
         {login ? 'を宛先にして、' : 'を入力してください。'}
-        <br />
         パスワード再設定のURLが記載されたメールを送信します。
       </p>
       <form className="space-y-4" onSubmit={handleSubmit}>

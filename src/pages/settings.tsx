@@ -106,7 +106,7 @@ export default function Settings() {
         <>
           <Meta pageTitle={SETTINGS_PAGE_TITLE} pageDesc={SETTINGS_PAGE_DESC} />
           <div className="mx-auto max-w-md space-y-4 p-4">
-            <h2 className="text-xl font-semibold text-gray-700">
+            <h2 className="text-lg sm:text-xl text-gray-700">
               {SETTINGS_PAGE_TITLE}
             </h2>
             <div className="flex justify-center">

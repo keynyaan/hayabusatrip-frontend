@@ -12,7 +12,7 @@ export const DropdownMenuButton: React.FC<DropdownMenuButtonProps> = ({
   className,
 }) => {
   const defaultClassName =
-    'whitespace-nowrap p-3 text-left rounded hover:bg-gray-100 transition cursor-pointer'
+    'text-sm h-10 whitespace-nowrap px-3 text-left rounded hover:bg-gray-100 transition cursor-pointer'
   const appliedClassName = className
     ? `${defaultClassName} ${className}`
     : defaultClassName

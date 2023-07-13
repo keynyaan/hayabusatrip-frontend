@@ -167,7 +167,7 @@ export default function TripDetail() {
           <div className="flex items-center justify-center space-x-1">
             <FontAwesomeIcon
               icon={faCircleQuestion}
-              className="text-gray-700 hover:text-brand-color transition cursor-pointer"
+              className="text-sm sm:text-base text-gray-700 hover:text-brand-color transition cursor-pointer"
               onClick={onOpenDescriptionViewModeModal}
             />
             <SwitchButton

@@ -18,7 +18,7 @@ export const FormButton: React.FC<FormButtonProps> = ({
 }) => {
   return (
     <button
-      className={`flex justify-center w-full py-2 text-white rounded focus:outline-none ${
+      className={`text-sm sm:text-base h-10 flex justify-center items-center w-full py-2 text-white rounded focus:outline-none ${
         isRedStyle
           ? 'bg-red-500 focus:border-red-500'
           : 'bg-brand-color focus:border-brand-color'

@@ -36,7 +36,7 @@ export const SelectWithIconField: FC<SelectWithIconFieldProps> = ({
       >
         <FontAwesomeIcon icon={option.icon} className="text-white" />
       </div>
-      <p>{option.label}</p>
+      <p className="text-sm sm:text-base">{option.label}</p>
     </div>
   )
 
@@ -46,7 +46,11 @@ export const SelectWithIconField: FC<SelectWithIconFieldProps> = ({
 
   return (
     <div>
-      <label className={`text-gray-500`} htmlFor={id} onClick={focusSelect}>
+      <label
+        className="text-sm sm:text-base text-gray-500"
+        htmlFor={id}
+        onClick={focusSelect}
+      >
         {labelName}
       </label>
       <Select

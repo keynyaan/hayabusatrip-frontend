@@ -77,15 +77,12 @@ export const SpotCard: React.FC<SpotCardProps> = ({ spot, viewMode }) => {
             <p>{getTimeFromString(spot.end_time)}</p>
           </div>
           <div>
-            <p className="text-gray-700">{spot.title}</p>
+            <p className="text-sm sm:text-base text-gray-700">{spot.title}</p>
             {spot.memo && (
               <>
-                <div className="flex">
-                  <FontAwesomeIcon
-                    icon={faPenToSquare}
-                    className="text-gray-500"
-                  />
-                  <p className="text-gray-500 text-xs">{spot.memo}</p>
+                <div className="flex items-center text-gray-500 text-xs">
+                  <FontAwesomeIcon icon={faPenToSquare} />
+                  <p>{spot.memo}</p>
                 </div>
               </>
             )}

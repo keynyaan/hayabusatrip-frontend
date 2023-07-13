@@ -41,7 +41,7 @@ export const CopyTripForm: FC<CopyTripFormProps> = ({ onClose }) => {
     <>
       {selectedTrip && (
         <div className="space-y-4">
-          <p className="text-gray-700 mb-4">
+          <p className="text-sm sm:text-base text-gray-700 mb-4">
             {`「${selectedTrip.title}」をコピーします。コピーした旅行プランは非公開で保存されます。`}
           </p>
           <form onSubmit={handleSubmit}>

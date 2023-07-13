@@ -34,13 +34,15 @@ export const TextareaField: FC<TextareaFieldProps> = ({
   return (
     <div className="relative">
       <label
-        className={`text-gray-500 whitespace-nowrap ${srOnly ? 'sr-only' : ''}`}
+        className={`text-sm sm:text-base text-gray-500 whitespace-nowrap ${
+          srOnly ? 'sr-only' : ''
+        }`}
         htmlFor={id}
       >
         {labelName}
       </label>
       <textarea
-        className={`w-full px-3 py-2 text-gray-700 text-sm bg-white border rounded focus:outline-none ${
+        className={`w-full px-3 py-2 text-gray-700 text-xs sm:text-sm bg-white border rounded focus:outline-none ${
           resizeNone ? 'resize-none' : ''
         } ${error ? 'border-red-500' : 'focus:border-brand-color'}`}
         id={id}

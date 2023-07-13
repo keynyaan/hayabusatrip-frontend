@@ -45,7 +45,7 @@ export const DeleteTripForm: FC<DeleteTripFormProps> = ({ onClose }) => {
     <>
       {selectedTrip && (
         <div className="space-y-4">
-          <p className="text-gray-700 mb-4">
+          <p className="text-sm sm:text-base text-gray-700 mb-4">
             {`「${selectedTrip.title}」を削除します。削除した旅行プランはアクセスできなくなります。`}
           </p>
           <form onSubmit={handleSubmit}>
