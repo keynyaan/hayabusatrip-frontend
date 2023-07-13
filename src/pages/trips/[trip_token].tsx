@@ -149,7 +149,7 @@ export default function TripDetail() {
     }
   }, [selectedTrip, dbUserData])
 
-  if (isDataLoading || !selectedTrip) {
+  if (isDataLoading) {
     return <Spinner />
   }
 
