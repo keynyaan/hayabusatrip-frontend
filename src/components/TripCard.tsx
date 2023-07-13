@@ -115,7 +115,7 @@ export const TripCard: React.FC<TripCardProps> = ({
   )
 
   const dropDownMenu = (
-    <div className="absolute top-0 right-0">
+    <div className="absolute top-0 right-0" ref={dropdownRef}>
       <div
         className="m-2 w-10 h-10 rounded-full bg-gray-500 bg-opacity-80 hover:bg-opacity-60 transition p-1 flex items-center justify-center cursor-pointer"
         onClick={toggleDropdown}
@@ -206,7 +206,6 @@ export const TripCard: React.FC<TripCardProps> = ({
           : 'rounded-lg overflow-hidden shadow-md hover:shadow-xl transition'
       }`}
       key={trip.id}
-      ref={dropdownRef}
     >
       {isDetailPage ? (
         <>
@@ -221,7 +220,7 @@ export const TripCard: React.FC<TripCardProps> = ({
           legacyBehavior
           key={trip.id}
         >
-          <a className="border-2 border-transparent focus:border-brand-color block outline-none rounded-lg bg-white">
+          <a className="focus:border-2 focus:border-brand-color block outline-none rounded-lg bg-white">
             <div className="relative pb-[66.666667%]">
               <div className="absolute inset-0">{tripImage}</div>
             </div>
