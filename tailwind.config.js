@@ -14,7 +14,7 @@ module.exports = {
         ellipsis: 'ellipsis',
       },
       gridTemplateColumns: {
-        'auto-fill': 'repeat(auto-fill, minmax(16rem, 1fr))',
+        'auto-fill': 'repeat(auto-fill, minmax(14rem, 1fr))',
       },
       minWidth: {
         6: '1.5rem',
