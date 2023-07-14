@@ -58,7 +58,7 @@ export default function Home() {
     <>
       <Meta pageTitle={TRIP_INDEX_PAGE_TITLE} pageDesc={TRIP_INDEX_PAGE_DESC} />
       <>
-        <div className="m-4 space-y-4">
+        <div className="p-4 space-y-4 max-w-6xl mx-auto">
           <TripFilter
             dbTripsData={dbTripsData}
             setFilteredData={setFilteredData}
