@@ -85,11 +85,11 @@ export const InputField: FC<InputFieldProps> = ({
       <div className="relative flex items-center">
         <input
           ref={inputRef}
-          className={`text-sm sm:text-base h-10 w-full px-3 py-2 text-gray-700 border rounded focus:outline-none ${
+          className={`text-sm sm:text-base h-10 px-3 py-2 text-gray-700 border rounded focus:outline-none ${
             error ? 'border-red-500' : 'focus:border-brand-color'
           } ${onCopy ? 'pr-8' : ''} ${
             fullClickableDate ? 'full-clickable-date' : ''
-          }`}
+          } ${isTripDate ? 'w-32' : 'w-full'}`}
           type={type}
           min={min}
           max={max}
