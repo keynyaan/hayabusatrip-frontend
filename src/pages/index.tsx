@@ -45,7 +45,7 @@ export default function Home() {
           width={250}
           height={250}
         />
-        <p className="text-gray-700">
+        <p className="text-sm sm:text-base text-gray-700">
           旅行プランはありません。
           <br />
           次の旅行に向けて準備しませんか？
@@ -66,7 +66,7 @@ export default function Home() {
 
           {filteredData.length === 0 && (
             <div className="flex flex-col items-center">
-              <p className="text-gray-700">
+              <p className="text-sm sm:text-base text-gray-700">
                 検索条件に一致する旅行プランが見つかりませんでした。
                 <br />
                 検索条件を変更してください。
