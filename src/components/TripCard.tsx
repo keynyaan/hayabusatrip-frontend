@@ -123,12 +123,10 @@ export const TripCard: React.FC<TripCardProps> = ({
         <FontAwesomeIcon icon={faEllipsis} className="text-white text-2xl" />
       </div>
       <DropdownMenu isVisible={isDropdownVisible} isTop0={true}>
-        {isDetailPage && (
-          <DropdownMenuButton
-            onClick={() => onOpenModal(setTripPhotoOpen)}
-            label="写真の変更"
-          />
-        )}
+        <DropdownMenuButton
+          onClick={() => onOpenModal(setTripPhotoOpen)}
+          label="写真の変更"
+        />
         <DropdownMenuButton
           onClick={() => onOpenModal(setTripPublishSettingsOpen)}
           label="公開状態の変更"
@@ -137,10 +135,12 @@ export const TripCard: React.FC<TripCardProps> = ({
           onClick={() => onOpenModal(setTripTitleOpen)}
           label="タイトルの変更"
         />
-        <DropdownMenuButton
-          onClick={() => onOpenModal(setTripDestinationOpen)}
-          label="旅行先の変更"
-        />
+        {isDetailPage && (
+          <DropdownMenuButton
+            onClick={() => onOpenModal(setTripDestinationOpen)}
+            label="旅行先の変更"
+          />
+        )}
         {isDetailPage ?? (
           <DropdownMenuButton
             onClick={() => onOpenModal(setCopyTripOpen)}
