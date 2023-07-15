@@ -248,16 +248,14 @@ export const TripDate: React.FC<TripDateProps> = ({
                   <SpotCard spot={spot} viewMode={viewMode} />
                 </div>
               ))}
-              <div className="h-10">
-                {!viewMode && (
-                  <SecondaryButton
-                    text="スポットを追加"
-                    onClick={() => onOpenAddSpotModal(date)}
-                    showPlusIcon={true}
-                    isWfull={true}
-                  />
-                )}
-              </div>
+              {!viewMode && (
+                <SecondaryButton
+                  text="スポットを追加"
+                  onClick={() => onOpenAddSpotModal(date)}
+                  showPlusIcon={true}
+                  isWfull={true}
+                />
+              )}
             </div>
           )
         })}
