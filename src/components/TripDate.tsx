@@ -167,7 +167,8 @@ export const TripDate: React.FC<TripDateProps> = ({
   const handleDateButtonClick = (index: number) => {
     const element = tripDateRefs[index].current
     if (element) {
-      const top = element.getBoundingClientRect().top - HEADER_HEIGHT
+      const top =
+        window.scrollY + element.getBoundingClientRect().top - HEADER_HEIGHT
       window.scrollTo({ top, behavior: 'smooth' })
     }
   }
