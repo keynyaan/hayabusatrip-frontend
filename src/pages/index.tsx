@@ -3,9 +3,10 @@ import Image from 'next/image'
 import 'react-responsive-modal/styles.css'
 import type { DbTripData } from '@/api/tripApi'
 import { Meta } from '@/components/Meta'
-import { TripCard } from '@/components/TripCard'
+import { CreateTripButton } from '@/components/CreateTripButton'
 import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
+import { TripCard } from '@/components/TripCard'
 import { TripFilter } from '@/components/TripFilter'
 import { useAuthContext } from '@/context/AuthContext'
 import { TRIP_INDEX_PAGE_TITLE, TRIP_INDEX_PAGE_DESC } from '@/utils/constants'
@@ -38,7 +39,7 @@ export default function Home() {
 
   if (dbTripsData.length === 0) {
     return (
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center space-y-4">
         <Image
           src={`${process.env.NEXT_PUBLIC_S3_OBJECT_URL}/utils/no_plan_sleeping_dog.png`}
           alt={'旅行プランがない時の眠る犬のイラスト'}
@@ -50,6 +51,7 @@ export default function Home() {
           <br />
           次の旅行に向けて準備しませんか？
         </p>
+        <CreateTripButton isSecondaryButton={true} />
       </div>
     )
   }

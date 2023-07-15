@@ -1,10 +1,17 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { CreateTripForm } from '@/components/CreateTripForm'
-import { PrimaryButton } from '@/components/PrimaryButton'
 import { Modal } from '@/components/Modal'
-import { FORM_CREATE_TRIP } from '@/utils/constants'
+import { PrimaryButton } from '@/components/PrimaryButton'
+import { SecondaryButton } from '@/components/SecondaryButton'
+import { FORM_CREATE_TRIP, FORM_CREATE_TRIP_SECONDARY } from '@/utils/constants'
 
-export const CreateTripButton: React.FC = () => {
+type CreateTripButtondProps = {
+  isSecondaryButton?: boolean
+}
+
+export const CreateTripButton: FC<CreateTripButtondProps> = ({
+  isSecondaryButton,
+}) => {
   const [createTripModalOpen, setCreateTripModalOpen] = useState(false)
 
   const onOpenCreateTripModal = () => {
@@ -16,12 +23,20 @@ export const CreateTripButton: React.FC = () => {
   }
 
   return (
-    <div className="space-x-4">
-      <PrimaryButton
-        onClick={onOpenCreateTripModal}
-        label={FORM_CREATE_TRIP}
-        className="bg-brand-color text-white hover:bg-opacity-80"
-      />
+    <>
+      {isSecondaryButton ? (
+        <SecondaryButton
+          onClick={onOpenCreateTripModal}
+          text={FORM_CREATE_TRIP_SECONDARY}
+        />
+      ) : (
+        <PrimaryButton
+          onClick={onOpenCreateTripModal}
+          label={FORM_CREATE_TRIP}
+          className="bg-brand-color text-white hover:bg-opacity-80"
+        />
+      )}
+
       {createTripModalOpen && (
         <Modal
           open={createTripModalOpen}
@@ -31,6 +46,6 @@ export const CreateTripButton: React.FC = () => {
           <CreateTripForm onClose={onCloseCreateTripModal} />
         </Modal>
       )}
-    </div>
+    </>
   )
 }
