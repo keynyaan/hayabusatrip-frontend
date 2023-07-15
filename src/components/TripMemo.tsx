@@ -69,7 +69,7 @@ export const TripMemo: React.FC<TripMemoProps> = ({ viewMode }) => {
         value={tripMemo}
         srOnly={true}
         rows={TRIP_MEMO_ROWS}
-        disabled={true}
+        readOnly={true}
       />
     </div>
   ) : (

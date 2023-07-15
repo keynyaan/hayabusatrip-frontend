@@ -9,11 +9,10 @@ type TextareaFieldProps = {
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
   onBlur?: () => void
   error?: string
-  readonly?: boolean
   maxLength?: number
   rows?: number
   resizeNone?: boolean
-  disabled?: boolean
+  readOnly?: boolean
 }
 
 export const TextareaField: FC<TextareaFieldProps> = ({
@@ -25,11 +24,10 @@ export const TextareaField: FC<TextareaFieldProps> = ({
   onChange,
   onBlur,
   error,
-  readonly,
   maxLength,
   rows,
   resizeNone,
-  disabled,
+  readOnly,
 }) => {
   return (
     <div className="relative">
@@ -44,16 +42,17 @@ export const TextareaField: FC<TextareaFieldProps> = ({
       <textarea
         className={`w-full px-3 py-2 text-gray-700 text-xs sm:text-sm bg-white border rounded focus:outline-none ${
           resizeNone ? 'resize-none' : ''
-        } ${error ? 'border-red-500' : 'focus:border-brand-color'}`}
+        } ${
+          readOnly ? '' : error ? 'border-red-500' : 'focus:border-brand-color'
+        }`}
         id={id}
-        placeholder={placeholder}
-        maxLength={maxLength}
         value={value}
+        placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}
-        readOnly={readonly}
+        maxLength={maxLength}
         rows={rows}
-        disabled={disabled}
+        readOnly={readOnly}
       />
       {error && <p className="text-red-500">{error}</p>}
     </div>
