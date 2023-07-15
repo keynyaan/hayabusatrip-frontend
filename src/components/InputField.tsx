@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
 import { useToast } from '@/context/ToastContext'
@@ -19,6 +19,7 @@ type InputFieldProps = {
   maxLength?: number
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onBlur?: () => void
+  onFocus?: () => void
   error?: string
   readonly?: boolean
   disabled?: boolean
@@ -36,6 +37,7 @@ type InputFieldProps = {
   pattern?: string
   fullClickableDate?: boolean
   tabIndex?: number
+  isFocus?: boolean
 }
 
 export const InputField: FC<InputFieldProps> = ({
@@ -50,6 +52,7 @@ export const InputField: FC<InputFieldProps> = ({
   maxLength,
   onChange,
   onBlur,
+  onFocus,
   error,
   readonly,
   disabled,
@@ -59,6 +62,7 @@ export const InputField: FC<InputFieldProps> = ({
   pattern,
   fullClickableDate,
   tabIndex,
+  isFocus,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const { showToast } = useToast()
@@ -71,6 +75,11 @@ export const InputField: FC<InputFieldProps> = ({
         .catch(() => showToast('error', HANDLE_COPY_ERROR_MSG))
     }
   }
+  useEffect(() => {
+    if (isFocus) {
+      inputRef.current?.focus()
+    }
+  }, [isFocus])
 
   return (
     <div className={`relative ${isTripDate ? 'flex items-center' : ''}`}>
@@ -99,6 +108,7 @@ export const InputField: FC<InputFieldProps> = ({
           value={value}
           onChange={onChange}
           onBlur={onBlur}
+          onFocus={onFocus}
           readOnly={readonly}
           disabled={disabled}
           inputMode={inputmode}
