@@ -184,7 +184,11 @@ export const useForm = () => {
     setEndTimeError(validateEndTime(startTime, newEndTime))
   }
   const handleCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newCostStr = e.target.value
+    let newCostStr = e.target.value
+
+    // 全角数字を半角数字に変換
+    newCostStr = newCostStr.normalize('NFKC')
+
     const isValidNumber = /^0$|^[1-9]\d*$/.test(newCostStr)
 
     if (newCostStr === '' || isValidNumber) {
