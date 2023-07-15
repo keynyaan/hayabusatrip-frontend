@@ -60,6 +60,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
     handleEmailBlur,
     handlePasswordBlur,
     handlePasswordConfirmBlur,
+    handleUsernamelFocus,
     handleEmailFocus,
   } = useForm()
 
@@ -96,6 +97,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
           value={username}
           onChange={handleUsernameChange}
           onBlur={handleUsernameBlur}
+          onFocus={handleUsernamelFocus}
           error={usernameError}
           isFocus={true}
         />
