@@ -96,10 +96,10 @@ export const TripCost: React.FC<TripCostProps> = ({
                           {spotsForDate?.map((spot, index) => (
                             <div
                               key={index}
-                              className="flex items-center justify-between space-x-4"
+                              className="flex items-center justify-between space-x-2"
                             >
                               <p>{spot.title}</p>
-                              <p className="shrink-0 w-20 text-right">
+                              <p className="shrink-0 w-18 text-right">
                                 ¥{spot.cost}
                               </p>
                             </div>
