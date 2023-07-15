@@ -211,11 +211,13 @@ export const useForm = () => {
     if (usernameTouched) {
       setUsernameError(validateUsername(username))
     }
+    setUsernameTouched(true)
   }
   const handleEmailBlur = () => {
     if (emailTouched) {
       setEmailError(validateEmail(email))
     }
+    setEmailTouched(true)
   }
   const handlePasswordBlur = () => setPasswordError(validatePassword(password))
   const handlePasswordConfirmBlur = () =>
@@ -224,11 +226,13 @@ export const useForm = () => {
     if (tripTitleTouched) {
       setTripTitleError(validateTripTitle(tripTitle))
     }
+    setTripTitleTouched(true)
   }
   const handleSpotNameBlur = () => {
     if (spotNameTouched) {
       setSpotNameError(validateSpotName(spotName))
     }
+    setSpotNameTouched(true)
   }
   const handleStartTimeBlur = () =>
     setStartTimeError(validateStartTime(startTime))
