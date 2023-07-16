@@ -460,6 +460,7 @@ export const useFirebaseAuth = () => {
     resetPassword,
     updateUser,
     deleteAccount,
+    setDbUserData,
     setDbTripsData,
   }
 }

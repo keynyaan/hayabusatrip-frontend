@@ -21,8 +21,7 @@ type UserIconProps = {
 }
 
 export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
-  const { currentUser, dbUserData, logout, userIconPath, setUserIconPath } =
-    useAuthContext()
+  const { currentUser, dbUserData, logout } = useAuthContext()
   const { dropdownRef, isDropdownVisible, hideDropdown, toggleDropdown } =
     useDropdown()
   const { uploadUserIconImage } = useS3Api()
@@ -63,12 +62,6 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
   }
 
   useEffect(() => {
-    if (dbUserData) {
-      setUserIconPath(dbUserData.icon_path)
-    }
-  }, [dbUserData, setUserIconPath])
-
-  useEffect(() => {
     if (currentUser) {
       hideDropdown()
     }
@@ -77,7 +70,7 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      {userIconPath !== '' && (
+      {dbUserData && (
         <div
           style={{
             position: 'relative',
@@ -90,7 +83,7 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
           }}
         >
           <Image
-            src={userIconPath}
+            src={dbUserData.icon_path}
             alt="ユーザーのアイコン画像"
             onClick={handleClickIcon}
             width={

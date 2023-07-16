@@ -30,7 +30,7 @@ export const useS3Api = () => {
     selectedTrip,
     setS3ApiLoading,
     setDbTripsData,
-    setUserIconPath,
+    setDbUserData,
   } = useAuthContext()
 
   const validateFile = (file: File) => {
@@ -121,7 +121,10 @@ export const useS3Api = () => {
           Authorization: `Bearer ${idToken}`,
         },
       })
-      setUserIconPath(res.data.icon_path)
+      setDbUserData({
+        ...dbUserData,
+        icon_path: res.data.icon_path,
+      })
       showToast('success', UPLOAD_USER_ICON_SUCCESS_MSG)
       return res.data
     } catch (e) {
