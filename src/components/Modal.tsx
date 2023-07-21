@@ -22,9 +22,7 @@ export const Modal: FC<ModalProps> = ({
         const closeButton = document.querySelector(
           '.modal-close-button'
         ) as HTMLElement
-        if (closeButton && document.activeElement === closeButton) {
-          closeButton.blur()
-        }
+        closeButton.blur()
       }, 0)
     }
   }, [open, initialCloseButtonBlur])
