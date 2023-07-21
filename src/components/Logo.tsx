@@ -2,28 +2,27 @@ import Link from 'next/link'
 import Image from 'next/image'
 import React from 'react'
 
-import { SITE_LOGO, SITE_META } from '@/utils/constants'
-
-const { src, width, height } = SITE_LOGO
+import { SITE_LOGO, SITE_LOGO_NAME } from '@/utils/constants'
 
 export const Logo: React.FC = () => {
   return (
     <Link href="/">
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center">
         <Image
-          src={src}
-          width={width}
-          height={height}
-          alt="サイトのロゴ"
+          src={SITE_LOGO.src}
+          width={SITE_LOGO.width}
+          height={SITE_LOGO.height}
+          alt={SITE_LOGO.alt}
           priority
-          className="hover:scale-105 transition"
         />
-        <p
-          className="hidden sm:block text-brand-color text-3xl"
-          style={{ fontFamily: 'Futura' }}
-        >
-          {SITE_META.siteTitle}
-        </p>
+        <Image
+          src={SITE_LOGO_NAME.src}
+          width={SITE_LOGO_NAME.width}
+          height={SITE_LOGO_NAME.height}
+          alt={SITE_LOGO_NAME.alt}
+          priority
+          className="hidden sm:block"
+        />
       </div>
     </Link>
   )

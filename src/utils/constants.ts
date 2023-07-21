@@ -26,9 +26,18 @@ export const SITE_META = {
 
 // サイトロゴの情報
 export const SITE_LOGO = {
-  src: '/images/logo.png',
+  src: '/images/logo.svg',
   width: 60,
   height: 60,
+  alt: 'サイトのロゴ',
+}
+
+// サイトロゴ名の情報
+export const SITE_LOGO_NAME = {
+  src: '/images/logo-name.svg',
+  width: 200,
+  height: 30,
+  alt: 'サイトのロゴ名',
 }
 
 // プライバシーポリシーのメタ情報
