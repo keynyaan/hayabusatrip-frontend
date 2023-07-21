@@ -1,5 +1,4 @@
-import { FC } from 'react'
-
+import { FC, useEffect } from 'react'
 import { Modal as ResponsiveModal } from 'react-responsive-modal'
 
 type ModalProps = {
@@ -7,9 +6,29 @@ type ModalProps = {
   onClose: () => void
   title: string
   children: React.ReactNode
+  initialCloseButtonBlur?: boolean
 }
 
-export const Modal: FC<ModalProps> = ({ open, onClose, title, children }) => {
+export const Modal: FC<ModalProps> = ({
+  open,
+  onClose,
+  title,
+  children,
+  initialCloseButtonBlur = false,
+}) => {
+  useEffect(() => {
+    if (initialCloseButtonBlur) {
+      setTimeout(() => {
+        const closeButton = document.querySelector(
+          '.modal-close-button'
+        ) as HTMLElement
+        if (closeButton && document.activeElement === closeButton) {
+          closeButton.blur()
+        }
+      }, 0)
+    }
+  }, [open, initialCloseButtonBlur])
+
   return (
     <ResponsiveModal
       open={open}
