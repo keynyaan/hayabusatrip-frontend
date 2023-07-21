@@ -183,6 +183,7 @@ export default function TripDetail() {
             open={descriptionViewModeModalOpen}
             onClose={onCloseDescriptionViewModeModal}
             title={DESCRIPTION_VIEW_MODE}
+            initialCloseButtonBlur={true}
           >
             <DescriptionViewMode />
           </Modal>
