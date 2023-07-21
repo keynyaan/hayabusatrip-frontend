@@ -62,6 +62,7 @@ export const CreateTripForm: FC<CreateTripFormProps> = ({ onClose }) => {
     handleStartDateChange,
     handleEndDateChange,
     handleTripTitleBlur,
+    handleTripTitleFocus,
   } = useForm()
 
   return (
@@ -75,6 +76,7 @@ export const CreateTripForm: FC<CreateTripFormProps> = ({ onClose }) => {
         value={tripTitle}
         onChange={handleTripTitleChange}
         onBlur={handleTripTitleBlur}
+        onFocus={handleTripTitleFocus}
         error={tripTitleError}
       />
       <SelectField
