@@ -248,6 +248,12 @@ export const useForm = () => {
   const handleEmailFocus = () => {
     setEmailTouched(true)
   }
+  const handleTripTitleFocus = () => {
+    setTripTitleTouched(true)
+  }
+  const handleSpotNameFocus = () => {
+    setSpotNameTouched(true)
+  }
 
   return {
     username,
@@ -315,5 +321,7 @@ export const useForm = () => {
     handleSpotMemoBlur,
     handleUsernamelFocus,
     handleEmailFocus,
+    handleTripTitleFocus,
+    handleSpotNameFocus,
   }
 }

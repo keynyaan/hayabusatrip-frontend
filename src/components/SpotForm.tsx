@@ -61,6 +61,7 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
     handleEndTimeBlur,
     handleCostBlur,
     handleSpotMemoBlur,
+    handleSpotNameFocus,
   } = useForm()
 
   const selectedTripItem = TRIP_DESTINATION_ITEMS.find(
@@ -180,6 +181,7 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
         value={spotName}
         onChange={handleSpotNameChange}
         onBlur={handleSpotNameBlur}
+        onFocus={handleSpotNameFocus}
         error={spotNameError}
       />
 
