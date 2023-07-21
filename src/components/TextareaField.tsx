@@ -54,7 +54,7 @@ export const TextareaField: FC<TextareaFieldProps> = ({
         rows={rows}
         readOnly={readOnly}
       />
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-sm sm:text-base text-red-500">{error}</p>}
     </div>
   )
 }
