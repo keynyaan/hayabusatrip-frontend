@@ -101,12 +101,9 @@ export default function TripDetail() {
 
   const fetchInitialData = async () => {
     try {
-      const selectedTripData = await getTrip(
-        trip_token as string,
-        currentUser?.uid
-      )
+      const selectedTripData = await getTrip(trip_token as string)
 
-      if (!selectedTripData) {
+      if (!selectedTripData || !selectedTripData.is_public) {
         throw new Error(GET_TRIP_ERROR_MSG)
       }
 
