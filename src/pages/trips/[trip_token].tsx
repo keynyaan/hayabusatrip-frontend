@@ -33,10 +33,12 @@ export default function TripDetail() {
   const {
     currentUser,
     dbUserData,
+    dbTripsData,
     selectedTrip,
     dbSpotsData,
     setSelectedTrip,
     setDbSpotsData,
+    authStateChangedLoading,
   } = useAuthContext()
   const { getSpots } = useSpotApi()
   const { getTrip } = useTripApi()
@@ -101,8 +103,9 @@ export default function TripDetail() {
 
   const fetchInitialData = async () => {
     try {
-      const isCreator =
-        dbUserData && selectedTrip && dbUserData.id === selectedTrip.user_id
+      const isCreator = dbTripsData?.some(
+        (trip) => trip.trip_token === trip_token
+      )
       const userId = isCreator ? currentUser?.uid : undefined
 
       const selectedTripData = await getTrip(trip_token as string, userId)
@@ -126,11 +129,15 @@ export default function TripDetail() {
   }
 
   useEffect(() => {
-    if (typeof trip_token === 'string' && currentUser !== undefined) {
+    if (
+      typeof trip_token === 'string' &&
+      currentUser !== undefined &&
+      !authStateChangedLoading
+    ) {
       fetchInitialData()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trip_token, currentUser])
+  }, [trip_token, currentUser, authStateChangedLoading])
 
   useEffect(() => {
     if (selectedTrip) {
