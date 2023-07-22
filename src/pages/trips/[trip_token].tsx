@@ -109,7 +109,7 @@ export default function TripDetail() {
 
       setSelectedTrip(selectedTripData)
 
-      const dbSpotsData = await getSpots(trip_token as string, currentUser?.uid)
+      const dbSpotsData = await getSpots(trip_token as string)
 
       if (dbSpotsData) {
         setDbSpotsData(dbSpotsData)
