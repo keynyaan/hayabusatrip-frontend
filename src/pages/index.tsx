@@ -45,6 +45,7 @@ export default function Home() {
           alt={'旅行プランがない時の眠る犬のイラスト'}
           width={250}
           height={250}
+          priority
         />
         <p className="text-sm sm:text-base text-gray-700">
           旅行プランはありません。
