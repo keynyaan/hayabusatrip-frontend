@@ -60,8 +60,6 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
     handleEmailBlur,
     handlePasswordBlur,
     handlePasswordConfirmBlur,
-    handleUsernamelFocus,
-    handleEmailFocus,
   } = useForm()
 
   return (
@@ -97,7 +95,6 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
           value={username}
           onChange={handleUsernameChange}
           onBlur={handleUsernameBlur}
-          onFocus={handleUsernamelFocus}
           error={usernameError}
           isFocus={true}
         />
@@ -111,7 +108,6 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
           value={email}
           onChange={handleEmailChange}
           onBlur={handleEmailBlur}
-          onFocus={handleEmailFocus}
           error={emailError}
         />
         <InputField
