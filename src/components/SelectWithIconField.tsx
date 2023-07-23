@@ -30,7 +30,7 @@ export const SelectWithIconField: FC<SelectWithIconFieldProps> = ({
   const selectRef = useRef<SelectInstance<OptionType> | null>(null)
 
   const formatOptionLabel = (option: OptionType) => (
-    <div className="flex items-center space-x-2 py-1">
+    <div className="flex items-center space-x-2 h-10">
       <div
         className={`rounded-full w-8 h-8 flex items-center justify-center ${option.color}`}
       >
@@ -71,6 +71,10 @@ export const SelectWithIconField: FC<SelectWithIconFieldProps> = ({
               borderColor: state.isFocused ? '#00aab9' : '#e6e7eb',
             },
           }),
+          valueContainer: (base) => ({
+            ...base,
+            padding: '0px 12px',
+          }),
           dropdownIndicator: (base) => ({
             ...base,
             color: '#515a68',
@@ -86,10 +90,12 @@ export const SelectWithIconField: FC<SelectWithIconFieldProps> = ({
           option: (base, state) => ({
             ...base,
             color: state.isSelected ? base.color : '#374151',
+            padding: '0px 12px',
           }),
           singleValue: (base) => ({
             ...base,
             color: '#374151',
+            margin: '0px',
           }),
         }}
       />
