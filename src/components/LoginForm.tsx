@@ -46,7 +46,6 @@ export const LoginForm: FC<LoginFormProps> = ({ setForm, onClose }) => {
     handlePasswordChange,
     handleEmailBlur,
     handlePasswordBlur,
-    handleEmailFocus,
   } = useForm()
 
   return (
@@ -62,7 +61,6 @@ export const LoginForm: FC<LoginFormProps> = ({ setForm, onClose }) => {
           value={email}
           onChange={handleEmailChange}
           onBlur={handleEmailBlur}
-          onFocus={handleEmailFocus}
           error={emailError}
         />
         <InputField

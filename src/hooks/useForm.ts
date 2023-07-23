@@ -242,12 +242,6 @@ export const useForm = () => {
   const handleTripMemoBlur = () => setTripMemoError(validateTripMemo(tripMemo))
   const handleSpotMemoBlur = () => setSpotMemoError(validateSpotMemo(spotMemo))
 
-  const handleUsernamelFocus = () => {
-    setUsernameTouched(true)
-  }
-  const handleEmailFocus = () => {
-    setEmailTouched(true)
-  }
   const handleTripTitleFocus = () => {
     setTripTitleTouched(true)
   }
@@ -319,8 +313,6 @@ export const useForm = () => {
     handleCostBlur,
     handleTripMemoBlur,
     handleSpotMemoBlur,
-    handleUsernamelFocus,
-    handleEmailFocus,
     handleTripTitleFocus,
     handleSpotNameFocus,
   }
