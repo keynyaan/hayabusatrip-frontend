@@ -61,18 +61,28 @@ li.cursor-default a:hover {
   color: black;
 }
 
+input[type='date'],
+input[type='time'] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+input[type='date']::-webkit-date-and-time-value,
+input[type='time']::-webkit-date-and-time-value {
+  @apply text-left;
+}
+
 input {
   @apply bg-white;
 }
 
 input[type='date'].full-clickable-date::-webkit-calendar-picker-indicator {
-  position: absolute;
-  padding: 100px;
+  @apply absolute p-25;
 }
 
 input[type='date'].full-clickable-date {
-  position: relative;
-  padding-left: 0px;
+  @apply relative pl-0;
 }
 
 input[type='date']::-webkit-calendar-picker-indicator:hover {
