@@ -11,6 +11,7 @@ export const NotFound = () => {
         alt={'404エラーページの猫に仕事を邪魔されるイラスト'}
         width={250}
         height={250}
+        priority
       />
       <p className="text-brand-color text-base sm:text-xl">
         指定されたページが見つかりませんでした

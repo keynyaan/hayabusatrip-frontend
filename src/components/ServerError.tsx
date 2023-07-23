@@ -11,6 +11,7 @@ export const ServerError = () => {
         alt={'500エラーページの汚れた子供と犬のイラスト'}
         width={250}
         height={250}
+        priority
       />
       <p className="text-brand-color text-base sm:text-xl">
         サーバーエラーが発生しました
