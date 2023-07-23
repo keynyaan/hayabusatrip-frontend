@@ -48,18 +48,21 @@
   }
 }
 
-input[type='date']::-webkit-calendar-picker-indicator:hover {
-  @apply cursor-pointer opacity-50 transition;
-}
-
-select:hover {
-  @apply cursor-pointer;
+select {
+  @apply bg-white;
+  &:hover {
+    @apply cursor-pointer;
+  }
 }
 
 li.cursor-default a:hover {
   cursor: default;
   background-color: transparent;
   color: black;
+}
+
+input {
+  @apply bg-white;
 }
 
 input[type='date'].full-clickable-date::-webkit-calendar-picker-indicator {
@@ -70,4 +73,8 @@ input[type='date'].full-clickable-date::-webkit-calendar-picker-indicator {
 input[type='date'].full-clickable-date {
   position: relative;
   padding-left: 0px;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator:hover {
+  @apply cursor-pointer opacity-50 transition;
 }
