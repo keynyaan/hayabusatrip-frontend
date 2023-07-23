@@ -77,6 +77,7 @@ export const useFirebaseAuth = () => {
   const [resetPasswordLoading, setResetPasswordLoading] = useState(false)
   const [updateUserLoading, setUpdateUserLoading] = useState(false)
   const [deleteAccountLoading, setDeleteAccountLoading] = useState(false)
+  const [authStateChangedLoading, setAuthStateChangedLoading] = useState(false)
   const [firstLogin, setFirstLogin] = useState(false)
 
   const router = useRouter()
@@ -415,8 +416,9 @@ export const useFirebaseAuth = () => {
       if (user) {
         setCurrentUser(user)
 
-        try {
-          const fetchData = async () => {
+        const fetchData = async () => {
+          setAuthStateChangedLoading(true)
+          try {
             const idToken = await user.getIdToken()
             const dbUserData = await getUserAPI(idToken, user.uid)
             setDbUserData(dbUserData)
@@ -424,12 +426,14 @@ export const useFirebaseAuth = () => {
               const dbTripsData = await getTripsAPI(idToken, user.uid)
               setDbTripsData(dbTripsData)
             }
+          } catch (e) {
+            showToast('error', GET_USER_ERROR_MSG)
+          } finally {
+            setAuthStateChangedLoading(false)
           }
-
-          fetchData()
-        } catch (e) {
-          showToast('error', GET_USER_ERROR_MSG)
         }
+
+        fetchData()
       } else {
         setCurrentUser(null)
       }
@@ -452,6 +456,7 @@ export const useFirebaseAuth = () => {
     resetPasswordLoading,
     updateUserLoading,
     deleteAccountLoading,
+    authStateChangedLoading,
     firstLogin,
     signup,
     loginWithEmailAndPassword,
