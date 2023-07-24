@@ -28,9 +28,6 @@ module.exports = {
       maxHeight: {
         10: '2.5rem',
       },
-      spacing: {
-        25: '6.25rem',
-      },
     },
   },
   plugins: [],

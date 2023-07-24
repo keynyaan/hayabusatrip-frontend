@@ -1,11 +1,12 @@
 import React, { Dispatch, SetStateAction, createRef, useState } from 'react'
+import { format } from 'date-fns-tz'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import { DbSpotData } from '@/api/spotApi'
-import { SecondaryButton } from '@/components/SecondaryButton'
+import { CustomDate } from '@/components/CustomDate'
 import { DeleteTripDateForm } from '@/components/DeleteTripDateForm'
-import { InputField } from '@/components/InputField'
 import { Modal } from '@/components/Modal'
+import { SecondaryButton } from '@/components/SecondaryButton'
 import { SpotCard } from '@/components/SpotCard'
 import { SpotForm } from '@/components/SpotForm'
 import { useAuthContext } from '@/context/AuthContext'
@@ -131,10 +132,14 @@ export const TripDate: React.FC<TripDateProps> = ({
     }
   }
 
-  const handleStartDateChange =
+  const handleTripDateChange =
     (i: number, minDateString: string, maxDateString: string) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      let selectedDate = new Date(event.target.value)
+    (date: Date) => {
+      if (!date || tripDates[i] === format(date, 'yyyy-MM-dd')) {
+        return
+      }
+
+      let selectedDate = new Date(date)
       if (isNaN(selectedDate.getTime())) {
         return
       }
@@ -221,17 +226,13 @@ export const TripDate: React.FC<TripDateProps> = ({
                 </div>
               ) : (
                 <div className="flex items-center space-x-2">
-                  <InputField
+                  <CustomDate
                     id={`day${i + 1}`}
-                    type="date"
-                    min={minDate}
-                    max={maxDate}
+                    min={new Date(minDate)}
+                    max={new Date(maxDate)}
                     labelName={`${i + 1}日目`}
-                    value={date}
-                    onChange={handleStartDateChange(i, minDate, maxDate)}
-                    isTripDate={true}
-                    fullClickableDate={true}
-                    tabIndex={-1}
+                    value={new Date(date)}
+                    onChange={handleTripDateChange(i, minDate, maxDate)}
                   />
                   {!isDayTrip && (
                     <div

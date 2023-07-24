@@ -24,7 +24,6 @@ type InputFieldProps = {
   readonly?: boolean
   disabled?: boolean
   onCopy?: boolean
-  isTripDate?: boolean
   inputmode?:
     | 'none'
     | 'text'
@@ -35,7 +34,6 @@ type InputFieldProps = {
     | 'decimal'
     | 'search'
   pattern?: string
-  fullClickableDate?: boolean
   tabIndex?: number
   isFocus?: boolean
 }
@@ -57,10 +55,8 @@ export const InputField: FC<InputFieldProps> = ({
   readonly,
   disabled,
   onCopy,
-  isTripDate,
   inputmode,
   pattern,
-  fullClickableDate,
   tabIndex,
   isFocus,
 }) => {
@@ -82,11 +78,11 @@ export const InputField: FC<InputFieldProps> = ({
   }, [isFocus])
 
   return (
-    <div className={`relative ${isTripDate ? 'flex items-center' : ''}`}>
+    <div className="relative">
       <label
         className={`text-sm sm:text-base text-gray-500 whitespace-nowrap ${
           srOnly ? 'sr-only' : ''
-        } ${isTripDate ? 'w-12' : ''}`}
+        }`}
         htmlFor={id}
       >
         {labelName}
@@ -94,11 +90,9 @@ export const InputField: FC<InputFieldProps> = ({
       <div className="relative flex items-center">
         <input
           ref={inputRef}
-          className={`text-sm sm:text-base h-10 px-3 py-2 text-gray-700 border rounded focus:outline-none ${
+          className={`text-sm sm:text-base h-10 px-3 py-2 text-gray-700 border rounded focus:outline-none w-full ${
             error ? 'border-red-500' : 'focus:border-brand-color'
-          } ${onCopy ? 'pr-8' : ''} ${
-            fullClickableDate ? 'full-clickable-date' : ''
-          } ${isTripDate ? 'w-32' : 'w-full'}`}
+          } ${onCopy ? 'pr-8' : ''}`}
           type={type}
           min={min}
           max={max}
