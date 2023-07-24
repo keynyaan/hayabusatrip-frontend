@@ -77,14 +77,6 @@ input {
   @apply bg-white;
 }
 
-input[type='date'].full-clickable-date::-webkit-calendar-picker-indicator {
-  @apply absolute p-25;
-}
-
-input[type='date'].full-clickable-date {
-  @apply relative pl-0;
-}
-
 input[type='date']::-webkit-calendar-picker-indicator:hover {
   @apply cursor-pointer opacity-50 transition;
 }
