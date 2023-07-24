@@ -24,10 +24,9 @@ type CustomInputProps = {
 const CustomInput = forwardRef<HTMLButtonElement, CustomInputProps>(
   ({ value, onClick }, ref) => (
     <button
-      className="flex items-center justify-between text-transparent bg-white text-sm sm:text-base h-10 px-3 py-2 border rounded focus:outline-none focus:border-brand-color w-32 cursor-pointer relative group space-x-2"
+      className="flex items-center justify-between text-gray-700 bg-white text-sm sm:text-base h-10 px-3 py-2 border rounded focus:outline-none focus:border-brand-color w-32 cursor-pointer relative group"
       onClick={onClick}
       ref={ref}
-      style={{ textShadow: '0 0 0 rgb(55 65 81)' }}
     >
       {value}
       <FontAwesomeIcon
