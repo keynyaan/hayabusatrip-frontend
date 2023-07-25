@@ -38,19 +38,13 @@ export const useSpotApi = () => {
   }
 
   const getSpot = async (
-    idToken: string,
     user_uid: string,
     trip_token: string,
     spot_id: number
   ) => {
     setSpotApiLoading(true)
     try {
-      const data: DbSpotData = await getSpotAPI(
-        idToken,
-        user_uid,
-        trip_token,
-        spot_id
-      )
+      const data: DbSpotData = await getSpotAPI(user_uid, trip_token, spot_id)
       return data
     } catch (e) {
       showToast('error', GET_SPOT_ERROR_MSG)
