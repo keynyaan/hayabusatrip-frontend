@@ -51,19 +51,13 @@ export const getSpotsAPI = async (trip_token: string, user_uid?: string) => {
 
 // 特定の旅行スポットの取得
 export const getSpotAPI = async (
-  idToken: string,
   user_uid: string,
   trip_token: string,
   spot_id: number
 ) => {
   try {
     const res = await axios.get(
-      `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}${SPOTS_URL}/${spot_id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
-      }
+      `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}${SPOTS_URL}/${spot_id}`
     )
     return res.data
   } catch (e) {
