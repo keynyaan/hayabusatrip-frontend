@@ -1,13 +1,6 @@
 import axios from 'axios'
 import { uploadImageToS3 } from '@/api/S3Api'
-import {
-  USERS_URL,
-  CREATE_USER_ERROR_MSG,
-  GET_USER_ERROR_MSG,
-  UPDATE_USER_ERROR_MSG,
-  DELETE_USER_ERROR_MSG,
-  USER_ICONS_DIRECTORY,
-} from '@/utils/constants'
+import { USERS_URL, USER_ICONS_DIRECTORY } from '@/utils/constants'
 import { getTimestamp } from '@/utils/getTimestamp'
 
 export type DbUserData = {
@@ -47,7 +40,7 @@ export const getUsersAPI = async (idToken: string) => {
     })
     return res.data
   } catch (e) {
-    throw new Error(GET_USER_ERROR_MSG)
+    throw e
   }
 }
 
@@ -61,7 +54,7 @@ export const getUserAPI = async (idToken: string, uid: string) => {
     })
     return res.data
   } catch (e) {
-    throw new Error(GET_USER_ERROR_MSG)
+    throw e
   }
 }
 
@@ -82,7 +75,7 @@ export const createUserAPI = async (
     })
     return res.data
   } catch (e) {
-    throw new Error(CREATE_USER_ERROR_MSG)
+    throw e
   }
 }
 
@@ -112,7 +105,7 @@ export const updateUserAPI = async (
     })
     return res.data
   } catch (e) {
-    throw new Error(UPDATE_USER_ERROR_MSG)
+    throw e
   }
 }
 
@@ -126,6 +119,6 @@ export const deleteUserAPI = async (idToken: string, uid: string) => {
     })
     return res.data
   } catch (e) {
-    throw new Error(DELETE_USER_ERROR_MSG)
+    throw e
   }
 }
