@@ -1,7 +1,5 @@
 import axios from 'axios'
-import { uploadImageToS3 } from '@/api/S3Api'
-import { USERS_URL, USER_ICONS_DIRECTORY } from '@/utils/constants'
-import { getTimestamp } from '@/utils/getTimestamp'
+import { USERS_URL } from '@/utils/constants'
 
 export type DbUserData = {
   id: number
@@ -82,20 +80,11 @@ export const createUserAPI = async (
 // ユーザー情報の更新
 export const updateUserAPI = async (
   idToken: string,
-  options: UpdateUserOptions,
-  imageFile?: File
+  options: UpdateUserOptions
 ) => {
   try {
     const params: { user: UpdateUserOptions } = {
       user: options,
-    }
-
-    if (imageFile) {
-      const filename = `${USER_ICONS_DIRECTORY}/${
-        options.uid
-      }-${getTimestamp()}.${imageFile.type.split('/')[1]}`
-      const imageUrl = await uploadImageToS3(imageFile, filename)
-      params.user.icon_path = `${imageUrl}?v=${getTimestamp()}`
     }
 
     const res = await axios.patch(`${USERS_URL}/${options.uid}`, params, {
