@@ -66,7 +66,7 @@ export const useS3Api = () => {
     showToast('info', UPLOAD_TRIP_IMAGE_LOADING_MSG)
 
     try {
-      const imageUrl = await uploadImageToS3(file, filename)
+      const imageUrl = await uploadImageToS3(idToken, file, filename)
       const data: DbTripData = await updateTripAPI(
         idToken,
         currentUser.uid,
@@ -114,7 +114,7 @@ export const useS3Api = () => {
     showToast('info', UPLOAD_USER_ICON_LOADING_MSG)
 
     try {
-      const imageUrl = await uploadImageToS3(file, filename)
+      const imageUrl = await uploadImageToS3(idToken, file, filename)
       params.user.icon_path = `${imageUrl}?v=${getTimestamp()}`
       const res = await axios.patch(`${USERS_URL}/${dbUserData.uid}`, params, {
         headers: {
