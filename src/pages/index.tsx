@@ -18,7 +18,9 @@ export default function Home() {
   const itemsPerPage = 12
   const pagesVisited = pageNumber * itemsPerPage
 
-  const [filteredData, setFilteredData] = useState<DbTripData[]>([])
+  const [filteredData, setFilteredData] = useState<DbTripData[]>(
+    dbTripsData || []
+  )
 
   useEffect(() => {
     setPageNumber(0)
