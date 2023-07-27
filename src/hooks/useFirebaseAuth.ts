@@ -56,6 +56,7 @@ import {
   UPDATE_USER_USERNAME_AND_EMAIL_SUCCESS_MSG,
   UPDATE_USER_USERNAME_ERROR_MSG,
   UPDATE_USER_USERNAME_SUCCESS_MSG,
+  MAX_USERNAME_LENGTH,
 } from '@/utils/constants'
 import { getDatetimeTimestamp } from '@/utils/getTimestamp'
 
@@ -203,7 +204,8 @@ export const useFirebaseAuth = () => {
         // getUserAPIを実行してログインユーザーの存在確認
         const idToken = await user.getIdToken()
         let dbUserData = await getUserAPI(idToken, user.uid)
-        const displayName = user.displayName || '新規ユーザー'
+        const displayName =
+          user.displayName?.substring(0, MAX_USERNAME_LENGTH) || '新規ユーザー'
         const photoURL = user.photoURL || '/images/default-user-icon.png'
         const isFirstLogin = !dbUserData
 
