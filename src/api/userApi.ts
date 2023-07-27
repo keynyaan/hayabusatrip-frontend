@@ -8,8 +8,6 @@ export type DbUserData = {
   updated_at: string
   name: string
   icon_path: string
-  request_count: number
-  last_reset_date: string | null
   last_login_time: string | null
 }
 
@@ -23,8 +21,6 @@ export type UpdateUserOptions = {
   uid: string
   name?: string
   icon_path?: string
-  request_count?: number
-  last_reset_date?: string
   last_login_time?: string
 }
 
