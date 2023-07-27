@@ -37,7 +37,7 @@ import {
   GOOGLE_LOGIN_ERROR_MSG,
   LOGIN_ERROR_MSG,
   LOGIN_FIRST_SUCCESS_MSG,
-  LOGIN_IS_NOT_VIRIFIED_ERROR_MSG,
+  LOGIN_IS_NOT_VERIFIED_INFO_MSG,
   LOGIN_SUCCESS_MSG,
   LOGOUT_ERROR_MSG,
   LOGOUT_SUCCESS_MSG,
@@ -139,7 +139,7 @@ export const useFirebaseAuth = () => {
 
       // メールアドレスが認証済のユーザーのみログイン処理実行
       if (isNotVerified) {
-        showToast('error', LOGIN_IS_NOT_VIRIFIED_ERROR_MSG)
+        showToast('info', LOGIN_IS_NOT_VERIFIED_INFO_MSG)
         await signOut(auth)
       } else {
         const user = result.user
