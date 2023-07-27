@@ -319,6 +319,18 @@ export const useFirebaseAuth = () => {
     let usernameUpdateSuccess = true
     let emailUpdateSuccess = true
 
+    if (emailChanged) {
+      try {
+        // 認証メールにユーザー名が表示されるように設定
+        await updateProfile(currentUser, {
+          displayName: newUsername,
+        })
+        await updateEmail(currentUser, newEmail)
+      } catch (e) {
+        emailUpdateSuccess = false
+      }
+    }
+
     if (usernameChanged) {
       try {
         const idToken = await currentUser.getIdToken()
@@ -329,18 +341,6 @@ export const useFirebaseAuth = () => {
         setDbUserData(updateDbUserData)
       } catch (e) {
         usernameUpdateSuccess = false
-      }
-    }
-
-    if (emailChanged) {
-      try {
-        // 認証メールにユーザー名が表示されるように設定
-        await updateProfile(currentUser, {
-          displayName: newUsername,
-        })
-        await updateEmail(currentUser, newEmail)
-      } catch (e) {
-        emailUpdateSuccess = false
       }
     }
 
@@ -367,6 +367,7 @@ export const useFirebaseAuth = () => {
     }
   }
 
+  // 退会処理
   const deleteAccount = async () => {
     if (!currentUser) {
       showToast('error', NOT_LOGIN_ERROR_MSG)
