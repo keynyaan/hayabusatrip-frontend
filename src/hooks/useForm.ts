@@ -6,6 +6,8 @@ import {
   getTomorrow,
   getNextDay,
   getOneHourAhead,
+  getOneHourAheadTime,
+  getNowTime,
 } from '@/utils/getDate'
 import {
   validateUsername,
@@ -36,8 +38,8 @@ export const useForm = () => {
   const [spotCategory, setSpotCategory] = useState<string>(
     SPOT_CATEGORY_OPTIONS[0].value
   )
-  const [startTime, setStartTime] = useState('')
-  const [endTime, setEndTime] = useState('')
+  const [startTime, setStartTime] = useState(getNowTime())
+  const [endTime, setEndTime] = useState(getOneHourAheadTime())
   const [cost, setCost] = useState('0')
   const [tripMemo, setTripMemo] = useState('')
   const [spotMemo, setSpotMemo] = useState('')

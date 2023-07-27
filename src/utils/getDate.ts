@@ -78,6 +78,21 @@ export const getOneHourAhead = (time: string): string => {
   return format(date, formatString)
 }
 
+export const getNowTime = () => {
+  const formatString = 'HH:mm'
+  const now = new Date()
+
+  return format(now, formatString)
+}
+
+export const getOneHourAheadTime = () => {
+  const formatString = 'HH:mm'
+  const now = new Date()
+  const oneHourAheadTime = add(now, { hours: 1 })
+
+  return format(oneHourAheadTime, formatString)
+}
+
 export const differenceInDatesNum = (dateStr1: string, dateStr2: string) => {
   const timeZone = 'Asia/Tokyo'
   const date1 = utcToZonedTime(new Date(dateStr1), timeZone)
