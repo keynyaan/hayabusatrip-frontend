@@ -214,11 +214,11 @@ export const SIGNUP_ERROR_MSG = '新規登録に失敗しました。'
 export const SIGNUP_EMAIL_ALREADY_IN_USE_ERROR_MSG =
   'このメールアドレスは既に使用されています。'
 // loginWithEmailAndPassword
+export const LOGIN_IS_NOT_VERIFIED_INFO_MSG =
+  'メールアドレスが未認証です。確認メールをご確認ください。'
 export const LOGIN_SUCCESS_MSG = 'ログインしました。'
 export const LOGIN_FIRST_SUCCESS_MSG = `${SITE_META.siteTitle}へようこそ！`
 export const LOGIN_ERROR_MSG = 'メールアドレスまたはパスワードが不正です。'
-export const LOGIN_IS_NOT_VIRIFIED_ERROR_MSG =
-  'メールアドレスが未認証です。確認メールをご確認ください。'
 // loginWithGoogle
 export const GOOGLE_LOGIN_ERROR_MSG = 'アカウントが見つかりません。'
 // logout
