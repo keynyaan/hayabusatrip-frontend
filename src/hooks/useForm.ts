@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { OptionType } from '@/components/SelectWithIconField'
+import { useAuthContext } from '@/context/AuthContext'
 import { SPOT_CATEGORY_OPTIONS } from '@/utils/constants'
 import {
   getToday,
@@ -26,6 +27,8 @@ import {
 } from '@/utils/validation'
 
 export const useForm = () => {
+  const { selectedTrip, dbUserData, currentUser } = useAuthContext()
+
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -83,8 +86,11 @@ export const useForm = () => {
   const isUpdateUserFormValid: boolean =
     Boolean(username) &&
     Boolean(email) &&
+    Boolean(dbUserData) &&
+    Boolean(currentUser) &&
     !validateUsername(username) &&
-    !validateEmail(email)
+    !validateEmail(email) &&
+    (username !== dbUserData?.name || email !== currentUser?.email)
 
   const isCreateTripFormValid: boolean =
     Boolean(tripTitle) &&
@@ -96,9 +102,15 @@ export const useForm = () => {
     !validateEndDate(startDate, endDate)
 
   const isTripTitleFormValid: boolean =
-    Boolean(tripTitle) && !validateTripTitle(tripTitle)
+    Boolean(tripTitle) &&
+    Boolean(selectedTrip) &&
+    !validateTripTitle(tripTitle) &&
+    selectedTrip?.title !== tripTitle
 
-  const isTripDestinationFormValid: boolean = tripDestination !== ''
+  const isTripDestinationFormValid: boolean =
+    tripDestination !== '' &&
+    Boolean(selectedTrip) &&
+    String(selectedTrip?.prefecture_id) !== tripDestination
 
   const isTripMemoFormValid = !validateTripMemo(tripMemo)
 

@@ -80,6 +80,7 @@ export const TripDestinationForm: FC<TripDestinationFormProps> = ({
             srOnly={true}
             value={tripDestination}
             items={TRIP_DESTINATION_ITEMS}
+            disabledItemValue={String(selectedTrip.prefecture_id)}
             onChange={handleTripDestinationChange}
           />
           <form onSubmit={handleSubmit}>

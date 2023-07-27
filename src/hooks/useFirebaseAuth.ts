@@ -52,7 +52,6 @@ import {
   UPDATE_USER_EMAIL_ERROR_MSG,
   UPDATE_USER_EMAIL_SUCCESS_MSG,
   UPDATE_USER_INVALID_USER_ERROR_MSG,
-  UPDATE_USER_NOT_CHANGED_INFO_MSG,
   UPDATE_USER_USERNAME_AND_EMAIL_ERROR_MSG,
   UPDATE_USER_USERNAME_AND_EMAIL_SUCCESS_MSG,
   UPDATE_USER_USERNAME_ERROR_MSG,
@@ -314,11 +313,6 @@ export const useFirebaseAuth = () => {
 
     const usernameChanged = newUsername !== dbUserData.name
     const emailChanged = newEmail !== currentUser.email
-
-    if (!usernameChanged && !emailChanged) {
-      showToast('info', UPDATE_USER_NOT_CHANGED_INFO_MSG)
-      return
-    }
 
     setUpdateUserLoading(true)
 

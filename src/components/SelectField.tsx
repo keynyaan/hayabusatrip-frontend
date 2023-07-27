@@ -9,6 +9,7 @@ type SelectFieldProps = {
   value?: string
   items: { value: string; name: string }[] | number[]
   search?: boolean
+  disabledItemValue?: string
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
 
@@ -19,6 +20,7 @@ export const SelectField: FC<SelectFieldProps> = ({
   value,
   items,
   search,
+  disabledItemValue,
   onChange,
 }) => (
   <div>
@@ -55,7 +57,11 @@ export const SelectField: FC<SelectFieldProps> = ({
           )
         } else {
           return (
-            <option key={item.value} value={item.value}>
+            <option
+              key={item.value}
+              value={item.value}
+              disabled={disabledItemValue === item.value}
+            >
               {item.name}
             </option>
           )
