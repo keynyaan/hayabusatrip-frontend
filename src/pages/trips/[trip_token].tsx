@@ -72,7 +72,7 @@ export default function TripDetail() {
   const getSpotsForDate = (date: string, items?: string[]) => {
     const spots = dbSpotsData?.filter(
       (spot) =>
-        spot.date === date && (items ? items.includes(spot.spot_icon) : true)
+        spot.date === date && (items ? items.includes(spot.category) : true)
     )
 
     return spots?.sort((a, b) => {

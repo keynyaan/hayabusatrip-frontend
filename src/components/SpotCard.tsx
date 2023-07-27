@@ -25,8 +25,8 @@ export const SpotCard: React.FC<SpotCardProps> = ({ spot, viewMode }) => {
   const [deleteSpotModalOpen, setDeleteSpotModalOpen] = useState(false)
   const [updateSpotModalOpen, setUpdateSpotModalOpen] = useState(false)
 
-  const spotIcon =
-    SPOT_CATEGORY_OPTIONS.find((option) => option.value === spot.spot_icon) ||
+  const spotCategory =
+    SPOT_CATEGORY_OPTIONS.find((option) => option.value === spot.category) ||
     SPOT_CATEGORY_OPTIONS[0]
 
   const onOpenDeleteSpotModal = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -67,9 +67,9 @@ export const SpotCard: React.FC<SpotCardProps> = ({ spot, viewMode }) => {
         )}
         <div className="flex items-center space-x-2">
           <div
-            className={`flex flex-shrink-0 rounded-full w-8 h-8 items-center justify-center ${spotIcon.color}`}
+            className={`flex flex-shrink-0 rounded-full w-8 h-8 items-center justify-center ${spotCategory.color}`}
           >
-            <FontAwesomeIcon icon={spotIcon.icon} className="text-white" />
+            <FontAwesomeIcon icon={spotCategory.icon} className="text-white" />
           </div>
           <div className="flex flex-col flex-shrink-0 w-8 h-10 items-center justify-center text-gray-700 text-xs">
             <p>{getTimeFromString(spot.start_time)}</p>
@@ -77,7 +77,7 @@ export const SpotCard: React.FC<SpotCardProps> = ({ spot, viewMode }) => {
             <p>{getTimeFromString(spot.end_time)}</p>
           </div>
           <div>
-            <p className="text-sm sm:text-base text-gray-700">{spot.title}</p>
+            <p className="text-sm sm:text-base text-gray-700">{spot.name}</p>
             {spot.memo && (
               <>
                 <div className="flex items-center text-gray-500 text-xs">

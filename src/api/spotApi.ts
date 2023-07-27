@@ -4,8 +4,8 @@ import { USERS_URL, TRIPS_URL, SPOTS_URL } from '@/utils/constants'
 export type DbSpotData = {
   id: number
   trip_id: number
-  spot_icon: string
-  title: string
+  category: string
+  name: string
   date: string
   start_time: string
   end_time: string
@@ -17,8 +17,8 @@ export type DbSpotData = {
 
 export type CreateSpotOptions = {
   trip_id: number
-  spot_icon: string
-  title: string
+  category: string
+  name: string
   date: string
   start_time: string
   end_time: string
@@ -27,8 +27,8 @@ export type CreateSpotOptions = {
 }
 
 export type UpdateSpotOptions = {
-  spot_icon?: string
-  title?: string
+  category?: string
+  name?: string
   date?: string
   start_time?: string
   end_time?: string
