@@ -80,8 +80,8 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
         selectedTrip.trip_token,
         {
           trip_id: selectedTrip.id,
-          spot_icon: spotCategory,
-          title: spotName,
+          category: spotCategory,
+          name: spotName,
           date: date,
           start_time: startTime,
           end_time: endTime,
@@ -107,8 +107,8 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
         selectedTrip.trip_token,
         selectedSpot.id,
         {
-          spot_icon: spotCategory,
-          title: spotName,
+          category: spotCategory,
+          name: spotName,
           date: date,
           start_time: startTime,
           end_time: endTime,
@@ -133,11 +133,11 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
   useEffect(() => {
     if (mode === SPOT_FORM_MODE_UPDATE && selectedSpot) {
       handleSpotNameChange({
-        target: { value: selectedSpot.title },
+        target: { value: selectedSpot.name },
       } as React.ChangeEvent<HTMLInputElement>)
 
       const spotCategoryOption = SPOT_CATEGORY_OPTIONS.find(
-        (option) => option.value === selectedSpot.spot_icon
+        (option) => option.value === selectedSpot.category
       )
       if (spotCategoryOption) {
         handleSpotCategoryChange(spotCategoryOption)

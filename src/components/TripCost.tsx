@@ -29,7 +29,7 @@ export const TripCost: React.FC<TripCostProps> = ({
     let totalCost = 0
     if (dbSpotsData) {
       for (const spot of dbSpotsData) {
-        if (items.includes(spot.spot_icon)) {
+        if (items.includes(spot.category)) {
           totalCost += spot.cost
         }
       }
@@ -98,7 +98,7 @@ export const TripCost: React.FC<TripCostProps> = ({
                               key={index}
                               className="flex items-center justify-between space-x-2"
                             >
-                              <p>{spot.title}</p>
+                              <p>{spot.name}</p>
                               <p className="shrink-0 w-18 text-right">
                                 ¥{spot.cost}
                               </p>
