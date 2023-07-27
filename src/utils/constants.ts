@@ -234,8 +234,6 @@ export const RESET_PASSWORD_INVALID_EMAIL_ERROR_MSG =
 export const RESET_PASSWORD_USER_NOT_FOUND_ERROR_MSG =
   'このメールアドレスのユーザーが見つかりません。'
 // updateUser
-export const UPDATE_USER_NOT_CHANGED_INFO_MSG =
-  'ユーザー情報が変更されていません。'
 export const UPDATE_USER_USERNAME_AND_EMAIL_SUCCESS_MSG =
   'ユーザー情報を更新しました。'
 export const UPDATE_USER_USERNAME_SUCCESS_MSG = 'ユーザー名を更新しました。'
@@ -244,7 +242,8 @@ export const UPDATE_USER_INVALID_USER_ERROR_MSG = 'ユーザー情報が不正�
 export const UPDATE_USER_USERNAME_AND_EMAIL_ERROR_MSG =
   'ユーザー情報の更新に失敗しました。'
 export const UPDATE_USER_USERNAME_ERROR_MSG = 'ユーザー名の更新に失敗しました。'
-export const UPDATE_USER_EMAIL_ERROR_MSG = 'メールアドレスを更新しました。'
+export const UPDATE_USER_EMAIL_ERROR_MSG =
+  'メールアドレスの更新に失敗しました。'
 // deleteAccount
 export const DELETE_ACCOUNT_SUCCESS_MSG =
   '退会が完了しました。ご利用ありがとうございました。'
