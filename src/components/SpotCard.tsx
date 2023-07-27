@@ -41,10 +41,12 @@ export const SpotCard: React.FC<SpotCardProps> = ({ spot, viewMode }) => {
   }
 
   const onCloseDeleteSpotModal = () => {
+    setSelectedSpot(null)
     setDeleteSpotModalOpen(false)
   }
 
   const onCloseUpdateSpotModal = () => {
+    setSelectedSpot(null)
     setUpdateSpotModalOpen(false)
   }
 

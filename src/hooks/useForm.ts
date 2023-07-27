@@ -27,7 +27,8 @@ import {
 } from '@/utils/validation'
 
 export const useForm = () => {
-  const { selectedTrip, dbUserData, currentUser } = useAuthContext()
+  const { selectedTrip, dbUserData, currentUser, selectedSpot } =
+    useAuthContext()
 
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -41,8 +42,12 @@ export const useForm = () => {
   const [spotCategory, setSpotCategory] = useState<string>(
     SPOT_CATEGORY_OPTIONS[0].value
   )
-  const [startTime, setStartTime] = useState(getNowTime())
-  const [endTime, setEndTime] = useState(getOneHourAheadTime())
+  const [startTime, setStartTime] = useState(
+    selectedSpot?.start_time || getNowTime()
+  )
+  const [endTime, setEndTime] = useState(
+    selectedSpot?.end_time || getOneHourAheadTime()
+  )
   const [cost, setCost] = useState('0')
   const [tripMemo, setTripMemo] = useState('')
   const [spotMemo, setSpotMemo] = useState('')
