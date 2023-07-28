@@ -1,5 +1,5 @@
 import type { User } from 'firebase/auth'
-import { createContext, useContext, useState } from 'react'
+import { ChangeEvent, createContext, useContext, useState } from 'react'
 import { DbSpotData } from '@/api/spotApi'
 import { DbTripData } from '@/api/tripApi'
 import { DbUserData } from '@/api/userApi'
@@ -26,6 +26,9 @@ interface AuthContext {
   deleteAccountLoading: boolean
   authStateChangedLoading: boolean
   firstLogin: boolean
+  dateFilter: { year: string; month: string; day: string }
+  destinationFilter: string
+  statusFilter: string
 
   signup: (
     email: string,
@@ -49,6 +52,10 @@ interface AuthContext {
   setSelectedSpot: (selectedSpot: DbSpotData | null) => void
   setSpotApiLoading: (spotApiLoading: boolean) => void
   setS3ApiLoading: (S3ApiLoading: boolean) => void
+  handleDateFilterChange: (e: ChangeEvent<HTMLSelectElement>) => void
+  handleDestinationFilterChange: (e: ChangeEvent<HTMLSelectElement>) => void
+  handleStatusFilterChange: (e: ChangeEvent<HTMLSelectElement>) => void
+  clearFilter: () => void
 }
 
 // AuthContextProviderのProps型の定義
@@ -93,6 +100,40 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const [selectedSpot, setSelectedSpot] = useState<DbSpotData | null>(null)
   const [spotApiLoading, setSpotApiLoading] = useState(false)
   const [S3ApiLoading, setS3ApiLoading] = useState(false)
+  const [dateFilter, setDateFilter] = useState({ year: '', month: '', day: '' })
+  const [destinationFilter, setDestinationFilter] = useState('')
+  const [statusFilter, setStatusFilter] = useState('')
+
+  const handleDateFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setDateFilter((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleDestinationFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setDestinationFilter(e.target.value)
+  }
+
+  const handleStatusFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setStatusFilter(e.target.value)
+  }
+
+  const clearFilter = () => {
+    console.log('hello')
+    handleDateFilterChange({
+      target: { name: 'year', value: '' },
+    } as React.ChangeEvent<HTMLSelectElement>)
+    handleDateFilterChange({
+      target: { name: 'month', value: '' },
+    } as React.ChangeEvent<HTMLSelectElement>)
+    handleDateFilterChange({
+      target: { name: 'day', value: '' },
+    } as React.ChangeEvent<HTMLSelectElement>)
+    handleDestinationFilterChange({
+      target: { value: '' },
+    } as React.ChangeEvent<HTMLSelectElement>)
+    handleStatusFilterChange({
+      target: { value: '' },
+    } as React.ChangeEvent<HTMLSelectElement>)
+  }
 
   // AuthContextオブジェクトの定義
   const AuthContext: AuthContext = {
@@ -115,6 +156,9 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     deleteAccountLoading,
     authStateChangedLoading,
     firstLogin,
+    dateFilter,
+    destinationFilter,
+    statusFilter,
     signup,
     loginWithEmailAndPassword,
     loginWithGoogle,
@@ -130,6 +174,10 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     setSelectedSpot,
     setSpotApiLoading,
     setS3ApiLoading,
+    handleDateFilterChange,
+    handleDestinationFilterChange,
+    handleStatusFilterChange,
+    clearFilter,
   }
 
   return <AuthCtx.Provider value={AuthContext}>{children}</AuthCtx.Provider>

@@ -1,10 +1,11 @@
-import React, { useState, useEffect, ChangeEvent, useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import type { DbTripData } from '@/api/tripApi'
+import { SelectField } from '@/components/SelectField'
+import { useAuthContext } from '@/context/AuthContext'
 import {
   PUBLISH_SETTINGS_ITEMS,
   TRIP_DESTINATION_ITEMS,
 } from '@/utils/constants'
-import { SelectField } from './SelectField'
 
 type TripFilterProps = {
   dbTripsData: DbTripData[]
@@ -15,9 +16,14 @@ export const TripFilter: React.FC<TripFilterProps> = ({
   dbTripsData,
   setFilteredData,
 }) => {
-  const [dateFilter, setDateFilter] = useState({ year: '', month: '', day: '' })
-  const [destinationFilter, setDestinationFilter] = useState('')
-  const [statusFilter, setStatusFilter] = useState('')
+  const {
+    dateFilter,
+    destinationFilter,
+    statusFilter,
+    handleDateFilterChange,
+    handleDestinationFilterChange,
+    handleStatusFilterChange,
+  } = useAuthContext()
 
   useEffect(() => {
     let filtered = [...dbTripsData]
@@ -67,18 +73,6 @@ export const TripFilter: React.FC<TripFilterProps> = ({
     dbTripsData,
     setFilteredData,
   ])
-
-  const handleDateFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setDateFilter((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-  }
-
-  const handleDestinationFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setDestinationFilter(e.target.value)
-  }
-
-  const handleStatusFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setStatusFilter(e.target.value)
-  }
 
   const getUniqueYears = (trips: DbTripData[]) => {
     const yearsSet = new Set(
@@ -132,6 +126,7 @@ export const TripFilter: React.FC<TripFilterProps> = ({
         <SelectField
           id="destinations"
           labelName="旅行先"
+          value={destinationFilter}
           items={filteredDestinations}
           search={true}
           onChange={handleDestinationFilterChange}
@@ -140,6 +135,7 @@ export const TripFilter: React.FC<TripFilterProps> = ({
           <SelectField
             id="year"
             labelName="旅行年"
+            value={dateFilter.year}
             items={years}
             search={true}
             onChange={handleDateFilterChange}
@@ -147,6 +143,7 @@ export const TripFilter: React.FC<TripFilterProps> = ({
           <SelectField
             id="month"
             labelName="旅行月"
+            value={dateFilter.month}
             items={months}
             search={true}
             onChange={handleDateFilterChange}
@@ -154,6 +151,7 @@ export const TripFilter: React.FC<TripFilterProps> = ({
           <SelectField
             id="day"
             labelName="旅行日"
+            value={dateFilter.day}
             items={days}
             search={true}
             onChange={handleDateFilterChange}
@@ -161,6 +159,7 @@ export const TripFilter: React.FC<TripFilterProps> = ({
         </div>
         <SelectField
           id="publish-settings"
+          value={statusFilter}
           labelName="公開状態"
           items={PUBLISH_SETTINGS_ITEMS}
           search={true}
