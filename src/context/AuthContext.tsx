@@ -117,7 +117,6 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   }
 
   const clearFilter = () => {
-    console.log('hello')
     handleDateFilterChange({
       target: { name: 'year', value: '' },
     } as React.ChangeEvent<HTMLSelectElement>)
