@@ -8,7 +8,7 @@ import { SelectField } from './SelectField'
 
 type TripFilterProps = {
   dbTripsData: DbTripData[]
-  setFilteredData: React.Dispatch<React.SetStateAction<DbTripData[]>>
+  setFilteredData: React.Dispatch<React.SetStateAction<DbTripData[] | null>>
 }
 
 export const TripFilter: React.FC<TripFilterProps> = ({

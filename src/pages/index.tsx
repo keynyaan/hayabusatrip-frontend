@@ -18,12 +18,15 @@ export default function Home() {
   const itemsPerPage = 12
   const pagesVisited = pageNumber * itemsPerPage
 
-  const [filteredData, setFilteredData] = useState<DbTripData[]>(
-    dbTripsData || []
+  const [filteredData, setFilteredData] = useState<DbTripData[] | null>(
+    dbTripsData || null
   )
 
   useEffect(() => {
-    setPageNumber(0)
+    if (dbTripsData) {
+      setPageNumber(0)
+      setFilteredData(dbTripsData)
+    }
   }, [dbTripsData])
 
   if (!currentUser) {
@@ -35,7 +38,7 @@ export default function Home() {
     ) : null
   }
 
-  if (authLoading || !dbTripsData) {
+  if (authLoading || !dbTripsData || !filteredData) {
     return <Spinner />
   }
 
