@@ -4,7 +4,15 @@ import { useRouter } from 'next/router'
 import siteImg from 'public/images/ogp.png'
 import { SITE_META } from '@/utils/constants'
 
-const { siteTitle, siteDesc, siteUrl, siteLocale, siteType } = SITE_META
+const {
+  siteTitle,
+  siteDesc,
+  siteUrl,
+  siteLocale,
+  siteType,
+  twitterCard,
+  twitterSite,
+} = SITE_META
 
 type MetaProps = {
   pageTitle?: string
@@ -45,7 +53,8 @@ export const Meta = ({ pageTitle, pageDesc }: MetaProps) => {
       <meta property="og:image" content={imgUrl} />
       <meta property="og:image:width" content={imgW} />
       <meta property="og:image:height" content={imgH} />
-      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:card" content={twitterCard} />
+      <meta name="Twitter:site" content={twitterSite} />
     </Head>
   )
 }
