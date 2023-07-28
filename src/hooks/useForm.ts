@@ -9,6 +9,7 @@ import {
   getOneHourAhead,
   getOneHourAheadTime,
   getNowTime,
+  getTimeFromString,
 } from '@/utils/getDate'
 import {
   validateUsername,
@@ -117,7 +118,8 @@ export const useForm = () => {
     Boolean(selectedTrip) &&
     String(selectedTrip?.prefecture_id) !== tripDestination
 
-  const isTripMemoFormValid = !validateTripMemo(tripMemo)
+  const isTripMemoFormValid =
+    !validateTripMemo(tripMemo) && String(selectedTrip?.memo) !== tripMemo
 
   const isSpotFormValid: boolean =
     Boolean(spotName) &&
@@ -128,7 +130,13 @@ export const useForm = () => {
     !validateSpotName(spotName) &&
     !validateStartTime(startTime) &&
     !validateEndTime(startTime, endTime) &&
-    !validateCost(cost)
+    !validateCost(cost) &&
+    (String(selectedSpot?.name) !== spotName ||
+      String(selectedSpot?.category) !== spotCategory ||
+      getTimeFromString(String(selectedSpot?.start_time)) !== startTime ||
+      getTimeFromString(String(selectedSpot?.end_time)) !== endTime ||
+      String(selectedSpot?.cost) !== cost ||
+      String(selectedSpot?.memo) !== spotMemo)
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsernameTouched(true)
