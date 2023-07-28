@@ -22,6 +22,8 @@ export const SITE_META = {
   siteLocale: 'ja_JP',
   siteType: 'website',
   siteStartYear: '2023',
+  twitterCard: 'summary_large_image',
+  twitterSite: '@keynyaan',
 }
 
 // サイトロゴの情報
