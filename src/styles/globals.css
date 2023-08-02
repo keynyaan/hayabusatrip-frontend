@@ -80,3 +80,8 @@ input {
 input[type='date']::-webkit-calendar-picker-indicator:hover {
   @apply cursor-pointer opacity-50 transition;
 }
+
+.simplebar-scrollbar::before {
+  background: #c1c1c1 !important;
+  opacity: 1 !important;
+}

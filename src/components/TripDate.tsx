@@ -251,7 +251,7 @@ export const TripDate: React.FC<TripDateProps> = ({
               ))}
               {!viewMode && (
                 <SecondaryButton
-                  text="スポットを追加"
+                  text="スポット追加"
                   onClick={() => onOpenAddSpotModal(date)}
                   showPlusIcon={true}
                   isWfull={true}
