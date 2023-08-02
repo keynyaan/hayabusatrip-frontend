@@ -8,7 +8,7 @@ export const Logo: React.FC = () => {
   const { clearFilter } = useAuthContext()
   return (
     <Link href="/">
-      <div className="flex items-center" onClick={clearFilter}>
+      <div className="flex items-center space-x-2" onClick={clearFilter}>
         <Image
           src={SITE_LOGO.src}
           width={SITE_LOGO.width}
@@ -22,7 +22,7 @@ export const Logo: React.FC = () => {
           height={SITE_LOGO_NAME.height}
           alt={SITE_LOGO_NAME.alt}
           priority
-          className="hidden sm:block"
+          className="hidden w500:block"
         />
       </div>
     </Link>

@@ -4,6 +4,7 @@ import 'react-responsive-modal/styles.css'
 import type { DbTripData } from '@/api/tripApi'
 import { Meta } from '@/components/Meta'
 import { CreateTripButton } from '@/components/CreateTripButton'
+import { LP } from '@/components/LP'
 import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { TripCard } from '@/components/TripCard'
@@ -33,7 +34,7 @@ export default function Home() {
     return currentUser === null ? (
       <>
         <Meta />
-        <p>非ログインユーザー向けの画面を表示</p>
+        <LP />
       </>
     ) : null
   }

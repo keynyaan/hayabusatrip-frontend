@@ -15,8 +15,9 @@ import {
 // サイトのメタ情報
 export const SITE_META = {
   siteTitle: 'HayabusaTrip',
+  brandMessage: '旅の準備を、もっとシンプルに。',
   siteDesc:
-    'HayabusaTripは誰でも簡単に旅行プランを作成・共有できるサービスです。次の旅行に向けて準備をしませんか？ ',
+    'HayabusaTripは、誰でも簡単に旅行プランを作成・共有できるサービスです。あなたの旅行が素晴らしい思い出になるようにサポートします。',
   siteUrl: 'https://www.hayabusatrip.com',
   siteLang: 'ja',
   siteLocale: 'ja_JP',
@@ -24,6 +25,8 @@ export const SITE_META = {
   siteStartYear: '2023',
   twitterCard: 'summary_large_image',
   twitterSite: '@keynyaan',
+  twitterText:
+    'HayabusaTripを使ってみたよ。簡単に旅行プランが作れて便利だから、みんなもぜひ試してみてね！',
 }
 
 // サイトロゴの情報
@@ -37,8 +40,8 @@ export const SITE_LOGO = {
 // サイトロゴ名の情報
 export const SITE_LOGO_NAME = {
   src: '/images/logo-name.svg',
-  width: 200,
-  height: 30,
+  width: 176,
+  height: 36,
   alt: 'サイトのロゴ名',
 }
 
@@ -101,6 +104,7 @@ export const MAX_DATE_OBJ = new Date('9999-12-31')
 
 // モーダルタイトル
 export const FORM_SIGN_UP = '新規登録'
+export const FORM_SIGN_UP_FREE = '無料で始める'
 export const FORM_LOGIN = 'ログイン'
 export const FORM_PASSWORD_RESET = 'パスワード再設定'
 export const FORM_DELETE_ACCOUNT = '退会'
@@ -260,10 +264,6 @@ export const NOT_LOGIN_ERROR_MSG = 'ログインしてください。'
 // S3API実行時の保存先ディレクトリ
 export const USER_ICONS_DIRECTORY = 'user_icons'
 export const TRIP_IMAGES_DIRECTORY = 'trip_images'
-
-// ブランドカラーコード
-export const TWITTER_COLOR = '#1DA1F2'
-export const GITHUB_COLOR = '#171515'
 
 // 旅行先の配列
 export const TRIP_DESTINATION_ITEMS = [

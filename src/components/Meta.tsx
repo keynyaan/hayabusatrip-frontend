@@ -6,6 +6,7 @@ import { SITE_META } from '@/utils/constants'
 
 const {
   siteTitle,
+  brandMessage,
   siteDesc,
   siteUrl,
   siteLocale,
@@ -21,7 +22,9 @@ type MetaProps = {
 
 export const Meta = ({ pageTitle, pageDesc }: MetaProps) => {
   //ページのタイトル
-  const title = pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle
+  const title = pageTitle
+    ? `${pageTitle} | ${siteTitle}`
+    : `${siteTitle} | ${brandMessage}`
 
   // ページの説明
   const desc = pageDesc ?? siteDesc
