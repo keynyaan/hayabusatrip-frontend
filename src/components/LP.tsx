@@ -44,7 +44,6 @@ type ProcessStepProps = {
 type TwitterLinkProps = {
   label: string
   className?: string
-  showTwitterIcon?: boolean
 }
 
 export const LP = () => {
@@ -91,11 +90,7 @@ export const LP = () => {
     </div>
   )
 
-  const TwitterLink: React.FC<TwitterLinkProps> = ({
-    label,
-    className,
-    showTwitterIcon,
-  }) => (
+  const TwitterLink: React.FC<TwitterLinkProps> = ({ label, className }) => (
     <a
       href={`https://twitter.com/intent/tweet?&hashtags=${siteTitle}&text=${twitterText}&url=${siteUrl}`}
       target="_blank"
@@ -103,7 +98,7 @@ export const LP = () => {
       className={className}
     >
       <span className="sr-only">Twitterでシェア</span>
-      {showTwitterIcon && <FontAwesomeIcon icon={faTwitter} className="mr-2" />}
+      <FontAwesomeIcon icon={faTwitter} className="mr-2" />
       {label}
     </a>
   )
@@ -215,10 +210,9 @@ export const LP = () => {
               を使うことで、皆さんの旅行が快適になれば、開発者としてはこの上ない喜びです。
               <br />
               よかったら、ハッシュタグ
-              <TwitterLink
-                label={`#${siteTitle}`}
-                className="font-semibold border-b text-brand-color border-brand-color"
-              />
+              <span className="font-semibold text-brand-color">
+                #{siteTitle}
+              </span>
               を使って、Twitterで使ってみた感想を教えてください！
               <br />
               それでは、皆さんの旅行が素晴らしい思い出になることを祈っています！
@@ -226,7 +220,6 @@ export const LP = () => {
             <TwitterLink
               label="ツイート"
               className="rounded px-4 py-2 text-xs sm:text-sm bg-twitter-color text-white hover:bg-opacity-80 transition"
-              showTwitterIcon
             />
           </div>
         </div>
