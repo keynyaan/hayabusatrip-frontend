@@ -8,7 +8,7 @@ import { faEnvelopeOpen } from '@fortawesome/free-regular-svg-icons'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { AuthModal } from '@/components/AuthModal'
 import iPhone14_trip from 'public/images/iPhone14_trip.png'
-import iPhone14_trip_with_reflection from 'public/images/iPhone14_trip_with_reflection.png'
+import eyecatch_brand_message_and_iPhone14 from 'public/images/eyecatch_brand_message_and_iPhone14.png'
 import iPhone14_cost from 'public/images/iPhone14_cost.png'
 import iPhone14_memo from 'public/images/iPhone14_memo.png'
 import iPhone14_create_trip from 'public/images/iPhone14_create_trip.png'
@@ -47,7 +47,7 @@ type TwitterLinkProps = {
 }
 
 export const LP = () => {
-  const { siteTitle, siteUrl, twitterText } = SITE_META
+  const { siteTitle, brandMessage, siteUrl, twitterText } = SITE_META
   const [signUpModalOpen, setSignUpModalOpen] = useState(false)
 
   const onOpenSignUpModal = () => {
@@ -105,17 +105,18 @@ export const LP = () => {
 
   return (
     <div>
-      <div className="p-4 flex items-center justify-center bg-brand-color space-x-4">
-        <h1 className="text-white text-xl w360:text-2xl w460:text-3xl w560:text-4xl text-center shrink-0">
-          旅の準備を、
-          <br />
-          もっとシンプルに。
-        </h1>
+      <div
+        className="p-4 pb-0 bg-center bg-cover bg-no-repeat"
+        style={{
+          backgroundImage:
+            "url('images/eyecatch_background_white_cloudy_blue_sky.png')",
+        }}
+      >
         <CustomImage
-          img={iPhone14_trip_with_reflection}
-          alt="旅行詳細画面(旅行)が映っていて、底に反射があるiphone14の画像"
+          img={eyecatch_brand_message_and_iPhone14}
+          alt={`「${brandMessage}」と旅行詳細画面が表示されたiPhone14`}
           priority
-          className="min-w-0 max-w-[250px]"
+          className="mx-auto w-full max-w-[800px]"
         />
       </div>
       <div className="max-w-5xl px-4 mx-auto my-8 space-y-8">
@@ -140,17 +141,17 @@ export const LP = () => {
             <div className="w-full flex items-center space-x-4 sm:space-x-8">
               <CustomImage
                 img={iPhone14_trip}
-                alt={'旅行詳細画面(旅行)が映っているiphone14の画像'}
+                alt={'旅行詳細画面(旅行)が表示されたiphone14'}
                 className="p-4 w-1/3 min-w-[180px]"
               />
               <CustomImage
                 img={iPhone14_cost}
-                alt={'旅行詳細画面(費用)が映っているiphone14の画像'}
+                alt={'旅行詳細画面(費用)が表示されたiphone14'}
                 className="p-4 w-1/3 min-w-[180px]"
               />
               <CustomImage
                 img={iPhone14_memo}
-                alt={'旅行詳細画面(メモ)が映っているiphone14の画像'}
+                alt={'旅行詳細画面(メモ)が表示されたiphone14'}
                 className="p-4 w-1/3 min-w-[180px]"
               />
             </div>
@@ -166,7 +167,7 @@ export const LP = () => {
               <ProcessStep
                 stepNumber={1}
                 img={iPhone14_create_trip}
-                alt={'旅行プラン作成フォームが映っているiphone14の画像'}
+                alt={'旅行プラン作成フォームが表示されたiphone14'}
                 description={
                   'まずは、旅行プラン作成ボタンを押して、各旅行情報を記入後に作成ボタンを押す。'
                 }
@@ -174,7 +175,7 @@ export const LP = () => {
               <ProcessStep
                 stepNumber={2}
                 img={iPhone14_add_spot}
-                alt={'スポット追加フォームが映っているiphone14の画像'}
+                alt={'スポット追加フォームが表示されたiphone14'}
                 description={
                   '次に、スポット追加ボタンを押して、各スポット情報を記入後に追加ボタンを押す。'
                 }
@@ -182,7 +183,7 @@ export const LP = () => {
               <ProcessStep
                 stepNumber={3}
                 img={iPhone14_publish_settings}
-                alt={'公開状態変更フォームが映っているiphone14の画像'}
+                alt={'公開状態変更フォームが表示されたiphone14'}
                 description={
                   '最後に、三点リーダーから公開状態の変更ボタンを押して、公開に変更したら完了！'
                 }

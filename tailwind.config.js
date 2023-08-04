@@ -27,10 +27,7 @@ module.exports = {
         'auto-fill': 'repeat(auto-fill, minmax(14rem, 1fr))',
       },
       screens: {
-        w360: '360px',
-        w460: '460px',
         w500: '500px',
-        w560: '560px',
       },
     },
   },
