@@ -11,6 +11,6 @@ COPY . .
 
 EXPOSE 3000
 
-CMD [ "yarn", "dev" ]
+# CMD [ "yarn", "dev" ]
 # 本番用
-# CMD [ "yarn", "build" ]
+CMD [ "sh", "-c", "yarn build && yarn start" ]
