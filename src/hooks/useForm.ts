@@ -44,10 +44,12 @@ export const useForm = () => {
     SPOT_CATEGORY_OPTIONS[0].value
   )
   const [startTime, setStartTime] = useState(
-    selectedSpot?.start_time || getNowTime()
+    selectedSpot ? getTimeFromString(selectedSpot.start_time) : getNowTime()
   )
   const [endTime, setEndTime] = useState(
-    selectedSpot?.end_time || getOneHourAheadTime()
+    selectedSpot
+      ? getTimeFromString(selectedSpot.end_time)
+      : getOneHourAheadTime()
   )
   const [cost, setCost] = useState('0')
   const [tripMemo, setTripMemo] = useState('')
