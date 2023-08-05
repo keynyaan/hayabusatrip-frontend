@@ -14,4 +14,4 @@ services:
       - /frontend/node_modules
     command: yarn dev
     # 本番用
-    # command: yarn build && yarn start
+    # command: ['sh', '-c', 'yarn build && yarn start']
