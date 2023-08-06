@@ -69,6 +69,7 @@ export const TripCard: React.FC<TripCardProps> = ({
       src={trip.image_path}
       alt={`${trip.title}の旅行画像`}
       fill
+      sizes="(max-width: 0px) 0px, 100vw"
       priority
       className={`object-cover ${isDetailPage ? '' : 'rounded-t-md'}`}
       onContextMenu={(e) => e.preventDefault()}

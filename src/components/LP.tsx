@@ -111,9 +111,7 @@ export const LP = () => {
           src={eyecatch_background_white_cloudy_blue_sky.src}
           fill
           alt="青い空に白い雲が浮かんでいる背景"
-          style={{
-            objectFit: 'cover',
-          }}
+          className="object-cover"
           priority
         />
         <CustomImage
