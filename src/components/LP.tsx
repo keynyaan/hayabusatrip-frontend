@@ -7,8 +7,9 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faEnvelopeOpen } from '@fortawesome/free-regular-svg-icons'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { AuthModal } from '@/components/AuthModal'
-import iPhone14_trip from 'public/images/iPhone14_trip.png'
+import eyecatch_background_white_cloudy_blue_sky from 'public/images/eyecatch_background_white_cloudy_blue_sky.png'
 import eyecatch_brand_message_and_iPhone14 from 'public/images/eyecatch_brand_message_and_iPhone14.png'
+import iPhone14_trip from 'public/images/iPhone14_trip.png'
 import iPhone14_cost from 'public/images/iPhone14_cost.png'
 import iPhone14_memo from 'public/images/iPhone14_memo.png'
 import iPhone14_create_trip from 'public/images/iPhone14_create_trip.png'
@@ -105,18 +106,20 @@ export const LP = () => {
 
   return (
     <div>
-      <div
-        className="p-4 pb-0 bg-center bg-cover bg-no-repeat"
-        style={{
-          backgroundImage:
-            "url('images/eyecatch_background_white_cloudy_blue_sky.png')",
-        }}
-      >
+      <div className="relative p-4 pb-0">
+        <Image
+          src={eyecatch_background_white_cloudy_blue_sky.src}
+          fill
+          alt="青い空に白い雲が浮かんでいる背景"
+          style={{
+            objectFit: 'cover',
+          }}
+          priority
+        />
         <CustomImage
           img={eyecatch_brand_message_and_iPhone14}
           alt={`「${brandMessage}」と旅行詳細画面が表示されたiPhone14`}
-          priority
-          className="mx-auto w-full max-w-[800px]"
+          className="relative mx-auto w-full max-w-[800px]"
         />
       </div>
       <div className="max-w-5xl px-4 mx-auto my-8 space-y-8">
