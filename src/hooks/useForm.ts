@@ -7,7 +7,6 @@ import {
   getTomorrow,
   getNextDay,
   getOneHourAhead,
-  getOneHourAheadTime,
   getNowTime,
   getTimeFromString,
 } from '@/utils/getDate'
@@ -49,7 +48,7 @@ export const useForm = () => {
   const [endTime, setEndTime] = useState(
     selectedSpot
       ? getTimeFromString(selectedSpot.end_time)
-      : getOneHourAheadTime()
+      : getOneHourAhead(getNowTime())
   )
   const [cost, setCost] = useState('0')
   const [tripMemo, setTripMemo] = useState('')
