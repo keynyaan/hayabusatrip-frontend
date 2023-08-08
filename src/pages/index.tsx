@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import 'react-responsive-modal/styles.css'
-import type { DbTripData } from '@/api/tripApi'
 import { Meta } from '@/components/Meta'
 import { CreateTripButton } from '@/components/CreateTripButton'
 import { LP } from '@/components/LP'
@@ -13,21 +12,24 @@ import { useAuthContext } from '@/context/AuthContext'
 import { TRIP_INDEX_PAGE_TITLE, TRIP_INDEX_PAGE_DESC } from '@/utils/constants'
 
 export default function Home() {
-  const { currentUser, dbTripsData, authLoading } = useAuthContext()
+  const {
+    currentUser,
+    dbTripsData,
+    authLoading,
+    filteredData,
+    setFilteredData,
+  } = useAuthContext()
 
   const [pageNumber, setPageNumber] = useState(0)
   const itemsPerPage = 12
   const pagesVisited = pageNumber * itemsPerPage
-
-  const [filteredData, setFilteredData] = useState<DbTripData[] | null>(
-    dbTripsData || null
-  )
 
   useEffect(() => {
     if (dbTripsData) {
       setPageNumber(0)
       setFilteredData(dbTripsData)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dbTripsData])
 
   if (!currentUser) {
@@ -68,10 +70,7 @@ export default function Home() {
       <Meta pageTitle={TRIP_INDEX_PAGE_TITLE} pageDesc={TRIP_INDEX_PAGE_DESC} />
       <>
         <div className="p-4 space-y-4 max-w-6xl mx-auto">
-          <TripFilter
-            dbTripsData={dbTripsData}
-            setFilteredData={setFilteredData}
-          />
+          <TripFilter dbTripsData={dbTripsData} />
 
           {filteredData.length === 0 && (
             <div className="flex flex-col items-center">
