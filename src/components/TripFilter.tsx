@@ -9,13 +9,9 @@ import {
 
 type TripFilterProps = {
   dbTripsData: DbTripData[]
-  setFilteredData: React.Dispatch<React.SetStateAction<DbTripData[] | null>>
 }
 
-export const TripFilter: React.FC<TripFilterProps> = ({
-  dbTripsData,
-  setFilteredData,
-}) => {
+export const TripFilter: React.FC<TripFilterProps> = ({ dbTripsData }) => {
   const {
     dateFilter,
     destinationFilter,
@@ -23,6 +19,7 @@ export const TripFilter: React.FC<TripFilterProps> = ({
     handleDateFilterChange,
     handleDestinationFilterChange,
     handleStatusFilterChange,
+    setFilteredData,
   } = useAuthContext()
 
   useEffect(() => {

@@ -29,6 +29,7 @@ interface AuthContext {
   dateFilter: { year: string; month: string; day: string }
   destinationFilter: string
   statusFilter: string
+  filteredData: DbTripData[] | null
 
   signup: (
     email: string,
@@ -56,6 +57,7 @@ interface AuthContext {
   handleDestinationFilterChange: (e: ChangeEvent<HTMLSelectElement>) => void
   handleStatusFilterChange: (e: ChangeEvent<HTMLSelectElement>) => void
   clearFilter: () => void
+  setFilteredData: (dbTripsData: DbTripData[] | null) => void
 }
 
 // AuthContextProviderのProps型の定義
@@ -103,6 +105,9 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const [dateFilter, setDateFilter] = useState({ year: '', month: '', day: '' })
   const [destinationFilter, setDestinationFilter] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
+  const [filteredData, setFilteredData] = useState<DbTripData[] | null>(
+    dbTripsData || null
+  )
 
   const handleDateFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setDateFilter((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -158,6 +163,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     dateFilter,
     destinationFilter,
     statusFilter,
+    filteredData,
     signup,
     loginWithEmailAndPassword,
     loginWithGoogle,
@@ -177,6 +183,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     handleDestinationFilterChange,
     handleStatusFilterChange,
     clearFilter,
+    setFilteredData,
   }
 
   return <AuthCtx.Provider value={AuthContext}>{children}</AuthCtx.Provider>
