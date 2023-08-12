@@ -20,7 +20,8 @@ describe('/404アクセス時', () => {
   it('ホームへ戻るボタンが表示されること', () => {
     render(<Custom404 />)
 
-    const backHomeLink = screen.getByRole('link', { name: 'ホームへ戻る' })
-    expect(backHomeLink.getAttribute('href')).toBe('/')
+    expect(
+      screen.getByRole('link', { name: 'ホームへ戻る' }).getAttribute('href')
+    ).toBe('/')
   })
 })

@@ -1,35 +1,26 @@
 import React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { useAuthContext } from '@/context/AuthContext'
-import { useS3Api } from '@/hooks/useS3Api'
 import Settings from '@/pages/settings'
+import {
+  currentUserMock,
+  dbUserDataMock,
+  configureApiMocks,
+  deleteAccountMock,
+  pushMock,
+  resetPasswordMock,
+  updateUserMock,
+  uploadUserIconImageMock,
+  useAuthContextMock,
+} from '@/__test__/utils/mocks'
 
-const mockPush = jest.fn()
 jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: '/settings',
-    push: mockPush,
+    push: pushMock,
   }),
 }))
 jest.mock('@/context/AuthContext')
-jest.mock('@/hooks/useTripApi')
 jest.mock('@/hooks/useS3Api')
-
-const useAuthContextMock = useAuthContext as jest.Mock
-const useS3ApiMock = useS3Api as jest.Mock
-
-const dbUserDataMock = {
-  id: 'idMock',
-  name: 'nameMock',
-}
-const currentUserMock = {
-  uid: 'uidMock',
-  email: 'mock@mock.com',
-  getIdToken: jest.fn().mockReturnValue('idTokenMock'),
-}
-const updateUserMock = jest.fn()
-const resetPasswordMock = jest.fn()
-const deleteAccountMock = jest.fn()
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const renderSettingsWithMock = (props: any = {}) => {
@@ -52,16 +43,12 @@ describe('/settingsアクセス時', () => {
     it('トップページが表示されること', () => {
       renderSettingsWithMock()
 
-      expect(mockPush).toHaveBeenCalledWith('/')
+      expect(pushMock).toHaveBeenCalledWith('/')
     })
   })
 
   describe('ログイン時', () => {
-    const uploadUserIconImageMock = jest.fn().mockResolvedValue(true)
-
-    useS3ApiMock.mockReturnValue({
-      uploadUserIconImage: uploadUserIconImageMock,
-    })
+    configureApiMocks()
 
     describe('ユーザー名とメールアドレスの確認時', () => {
       it('ユーザー名とメールアドレスが表示されること', () => {

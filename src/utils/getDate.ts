@@ -32,14 +32,13 @@ export const getPreviousDay = (dateStr: string) => {
 }
 
 export const formatDate = (dateStr: string) => {
-  return format(new Date(dateStr), 'yyyy/MM/dd')
+  const date = utcToZonedTime(new Date(dateStr), 'Asia/Tokyo')
+  return format(date, 'yyyy/MM/dd')
 }
 
-export const addDay = (number: Date, addNum: number) => {
-  return format(
-    addDays(utcToZonedTime(number, 'Asia/Tokyo'), addNum),
-    'yyyy-MM-dd'
-  )
+export const addDay = (dateObj: Date, addNum: number) => {
+  const date = utcToZonedTime(new Date(dateObj), 'Asia/Tokyo')
+  return format(addDays(date, addNum), 'yyyy-MM-dd')
 }
 
 export const differenceInDates = (start_date: string, end_date: string) => {
@@ -53,21 +52,18 @@ export const differenceInDates = (start_date: string, end_date: string) => {
 }
 
 export const getTimeFromString = (dateStr: string) => {
-  const date = new Date(dateStr)
+  const date = utcToZonedTime(new Date(dateStr), 'Asia/Tokyo')
   return format(date, 'HH:mm')
 }
 
 export const parseTimeObj = (time: string) => {
-  const format = 'HH:mm'
-  const date = new Date()
-  return parse(time, format, date)
+  const date = utcToZonedTime(new Date(), 'Asia/Tokyo')
+  return parse(time, 'HH:mm', date)
 }
 
 export const getOneHourAhead = (time: string): string => {
-  const formatString = 'HH:mm'
-  const now = new Date()
-
-  let date = parse(time, formatString, now)
+  const now = utcToZonedTime(new Date(), 'Asia/Tokyo')
+  let date = parse(time, 'HH:mm', now)
 
   if (date.getHours() < 23) {
     date = add(date, { hours: 1 })
@@ -75,14 +71,12 @@ export const getOneHourAhead = (time: string): string => {
     date.setMinutes(59)
   }
 
-  return format(date, formatString)
+  return format(date, 'HH:mm')
 }
 
 export const getNowTime = () => {
-  const formatString = 'HH:mm'
-  const now = new Date()
-
-  return format(now, formatString)
+  const now = utcToZonedTime(new Date(), 'Asia/Tokyo')
+  return format(now, 'HH:mm')
 }
 
 export const differenceInDatesNum = (dateStr1: string, dateStr2: string) => {

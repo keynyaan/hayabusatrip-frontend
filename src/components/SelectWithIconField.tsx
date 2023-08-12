@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react'
+import React, { FC, useRef, useState } from 'react'
 import 'react-responsive-modal/styles.css'
 import Select from 'react-select'
 import type { SelectInstance } from 'react-select'
@@ -28,6 +28,7 @@ export const SelectWithIconField: FC<SelectWithIconFieldProps> = ({
   onChange,
 }) => {
   const selectRef = useRef<SelectInstance<OptionType> | null>(null)
+  const [menuIsOpen, setMenuIsOpen] = useState(false)
 
   const formatOptionLabel = (option: OptionType) => (
     <div className="flex items-center space-x-2 h-10">
@@ -41,7 +42,13 @@ export const SelectWithIconField: FC<SelectWithIconFieldProps> = ({
   )
 
   const focusSelect = () => {
-    selectRef.current?.focus()
+    if (menuIsOpen) {
+      setMenuIsOpen(false)
+    } else {
+      selectRef.current?.focus()
+      selectRef.current?.openMenu('first')
+      setMenuIsOpen(true)
+    }
   }
 
   return (
