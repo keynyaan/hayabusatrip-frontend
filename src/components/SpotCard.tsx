@@ -58,6 +58,7 @@ export const SpotCard: React.FC<SpotCardProps> = ({ spot, viewMode }) => {
         }`}
         key={spot.id}
         onClick={viewMode ? undefined : onOpenUpdateSpotModal}
+        data-testid="spot-card"
       >
         {!viewMode && (
           <div
