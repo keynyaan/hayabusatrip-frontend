@@ -1,4 +1,4 @@
-import { screen, fireEvent, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import {
   renderHomeWithMock,
   setIsHome,
@@ -6,6 +6,7 @@ import {
   testChangeTitleButton,
   testChangeTripImageButton,
   testCopyButton,
+  testCreateTrip,
   testDeleteButton,
   testDropdownMenu,
 } from '@/__test__/utils/commonTest'
@@ -14,7 +15,6 @@ import {
   dbUserDataMock,
   dbTripsDataMock,
   configureApiMocks,
-  createTripMock,
 } from '@/__test__/utils/mocks'
 
 jest.mock('next/router', () => ({
@@ -62,58 +62,7 @@ describe('ログイン時', () => {
         filteredData: [],
       })
 
-      // 旅行プラン作成ボタンをクリック
-      const createTripButton = screen.getByRole('button', {
-        name: 'さっそく準備する！',
-      })
-      fireEvent.click(createTripButton)
-
-      // 作成ボタンがdisabledであることの確認
-      const createButton = screen.getByRole('button', {
-        name: '作成',
-      })
-      expect(createButton).toBeDisabled()
-
-      // 旅行タイトルの設定
-      fireEvent.change(screen.getByLabelText('旅行タイトル'), {
-        target: { value: '海外旅行' },
-      })
-
-      // 旅行先の設定
-      fireEvent.change(screen.getByLabelText('旅行先'), {
-        target: { value: '48' },
-      })
-
-      // 開始日の設定
-      fireEvent.change(screen.getByLabelText('開始日'), {
-        target: { value: '2023-08-01' },
-      })
-
-      // 終了日の設定
-      fireEvent.change(screen.getByLabelText('終了日'), {
-        target: { value: '2023-08-02' },
-      })
-
-      // 作成ボタンがdisabledでないことの確認
-      expect(createButton).not.toBeDisabled()
-
-      // 作成ボタンをクリック
-      fireEvent.click(createButton)
-
-      // 実行時のAPIパラメーターの確認
-      await waitFor(() => {
-        expect(createTripMock).toHaveBeenCalledWith(
-          currentUserMock.getIdToken(),
-          currentUserMock.uid,
-          {
-            user_id: dbUserDataMock.id,
-            prefecture_id: parseInt('48'),
-            title: '海外旅行',
-            start_date: '2023-08-01',
-            end_date: '2023-08-02',
-          }
-        )
-      })
+      await testCreateTrip('さっそく準備する！')
     })
   })
 

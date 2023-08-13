@@ -14,6 +14,7 @@ import {
   uploadTripImageMock,
   useAuthContextMock,
   selectedSpotMock,
+  createTripMock,
 } from '@/__test__/utils/mocks'
 import {
   UPDATE_TRIP_PUBLISH_SETTINGS_SUCCESS_MSG,
@@ -353,5 +354,63 @@ export const testDeleteButton = () => {
         )
       })
     })
+  })
+}
+
+export const testCreateTrip = async (buttonName: string) => {
+  // 旅行プラン作成ボタンをクリック
+  const createTripButton = screen.getByRole('button', {
+    name: buttonName,
+  })
+
+  await act(async () => {
+    fireEvent.click(createTripButton)
+  })
+
+  // 作成ボタンがdisabledであることの確認
+  const createButton = screen.getByRole('button', {
+    name: '作成',
+  })
+  expect(createButton).toBeDisabled()
+
+  // 旅行タイトルの設定
+  fireEvent.change(screen.getByLabelText('旅行タイトル'), {
+    target: { value: '海外旅行' },
+  })
+
+  // 旅行先の設定
+  fireEvent.change(screen.getByLabelText('旅行先'), {
+    target: { value: '48' },
+  })
+
+  // 開始日の設定
+  fireEvent.change(screen.getByLabelText('開始日'), {
+    target: { value: '2023-08-01' },
+  })
+
+  // 終了日の設定
+  fireEvent.change(screen.getByLabelText('終了日'), {
+    target: { value: '2023-08-02' },
+  })
+
+  // 作成ボタンがdisabledでないことの確認
+  expect(createButton).not.toBeDisabled()
+
+  // 作成ボタンをクリック
+  fireEvent.click(createButton)
+
+  // 実行時のAPIパラメーターの確認
+  await waitFor(() => {
+    expect(createTripMock).toHaveBeenCalledWith(
+      currentUserMock.getIdToken(),
+      currentUserMock.uid,
+      {
+        user_id: dbUserDataMock.id,
+        prefecture_id: parseInt('48'),
+        title: '海外旅行',
+        start_date: '2023-08-01',
+        end_date: '2023-08-02',
+      }
+    )
   })
 }

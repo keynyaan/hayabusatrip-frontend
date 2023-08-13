@@ -208,7 +208,7 @@ describe('/settingsアクセス時', () => {
         // アカウントを削除をクリック
         fireEvent.click(execDeleteAccountButton)
 
-        // 実行時のAPIパラメーターの確認
+        // APIが実行されることの確認
         await waitFor(() => {
           expect(deleteAccountMock).toHaveBeenCalled()
         })

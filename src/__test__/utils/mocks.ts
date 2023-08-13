@@ -17,6 +17,10 @@ export const pushMock = jest.fn()
 export const updateUserMock = jest.fn()
 export const resetPasswordMock = jest.fn()
 export const deleteAccountMock = jest.fn()
+export const signupMock = jest.fn()
+export const loginWithEmailAndPasswordMock = jest.fn()
+export const loginWithGoogleMock = jest.fn()
+export const logoutMock = jest.fn()
 export const scrollMock = jest.fn()
 window.scrollTo = scrollMock
 
