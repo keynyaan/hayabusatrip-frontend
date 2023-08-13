@@ -33,6 +33,7 @@ import {
   UPDATE_SPOT_MIN_BASE_DATE,
   UPDATE_TRIP_MEMO_ERROR_MSG,
   UPDATE_TRIP_MEMO_SUCCESS_MSG,
+  MAX_TRIP_MEMO,
 } from '@/utils/constants'
 
 jest.mock('next/router', () => ({
@@ -523,7 +524,7 @@ describe('/trip/[trip_token]アクセス時', () => {
           it('追加できること', async () => {
             await renderTripDetailWithMock()
 
-            // SpotCardをクリック
+            // スポット追加をクリック
             await act(async () => {
               fireEvent.click(
                 screen.getAllByRole('button', {
@@ -701,6 +702,12 @@ describe('/trip/[trip_token]アクセス時', () => {
             name: '更新',
           })
           expect(updateButton).toBeDisabled()
+
+          // 上限チェック
+          fireEvent.change(screen.getByLabelText('メモ'), {
+            target: { value: 'a'.repeat(1001) },
+          })
+          screen.getByText(`メモは${MAX_TRIP_MEMO}文字以下で入力してください`)
 
           // メモの設定
           fireEvent.change(screen.getByLabelText('メモ'), {
