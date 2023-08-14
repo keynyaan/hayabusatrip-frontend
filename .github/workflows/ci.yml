@@ -26,7 +26,6 @@ jobs:
           sh get-docker.sh
           sudo apt-get install -y docker-compose
           rm get-docker.sh
-          docker-compose run --rm front yarn install
 
       - name: Create .env.local file
         run: |
@@ -41,8 +40,8 @@ jobs:
 
       - name: Build app and run tests
         run: |
-          docker-compose build --no-cache
           docker-compose run --rm front yarn install --frozen-lockfile
+          docker-compose build --no-cache
           docker-compose run --rm front yarn format:check && \
           docker-compose run --rm front yarn lint
           docker-compose run --rm front yarn test --coverage
