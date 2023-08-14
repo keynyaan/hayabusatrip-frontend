@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD
 
 on:
   workflow_dispatch:
@@ -44,7 +44,12 @@ jobs:
           docker-compose run --rm front yarn install --frozen-lockfile
           docker-compose run --rm front yarn format:check && \
           docker-compose run --rm front yarn lint
-          docker-compose run --rm front yarn test
+          docker-compose run --rm front yarn test --coverage
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   deploy:
     needs: test
