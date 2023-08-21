@@ -1,17 +1,56 @@
 import { useAuthContext } from '@/context/AuthContext'
+import { useToast } from '@/context/ToastContext'
 import { useS3Api } from '@/hooks/useS3Api'
 import { useSpotApi } from '@/hooks/useSpotApi'
 import { useTripApi } from '@/hooks/useTripApi'
+import {
+  getTripsAPI,
+  getTripAPI,
+  createTripAPI,
+  updateTripAPI,
+  deleteTripAPI,
+} from '@/api/tripApi'
+import {
+  getSpotsAPI,
+  getSpotAPI,
+  createSpotAPI,
+  updateSpotAPI,
+  deleteSpotAPI,
+} from '@/api/spotApi'
+import { uploadImageToS3 } from '@/api/S3Api'
 
 jest.mock('@/context/AuthContext')
 jest.mock('@/hooks/useTripApi')
 jest.mock('@/hooks/useSpotApi')
 jest.mock('@/hooks/useS3Api')
+jest.mock('@/api/tripApi')
+jest.mock('@/api/spotApi')
 
+// hooks
 export const useAuthContextMock = useAuthContext as jest.Mock
+export const useToastMock = useToast as jest.Mock
 export const useTripApiMock = useTripApi as jest.Mock
 export const useSpotApiMock = useSpotApi as jest.Mock
 export const useS3ApiMock = useS3Api as jest.Mock
+
+// tripApi
+export const getTripsAPIMock = getTripsAPI as jest.Mock
+export const getTripAPIMock = getTripAPI as jest.Mock
+export const createTripAPIMock = createTripAPI as jest.Mock
+export const copyTripAPIMock = createTripAPI as jest.Mock
+export const updateTripAPIMock = updateTripAPI as jest.Mock
+export const deleteTripAPIMock = deleteTripAPI as jest.Mock
+export const deleteTripDateAPIMock = updateTripAPI as jest.Mock
+
+// spotApi
+export const getSpotsAPIMock = getSpotsAPI as jest.Mock
+export const getSpotAPIMock = getSpotAPI as jest.Mock
+export const createSpotAPIMock = createSpotAPI as jest.Mock
+export const updateSpotAPIMock = updateSpotAPI as jest.Mock
+export const deleteSpotAPIMock = deleteSpotAPI as jest.Mock
+
+// spotApi
+export const uploadImageToS3Mock = uploadImageToS3 as jest.Mock
 
 export const pushMock = jest.fn()
 export const updateUserMock = jest.fn()
@@ -22,6 +61,11 @@ export const loginWithEmailAndPasswordMock = jest.fn()
 export const loginWithGoogleMock = jest.fn()
 export const logoutMock = jest.fn()
 export const scrollMock = jest.fn()
+export const setSelectedTripMock = jest.fn()
+export const setTripApiLoadingMock = jest.fn()
+export const setSpotApiLoadingMock = jest.fn()
+export const setS3ApiLoadingMock = jest.fn()
+export const showToastMock = jest.fn()
 window.scrollTo = scrollMock
 
 export const getTripMock = jest.fn().mockResolvedValue(true)
@@ -58,13 +102,39 @@ export const configureApiMocks = () => {
   })
 }
 
+export const configureAuthContextMock = () => {
+  useAuthContextMock.mockReturnValue({
+    currentUser: currentUserMock,
+    dbUserData: dbUserDataMock,
+    dbTripsData: dbTripsDataMock,
+    selectedTrip: selectedTripMock,
+    dbSpotsData: dbSpotsDataMock,
+    setSelectedTrip: setSelectedTripMock,
+    setTripApiLoading: setTripApiLoadingMock,
+    setSpotApiLoading: setSpotApiLoadingMock,
+    setS3ApiLoading: setS3ApiLoadingMock,
+  })
+
+  useToastMock.mockReturnValue({
+    showToast: showToastMock,
+  })
+
+  useSpotApiMock.mockReturnValue({
+    getSpots: getSpotsMock,
+    createSpot: createSpotMock,
+    updateSpot: updateSpotMock,
+    deleteSpot: deleteSpotMock,
+  })
+}
+
 export const currentUserMock = {
   uid: 'uidMock',
   email: 'mock@mock.com',
-  getIdToken: jest.fn().mockReturnValue('idTokenMock'),
+  getIdToken: jest.fn().mockReturnValue('idToken_mock'),
 }
 
 export const dbUserDataMock = {
+  uid: 'uidMock',
   id: 1,
   name: 'nameMock',
 }
