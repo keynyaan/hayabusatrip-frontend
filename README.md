@@ -81,7 +81,7 @@ https://twitter.com/keynyaan
     - CI: ESLint, Prettier, Jest, Codecov
     - CD: Vercel
 
-#### テスト / 分析
+#### テスト / セキュリティ
 
 - クロスブラウザテスト
 
@@ -93,6 +93,7 @@ https://twitter.com/keynyaan
     - iOS: Safari
 
 - Codecov によるコードカバレッジの分析と可視化
+- 脆弱性対応 ( Dependabot Alerts )
 
 ## 使用技術一覧
 
