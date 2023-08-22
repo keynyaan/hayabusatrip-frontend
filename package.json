@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
-    "deploy": "vercel --token $VERCEL_TOKEN --prod --confirm",
+    "deploy": "vercel --token $VERCEL_TOKEN --prod --yes",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier --write 'src/**/*'",
