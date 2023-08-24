@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "test": "jest",
     "deploy": "vercel --token $VERCEL_TOKEN --prod --yes",
@@ -33,6 +34,7 @@
     "eslint-config-next": "13.2.4",
     "firebase": "^9.19.1",
     "next": "13.2.4",
+    "next-sitemap": "^4.2.2",
     "react": "18.2.0",
     "react-accessible-accordion": "^5.0.0",
     "react-confetti": "^6.1.0",

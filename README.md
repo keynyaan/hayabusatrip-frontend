@@ -75,10 +75,10 @@ https://twitter.com/keynyaan
 - Route53 による独自ドメイン + SSL 化
 - GitHub Actions による CI / CD パイプラインの構築
   - バックエンド
-    - CI: Rubocop, RSpec
+    - CI: Rubocop / RSpec
     - CD: AWS ECS
   - フロントエンド
-    - CI: ESLint, Prettier, Jest, Codecov
+    - CI: ESLint / Prettier / Jest / Codecov
     - CD: Vercel
 
 #### テスト / セキュリティ
@@ -86,35 +86,35 @@ https://twitter.com/keynyaan
 - クロスブラウザテスト
 
   - PC
-    - Windows10 / 11: Google Chrome, Firefox, Microsoft Edge
-    - Mac: Google Chrome, Firefox, Safari
+    - Windows10 / 11: Google Chrome / Firefox / Microsoft Edge
+    - Mac: Google Chrome / Firefox / Safari
   - スマートフォン
     - Android: Google Chrome
     - iOS: Safari
 
 - Codecov によるコードカバレッジの分析と可視化
-- 脆弱性対応 ( Dependabot Alerts )
+- 脆弱性対応 ( Dependabot Alerts / Code Scanning Alerts / GitGuardian )
 
 ## 使用技術一覧
 
-**バックエンド:** Ruby 3.2.2, Rails 7.0.7.2
+**バックエンド:** Ruby 3.2.2 / Rails 7.0.7.2
 
 - コード解析 / フォーマッター: Rubocop
 - テストフレームワーク: RSpec
 
-**フロントエンド:** TypeScript 5.0.2, React 18.2.0, Next.js 13.2.4
+**フロントエンド:** TypeScript 5.0.2 / React 18.2.0 / Next.js 13.2.4
 
 - コード解析: ESLint
 - フォーマッター: Prettier
-- テストフレームワーク: Jest, React Testing Library
+- テストフレームワーク: Jest / React Testing Library
 - CSS フレームワーク: Tailwind CSS
-- 主要パッケージ等: Axios, Font Awesome, React Paginate, React Responsive Modal, React Toastify
+- 主要パッケージ等: Axios / Font Awesome / React Paginate / React Responsive Modal / React Toastify
 
-**インフラ:** AWS ( Route53 / Certificate Manager / ALB / VPC / ECR / ECS Fargate / RDS MySQL / S3 ), Nginx, Vercel
+**インフラ:** AWS ( Route53 / Certificate Manager / ALB / VPC / ECR / ECS Fargate / RDS MySQL / S3 ) / Nginx / Vercel
 
 **CI / CD:** GitHub Actions
 
-**環境構築:** Docker, Docker Compose
+**環境構築:** Docker / Docker Compose
 
 **認証:** Firebase Authentication
 
