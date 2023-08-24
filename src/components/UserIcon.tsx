@@ -21,7 +21,7 @@ type UserIconProps = {
 }
 
 export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
-  const { currentUser, dbUserData, logout } = useAuthContext()
+  const { currentUser, dbUserData, logout, clearFilter } = useAuthContext()
   const { dropdownRef, isDropdownVisible, hideDropdown, toggleDropdown } =
     useDropdown()
   const { uploadUserIconImage } = useS3Api()
@@ -32,6 +32,7 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
   const handleLogout = () => {
     hideDropdown()
     logout()
+    clearFilter()
   }
 
   const handleMouseEnter = () => {
