@@ -17,6 +17,7 @@ import {
   resetPasswordMock,
   loginWithGoogleMock,
   signupMock,
+  clearFilterMock,
 } from '@/__test__/utils/mocks'
 import { Header } from '@/components/Header'
 
@@ -31,6 +32,7 @@ const renderHeaderWithMock = (props: any = {}) => {
     loginWithEmailAndPassword: loginWithEmailAndPasswordMock,
     loginWithGoogle: loginWithGoogleMock,
     logout: logoutMock,
+    clearFilter: clearFilterMock,
     resetPassword: resetPasswordMock,
 
     ...props,
@@ -86,6 +88,7 @@ describe('ヘッダー確認時', () => {
         // APIが実行されることの確認
         await waitFor(() => {
           expect(logoutMock).toHaveBeenCalled()
+          expect(clearFilterMock).toHaveBeenCalled()
         })
       })
     })
