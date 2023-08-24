@@ -41,9 +41,6 @@ export const Meta = ({ pageTitle, pageDesc }: MetaProps) => {
 
   return (
     <Head>
-      {/* 開発完了後にrobots.txtファイルと共にに削除 */}
-      <meta name="robots" content="noindex" />
-
       <title>{title}</title>
       <meta name="description" content={desc} />
       <link rel="canonical" href={url} />
