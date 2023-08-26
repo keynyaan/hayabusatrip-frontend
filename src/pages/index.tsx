@@ -33,35 +33,49 @@ export default function Home() {
   }, [dbTripsData])
 
   if (!currentUser) {
-    return currentUser === null ? (
+    return (
       <>
         <Meta />
-        <LP />
+        {currentUser === null && <LP />}
       </>
-    ) : null
+    )
   }
 
   if (authLoading || !dbTripsData || !filteredData) {
-    return <Spinner />
+    return (
+      <>
+        <Meta
+          pageTitle={TRIP_INDEX_PAGE_TITLE}
+          pageDesc={TRIP_INDEX_PAGE_DESC}
+        />
+        <Spinner />
+      </>
+    )
   }
 
   if (dbTripsData.length === 0) {
     return (
-      <div className="flex flex-col items-center space-y-4">
-        <Image
-          src={`${process.env.NEXT_PUBLIC_S3_OBJECT_URL}/utils/no_plan_sleeping_dog.png`}
-          alt={'旅行プランがない時の眠る犬のイラスト'}
-          width={250}
-          height={250}
-          priority
+      <>
+        <Meta
+          pageTitle={TRIP_INDEX_PAGE_TITLE}
+          pageDesc={TRIP_INDEX_PAGE_DESC}
         />
-        <p className="text-sm sm:text-base text-gray-700">
-          旅行プランはありません。
-          <br />
-          次の旅行に向けて準備しませんか？
-        </p>
-        <CreateTripButton isSecondaryButton={true} />
-      </div>
+        <div className="flex flex-col items-center space-y-4">
+          <Image
+            src={`${process.env.NEXT_PUBLIC_S3_OBJECT_URL}/utils/no_plan_sleeping_dog.png`}
+            alt={'旅行プランがない時の眠る犬のイラスト'}
+            width={250}
+            height={250}
+            priority
+          />
+          <p className="text-sm sm:text-base text-gray-700">
+            旅行プランはありません。
+            <br />
+            次の旅行に向けて準備しませんか？
+          </p>
+          <CreateTripButton isSecondaryButton={true} />
+        </div>
+      </>
     )
   }
 
