@@ -158,11 +158,21 @@ export default function TripDetail() {
   }, [selectedTrip, dbUserData])
 
   if (isDataLoading) {
-    return <Spinner />
+    return (
+      <>
+        <Meta pageTitle={TRIP_DESC_PAGE_TITLE} pageDesc={TRIP_DESC_PAGE_DESC} />
+        <Spinner />
+      </>
+    )
   }
 
   if (showNotFound) {
-    return <NotFound />
+    return (
+      <>
+        <Meta pageTitle={TRIP_DESC_PAGE_TITLE} pageDesc={TRIP_DESC_PAGE_DESC} />
+        <NotFound />
+      </>
+    )
   }
 
   return (
