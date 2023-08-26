@@ -102,73 +102,71 @@ export default function Settings() {
 
   return (
     <>
+      <Meta pageTitle={SETTINGS_PAGE_TITLE} pageDesc={SETTINGS_PAGE_DESC} />
       {currentUser && (
-        <>
-          <Meta pageTitle={SETTINGS_PAGE_TITLE} pageDesc={SETTINGS_PAGE_DESC} />
-          <div className="mx-auto max-w-md space-y-4 p-4">
-            <h2 className="text-lg sm:text-xl text-gray-700">
-              {SETTINGS_PAGE_TITLE}
-            </h2>
-            <div className="flex justify-center">
-              <UserIcon isSettingsPage={true} />
-            </div>
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <InputField
-                id="username"
-                type="text"
-                labelName="ユーザー名"
-                maxLength={MAX_USERNAME_LENGTH}
-                value={username}
-                onChange={handleUsernameChange}
-                onBlur={handleUsernameBlur}
-                error={usernameError}
-              />
-              <InputField
-                id="email"
-                type="email"
-                labelName="メールアドレス"
-                maxLength={MAX_EMAIL_LENGTH}
-                value={email}
-                onChange={handleEmailChange}
-                onBlur={handleEmailBlur}
-                error={emailError}
-              />
-              <FormButton
-                label="更新"
-                isFormValid={isUpdateUserFormValid}
-                loading={updateUserLoading}
-              />
-            </form>
-
-            <DividerWithText text="または" />
-
-            <div className="flex justify-between mt-4">
-              <SecondaryButton
-                text="パスワード再設定"
-                onClick={onOpenPasswordResetModal}
-              />
-              {passwordResetModalOpen && (
-                <SettingsModal
-                  open={passwordResetModalOpen}
-                  onClose={onClosePasswordResetModal}
-                  form={FORM_PASSWORD_RESET}
-                />
-              )}
-              <SecondaryButton
-                text="退会のお手続き"
-                onClick={onOpenDeleteAccountModal}
-                isRedStyle={true}
-              />
-              {deleteAccountModalOpen && (
-                <SettingsModal
-                  open={deleteAccountModalOpen}
-                  onClose={onCloseDeleteAccountModal}
-                  form={FORM_DELETE_ACCOUNT}
-                />
-              )}
-            </div>
+        <div className="mx-auto max-w-md space-y-4 p-4">
+          <h2 className="text-lg sm:text-xl text-gray-700">
+            {SETTINGS_PAGE_TITLE}
+          </h2>
+          <div className="flex justify-center">
+            <UserIcon isSettingsPage={true} />
           </div>
-        </>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <InputField
+              id="username"
+              type="text"
+              labelName="ユーザー名"
+              maxLength={MAX_USERNAME_LENGTH}
+              value={username}
+              onChange={handleUsernameChange}
+              onBlur={handleUsernameBlur}
+              error={usernameError}
+            />
+            <InputField
+              id="email"
+              type="email"
+              labelName="メールアドレス"
+              maxLength={MAX_EMAIL_LENGTH}
+              value={email}
+              onChange={handleEmailChange}
+              onBlur={handleEmailBlur}
+              error={emailError}
+            />
+            <FormButton
+              label="更新"
+              isFormValid={isUpdateUserFormValid}
+              loading={updateUserLoading}
+            />
+          </form>
+
+          <DividerWithText text="または" />
+
+          <div className="flex justify-between mt-4">
+            <SecondaryButton
+              text="パスワード再設定"
+              onClick={onOpenPasswordResetModal}
+            />
+            {passwordResetModalOpen && (
+              <SettingsModal
+                open={passwordResetModalOpen}
+                onClose={onClosePasswordResetModal}
+                form={FORM_PASSWORD_RESET}
+              />
+            )}
+            <SecondaryButton
+              text="退会のお手続き"
+              onClick={onOpenDeleteAccountModal}
+              isRedStyle={true}
+            />
+            {deleteAccountModalOpen && (
+              <SettingsModal
+                open={deleteAccountModalOpen}
+                onClose={onCloseDeleteAccountModal}
+                form={FORM_DELETE_ACCOUNT}
+              />
+            )}
+          </div>
+        </div>
       )}
     </>
   )
