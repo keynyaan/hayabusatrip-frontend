@@ -48,7 +48,8 @@ type TwitterLinkProps = {
 }
 
 export const LP = () => {
-  const { siteTitle, brandMessage, siteUrl, twitterText } = SITE_META
+  const { siteTitle, brandMessage, siteUrl, twitterText, twitterSite } =
+    SITE_META
   const [signUpModalOpen, setSignUpModalOpen] = useState(false)
 
   const onOpenSignUpModal = () => {
@@ -200,7 +201,16 @@ export const LP = () => {
             </h2>
             <p className="text-sm leading-8 sm:text-base sm:leading-10 text-gray-700">
               {siteTitle}
-              にアクセスいただきありがとうございます！開発者のきいなと申します。
+              にアクセスいただきありがとうございます！開発者のきいな(
+              <a
+                href="https://twitter.com/keynyaan/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-twitter-color border-b-2"
+              >
+                {twitterSite}
+              </a>
+              )と申します。
               <br />
               このサービスは、旅行の度にメモアプリで旅のしおりを書いて、それを友達に共有していた経験から、もっと簡単に分かりやすい旅行プランを共有したいと思い作られました。
               <br />

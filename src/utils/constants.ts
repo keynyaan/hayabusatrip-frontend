@@ -67,11 +67,11 @@ export const SETTINGS_PAGE_DESC = `旅行プラン作成サービス「HayabusaT
 
 // 404ページのメタ情報
 export const NOT_FOUND_PAGE_TITLE = 'ページが見つかりません'
-export const NOT_FOUND_PAGE_DESC = `旅行プラン作成サービス「HayabusaTrip」の${NOT_FOUND_PAGE_TITLE}のページです。`
+export const NOT_FOUND_PAGE_DESC = `お探しのページは存在しないか、削除された可能性があります。`
 
 // 500ページのメタ情報
 export const SERVER_ERROR_PAGE_TITLE = 'サーバーエラーが発生しました'
-export const SERVER_ERROR_PAGE_DESC = `旅行プラン作成サービス「HayabusaTrip」の${SERVER_ERROR_PAGE_TITLE}のページです。`
+export const SERVER_ERROR_PAGE_DESC = `サーバーが応答していないため、時間をおいて再度アクセスしてください。`
 
 // ヘッダーの高さ
 export const HEADER_HEIGHT = 64
