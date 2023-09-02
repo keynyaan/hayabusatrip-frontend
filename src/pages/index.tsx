@@ -83,7 +83,7 @@ export default function Home() {
     <>
       <Meta pageTitle={TRIP_INDEX_PAGE_TITLE} pageDesc={TRIP_INDEX_PAGE_DESC} />
       <>
-        <div className="p-4 space-y-4 max-w-6xl mx-auto">
+        <div className="p-4 space-y-4 max-w-7xl mx-auto">
           <TripFilter dbTripsData={dbTripsData} />
 
           {filteredData.length === 0 && (
