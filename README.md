@@ -29,7 +29,7 @@ https://www.hayabusatrip.com
 
 ### ▼ 紹介記事(Qiita)
 
-https://qiita.com/keynyaan/items/64a350cd409f40895bde
+[【個人開発】簡単に旅行プランを共有できるサービス「HayabusaTrip」を開発しました！【Rails / Next.js / AWS / Docker / GitHub Actions】](https://qiita.com/keynyaan/items/64a350cd409f40895bde)
 
 開発背景や、サービスのリリースまでに勉強したことなどをまとめています。
 
