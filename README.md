@@ -29,9 +29,9 @@ https://www.hayabusatrip.com
 
 ### ▼ 紹介記事(Qiita)
 
-<!-- あとで書く -->
+https://qiita.com/keynyaan/items/64a350cd409f40895bde
 
-サービスのリリースまでに、勉強したことなどを解説しています。
+開発背景や、サービスのリリースまでに勉強したことなどをまとめています。
 
 ### ▼ 開発者Twitter
 
