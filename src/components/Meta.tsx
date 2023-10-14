@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 
 import siteImg from 'public/images/ogp.png'
 import { SITE_META } from '@/utils/constants'
-import { useAuthContext } from '@/context/AuthContext'
 
 const {
   siteTitle,
@@ -22,8 +21,6 @@ type MetaProps = {
 }
 
 export const Meta = ({ pageTitle, pageDesc }: MetaProps) => {
-  const { selectedTrip } = useAuthContext()
-
   //ページのタイトル
   const title = pageTitle
     ? `${pageTitle} | ${siteTitle}`
@@ -36,8 +33,11 @@ export const Meta = ({ pageTitle, pageDesc }: MetaProps) => {
   const router = useRouter()
   const url = `${siteUrl}${router.asPath}`
 
-  // OGP画像のサイズ設定
-  const imgUrl = selectedTrip?.image_path ?? `${siteUrl}${siteImg.src}`
+  // OGP画像
+  const img = siteImg.src
+  const imgW = String(siteImg.width)
+  const imgH = String(siteImg.height)
+  const imgUrl = `${siteUrl}${img}`
 
   return (
     <Head>
@@ -51,6 +51,8 @@ export const Meta = ({ pageTitle, pageDesc }: MetaProps) => {
       <meta property="og:type" content={siteType} />
       <meta property="og:locale" content={siteLocale} />
       <meta property="og:image" content={imgUrl} />
+      <meta property="og:image:width" content={imgW} />
+      <meta property="og:image:height" content={imgH} />
       <meta name="twitter:card" content={twitterCard} />
       <meta name="Twitter:site" content={twitterSite} />
     </Head>
