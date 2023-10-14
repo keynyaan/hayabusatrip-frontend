@@ -160,7 +160,6 @@ export default function TripDetail() {
   if (isDataLoading) {
     return (
       <>
-        <Meta pageTitle={TRIP_DESC_PAGE_TITLE} pageDesc={TRIP_DESC_PAGE_DESC} />
         <Spinner />
       </>
     )
@@ -177,7 +176,11 @@ export default function TripDetail() {
 
   return (
     <>
-      <Meta pageTitle={TRIP_DESC_PAGE_TITLE} pageDesc={TRIP_DESC_PAGE_DESC} />
+      <Meta
+        pageTitle={selectedTrip?.title}
+        pageDesc={TRIP_DESC_PAGE_DESC}
+        imageUrl={selectedTrip?.image_path}
+      />
       <div className="m-4 space-y-6 max-w-md mx-auto">
         <TripCard trip={selectedTrip} isDetailPage={true} viewMode={viewMode} />
 
