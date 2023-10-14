@@ -18,10 +18,9 @@ const {
 type MetaProps = {
   pageTitle?: string
   pageDesc?: string
-  imageUrl?: string
 }
 
-export const Meta = ({ pageTitle, pageDesc, imageUrl }: MetaProps) => {
+export const Meta = ({ pageTitle, pageDesc }: MetaProps) => {
   //ページのタイトル
   const title = pageTitle
     ? `${pageTitle} | ${siteTitle}`
@@ -34,8 +33,11 @@ export const Meta = ({ pageTitle, pageDesc, imageUrl }: MetaProps) => {
   const router = useRouter()
   const url = `${siteUrl}${router.asPath}`
 
-  // OGP画像のサイズ設定
-  const imgUrl = imageUrl ?? `${siteUrl}${siteImg.src}`
+  // OGP画像
+  const img = siteImg.src
+  const imgW = String(siteImg.width)
+  const imgH = String(siteImg.height)
+  const imgUrl = `${siteUrl}${img}`
 
   return (
     <Head>
@@ -49,6 +51,8 @@ export const Meta = ({ pageTitle, pageDesc, imageUrl }: MetaProps) => {
       <meta property="og:type" content={siteType} />
       <meta property="og:locale" content={siteLocale} />
       <meta property="og:image" content={imgUrl} />
+      <meta property="og:image:width" content={imgW} />
+      <meta property="og:image:height" content={imgH} />
       <meta name="twitter:card" content={twitterCard} />
       <meta name="Twitter:site" content={twitterSite} />
     </Head>
