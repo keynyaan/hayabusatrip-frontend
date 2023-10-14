@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 
 import siteImg from 'public/images/ogp.png'
 import { SITE_META } from '@/utils/constants'
+import { useEffect, useState } from 'react'
 
 const {
   siteTitle,
@@ -18,9 +19,14 @@ const {
 type MetaProps = {
   pageTitle?: string
   pageDesc?: string
+  imageUrl?: string
 }
 
-export const Meta = ({ pageTitle, pageDesc }: MetaProps) => {
+export const Meta = ({ pageTitle, pageDesc, imageUrl }: MetaProps) => {
+  const [imgUrl, setImgUrl] = useState(siteUrl + siteImg.src)
+  const [imgW, setImgW] = useState(String(siteImg.width))
+  const [imgH, setImgH] = useState(String(siteImg.height))
+
   //ページのタイトル
   const title = pageTitle
     ? `${pageTitle} | ${siteTitle}`
@@ -33,11 +39,19 @@ export const Meta = ({ pageTitle, pageDesc }: MetaProps) => {
   const router = useRouter()
   const url = `${siteUrl}${router.asPath}`
 
-  // OGP画像
-  const img = siteImg.src
-  const imgW = String(siteImg.width)
-  const imgH = String(siteImg.height)
-  const imgUrl = `${siteUrl}${img}`
+  // OGP画像のサイズ設定
+  useEffect(() => {
+    if (imageUrl) {
+      const img = new Image()
+      img.src = imageUrl
+      img.onload = () => {
+        setImgUrl(imageUrl)
+        setImgW(String(img.width))
+        setImgH(String(img.height))
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Head>
