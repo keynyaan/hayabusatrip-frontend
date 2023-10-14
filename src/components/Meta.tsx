@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 
 import siteImg from 'public/images/ogp.png'
 import { SITE_META } from '@/utils/constants'
-import { useEffect, useState } from 'react'
 
 const {
   siteTitle,
@@ -23,10 +22,6 @@ type MetaProps = {
 }
 
 export const Meta = ({ pageTitle, pageDesc, imageUrl }: MetaProps) => {
-  const [imgUrl, setImgUrl] = useState(siteUrl + siteImg.src)
-  const [imgW, setImgW] = useState(String(siteImg.width))
-  const [imgH, setImgH] = useState(String(siteImg.height))
-
   //ページのタイトル
   const title = pageTitle
     ? `${pageTitle} | ${siteTitle}`
@@ -40,18 +35,7 @@ export const Meta = ({ pageTitle, pageDesc, imageUrl }: MetaProps) => {
   const url = `${siteUrl}${router.asPath}`
 
   // OGP画像のサイズ設定
-  useEffect(() => {
-    if (imageUrl) {
-      const img = new Image()
-      img.src = imageUrl
-      img.onload = () => {
-        setImgUrl(imageUrl)
-        setImgW(String(img.width))
-        setImgH(String(img.height))
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const imgUrl = imageUrl ?? `${siteUrl}${siteImg.src}`
 
   return (
     <Head>
@@ -65,8 +49,6 @@ export const Meta = ({ pageTitle, pageDesc, imageUrl }: MetaProps) => {
       <meta property="og:type" content={siteType} />
       <meta property="og:locale" content={siteLocale} />
       <meta property="og:image" content={imgUrl} />
-      <meta property="og:image:width" content={imgW} />
-      <meta property="og:image:height" content={imgH} />
       <meta name="twitter:card" content={twitterCard} />
       <meta name="Twitter:site" content={twitterSite} />
     </Head>
