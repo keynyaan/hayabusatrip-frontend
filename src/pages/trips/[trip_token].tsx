@@ -160,6 +160,7 @@ export default function TripDetail() {
   if (isDataLoading) {
     return (
       <>
+        <Meta pageTitle={TRIP_DESC_PAGE_TITLE} pageDesc={TRIP_DESC_PAGE_DESC} />
         <Spinner />
       </>
     )
