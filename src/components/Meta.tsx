@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 
 import siteImg from 'public/images/ogp.png'
 import { SITE_META } from '@/utils/constants'
+import { useAuthContext } from '@/context/AuthContext'
 
 const {
   siteTitle,
@@ -18,10 +19,11 @@ const {
 type MetaProps = {
   pageTitle?: string
   pageDesc?: string
-  imageUrl?: string
 }
 
-export const Meta = ({ pageTitle, pageDesc, imageUrl }: MetaProps) => {
+export const Meta = ({ pageTitle, pageDesc }: MetaProps) => {
+  const { selectedTrip } = useAuthContext()
+
   //ページのタイトル
   const title = pageTitle
     ? `${pageTitle} | ${siteTitle}`
@@ -35,7 +37,7 @@ export const Meta = ({ pageTitle, pageDesc, imageUrl }: MetaProps) => {
   const url = `${siteUrl}${router.asPath}`
 
   // OGP画像のサイズ設定
-  const imgUrl = imageUrl ?? `${siteUrl}${siteImg.src}`
+  const imgUrl = selectedTrip?.image_path ?? `${siteUrl}${siteImg.src}`
 
   return (
     <Head>

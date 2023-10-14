@@ -177,11 +177,7 @@ export default function TripDetail() {
 
   return (
     <>
-      <Meta
-        pageTitle={selectedTrip?.title}
-        pageDesc={TRIP_DESC_PAGE_DESC}
-        imageUrl={selectedTrip?.image_path}
-      />
+      <Meta pageTitle={TRIP_DESC_PAGE_TITLE} pageDesc={TRIP_DESC_PAGE_DESC} />
       <div className="m-4 space-y-6 max-w-md mx-auto">
         <TripCard trip={selectedTrip} isDetailPage={true} viewMode={viewMode} />
 
