@@ -15,7 +15,6 @@ import iPhone14_memo from 'public/images/iPhone14_memo.png'
 import iPhone14_create_trip from 'public/images/iPhone14_create_trip.png'
 import iPhone14_add_spot from 'public/images/iPhone14_add_spot.png'
 import iPhone14_publish_settings from 'public/images/iPhone14_publish_settings.png'
-import thumbnailImg from 'public/images/thumbnail.png'
 import {
   FORM_SIGN_UP,
   FORM_SIGN_UP_FREE,
@@ -115,11 +114,6 @@ export const LP = () => {
           alt="青い空に白い雲が浮かんでいる背景"
           className="object-cover"
           priority
-        />
-        <CustomImage
-          img={thumbnailImg}
-          alt="サムネイル画像"
-          className="hidden"
         />
         <CustomImage
           img={eyecatch_brand_message_and_iPhone14}

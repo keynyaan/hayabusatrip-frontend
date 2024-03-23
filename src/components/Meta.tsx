@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-import thumbnailImg from 'public/images/thumbnail.png'
 import siteImg from 'public/images/ogp.png'
 import { SITE_META } from '@/utils/constants'
 
@@ -22,9 +21,6 @@ type MetaProps = {
 }
 
 export const Meta = ({ pageTitle, pageDesc }: MetaProps) => {
-  // サムネイル
-  const thumbnail = `${siteUrl}${thumbnailImg.src}`
-
   //ページのタイトル
   const title = pageTitle
     ? `${pageTitle} | ${siteTitle}`
@@ -48,7 +44,6 @@ export const Meta = ({ pageTitle, pageDesc }: MetaProps) => {
       <title>{title}</title>
       <meta name="description" content={desc} />
       <link rel="canonical" href={url} />
-      <meta name="thumbnail" content={thumbnail} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={desc} />
       <meta property="og:url" content={url} />
