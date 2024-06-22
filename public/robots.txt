@@ -1,12 +1,12 @@
 # *
 User-agent: *
-Allow: /
-Allow: /images/ogp.png
 Disallow: /404
 Disallow: /500
 Disallow: /settings
-Disallow: /trips/*
-Disallow: /images/*.png
+Disallow: /trips/
+Disallow: /images/
+Allow: /
+Allow: /images/ogp.png
 
 # Host
 Host: https://www.hayabusatrip.com
