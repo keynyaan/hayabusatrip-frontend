@@ -36,7 +36,7 @@ export const TripDestinationForm: FC<TripDestinationFormProps> = ({
           prefecture_id: parseInt(tripDestination),
         },
         UPDATE_TRIP_DESTINATION_SUCCESS_MSG,
-        UPDATE_TRIP_DESTINATION_ERROR_MSG
+        UPDATE_TRIP_DESTINATION_ERROR_MSG,
       )
 
       if (success) {

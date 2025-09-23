@@ -135,7 +135,7 @@ export const testChangeTripImageButton = () => {
       fireEvent.click(
         screen.getByRole('button', {
           name: '写真の変更',
-        })
+        }),
       )
 
       // フォームタイトルの確認
@@ -170,7 +170,7 @@ export const testChangePublishSettingsButton = () => {
       fireEvent.click(
         screen.getByRole('button', {
           name: '公開状態の変更',
-        })
+        }),
       )
 
       // フォームタイトルの確認
@@ -192,7 +192,7 @@ export const testChangePublishSettingsButton = () => {
             is_public: true,
           },
           UPDATE_TRIP_PUBLISH_SETTINGS_SUCCESS_MSG,
-          UPDATE_TRIP_PUBLISH_SETTINGS_ERROR_MSG
+          UPDATE_TRIP_PUBLISH_SETTINGS_ERROR_MSG,
         )
       })
     })
@@ -208,7 +208,7 @@ export const testChangeTitleButton = () => {
       fireEvent.click(
         screen.getByRole('button', {
           name: 'タイトルの変更',
-        })
+        }),
       )
 
       // フォームタイトルの確認
@@ -235,7 +235,7 @@ export const testChangeTitleButton = () => {
             title: '北海道旅行2',
           },
           UPDATE_TRIP_TITLE_SUCCESS_MSG,
-          UPDATE_TRIP_TITLE_ERROR_MSG
+          UPDATE_TRIP_TITLE_ERROR_MSG,
         )
       })
     })
@@ -251,7 +251,7 @@ export const testChangeDestinationButton = () => {
       fireEvent.click(
         screen.getByRole('button', {
           name: '旅行先の変更',
-        })
+        }),
       )
 
       // フォームタイトルの確認
@@ -259,7 +259,7 @@ export const testChangeDestinationButton = () => {
 
       // 旅行先の確認
       const destinationSelect = screen.getByLabelText(
-        '旅行先'
+        '旅行先',
       ) as HTMLSelectElement
       expect(destinationSelect.value).toBe('1')
 
@@ -284,7 +284,7 @@ export const testChangeDestinationButton = () => {
             prefecture_id: 48,
           },
           UPDATE_TRIP_DESTINATION_SUCCESS_MSG,
-          UPDATE_TRIP_DESTINATION_ERROR_MSG
+          UPDATE_TRIP_DESTINATION_ERROR_MSG,
         )
       })
     })
@@ -300,7 +300,7 @@ export const testCopyButton = () => {
       fireEvent.click(
         screen.getByRole('button', {
           name: 'コピー',
-        })
+        }),
       )
 
       // フォームタイトルの確認
@@ -317,7 +317,7 @@ export const testCopyButton = () => {
         expect(copyTripMock).toHaveBeenCalledWith(
           currentUserMock.getIdToken(),
           currentUserMock.uid,
-          selectedTripMock
+          selectedTripMock,
         )
       })
     })
@@ -333,7 +333,7 @@ export const testDeleteButton = () => {
       fireEvent.click(
         screen.getByRole('button', {
           name: '削除',
-        })
+        }),
       )
 
       // フォームタイトルの確認
@@ -350,7 +350,7 @@ export const testDeleteButton = () => {
         expect(deleteTripMock).toHaveBeenCalledWith(
           currentUserMock.getIdToken(),
           currentUserMock.uid,
-          selectedTripMock.trip_token
+          selectedTripMock.trip_token,
         )
       })
     })
@@ -410,7 +410,7 @@ export const testCreateTrip = async (buttonName: string) => {
         title: '海外旅行',
         start_date: '2023-08-01',
         end_date: '2023-08-02',
-      }
+      },
     )
   })
 }

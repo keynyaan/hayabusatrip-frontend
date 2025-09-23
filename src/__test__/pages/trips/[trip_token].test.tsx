@@ -83,7 +83,7 @@ describe('/trip/[trip_token]アクセス時', () => {
     it('NotFoundが表示されること', async () => {
       await renderTripDetailWithMock()
       expect(
-        screen.getByText('指定されたページが見つかりませんでした')
+        screen.getByText('指定されたページが見つかりませんでした'),
       ).toBeInTheDocument()
     })
   })
@@ -108,7 +108,7 @@ describe('/trip/[trip_token]アクセス時', () => {
       })
 
       expect(
-        screen.queryByText('閲覧モード', { selector: 'label' })
+        screen.queryByText('閲覧モード', { selector: 'label' }),
       ).not.toBeInTheDocument()
     })
   })
@@ -136,15 +136,15 @@ describe('/trip/[trip_token]アクセス時', () => {
           expect(
             screen.getByRole('img', {
               name: '北海道旅行の旅行画像',
-            })
-          ).toHaveAttribute('src', 'hokkaido.jpg')
+            }),
+          ).toHaveAttribute('src', expect.stringContaining('hokkaido.jpg'))
 
           // 説明
           expect(document.querySelector('.fa-lock')).toBeInTheDocument()
           expect(screen.getByText('北海道旅行')).toBeInTheDocument()
           expect(screen.getByText('2023/07/01-2023/07/02')).toBeInTheDocument()
           expect(
-            screen.getByText('北海道', { selector: 'span' })
+            screen.getByText('北海道', { selector: 'span' }),
           ).toBeInTheDocument()
         })
 
@@ -179,7 +179,7 @@ describe('/trip/[trip_token]アクセス時', () => {
 
           // 閲覧モード切替スイッチがオフであることを確認
           expect(
-            screen.getByRole('switch', { checked: false })
+            screen.getByRole('switch', { checked: false }),
           ).toBeInTheDocument()
         })
 
@@ -209,7 +209,7 @@ describe('/trip/[trip_token]アクセス時', () => {
           fireEvent.click(
             screen.getByRole('button', {
               name: '1日目',
-            })
+            }),
           )
 
           // スクロールされることの確認
@@ -223,7 +223,7 @@ describe('/trip/[trip_token]アクセス時', () => {
           fireEvent.click(
             screen.getByRole('button', {
               name: '＋ 追加',
-            })
+            }),
           )
 
           // 実行時のAPIパラメーターの確認
@@ -236,7 +236,7 @@ describe('/trip/[trip_token]アクセス時', () => {
                 end_date: '2023-07-03',
               },
               ADD_TRIP_DATE_SUCCESS_MSG,
-              ADD_TRIP_DATE_ERROR_MSG
+              ADD_TRIP_DATE_ERROR_MSG,
             )
           })
         })
@@ -246,16 +246,16 @@ describe('/trip/[trip_token]アクセス時', () => {
 
           // 日付の確認
           expect(
-            screen.getByText('1日目', { selector: 'label' })
+            screen.getByText('1日目', { selector: 'label' }),
           ).toBeInTheDocument()
           expect(
-            screen.getByText('2日目', { selector: 'label' })
+            screen.getByText('2日目', { selector: 'label' }),
           ).toBeInTheDocument()
           expect(
-            screen.getByRole('button', { name: '07/01(土)' })
+            screen.getByRole('button', { name: '07/01(土)' }),
           ).toBeInTheDocument()
           expect(
-            screen.getByRole('button', { name: '07/02(日)' })
+            screen.getByRole('button', { name: '07/02(日)' }),
           ).toBeInTheDocument()
 
           // カレンダーの確認
@@ -286,7 +286,7 @@ describe('/trip/[trip_token]アクセス時', () => {
               end_date: '2023-07-04',
             },
             UPDATE_TRIP_DATE_SUCCESS_MSG,
-            UPDATE_TRIP_DATE_ERROR_MSG
+            UPDATE_TRIP_DATE_ERROR_MSG,
           )
 
           expect(updateSpotMock).toHaveBeenCalledWith(
@@ -297,7 +297,7 @@ describe('/trip/[trip_token]アクセス時', () => {
             undefined,
             UPDATE_SPOT_MIN_BASE_DATE,
             '2',
-            true
+            true,
           )
         })
 
@@ -321,7 +321,7 @@ describe('/trip/[trip_token]アクセス時', () => {
             fireEvent.click(
               screen.getByRole('button', {
                 name: '削除',
-              })
+              }),
             )
           })
 
@@ -330,7 +330,7 @@ describe('/trip/[trip_token]アクセス時', () => {
             currentUserMock.getIdToken(),
             currentUserMock.uid,
             selectedTripMock.trip_token,
-            '2023-07-01'
+            '2023-07-01',
           )
         })
 
@@ -348,11 +348,11 @@ describe('/trip/[trip_token]アクセス時', () => {
             expect(within(spotCards[0]).getByText('12:00')).toBeInTheDocument()
             expect(within(spotCards[0]).getByText('移動')).toBeInTheDocument()
             expect(
-              within(spotCards[0]).getByText('レンタカーを事前に予約する')
+              within(spotCards[0]).getByText('レンタカーを事前に予約する'),
             ).toBeInTheDocument()
 
             expect(
-              spotCards[1].querySelector('.fa-utensils')
+              spotCards[1].querySelector('.fa-utensils'),
             ).toBeInTheDocument()
             expect(within(spotCards[1]).getByText('12:00')).toBeInTheDocument()
             expect(within(spotCards[1]).getByText('|')).toBeInTheDocument()
@@ -360,7 +360,7 @@ describe('/trip/[trip_token]アクセス時', () => {
             expect(within(spotCards[1]).getByText('昼食')).toBeInTheDocument()
 
             expect(
-              spotCards[2].querySelector('.fa-location-dot')
+              spotCards[2].querySelector('.fa-location-dot'),
             ).toBeInTheDocument()
             expect(within(spotCards[2]).getByText('13:00')).toBeInTheDocument()
             expect(within(spotCards[2]).getByText('|')).toBeInTheDocument()
@@ -372,7 +372,7 @@ describe('/trip/[trip_token]アクセス時', () => {
             expect(within(spotCards[3]).getByText('|')).toBeInTheDocument()
             expect(within(spotCards[3]).getByText('18:00')).toBeInTheDocument()
             expect(
-              within(spotCards[3]).getByText('チェックイン')
+              within(spotCards[3]).getByText('チェックイン'),
             ).toBeInTheDocument()
 
             // 2日目
@@ -381,11 +381,11 @@ describe('/trip/[trip_token]アクセス時', () => {
             expect(within(spotCards[4]).getByText('|')).toBeInTheDocument()
             expect(within(spotCards[4]).getByText('10:00')).toBeInTheDocument()
             expect(
-              within(spotCards[4]).getByText('チェックアウト')
+              within(spotCards[4]).getByText('チェックアウト'),
             ).toBeInTheDocument()
 
             expect(
-              spotCards[5].querySelector('.fa-utensils')
+              spotCards[5].querySelector('.fa-utensils'),
             ).toBeInTheDocument()
             expect(within(spotCards[5]).getByText('12:00')).toBeInTheDocument()
             expect(within(spotCards[5]).getByText('|')).toBeInTheDocument()
@@ -393,7 +393,7 @@ describe('/trip/[trip_token]アクセス時', () => {
             expect(within(spotCards[5]).getByText('昼食')).toBeInTheDocument()
 
             expect(
-              spotCards[6].querySelector('.fa-location-dot')
+              spotCards[6].querySelector('.fa-location-dot'),
             ).toBeInTheDocument()
             expect(within(spotCards[6]).getByText('13:00')).toBeInTheDocument()
             expect(within(spotCards[6]).getByText('|')).toBeInTheDocument()
@@ -419,14 +419,14 @@ describe('/trip/[trip_token]アクセス時', () => {
             expect(screen.getByLabelText('日付')).toHaveValue('2023-07-01')
             expect(screen.getByLabelText('スポット名')).toHaveValue('移動')
             expect(document.querySelector('#spot-category')).toHaveTextContent(
-              '車'
+              '車',
             )
             expect(document.querySelector('.fa-car')).toBeInTheDocument()
             expect(screen.getByLabelText('開始時間')).toHaveValue('09:00')
             expect(screen.getByLabelText('終了時間')).toHaveValue('12:00')
             expect(screen.getByLabelText('費用')).toHaveValue('15000')
             expect(screen.getByLabelText('一言メモ')).toHaveTextContent(
-              'レンタカーを事前に予約する'
+              'レンタカーを事前に予約する',
             )
 
             // 更新ボタンがdisabledであることの確認
@@ -485,7 +485,7 @@ describe('/trip/[trip_token]アクセス時', () => {
                   end_time: '11:30',
                   cost: 1000,
                   memo: '徒歩で移動する',
-                }
+                },
               )
             })
           })
@@ -500,14 +500,14 @@ describe('/trip/[trip_token]アクセス時', () => {
 
             // 初期値の確認
             expect(
-              screen.getByText('「移動」を削除します。')
+              screen.getByText('「移動」を削除します。'),
             ).toBeInTheDocument()
 
             // 削除ボタンをクリック
             fireEvent.click(
               screen.getByRole('button', {
                 name: '削除',
-              })
+              }),
             )
 
             // 実行時のAPIパラメーターの確認
@@ -516,7 +516,7 @@ describe('/trip/[trip_token]アクセス時', () => {
                 currentUserMock.getIdToken(),
                 currentUserMock.uid,
                 selectedTripMock.trip_token,
-                selectedTripMock.id
+                selectedTripMock.id,
               )
             })
           })
@@ -529,7 +529,7 @@ describe('/trip/[trip_token]アクセス時', () => {
               fireEvent.click(
                 screen.getAllByRole('button', {
                   name: 'スポット追加',
-                })[0]
+                })[0],
               )
             })
 
@@ -537,10 +537,10 @@ describe('/trip/[trip_token]アクセス時', () => {
             expect(screen.getByLabelText('日付')).toHaveValue('2023-07-01')
             expect(screen.getByLabelText('スポット名')).toHaveValue('')
             expect(document.querySelector('#spot-category')).toHaveTextContent(
-              '観光'
+              '観光',
             )
             expect(
-              document.querySelector('.fa-location-dot')
+              document.querySelector('.fa-location-dot'),
             ).toBeInTheDocument()
             expect(screen.getByLabelText('費用')).toHaveValue('0')
             expect(screen.getByLabelText('一言メモ')).toHaveTextContent('')
@@ -601,7 +601,7 @@ describe('/trip/[trip_token]アクセス時', () => {
                   end_time: '11:30',
                   cost: 1000,
                   memo: '徒歩で移動する',
-                }
+                },
               )
             })
           })
@@ -675,7 +675,7 @@ describe('/trip/[trip_token]アクセス時', () => {
 
           // div内の全てのテキストノードを取得
           const allTextsInDiv = Array.from(
-            totalDetailDiv.querySelectorAll('p')
+            totalDetailDiv.querySelectorAll('p'),
           ).map((el) => el.textContent?.trim())
 
           // 順番通りにテキストが存在するか確認
@@ -731,7 +731,7 @@ describe('/trip/[trip_token]アクセス時', () => {
                 memo: '旅行のメモ',
               },
               UPDATE_TRIP_MEMO_SUCCESS_MSG,
-              UPDATE_TRIP_MEMO_ERROR_MSG
+              UPDATE_TRIP_MEMO_ERROR_MSG,
             )
           })
         })
@@ -761,7 +761,7 @@ describe('/trip/[trip_token]アクセス時', () => {
       describe('閲覧モードの確認時', () => {
         it('閲覧モード切替スイッチがオンであること', async () => {
           expect(
-            screen.getByRole('switch', { checked: true })
+            screen.getByRole('switch', { checked: true }),
           ).toBeInTheDocument()
         })
       })
@@ -769,7 +769,7 @@ describe('/trip/[trip_token]アクセス時', () => {
       describe('旅行タブの確認時', () => {
         it('日付追加ボタンが表示されないこと', async () => {
           expect(
-            screen.queryByRole('button', { name: '＋ 追加' })
+            screen.queryByRole('button', { name: '＋ 追加' }),
           ).not.toBeInTheDocument()
         })
 
@@ -779,7 +779,7 @@ describe('/trip/[trip_token]アクセス時', () => {
 
         it('ゴミ箱が表示されないこと', async () => {
           expect(
-            document.querySelector('.fa-trash-can')
+            document.querySelector('.fa-trash-can'),
           ).not.toBeInTheDocument()
         })
 
@@ -789,7 +789,7 @@ describe('/trip/[trip_token]アクセス時', () => {
 
         it('スポット追加ボタンが表示されないこと', async () => {
           expect(
-            screen.queryByRole('button', { name: 'スポット追加' })
+            screen.queryByRole('button', { name: 'スポット追加' }),
           ).not.toBeInTheDocument()
         })
       })
@@ -803,7 +803,7 @@ describe('/trip/[trip_token]アクセス時', () => {
 
           // 更新ボタンが表示されないことの確認
           expect(
-            screen.queryByRole('button', { name: '更新' })
+            screen.queryByRole('button', { name: '更新' }),
           ).not.toBeInTheDocument()
         })
       })

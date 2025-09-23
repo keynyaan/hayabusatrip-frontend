@@ -4,7 +4,7 @@ import { S3_UPLOAD_URL } from '@/utils/constants'
 export const uploadImageToS3 = async (
   idToken: string,
   file: File,
-  filename: string
+  filename: string,
 ) => {
   const formData = new FormData()
   formData.append('file', file)

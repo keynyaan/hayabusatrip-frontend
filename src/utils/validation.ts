@@ -71,7 +71,7 @@ export const validatePassword = (password: string) => {
 
 export const validatePasswordConfirm = (
   password: string,
-  passwordConfirm: string
+  passwordConfirm: string,
 ) => {
   if (passwordConfirm === '') {
     return 'パスワード（確認用）を入力してください'

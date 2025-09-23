@@ -55,7 +55,7 @@ export const getUserAPI = async (idToken: string, uid: string) => {
 // 特定のユーザー情報の取得
 export const createUserAPI = async (
   idToken: string,
-  options: CreateUserOptions
+  options: CreateUserOptions,
 ) => {
   try {
     const params: { user: CreateUserOptions } = {
@@ -76,7 +76,7 @@ export const createUserAPI = async (
 // ユーザー情報の更新
 export const updateUserAPI = async (
   idToken: string,
-  options: UpdateUserOptions
+  options: UpdateUserOptions,
 ) => {
   try {
     const params: { user: UpdateUserOptions } = {

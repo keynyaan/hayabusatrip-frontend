@@ -52,13 +52,13 @@ export const TripFilter: React.FC<TripFilterProps> = ({ dbTripsData }) => {
 
     if (destinationFilter) {
       filtered = filtered.filter(
-        (trip) => String(trip.prefecture_id) === destinationFilter
+        (trip) => String(trip.prefecture_id) === destinationFilter,
       )
     }
 
     if (statusFilter) {
       filtered = filtered.filter(
-        (trip) => String(trip.is_public) === statusFilter
+        (trip) => String(trip.is_public) === statusFilter,
       )
     }
 
@@ -73,14 +73,14 @@ export const TripFilter: React.FC<TripFilterProps> = ({ dbTripsData }) => {
 
   const getUniqueYears = (trips: DbTripData[]) => {
     const yearsSet = new Set(
-      trips.map((trip) => new Date(trip.start_date).getFullYear())
+      trips.map((trip) => new Date(trip.start_date).getFullYear()),
     )
     return Array.from(yearsSet).sort((a, b) => a - b)
   }
 
   const getUniqueMonths = (trips: DbTripData[]) => {
     const monthsSet = new Set(
-      trips.map((trip) => new Date(trip.start_date).getMonth() + 1)
+      trips.map((trip) => new Date(trip.start_date).getMonth() + 1),
     )
     return Array.from(monthsSet).sort((a, b) => a - b)
   }
@@ -97,7 +97,7 @@ export const TripFilter: React.FC<TripFilterProps> = ({ dbTripsData }) => {
           days.push(d.getDate())
         }
         return days
-      })
+      }),
     )
     return Array.from(daysSet).sort((a, b) => a - b)
   }
@@ -111,10 +111,10 @@ export const TripFilter: React.FC<TripFilterProps> = ({ dbTripsData }) => {
   const days = useMemo(() => getUniqueDays(dbTripsData), [dbTripsData])
   const destinations = useMemo(
     () => getUniqueDestinations(dbTripsData),
-    [dbTripsData]
+    [dbTripsData],
   )
   const filteredDestinations = TRIP_DESTINATION_ITEMS.filter((item) =>
-    destinations.includes(Number(item.value))
+    destinations.includes(Number(item.value)),
   )
 
   return (

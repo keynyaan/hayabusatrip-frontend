@@ -49,7 +49,7 @@ export const TripCard: React.FC<TripCardProps> = ({
   const [deleteTripOpen, setDeleteTripOpen] = useState(false)
 
   const onOpenModal = (
-    setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
+    setOpenModal: React.Dispatch<React.SetStateAction<boolean>>,
   ) => {
     hideDropdown()
     setSelectedTrip(trip)
@@ -57,7 +57,7 @@ export const TripCard: React.FC<TripCardProps> = ({
   }
 
   const onCloseModal = (
-    setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
+    setOpenModal: React.Dispatch<React.SetStateAction<boolean>>,
   ) => {
     setOpenModal(false)
   }
@@ -66,7 +66,7 @@ export const TripCard: React.FC<TripCardProps> = ({
 
   const tripImage = (
     <Image
-      src={trip.image_path}
+      src={trip.image_path || '/default-trip-image.jpg'}
       alt={`${trip.title}の旅行画像`}
       fill
       sizes="(max-width: 0px) 0px, 100vw"

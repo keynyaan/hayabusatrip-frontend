@@ -52,7 +52,7 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
   }
 
   const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (!event.target.files?.length) {
       return
@@ -84,7 +84,7 @@ export const UserIcon: React.FC<UserIconProps> = ({ isSettingsPage }) => {
           }}
         >
           <Image
-            src={dbUserData.icon_path}
+            src={dbUserData.icon_path || '/default-user-icon.jpg'}
             alt="ユーザーのアイコン画像"
             onClick={handleClickIcon}
             width={

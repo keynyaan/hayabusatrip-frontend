@@ -66,10 +66,10 @@ export const LP = () => {
     priority,
   }) => (
     <Image
-      src={img.src}
+      src={img.src || '/default-image.jpg'}
       alt={alt}
-      width={img.width}
-      height={img.height}
+      width={img.width || 300}
+      height={img.height || 200}
       className={className}
       priority={priority}
     />

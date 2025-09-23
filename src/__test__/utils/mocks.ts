@@ -138,6 +138,7 @@ export const dbUserDataMock = {
   uid: 'uidMock',
   id: 1,
   name: 'nameMock',
+  icon_path: '/user-icon.jpg',
 }
 
 export const notTripOwnerMock = {
@@ -153,7 +154,7 @@ export const selectedTripMock = {
   start_date: '2023-07-01',
   end_date: '2023-07-02',
   memo: '',
-  image_path: 'hokkaido.jpg',
+  image_path: '/hokkaido.jpg',
   is_public: false,
   trip_token: 'tripTokenMock',
   created_at: '2023-07-01T09:00:00.000+09:00',

@@ -1,5 +1,6 @@
 import React, { createContext, useContext } from 'react'
-import { ToastContainer, toast, TypeOptions, Slide } from 'react-toastify'
+import { ToastContainer, toast, Slide } from 'react-toastify'
+import type { TypeOptions } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 type ToastFunction = (type?: TypeOptions, message?: string) => void

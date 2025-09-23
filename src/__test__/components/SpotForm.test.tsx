@@ -20,7 +20,7 @@ const renderCreateSpotForm = async () => {
     fireEvent.click(
       screen.getAllByRole('button', {
         name: 'スポット追加',
-      })[0]
+      })[0],
     )
   })
 }

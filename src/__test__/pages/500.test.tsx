@@ -19,7 +19,7 @@ describe('/500アクセス時', () => {
     render(<Custom500 />)
 
     expect(
-      screen.getByRole('link', { name: 'ホームへ戻る' }).getAttribute('href')
+      screen.getByRole('link', { name: 'ホームへ戻る' }).getAttribute('href'),
     ).toBe('/')
   })
 })

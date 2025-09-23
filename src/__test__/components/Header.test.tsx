@@ -144,7 +144,7 @@ describe('ヘッダー確認時', () => {
         await waitFor(() => {
           expect(loginWithEmailAndPasswordMock).toHaveBeenCalledWith(
             'mock@mock.com',
-            'MockPass1'
+            'MockPass1',
           )
         })
       })
@@ -220,7 +220,7 @@ describe('ヘッダー確認時', () => {
 
         // タイトルの確認
         expect(
-          screen.getByRole('heading', { name: '新規登録' })
+          screen.getByRole('heading', { name: '新規登録' }),
         ).toBeInTheDocument()
       })
     })
@@ -234,13 +234,13 @@ describe('ヘッダー確認時', () => {
       it('利用規約が正しいリンクであること', async () => {
         expect(screen.getByRole('link', { name: '利用規約' })).toHaveAttribute(
           'href',
-          '/terms'
+          '/terms',
         )
       })
 
       it('プライバシーポリシーが正しいリンクであること', async () => {
         expect(
-          screen.getByRole('link', { name: 'プライバシーポリシー' })
+          screen.getByRole('link', { name: 'プライバシーポリシー' }),
         ).toHaveAttribute('href', '/privacy')
       })
 
@@ -288,7 +288,7 @@ describe('ヘッダー確認時', () => {
           expect(signupMock).toHaveBeenCalledWith(
             'mock@mock.com',
             'MockPass1',
-            'nameMock'
+            'nameMock',
           )
         })
       })
@@ -323,7 +323,7 @@ describe('ヘッダー確認時', () => {
 
         // タイトルの確認
         expect(
-          screen.getByRole('heading', { name: 'ログイン' })
+          screen.getByRole('heading', { name: 'ログイン' }),
         ).toBeInTheDocument()
       })
     })

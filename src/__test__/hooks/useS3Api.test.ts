@@ -63,7 +63,7 @@ describe('useS3Apiの確認', () => {
         file,
         `${TRIP_IMAGES_DIRECTORY}/${currentUserMock.uid}/${
           selectedTripMock.trip_token
-        }-${getTimestamp()}.${file.type.split('/')[1]}`
+        }-${getTimestamp()}.${file.type.split('/')[1]}`,
       )
       expect(setS3ApiLoadingMock).toHaveBeenCalledWith(false)
     })
@@ -88,7 +88,7 @@ describe('useS3Apiの確認', () => {
         selectedTripMock.trip_token,
         {
           image_path: 'http://example.com/image.jpg?v=timestamp_mock',
-        }
+        },
       )
 
       expect(setS3ApiLoadingMock).toHaveBeenCalledWith(false)
@@ -115,7 +115,7 @@ describe('useS3Apiの確認', () => {
         file,
         `${USER_ICONS_DIRECTORY}/${currentUserMock.uid}-${getTimestamp()}.${
           file.type.split('/')[1]
-        }`
+        }`,
       )
 
       expect(setS3ApiLoadingMock).toHaveBeenCalledWith(false)
@@ -147,7 +147,7 @@ describe('useS3Apiの確認', () => {
           headers: {
             Authorization: `Bearer idToken_mock`,
           },
-        }
+        },
       )
 
       expect(setS3ApiLoadingMock).toHaveBeenCalledWith(false)

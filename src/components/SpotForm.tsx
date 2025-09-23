@@ -65,7 +65,7 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
   } = useForm()
 
   const selectedTripItem = TRIP_DESTINATION_ITEMS.find(
-    (item) => item.value === String(selectedTrip?.prefecture_id)
+    (item) => item.value === String(selectedTrip?.prefecture_id),
   )
   const selectedOption =
     SPOT_CATEGORY_OPTIONS.find((option) => option.value === spotCategory) ||
@@ -87,7 +87,7 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
           end_time: endTime,
           cost: parseInt(cost),
           memo: spotMemo,
-        }
+        },
       )
 
       if (success) {
@@ -114,7 +114,7 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
           end_time: endTime,
           cost: parseInt(cost),
           memo: spotMemo,
-        }
+        },
       )
 
       if (success) {
@@ -127,7 +127,11 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    mode === SPOT_FORM_MODE_CREATE ? createSpotFunc() : updateSpotFunc()
+    if (mode === SPOT_FORM_MODE_CREATE) {
+      createSpotFunc()
+    } else {
+      updateSpotFunc()
+    }
   }
 
   useEffect(() => {
@@ -137,7 +141,7 @@ export const SpotForm: FC<SpotFormProps> = ({ onClose, mode, date }) => {
       } as React.ChangeEvent<HTMLInputElement>)
 
       const spotCategoryOption = SPOT_CATEGORY_OPTIONS.find(
-        (option) => option.value === selectedSpot.category
+        (option) => option.value === selectedSpot.category,
       )
       if (spotCategoryOption) {
         handleSpotCategoryChange(spotCategoryOption)

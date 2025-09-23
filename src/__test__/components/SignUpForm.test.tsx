@@ -32,7 +32,7 @@ describe('新規登録フォーム確認時', () => {
       target: { value: 'a'.repeat(21) },
     })
     screen.getByText(
-      `ユーザー名は${MAX_USERNAME_LENGTH}文字以下で入力してください`
+      `ユーザー名は${MAX_USERNAME_LENGTH}文字以下で入力してください`,
     )
 
     // 空文字チェック
@@ -58,7 +58,7 @@ describe('新規登録フォーム確認時', () => {
     })
     fireEvent.blur(email)
     screen.getByText(
-      `メールアドレスは${MAX_EMAIL_LENGTH}文字以下で入力してください`
+      `メールアドレスは${MAX_EMAIL_LENGTH}文字以下で入力してください`,
     )
 
     // 空文字チェック
@@ -85,7 +85,7 @@ describe('新規登録フォーム確認時', () => {
     })
     fireEvent.blur(password)
     screen.getByText(
-      `パスワードは${MAX_PASSWORD_LENGTH}文字以下で入力してください`
+      `パスワードは${MAX_PASSWORD_LENGTH}文字以下で入力してください`,
     )
 
     // 下限チェック
@@ -94,7 +94,7 @@ describe('新規登録フォーム確認時', () => {
     })
     fireEvent.blur(password)
     screen.getByText(
-      `パスワードは${MIN_PASSWORD_LENGTH}文字以上で入力してください`
+      `パスワードは${MIN_PASSWORD_LENGTH}文字以上で入力してください`,
     )
 
     // 空文字チェック

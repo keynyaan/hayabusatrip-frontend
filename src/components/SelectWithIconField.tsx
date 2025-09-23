@@ -3,7 +3,7 @@ import 'react-responsive-modal/styles.css'
 import Select from 'react-select'
 import type { SelectInstance } from 'react-select'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 
 export type OptionType = {
   value: string

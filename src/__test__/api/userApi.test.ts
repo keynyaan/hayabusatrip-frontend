@@ -39,7 +39,7 @@ describe('userAPI', () => {
         mockedAxios.get.mockRejectedValue(new Error('An error occurred'))
 
         await expect(getUsersAPI('idToken_mock')).rejects.toThrow(
-          'An error occurred'
+          'An error occurred',
         )
       })
     })
@@ -56,7 +56,7 @@ describe('userAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
     })
@@ -66,7 +66,7 @@ describe('userAPI', () => {
         mockedAxios.get.mockRejectedValue(new Error('An error occurred'))
 
         await expect(
-          getUserAPI('idToken_mock', 'user_uid_mock')
+          getUserAPI('idToken_mock', 'user_uid_mock'),
         ).rejects.toThrow('An error occurred')
       })
     })
@@ -94,7 +94,7 @@ describe('userAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
     })
@@ -108,7 +108,7 @@ describe('userAPI', () => {
             uid: 'uid_mock',
             name: 'name_mock',
             icon_path: 'icon_path_mock',
-          })
+          }),
         ).rejects.toThrow('An error occurred')
       })
     })
@@ -138,7 +138,7 @@ describe('userAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
     })
@@ -153,7 +153,7 @@ describe('userAPI', () => {
             name: 'name_mock',
             icon_path: 'icon_path_mock',
             last_login_time: 'last_login_time_mock',
-          })
+          }),
         ).rejects.toThrow('An error occurred')
       })
     })
@@ -170,7 +170,7 @@ describe('userAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
     })
@@ -180,7 +180,7 @@ describe('userAPI', () => {
         mockedAxios.delete.mockRejectedValue(new Error('An error occurred'))
 
         await expect(
-          deleteUserAPI('idToken_mock', 'user_uid_mock')
+          deleteUserAPI('idToken_mock', 'user_uid_mock'),
         ).rejects.toThrow('An error occurred')
       })
     })

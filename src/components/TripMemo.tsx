@@ -40,7 +40,7 @@ export const TripMemo: React.FC<TripMemoProps> = ({ viewMode }) => {
           memo: tripMemo,
         },
         UPDATE_TRIP_MEMO_SUCCESS_MSG,
-        UPDATE_TRIP_MEMO_ERROR_MSG
+        UPDATE_TRIP_MEMO_ERROR_MSG,
       )
     } else {
       showToast('error', NOT_LOGIN_ERROR_MSG)

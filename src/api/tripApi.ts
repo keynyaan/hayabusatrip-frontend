@@ -67,7 +67,7 @@ export const createTripAPI = async (
   idToken: string,
   user_uid: string,
   options?: CreateTripOptions,
-  copy_trip_token?: string
+  copy_trip_token?: string,
 ) => {
   try {
     const url = options
@@ -92,7 +92,7 @@ export const updateTripAPI = async (
   idToken: string,
   user_uid: string,
   trip_token: string,
-  options: UpdateTripOptions
+  options: UpdateTripOptions,
 ) => {
   try {
     const params: { trip: UpdateTripOptions } = {
@@ -106,7 +106,7 @@ export const updateTripAPI = async (
         headers: {
           Authorization: `Bearer ${idToken}`,
         },
-      }
+      },
     )
     return res.data
   } catch (e) {
@@ -118,7 +118,7 @@ export const updateTripAPI = async (
 export const deleteTripAPI = async (
   idToken: string,
   user_uid: string,
-  trip_token: string
+  trip_token: string,
 ) => {
   try {
     const res = await axios.delete(
@@ -127,7 +127,7 @@ export const deleteTripAPI = async (
         headers: {
           Authorization: `Bearer ${idToken}`,
         },
-      }
+      },
     )
     return res.status
   } catch (e) {

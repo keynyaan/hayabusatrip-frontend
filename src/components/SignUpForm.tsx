@@ -28,7 +28,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setForm, onClose }) => {
   const signUpFunc = async (
     email: string,
     password: string,
-    username: string
+    username: string,
   ) => {
     const user = await signup(email, password, username)
     if (user) {

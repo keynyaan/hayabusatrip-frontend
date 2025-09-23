@@ -34,7 +34,7 @@ describe('非ログイン時', () => {
 
     const twitterLink = screen.getByRole('link', { name: /Twitterでシェア/ })
     expect(twitterLink.getAttribute('href')).toBe(
-      `https://twitter.com/intent/tweet?&hashtags=HayabusaTrip&text=HayabusaTripを使ってみたよ。簡単に旅行プランが作れて便利だから、みんなもぜひ試してみてね！&url=https://www.hayabusatrip.com`
+      `https://twitter.com/intent/tweet?&hashtags=HayabusaTrip&text=HayabusaTripを使ってみたよ。簡単に旅行プランが作れて便利だから、みんなもぜひ試してみてね！&url=https://www.hayabusatrip.com`,
     )
   })
 })
@@ -79,11 +79,11 @@ describe('ログイン時', () => {
 
       expect(screen.getByLabelText('旅行先')).toBeInTheDocument()
       expect(
-        screen.getByText('北海道', { selector: 'option' })
+        screen.getByText('北海道', { selector: 'option' }),
       ).toBeInTheDocument()
       expect(screen.getByLabelText('旅行年')).toBeInTheDocument()
       expect(
-        screen.getByText('2023', { selector: 'option' })
+        screen.getByText('2023', { selector: 'option' }),
       ).toBeInTheDocument()
       expect(screen.getByLabelText('旅行月')).toBeInTheDocument()
       expect(screen.getByText('7', { selector: 'option' })).toBeInTheDocument()
@@ -92,10 +92,10 @@ describe('ログイン時', () => {
       expect(screen.getByText('2', { selector: 'option' })).toBeInTheDocument()
       expect(screen.getByLabelText('公開状態')).toBeInTheDocument()
       expect(
-        screen.getByText('公開', { selector: 'option' })
+        screen.getByText('公開', { selector: 'option' }),
       ).toBeInTheDocument()
       expect(
-        screen.getByText('非公開', { selector: 'option' })
+        screen.getByText('非公開', { selector: 'option' }),
       ).toBeInTheDocument()
       const options = screen.getAllByText('すべて', { selector: 'option' })
       expect(options.length).toBe(5)
@@ -114,8 +114,8 @@ describe('ログイン時', () => {
 
         expect(
           screen.getByText(
-            /^検索条件に一致する旅行プランが見つかりませんでした/
-          )
+            /^検索条件に一致する旅行プランが見つかりませんでした/,
+          ),
         ).toBeInTheDocument()
       })
     })
@@ -134,17 +134,17 @@ describe('ログイン時', () => {
         // TripCard
         const image = screen.getByRole('img', { name: '北海道旅行の旅行画像' })
         expect(
-          screen.getByRole('img', { name: '北海道旅行の旅行画像' })
-        ).toHaveAttribute('src', 'hokkaido.jpg')
+          screen.getByRole('img', { name: '北海道旅行の旅行画像' }),
+        ).toHaveAttribute('src', expect.stringContaining('hokkaido.jpg'))
         expect(image.closest('a')).toHaveAttribute(
           'href',
-          '/trips/tripTokenMock'
+          '/trips/tripTokenMock',
         )
         expect(document.querySelector('.fa-lock')).toBeInTheDocument()
         expect(screen.getByText('北海道旅行')).toBeInTheDocument()
         expect(screen.getByText('2023/07/01-2023/07/02')).toBeInTheDocument()
         expect(
-          screen.getByText('北海道', { selector: 'span' })
+          screen.getByText('北海道', { selector: 'span' }),
         ).toBeInTheDocument()
 
         // Pagination

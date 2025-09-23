@@ -28,7 +28,7 @@ export const DeleteSpotForm: FC<DeleteSpotFormProps> = ({ onClose }) => {
         idToken,
         currentUser.uid,
         selectedTrip.trip_token,
-        selectedSpot.id
+        selectedSpot.id,
       )
 
       if (success) {

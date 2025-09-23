@@ -4,8 +4,10 @@
     "ecmaVersion": "latest",
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "project": "./tsconfig.json"
   },
+  "plugins": ["@typescript-eslint"],
   "extends": [
     "next",
     "next/core-web-vitals",

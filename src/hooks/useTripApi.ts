@@ -49,7 +49,7 @@ export const useTripApi = () => {
     try {
       const data: DbTripData[] = await getTripsAPI(idToken, user_uid)
       return data
-    } catch (e) {
+    } catch {
       showToast('error', GET_TRIP_ERROR_MSG)
     } finally {
       setTripApiLoading(false)
@@ -61,7 +61,7 @@ export const useTripApi = () => {
     try {
       const data: DbTripData = await getTripAPI(trip_token, user_uid)
       return data
-    } catch (e) {
+    } catch {
       // 利用側のコードで、404ページを返すため何もしない
     } finally {
       setTripApiLoading(false)
@@ -71,7 +71,7 @@ export const useTripApi = () => {
   const createTrip = async (
     idToken: string,
     user_uid: string,
-    options: CreateTripOptions
+    options: CreateTripOptions,
   ) => {
     setTripApiLoading(true)
     try {
@@ -80,7 +80,7 @@ export const useTripApi = () => {
       await router.push('/')
       showToast('success', CREATE_TRIP_SUCCESS_MSG)
       return data
-    } catch (e) {
+    } catch {
       showToast('error', CREATE_TRIP_ERROR_MSG)
     } finally {
       setTripApiLoading(false)
@@ -90,7 +90,7 @@ export const useTripApi = () => {
   const copyTrip = async (
     idToken: string,
     user_uid: string,
-    trip: DbTripData
+    trip: DbTripData,
   ) => {
     setTripApiLoading(true)
 
@@ -106,12 +106,12 @@ export const useTripApi = () => {
         idToken,
         user_uid,
         undefined,
-        trip.trip_token
+        trip.trip_token,
       )
       setDbTripsData([...(dbTripsData || []), data])
       showToast('success', COPY_TRIP_SUCCESS_MSG)
       return data
-    } catch (e) {
+    } catch {
       showToast('error', COPY_TRIP_ERROR_MSG)
     } finally {
       setTripApiLoading(false)
@@ -124,7 +124,7 @@ export const useTripApi = () => {
     trip_token: string,
     options: UpdateTripOptions,
     success_msg?: string,
-    error_msg?: string
+    error_msg?: string,
   ) => {
     setTripApiLoading(true)
     try {
@@ -132,11 +132,11 @@ export const useTripApi = () => {
         idToken,
         user_uid,
         trip_token,
-        options
+        options,
       )
       if (dbTripsData) {
         const updatedTripsData = dbTripsData.map((tripData: DbTripData) =>
-          tripData.trip_token === trip_token ? data : tripData
+          tripData.trip_token === trip_token ? data : tripData,
         )
         setDbTripsData(updatedTripsData)
       }
@@ -147,10 +147,10 @@ export const useTripApi = () => {
 
       showToast(
         'success',
-        `${success_msg ? success_msg : UPDATE_TRIP_SUCCESS_MSG}`
+        `${success_msg ? success_msg : UPDATE_TRIP_SUCCESS_MSG}`,
       )
       return data
-    } catch (e) {
+    } catch {
       showToast('error', `${error_msg ? error_msg : UPDATE_TRIP_ERROR_MSG}`)
     } finally {
       setTripApiLoading(false)
@@ -160,19 +160,19 @@ export const useTripApi = () => {
   const deleteTrip = async (
     idToken: string,
     user_uid: string,
-    trip_token: string
+    trip_token: string,
   ) => {
     setTripApiLoading(true)
     try {
       const statusCode: number = await deleteTripAPI(
         idToken,
         user_uid,
-        trip_token
+        trip_token,
       )
       if (statusCode === HTTP_STATUS_NO_CONTENT) {
         if (dbTripsData) {
           const updatedTripsData = dbTripsData.filter(
-            (tripData: DbTripData) => tripData.trip_token !== trip_token
+            (tripData: DbTripData) => tripData.trip_token !== trip_token,
           )
           setDbTripsData(updatedTripsData)
         }
@@ -183,7 +183,7 @@ export const useTripApi = () => {
         showToast('error', DELETE_TRIP_ERROR_MSG)
         return false
       }
-    } catch (e) {
+    } catch {
       showToast('error', DELETE_TRIP_ERROR_MSG)
     } finally {
       setTripApiLoading(false)
@@ -194,7 +194,7 @@ export const useTripApi = () => {
     idToken: string,
     user_uid: string,
     trip_token: string,
-    date: string
+    date: string,
   ) => {
     setTripApiLoading(true)
     if (!selectedTrip) {
@@ -219,11 +219,11 @@ export const useTripApi = () => {
         {
           start_date: newStartDate,
           end_date: newEndDate,
-        }
+        },
       )
       if (dbTripsData) {
         const updatedTripsData = dbTripsData.map((tripData: DbTripData) =>
-          tripData.trip_token === trip_token ? data : tripData
+          tripData.trip_token === trip_token ? data : tripData,
         )
         setDbTripsData(updatedTripsData)
       }
@@ -244,14 +244,14 @@ export const useTripApi = () => {
             undefined,
             date,
             '-1',
-            true
+            true,
           )
         }
       }
 
       showToast('success', DELETE_TRIP_DATE_SUCCESS_MSG)
       return data
-    } catch (e) {
+    } catch {
       showToast('error', DELETE_TRIP_DATE_ERROR_MSG)
     } finally {
       setTripApiLoading(false)

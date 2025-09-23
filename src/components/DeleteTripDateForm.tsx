@@ -29,7 +29,7 @@ export const DeleteTripDateForm: FC<DeleteTripDateFormProps> = ({
         idToken,
         currentUser.uid,
         selectedTrip.trip_token,
-        date
+        date,
       )
 
       if (success) {
