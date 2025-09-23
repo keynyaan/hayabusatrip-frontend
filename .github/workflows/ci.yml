@@ -21,14 +21,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y curl
-          curl -fsSL https://get.docker.com -o get-docker.sh
-          sh get-docker.sh
-          sudo apt-get install -y docker-compose
-          rm get-docker.sh
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Create .env.local file
         run: |
@@ -43,11 +37,11 @@ jobs:
 
       - name: Build app and run tests
         run: |
-          docker-compose build --no-cache
-          docker-compose run --rm front yarn install --frozen-lockfile
-          docker-compose run --rm front yarn format:check && \
-          docker-compose run --rm front yarn lint
-          docker-compose run --rm front yarn test --coverage
+          docker compose build --no-cache
+          docker compose run --rm front yarn install --frozen-lockfile
+          docker compose run --rm front yarn format:check && \
+          docker compose run --rm front yarn lint
+          docker compose run --rm front yarn test --coverage
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
@@ -63,6 +57,9 @@ jobs:
         with:
           ref: ${{ github.event.inputs.ref }}
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
       - name: Create .env.local file
         run: |
           echo NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} > .env.local
@@ -75,10 +72,10 @@ jobs:
           echo NEXT_PUBLIC_S3_OBJECT_URL=${{ secrets.NEXT_PUBLIC_S3_OBJECT_URL }} >> .env.local
 
       - name: Install front-end dependencies
-        run: docker-compose run --rm front yarn install --frozen-lockfile
+        run: docker compose run --rm front yarn install --frozen-lockfile
 
       - name: Build app
-        run: docker-compose run --rm front yarn build
+        run: docker compose run --rm front yarn build
         env:
           NODE_ENV: production
 
