@@ -1,5 +1,5 @@
-# 2023年3月時点の推奨版のNode
-FROM node:18.15.0-alpine
+# 2025年9月時点の推奨版のNode
+FROM node:20.15.0-alpine
 
 WORKDIR /frontend
 
