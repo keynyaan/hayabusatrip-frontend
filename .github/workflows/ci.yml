@@ -70,6 +70,9 @@ jobs:
           echo NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID }} >> .env.local
           echo NEXT_PUBLIC_FIREBASE_APP_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }} >> .env.local
           echo NEXT_PUBLIC_S3_OBJECT_URL=${{ secrets.NEXT_PUBLIC_S3_OBJECT_URL }} >> .env.local
+          echo VERCEL_TOKEN=${{ secrets.VERCEL_TOKEN }} >> .env.local
+          echo VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }} >> .env.local
+          echo VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }} >> .env.local
 
       - name: Install front-end dependencies
         run: docker compose run --rm front yarn install --frozen-lockfile
@@ -80,8 +83,4 @@ jobs:
           NODE_ENV: production
 
       - name: Deploy to Vercel
-        run: yarn deploy
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+        run: docker compose run --rm front yarn deploy
