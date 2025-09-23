@@ -96,7 +96,7 @@ describe('/settingsアクセス時', () => {
         await waitFor(() => {
           expect(updateUserMock).toHaveBeenCalledWith(
             'nameMock2',
-            'mock2@mock.com'
+            'mock2@mock.com',
           )
         })
       })
@@ -145,7 +145,7 @@ describe('/settingsアクセス時', () => {
         setupTest()
 
         expect(
-          screen.getByText('パスワード再設定', { selector: 'h2' })
+          screen.getByText('パスワード再設定', { selector: 'h2' }),
         ).toBeInTheDocument()
       })
 

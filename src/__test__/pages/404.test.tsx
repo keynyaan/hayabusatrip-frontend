@@ -13,7 +13,7 @@ describe('/404アクセス時', () => {
     render(<Custom404 />)
 
     expect(
-      screen.getByText('指定されたページが見つかりませんでした')
+      screen.getByText('指定されたページが見つかりませんでした'),
     ).toBeInTheDocument()
   })
 
@@ -21,7 +21,7 @@ describe('/404アクセス時', () => {
     render(<Custom404 />)
 
     expect(
-      screen.getByRole('link', { name: 'ホームへ戻る' }).getAttribute('href')
+      screen.getByRole('link', { name: 'ホームへ戻る' }).getAttribute('href'),
     ).toBe('/')
   })
 })

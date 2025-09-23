@@ -72,7 +72,7 @@ export default function TripDetail() {
   const getSpotsForDate = (date: string, items?: string[]) => {
     const spots = dbSpotsData?.filter(
       (spot) =>
-        spot.date === date && (items ? items.includes(spot.category) : true)
+        spot.date === date && (items ? items.includes(spot.category) : true),
     )
 
     return spots?.sort((a, b) => {
@@ -104,7 +104,7 @@ export default function TripDetail() {
   const fetchInitialData = async () => {
     try {
       const isCreator = dbTripsData?.some(
-        (trip) => trip.trip_token === trip_token
+        (trip) => trip.trip_token === trip_token,
       )
       const userId = isCreator ? currentUser?.uid : undefined
 
@@ -121,7 +121,7 @@ export default function TripDetail() {
       if (dbSpotsData) {
         setDbSpotsData(dbSpotsData)
       }
-    } catch (e) {
+    } catch {
       setShowNotFound(true)
     } finally {
       setIsDataLoading(false)
@@ -143,7 +143,7 @@ export default function TripDetail() {
     if (selectedTrip) {
       const dates = differenceInDates(
         selectedTrip.start_date,
-        selectedTrip.end_date
+        selectedTrip.end_date,
       )
       setTripDates(dates)
     }

@@ -64,7 +64,7 @@ export const useFirebaseAuth = () => {
   const { siteUrl } = SITE_META
 
   const [currentUser, setCurrentUser] = useState<User | null | undefined>(
-    undefined
+    undefined,
   )
   const [dbUserData, setDbUserData] = useState<DbUserData | null>(null)
   const [dbTripsData, setDbTripsData] = useState<DbTripData[] | null>(null)
@@ -90,7 +90,7 @@ export const useFirebaseAuth = () => {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       )
       const user = userCredential.user
       const idToken = await user.getIdToken()
@@ -98,7 +98,7 @@ export const useFirebaseAuth = () => {
       try {
         // ユーザー登録APIを実行
         await createUserAPI(idToken, { uid: user.uid, name: username })
-      } catch (e) {
+      } catch {
         await user.delete()
         showToast('error', CREATE_USER_ERROR_MSG)
         return
@@ -168,7 +168,7 @@ export const useFirebaseAuth = () => {
         await router.push('/')
         showToast(
           'success',
-          isFirstLogin ? LOGIN_FIRST_SUCCESS_MSG : LOGIN_SUCCESS_MSG
+          isFirstLogin ? LOGIN_FIRST_SUCCESS_MSG : LOGIN_SUCCESS_MSG,
         )
         return user
       }
@@ -238,7 +238,7 @@ export const useFirebaseAuth = () => {
         await router.push('/')
         showToast(
           'success',
-          isFirstLogin ? LOGIN_FIRST_SUCCESS_MSG : LOGIN_SUCCESS_MSG
+          isFirstLogin ? LOGIN_FIRST_SUCCESS_MSG : LOGIN_SUCCESS_MSG,
         )
       }
     } catch (e) {
@@ -272,7 +272,7 @@ export const useFirebaseAuth = () => {
       setCurrentUser(null)
       await router.push('/')
       showToast('success', LOGOUT_SUCCESS_MSG)
-    } catch (e) {
+    } catch {
       showToast('error', LOGOUT_ERROR_MSG)
     } finally {
       setLogoutLoading(false)
@@ -328,7 +328,7 @@ export const useFirebaseAuth = () => {
           displayName: newUsername,
         })
         await updateEmail(currentUser, newEmail)
-      } catch (e) {
+      } catch {
         emailUpdateSuccess = false
       }
     }
@@ -341,7 +341,7 @@ export const useFirebaseAuth = () => {
           name: newUsername,
         })
         setDbUserData(updateDbUserData)
-      } catch (e) {
+      } catch {
         usernameUpdateSuccess = false
       }
     }
@@ -423,7 +423,7 @@ export const useFirebaseAuth = () => {
               const dbTripsData = await getTripsAPI(idToken, user.uid)
               setDbTripsData(dbTripsData)
             }
-          } catch (e) {
+          } catch {
             showToast('error', GET_USER_ERROR_MSG)
           } finally {
             setAuthStateChangedLoading(false)

@@ -53,11 +53,11 @@ export const getSpotsAPI = async (trip_token: string, user_uid?: string) => {
 export const getSpotAPI = async (
   user_uid: string,
   trip_token: string,
-  spot_id: number
+  spot_id: number,
 ) => {
   try {
     const res = await axios.get(
-      `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}${SPOTS_URL}/${spot_id}`
+      `${USERS_URL}/${user_uid}${TRIPS_URL}/${trip_token}${SPOTS_URL}/${spot_id}`,
     )
     return res.data
   } catch (e) {
@@ -70,7 +70,7 @@ export const createSpotAPI = async (
   idToken: string,
   user_uid: string,
   trip_token: string,
-  options: CreateSpotOptions
+  options: CreateSpotOptions,
 ) => {
   try {
     const params: { spot: CreateSpotOptions } = {
@@ -84,7 +84,7 @@ export const createSpotAPI = async (
         headers: {
           Authorization: `Bearer ${idToken}`,
         },
-      }
+      },
     )
     return res.data
   } catch (e) {
@@ -100,11 +100,11 @@ export const updateSpotAPI = async (
   spot_id?: number,
   options?: UpdateSpotOptions,
   base_date?: string,
-  date_offset?: string
+  date_offset?: string,
 ) => {
   if (!(options && spot_id) && !(base_date && date_offset)) {
     throw new Error(
-      'Either options&&spot_id or base_date&&date_offset must be provided.'
+      'Either options&&spot_id or base_date&&date_offset must be provided.',
     )
   }
 
@@ -133,7 +133,7 @@ export const deleteSpotAPI = async (
   user_uid: string,
   trip_token: string,
   spot_id?: number,
-  date?: string
+  date?: string,
 ) => {
   if (!spot_id && !date) {
     throw new Error('Either spot_id or date must be provided.')

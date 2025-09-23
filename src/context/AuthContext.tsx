@@ -34,11 +34,11 @@ interface AuthContext {
   signup: (
     email: string,
     password: string,
-    username: string
+    username: string,
   ) => Promise<User | undefined>
   loginWithEmailAndPassword: (
     email: string,
-    password: string
+    password: string,
   ) => Promise<User | undefined>
   loginWithGoogle: () => Promise<void>
   logout: () => Promise<void>
@@ -106,7 +106,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const [destinationFilter, setDestinationFilter] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
   const [filteredData, setFilteredData] = useState<DbTripData[] | null>(
-    dbTripsData || null
+    dbTripsData || null,
   )
 
   const handleDateFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {

@@ -30,7 +30,7 @@ export const useSpotApi = () => {
     try {
       const data: DbSpotData[] = await getSpotsAPI(trip_token, user_uid)
       return data
-    } catch (e) {
+    } catch {
       // 利用側のコードで、404ページを返すため何もしない
     } finally {
       setSpotApiLoading(false)
@@ -40,13 +40,13 @@ export const useSpotApi = () => {
   const getSpot = async (
     user_uid: string,
     trip_token: string,
-    spot_id: number
+    spot_id: number,
   ) => {
     setSpotApiLoading(true)
     try {
       const data: DbSpotData = await getSpotAPI(user_uid, trip_token, spot_id)
       return data
-    } catch (e) {
+    } catch {
       showToast('error', GET_SPOT_ERROR_MSG)
     } finally {
       setSpotApiLoading(false)
@@ -57,7 +57,7 @@ export const useSpotApi = () => {
     idToken: string,
     user_uid: string,
     trip_token: string,
-    options: CreateSpotOptions
+    options: CreateSpotOptions,
   ) => {
     setSpotApiLoading(true)
     try {
@@ -65,12 +65,12 @@ export const useSpotApi = () => {
         idToken,
         user_uid,
         trip_token,
-        options
+        options,
       )
       setDbSpotsData([...(dbSpotsData || []), data])
       showToast('success', CREATE_SPOT_SUCCESS_MSG)
       return data
-    } catch (e) {
+    } catch {
       showToast('error', CREATE_SPOT_ERROR_MSG)
     } finally {
       setSpotApiLoading(false)
@@ -85,7 +85,7 @@ export const useSpotApi = () => {
     options?: UpdateSpotOptions,
     base_date?: string,
     date_offset?: string,
-    hideToast?: boolean
+    hideToast?: boolean,
   ) => {
     setSpotApiLoading(true)
     try {
@@ -96,7 +96,7 @@ export const useSpotApi = () => {
         spot_id,
         options,
         base_date,
-        date_offset
+        date_offset,
       )
 
       let updatedSpotsData: DbSpotData[]
@@ -104,7 +104,7 @@ export const useSpotApi = () => {
       if (dbSpotsData) {
         if (spot_id) {
           updatedSpotsData = dbSpotsData.map((spotData: DbSpotData) =>
-            spotData.id === spot_id ? (data as DbSpotData) : spotData
+            spotData.id === spot_id ? (data as DbSpotData) : spotData,
           )
         } else {
           updatedSpotsData = data as DbSpotData[]
@@ -112,10 +112,10 @@ export const useSpotApi = () => {
 
         setDbSpotsData(updatedSpotsData)
       }
-      !hideToast && showToast('success', UPDATE_SPOT_SUCCESS_MSG)
+      if (!hideToast) showToast('success', UPDATE_SPOT_SUCCESS_MSG)
       return data
-    } catch (e) {
-      !hideToast && showToast('error', UPDATE_SPOT_ERROR_MSG)
+    } catch {
+      if (!hideToast) showToast('error', UPDATE_SPOT_ERROR_MSG)
     } finally {
       setSpotApiLoading(false)
     }
@@ -127,7 +127,7 @@ export const useSpotApi = () => {
     trip_token: string,
     spot_id?: number,
     date?: string,
-    hideToast?: boolean
+    hideToast?: boolean,
   ) => {
     setSpotApiLoading(true)
     try {
@@ -136,7 +136,7 @@ export const useSpotApi = () => {
         user_uid,
         trip_token,
         spot_id,
-        date
+        date,
       )
       if (statusCode === HTTP_STATUS_NO_CONTENT) {
         if (dbSpotsData) {
@@ -147,18 +147,18 @@ export const useSpotApi = () => {
               } else if (date) {
                 return spotData.date !== date
               }
-            }
+            },
           )
           setDbSpotsData(deletedSpotsData)
         }
-        !hideToast && showToast('success', DELETE_SPOT_SUCCESS_MSG)
+        if (!hideToast) showToast('success', DELETE_SPOT_SUCCESS_MSG)
         return true
       } else {
-        !hideToast && showToast('error', DELETE_SPOT_ERROR_MSG)
+        if (!hideToast) showToast('error', DELETE_SPOT_ERROR_MSG)
         return false
       }
-    } catch (e) {
-      !hideToast && showToast('error', DELETE_SPOT_ERROR_MSG)
+    } catch {
+      if (!hideToast) showToast('error', DELETE_SPOT_ERROR_MSG)
     } finally {
       setSpotApiLoading(false)
     }

@@ -37,7 +37,7 @@ export const TripPublishSettingsForm: FC<TripPublishSettingsFormProps> = ({
           is_public: !selectedTrip.is_public,
         },
         UPDATE_TRIP_PUBLISH_SETTINGS_SUCCESS_MSG,
-        UPDATE_TRIP_PUBLISH_SETTINGS_ERROR_MSG
+        UPDATE_TRIP_PUBLISH_SETTINGS_ERROR_MSG,
       )
 
       if (success) {

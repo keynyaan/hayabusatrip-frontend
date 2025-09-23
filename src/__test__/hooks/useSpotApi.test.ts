@@ -74,7 +74,7 @@ describe('useSpotApiの確認', () => {
           end_time: '17:00',
           cost: 2000,
           memo: '',
-        }
+        },
       )
     })
 
@@ -94,7 +94,7 @@ describe('useSpotApiの確認', () => {
           end_time: '17:00',
           cost: 2000,
           memo: '',
-        }
+        },
       )
       expect(setSpotApiLoadingMock).toHaveBeenCalledWith(false)
     })
@@ -118,7 +118,7 @@ describe('useSpotApiの確認', () => {
           end_time: '13:00',
           cost: 3000,
           memo: '',
-        }
+        },
       )
     })
 
@@ -140,7 +140,7 @@ describe('useSpotApiの確認', () => {
           memo: '',
         },
         undefined,
-        undefined
+        undefined,
       )
       expect(setSpotApiLoadingMock).toHaveBeenCalledWith(false)
     })
@@ -156,7 +156,7 @@ describe('useSpotApiの確認', () => {
         'uid_mock',
         'spot_token_mock',
         1,
-        '2023-07-01'
+        '2023-07-01',
       )
     })
 
@@ -168,7 +168,7 @@ describe('useSpotApiの確認', () => {
         'uid_mock',
         'spot_token_mock',
         1,
-        '2023-07-01'
+        '2023-07-01',
       )
       expect(setSpotApiLoadingMock).toHaveBeenCalledWith(false)
     })

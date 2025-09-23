@@ -34,7 +34,7 @@ export const TripTitleForm: FC<TripTitleFormProps> = ({ onClose }) => {
           title: tripTitle,
         },
         UPDATE_TRIP_TITLE_SUCCESS_MSG,
-        UPDATE_TRIP_TITLE_ERROR_MSG
+        UPDATE_TRIP_TITLE_ERROR_MSG,
       )
 
       if (success) {

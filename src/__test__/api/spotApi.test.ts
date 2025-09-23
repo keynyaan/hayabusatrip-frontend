@@ -32,7 +32,7 @@ describe('spotAPI', () => {
         await getSpotsAPI('trip_token_mock', 'user_uid_mock')
 
         expect(mockedAxios.get).toHaveBeenCalledWith(
-          `${USERS_URL}/user_uid_mock${TRIPS_URL}/trip_token_mock${SPOTS_URL}`
+          `${USERS_URL}/user_uid_mock${TRIPS_URL}/trip_token_mock${SPOTS_URL}`,
         )
       })
 
@@ -40,7 +40,7 @@ describe('spotAPI', () => {
         await getSpotsAPI('trip_token_mock')
 
         expect(mockedAxios.get).toHaveBeenCalledWith(
-          `${TRIPS_URL}/trip_token_mock${SPOTS_URL}`
+          `${TRIPS_URL}/trip_token_mock${SPOTS_URL}`,
         )
       })
     })
@@ -50,7 +50,7 @@ describe('spotAPI', () => {
         mockedAxios.get.mockRejectedValue(new Error('An error occurred'))
 
         await expect(getSpotsAPI('trip_token', 'user_uid')).rejects.toThrow(
-          'An error occurred'
+          'An error occurred',
         )
       })
     })
@@ -62,7 +62,7 @@ describe('spotAPI', () => {
         await getSpotAPI('user_uid_mock', 'trip_token_mock', 1)
 
         expect(mockedAxios.get).toHaveBeenCalledWith(
-          `${USERS_URL}/user_uid_mock${TRIPS_URL}/trip_token_mock${SPOTS_URL}/1`
+          `${USERS_URL}/user_uid_mock${TRIPS_URL}/trip_token_mock${SPOTS_URL}/1`,
         )
       })
     })
@@ -72,7 +72,7 @@ describe('spotAPI', () => {
         mockedAxios.get.mockRejectedValue(new Error('An error occurred'))
 
         await expect(
-          getSpotAPI('user_uid_mock', 'trip_token_mock', 1)
+          getSpotAPI('user_uid_mock', 'trip_token_mock', 1),
         ).rejects.toThrow('An error occurred')
       })
     })
@@ -94,7 +94,7 @@ describe('spotAPI', () => {
             end_time: '17:00',
             cost: 2000,
             memo: '',
-          }
+          },
         )
 
         expect(mockedAxios.post).toHaveBeenCalledWith(
@@ -115,7 +115,7 @@ describe('spotAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
     })
@@ -134,7 +134,7 @@ describe('spotAPI', () => {
             end_time: '17:00',
             cost: 2000,
             memo: '',
-          })
+          }),
         ).rejects.toThrow('An error occurred')
       })
     })
@@ -156,7 +156,7 @@ describe('spotAPI', () => {
             end_time: '17:00',
             cost: 2000,
             memo: '',
-          }
+          },
         )
 
         expect(mockedAxios.put).toHaveBeenCalledWith(
@@ -176,7 +176,7 @@ describe('spotAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
 
@@ -188,7 +188,7 @@ describe('spotAPI', () => {
           undefined,
           undefined,
           UPDATE_SPOT_MIN_BASE_DATE,
-          '2'
+          '2',
         )
 
         expect(mockedAxios.put).toHaveBeenCalledWith(
@@ -198,7 +198,7 @@ describe('spotAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
     })
@@ -206,9 +206,9 @@ describe('spotAPI', () => {
     describe('異常系', () => {
       it('optionsとspot_idのセット、もしくはbase_dateとdate_offsetのセット以外の引数指定はエラーになること', async () => {
         await expect(
-          updateSpotAPI('idToken_mock', 'user_uid_mock', 'trip_token_mock', 1)
+          updateSpotAPI('idToken_mock', 'user_uid_mock', 'trip_token_mock', 1),
         ).rejects.toThrow(
-          'Either options&&spot_id or base_date&&date_offset must be provided.'
+          'Either options&&spot_id or base_date&&date_offset must be provided.',
         )
       })
 
@@ -224,7 +224,7 @@ describe('spotAPI', () => {
             end_time: '17:00',
             cost: 2000,
             memo: '',
-          })
+          }),
         ).rejects.toThrow('An error occurred')
       })
     })
@@ -238,7 +238,7 @@ describe('spotAPI', () => {
           'user_uid_mock',
           'trip_token_mock',
           undefined,
-          '2023-07-01'
+          '2023-07-01',
         )
 
         expect(mockedAxios.delete).toHaveBeenCalledWith(
@@ -247,7 +247,7 @@ describe('spotAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
 
@@ -256,7 +256,7 @@ describe('spotAPI', () => {
           'idToken_mock',
           'user_uid_mock',
           'trip_token_mock',
-          1
+          1,
         )
 
         expect(mockedAxios.delete).toHaveBeenCalledWith(
@@ -265,7 +265,7 @@ describe('spotAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
     })
@@ -273,7 +273,7 @@ describe('spotAPI', () => {
     describe('異常系', () => {
       it('spot_idとdateの両方とも引数に存在しない場合、エラーになること', async () => {
         await expect(
-          deleteSpotAPI('idToken_mock', 'user_uid_mock', 'trip_token_mock')
+          deleteSpotAPI('idToken_mock', 'user_uid_mock', 'trip_token_mock'),
         ).rejects.toThrow('Either spot_id or date must be provided.')
       })
 
@@ -281,7 +281,7 @@ describe('spotAPI', () => {
         mockedAxios.delete.mockRejectedValue(new Error('An error occurred'))
 
         await expect(
-          deleteSpotAPI('idToken_mock', 'user_uid_mock', 'trip_token_mock', 1)
+          deleteSpotAPI('idToken_mock', 'user_uid_mock', 'trip_token_mock', 1),
         ).rejects.toThrow('An error occurred')
       })
     })

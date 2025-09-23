@@ -20,7 +20,7 @@ export const Modal: FC<ModalProps> = ({
     if (initialCloseButtonBlur) {
       setTimeout(() => {
         const closeButton = document.querySelector(
-          '.modal-close-button'
+          '.modal-close-button',
         ) as HTMLElement
         if (closeButton) {
           closeButton.blur()

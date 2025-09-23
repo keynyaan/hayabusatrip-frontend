@@ -47,7 +47,7 @@ export const differenceInDates = (start_date: string, end_date: string) => {
   const endDate = utcToZonedTime(new Date(end_date), timeZone)
   const dayCount = differenceInDays(endDate, startDate) + 1
   return Array.from({ length: dayCount }, (_, i) =>
-    format(zonedTimeToUtc(addDays(startDate, i), timeZone), 'yyyy-MM-dd')
+    format(zonedTimeToUtc(addDays(startDate, i), timeZone), 'yyyy-MM-dd'),
   )
 }
 

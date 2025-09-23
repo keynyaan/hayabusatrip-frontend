@@ -22,7 +22,7 @@ export const DeleteTripForm: FC<DeleteTripFormProps> = ({ onClose }) => {
       const success = await deleteTrip(
         idToken,
         currentUser.uid,
-        selectedTrip.trip_token
+        selectedTrip.trip_token,
       )
 
       if (success) {

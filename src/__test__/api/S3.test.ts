@@ -41,8 +41,8 @@ describe('userAPI', () => {
           uploadImageToS3(
             'idToken_mock',
             new File(['content'], 'file_mock'),
-            'filename_mock'
-          )
+            'filename_mock',
+          ),
         ).rejects.toThrow('An error occurred')
       })
     })

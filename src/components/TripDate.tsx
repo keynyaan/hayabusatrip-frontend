@@ -89,7 +89,7 @@ export const TripDate: React.FC<TripDateProps> = ({
           end_date: endDate,
         },
         UPDATE_TRIP_DATE_SUCCESS_MSG,
-        UPDATE_TRIP_DATE_ERROR_MSG
+        UPDATE_TRIP_DATE_ERROR_MSG,
       )
     } else {
       showToast('error', NOT_LOGIN_ERROR_MSG)
@@ -107,7 +107,7 @@ export const TripDate: React.FC<TripDateProps> = ({
           end_date: getNextDay(selectedTrip.end_date),
         },
         ADD_TRIP_DATE_SUCCESS_MSG,
-        ADD_TRIP_DATE_ERROR_MSG
+        ADD_TRIP_DATE_ERROR_MSG,
       )
     } else {
       showToast('error', NOT_LOGIN_ERROR_MSG)
@@ -125,7 +125,7 @@ export const TripDate: React.FC<TripDateProps> = ({
         undefined,
         base_date,
         date_offset,
-        true
+        true,
       )
     } else {
       showToast('error', NOT_LOGIN_ERROR_MSG)
@@ -157,7 +157,7 @@ export const TripDate: React.FC<TripDateProps> = ({
         { length: tripDates.length },
         (_, index) => {
           return addDay(selectedDate, index - i)
-        }
+        },
       )
       setTripDates(newTripDates)
 

@@ -40,15 +40,15 @@ export const useForm = () => {
   const [endDate, setEndDate] = useState(getTomorrow())
   const [spotName, setSpotName] = useState('')
   const [spotCategory, setSpotCategory] = useState<string>(
-    SPOT_CATEGORY_OPTIONS[0].value
+    SPOT_CATEGORY_OPTIONS[0].value,
   )
   const [startTime, setStartTime] = useState(
-    selectedSpot ? getTimeFromString(selectedSpot.start_time) : getNowTime()
+    selectedSpot ? getTimeFromString(selectedSpot.start_time) : getNowTime(),
   )
   const [endTime, setEndTime] = useState(
     selectedSpot
       ? getTimeFromString(selectedSpot.end_time)
-      : getOneHourAhead(getNowTime())
+      : getOneHourAhead(getNowTime()),
   )
   const [cost, setCost] = useState('0')
   const [tripMemo, setTripMemo] = useState('')
@@ -152,7 +152,7 @@ export const useForm = () => {
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value)
   const handlePasswordConfirmChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => setPasswordConfirm(e.target.value)
   const handleTripTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTripTitleTouched(true)
@@ -161,7 +161,7 @@ export const useForm = () => {
     setTripTitleError(validateTripTitle(newTripTitle))
   }
   const handleTripDestinationChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
+    e: React.ChangeEvent<HTMLSelectElement>,
   ) => setTripDestination(e.target.value)
   const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newStartDate = e.target.value

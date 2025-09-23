@@ -86,7 +86,7 @@ describe('useTripApiの確認', () => {
           title: 'title_mock',
           start_date: '2023-07-01',
           end_date: '2023-07-02',
-        }
+        },
       )
       expect(setTripApiLoadingMock).toHaveBeenCalledWith(false)
     })
@@ -100,7 +100,7 @@ describe('useTripApiの確認', () => {
       await result.current.copyTrip(
         'idToken_mock',
         'uid_mock',
-        selectedTripMock
+        selectedTripMock,
       )
     })
 
@@ -111,7 +111,7 @@ describe('useTripApiの確認', () => {
         'idToken_mock',
         'uid_mock',
         undefined,
-        selectedTripMock.trip_token
+        selectedTripMock.trip_token,
       )
       expect(setTripApiLoadingMock).toHaveBeenCalledWith(false)
     })
@@ -135,7 +135,7 @@ describe('useTripApiの確認', () => {
           memo: 'memo_mock',
           image_path: 'image_path_mock',
           is_public: true,
-        }
+        },
       )
       expect(setTripApiLoadingMock).toHaveBeenCalledWith(false)
     })
@@ -155,7 +155,7 @@ describe('useTripApiの確認', () => {
           memo: 'memo_mock',
           image_path: 'image_path_mock',
           is_public: true,
-        }
+        },
       )
       expect(setTripApiLoadingMock).toHaveBeenCalledWith(false)
     })
@@ -169,7 +169,7 @@ describe('useTripApiの確認', () => {
       await result.current.deleteTrip(
         'idToken_mock',
         'uid_mock',
-        'trip_token_mock'
+        'trip_token_mock',
       )
     })
 
@@ -179,7 +179,7 @@ describe('useTripApiの確認', () => {
       expect(deleteTripAPIMock).toHaveBeenCalledWith(
         'idToken_mock',
         'uid_mock',
-        'trip_token_mock'
+        'trip_token_mock',
       )
       expect(setTripApiLoadingMock).toHaveBeenCalledWith(false)
     })
@@ -194,7 +194,7 @@ describe('useTripApiの確認', () => {
         'idToken_mock',
         'uid_mock',
         selectedTripMock.trip_token,
-        '2023-07-01'
+        '2023-07-01',
       )
     })
 
@@ -208,7 +208,7 @@ describe('useTripApiの確認', () => {
         {
           start_date: '2023-07-02',
           end_date: '2023-07-02',
-        }
+        },
       )
       expect(setTripApiLoadingMock).toHaveBeenCalledWith(false)
 

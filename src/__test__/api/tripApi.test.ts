@@ -32,7 +32,7 @@ describe('tripAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
     })
@@ -42,7 +42,7 @@ describe('tripAPI', () => {
         mockedAxios.get.mockRejectedValue(new Error('An error occurred'))
 
         await expect(
-          getTripsAPI('idToken_mock', 'user_uid_mock')
+          getTripsAPI('idToken_mock', 'user_uid_mock'),
         ).rejects.toThrow('An error occurred')
       })
     })
@@ -54,7 +54,7 @@ describe('tripAPI', () => {
         await getTripAPI('trip_token_mock', 'user_uid_mock')
 
         expect(mockedAxios.get).toHaveBeenCalledWith(
-          `${USERS_URL}/user_uid_mock${TRIPS_URL}/trip_token_mock`
+          `${USERS_URL}/user_uid_mock${TRIPS_URL}/trip_token_mock`,
         )
       })
 
@@ -62,7 +62,7 @@ describe('tripAPI', () => {
         await getTripAPI('trip_token_mock')
 
         expect(mockedAxios.get).toHaveBeenCalledWith(
-          `${TRIPS_URL}/trip_token_mock`
+          `${TRIPS_URL}/trip_token_mock`,
         )
       })
     })
@@ -72,7 +72,7 @@ describe('tripAPI', () => {
         mockedAxios.get.mockRejectedValue(new Error('An error occurred'))
 
         await expect(
-          getTripAPI('trip_token_mock', 'user_uid_mock')
+          getTripAPI('trip_token_mock', 'user_uid_mock'),
         ).rejects.toThrow('An error occurred')
       })
     })
@@ -104,7 +104,7 @@ describe('tripAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
 
@@ -113,7 +113,7 @@ describe('tripAPI', () => {
           'idToken_mock',
           'user_uid_mock',
           undefined,
-          'copy_trip_token_mock'
+          'copy_trip_token_mock',
         )
 
         expect(mockedAxios.post).toHaveBeenCalledWith(
@@ -123,7 +123,7 @@ describe('tripAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
     })
@@ -139,7 +139,7 @@ describe('tripAPI', () => {
             title: '北海道旅行',
             start_date: '2023-07-01',
             end_date: '2023-07-02',
-          })
+          }),
         ).rejects.toThrow('An error occurred')
       })
     })
@@ -157,7 +157,7 @@ describe('tripAPI', () => {
             title: '北海道旅行',
             start_date: '2023-07-01',
             end_date: '2023-07-02',
-          }
+          },
         )
 
         expect(mockedAxios.patch).toHaveBeenCalledWith(
@@ -174,7 +174,7 @@ describe('tripAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
     })
@@ -189,7 +189,7 @@ describe('tripAPI', () => {
             title: '北海道旅行',
             start_date: '2023-07-01',
             end_date: '2023-07-02',
-          })
+          }),
         ).rejects.toThrow('An error occurred')
       })
     })
@@ -206,7 +206,7 @@ describe('tripAPI', () => {
             headers: {
               Authorization: `Bearer idToken_mock`,
             },
-          }
+          },
         )
       })
     })
@@ -216,7 +216,7 @@ describe('tripAPI', () => {
         mockedAxios.delete.mockRejectedValue(new Error('An error occurred'))
 
         await expect(
-          deleteTripAPI('idToken_mock', 'user_uid_mock', 'trip_token_mock')
+          deleteTripAPI('idToken_mock', 'user_uid_mock', 'trip_token_mock'),
         ).rejects.toThrow('An error occurred')
       })
     })

@@ -73,18 +73,18 @@ export const useS3Api = () => {
         selectedTrip.trip_token,
         {
           image_path: `${imageUrl}?v=${getTimestamp()}`,
-        }
+        },
       )
 
       if (dbTripsData) {
         const updatedTripsData = dbTripsData.map((tripData: DbTripData) =>
-          tripData.trip_token === selectedTrip.trip_token ? data : tripData
+          tripData.trip_token === selectedTrip.trip_token ? data : tripData,
         )
         setDbTripsData(updatedTripsData)
       }
       showToast('success', UPLOAD_TRIP_IMAGE_SUCCESS_MSG)
       return data
-    } catch (e) {
+    } catch {
       showToast('error', UPLOAD_TRIP_IMAGE_ERROR_MSG)
     } finally {
       setS3ApiLoading(false)
@@ -127,7 +127,7 @@ export const useS3Api = () => {
       })
       showToast('success', UPLOAD_USER_ICON_SUCCESS_MSG)
       return res.data
-    } catch (e) {
+    } catch {
       showToast('error', UPLOAD_USER_ICON_ERROR_MSG)
     } finally {
       setS3ApiLoading(false)

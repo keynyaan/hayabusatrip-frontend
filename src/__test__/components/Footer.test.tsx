@@ -9,7 +9,7 @@ describe('フッター確認時', () => {
   it('利用規約のリンクが正しいこと', () => {
     expect(screen.getByRole('link', { name: '利用規約' })).toHaveAttribute(
       'href',
-      '/terms'
+      '/terms',
     )
   })
 
@@ -17,7 +17,7 @@ describe('フッター確認時', () => {
     expect(
       screen.getByRole('link', {
         name: 'プライバシーポリシー',
-      })
+      }),
     ).toHaveAttribute('href', '/privacy')
   })
 
@@ -29,7 +29,7 @@ describe('フッター確認時', () => {
     expect(
       screen.getByRole('link', {
         name: 'Twitter',
-      })
+      }),
     ).toHaveAttribute('href', 'https://twitter.com/keynyaan/')
   })
 
@@ -37,10 +37,10 @@ describe('フッター確認時', () => {
     expect(
       screen.getByRole('link', {
         name: 'GitHub',
-      })
+      }),
     ).toHaveAttribute(
       'href',
-      'https://github.com/keynyaan/hayabusatrip-frontend/'
+      'https://github.com/keynyaan/hayabusatrip-frontend/',
     )
   })
 })
