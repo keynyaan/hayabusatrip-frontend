@@ -1,0 +1,12 @@
+{
+  "functions": {
+    "pages/api/**/*.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "build": {
+    "env": {
+      "NODEJS_VERSION": "20"
+    }
+  }
+}
