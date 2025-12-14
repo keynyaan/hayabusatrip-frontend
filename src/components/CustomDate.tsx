@@ -70,7 +70,7 @@ export const CustomDate: FC<DatePickerProps> = ({
           dateFormat="MM/dd(eee)"
           id={id}
           selected={value}
-          onChange={onChange}
+          onChange={(date) => date && onChange(date)}
           minDate={min}
           maxDate={max}
           locale="ja"
