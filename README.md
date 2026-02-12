@@ -69,7 +69,7 @@ https://twitter.com/keynyaan
 - CSSフレームワーク: Tailwind CSS
 - 主要パッケージ: Axios / Font Awesome / React Paginate / React Responsive Modal / React Toastify
 
-**インフラ:** AWS(Route53 / Certificate Manager / ALB / VPC / ECR / ECS Fargate / RDS MySQL / S3) / Nginx / Vercel
+**インフラ:** AWS(Route53 / Certificate Manager / ALB / VPC / ECR / ECS Fargate / RDS MySQL / S3 / CloudFront) / Nginx / Vercel
 
 **CI / CD:** GitHub Actions
 
