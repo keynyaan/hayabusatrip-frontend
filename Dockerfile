@@ -1,5 +1,4 @@
-# 2025年9月時点の推奨版のNode
-FROM node:20.15.0-alpine
+FROM node:20.19.1-alpine
 
 WORKDIR /frontend
 

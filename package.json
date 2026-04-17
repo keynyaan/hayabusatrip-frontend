@@ -79,6 +79,6 @@
     "prettier-plugin-md-nocjsp": "^1.5.1",
     "tailwindcss": "^3.4.17",
     "ts-jest": "^29.2.6",
-    "vercel": "^31.4.0"
+    "vercel": "^51.6.1"
   }
 }
