@@ -18,7 +18,7 @@
     "format:check": "prettier --check 'src/**/*'"
   },
   "dependencies": {
-    "@babel/core": "^7.0.0-0",
+    "@babel/core": "^7.29.6",
     "@babel/runtime": "^7.26.10",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
@@ -33,10 +33,10 @@
     "axios": "^1.16.0",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.1",
-    "esbuild": "^0.25.0",
+    "esbuild": "^0.28.1",
     "eslint-config-next": "15.5.15",
     "firebase": "^12.2.1",
-    "form-data": "^4.0.4",
+    "form-data": "^4.0.6",
     "minimatch": "^3.0.4",
     "next": "15.5.18",
     "next-sitemap": "^4.2.3",
