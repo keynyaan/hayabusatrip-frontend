@@ -1,5 +1,12 @@
 こちらは「HayabusaTrip」のフロントエンドのリポジトリになります。バックエンドのリポジトリは[こちら](https://github.com/keynyaan/hayabusatrip-backend)です。
 
+> [!IMPORTANT]
+> **HayabusaTripは、2026年7月をもってサービスを終了しました。**
+>
+> 2023年のリリースから約3年間、ご利用いただいたすべての皆さまに心より感謝いたします。
+> なお、お預かりしていたアカウント情報・旅行プラン・画像などのユーザーデータは、サービス終了に伴いすべて削除しました。
+> 本リポジトリは、開発の記録として引き続き公開しています。
+
 # HayabusaTrip / 旅行プラン共有サービス
 
 ![service-image](https://raw.githubusercontent.com/keynyaan/hayabusatrip-frontend/main/public/images/ogp.png)
@@ -13,7 +20,7 @@
 [![AWS](https://img.shields.io/badge/Amazon%20AWS-gray?logo=Amazon-AWS&logoColor=FFFFFF)](https://aws.amazon.com)
 [![Docker](https://img.shields.io/badge/Docker-gray?logo=Docker&logoColor=2496ED)](https://www.docker.com)
 [![Firebase](https://img.shields.io/badge/Firebase-gray?logo=Firebase&logoColor=FFCA28)](https://firebase.google.com)
-[![Thanks](https://img.shields.io/badge/Thank%20you-for%20visiting-00aab9)](https://www.hayabusatrip.com)
+![Thanks](https://img.shields.io/badge/Thank%20you-for%20visiting-00aab9)
 
 ## サービス概要
 
@@ -21,11 +28,11 @@ HayabusaTripは、「旅の準備をもっとシンプルにしたい！」と�
 
 わずか3ステップで旅行プランを共有できる直感的なUIで、ユーザーの面倒な旅行の準備をサポートします。
 
-### ▼ サービスURL
+### ▼ サービスURL（閉鎖済み）
 
-https://www.hayabusatrip.com
+`https://www.hayabusatrip.com`
 
-レスポンシブ対応済のため、PCでもスマートフォンでも快適にご利用いただけます。
+※ 2026年7月のサービス終了に伴い、現在このURLにはアクセスできません。
 
 ### ▼ 紹介記事(Qiita)
 
